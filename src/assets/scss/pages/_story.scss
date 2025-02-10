@@ -1,0 +1,50 @@
+//故事列表
+
+.story-deco1{
+    display: none;
+    @media(min-width: 992px) {
+        display: block;
+        position: absolute;
+        top: 32px;
+        width: 150px;
+    }
+}
+
+.page-arrow{
+    border-radius: 12px;
+    background-color: white;
+    color: $gray;
+    &:hover{
+        background-color: white;
+        color: $primary;
+    }
+    &:focus{
+        background: white;
+        color: $primary;
+    }
+}
+
+.story-card img{   
+    height: 227px;
+    object-fit: cover;
+    @media(min-width: 992px) {
+        width: 50%;
+        height: 320px;
+    }
+    @media(min-width: 1200px) {
+        width: 50%;
+        height: 414px;
+    }
+}
+
+.story-deco2{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 120px;
+    @media(min-width: 992px){
+        width: 400px;
+    }
+}
+
+

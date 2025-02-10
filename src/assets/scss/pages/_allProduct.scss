@@ -1,0 +1,185 @@
+.allProduct-banner {
+
+    &-mx {
+        margin: 0 5%;
+    }
+
+    &-img {
+        /*aspect-ratio: 2.34/1;*/
+        height: 740px;
+        object-fit: cover;
+        border-radius: 5rem 5rem 0 0;
+    }
+
+    &-fs {
+        font-size: 2.5rem;
+    }
+
+    &-mask {
+        min-height: 226.5px;
+        transform: translateY(0.5%);
+        object-fit: cover
+    }
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+@media (max-width: 992px) {
+
+    .allProduct-banner {
+
+        &-mx {
+            margin: 0;
+        }
+
+        &-img {
+            height: 480px;
+            border-radius: 0;
+        }
+
+        &-fs {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    
+    .allProduct-banner {
+
+        &-375size {
+            top: 10% !important;
+            left: 3.2% !important;
+            transform: translate(0, 0) !important;
+        }
+    }
+}
+
+.allProduct-container {
+    padding-top: 120px;
+    padding-bottom: 96px;
+}
+
+@media (max-width: 992px) {
+
+    .allProduct-container {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+.allProduct-side {
+
+    .accordion {
+        --bs-accordion-border-color: transparent;
+        
+        &-button {
+            background-color: transparent;
+            color: $black;
+
+            &.collapsed::after {
+                content: '';
+                display: inline-block;
+                width: 16px; /* 設定箭頭寬度 */
+                height: 9px; /* 設定箭頭高度 */
+                background: url('data:image/svg+xml;utf8,<svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.12526 5.60006L2.92526 0.400057C2.68082 0.155612 2.3697 0.03339 1.99193 0.03339C1.61415 0.03339 1.30304 0.155612 1.05859 0.400057C0.814149 0.644501 0.691926 0.955612 0.691926 1.33339C0.691926 1.71117 0.814149 2.02228 1.05859 2.26672L7.19193 8.40006C7.32526 8.53339 7.4697 8.62783 7.62526 8.68339C7.78082 8.73895 7.94748 8.76672 8.12526 8.76672C8.30304 8.76672 8.4697 8.73895 8.62526 8.68339C8.78082 8.62783 8.92526 8.53339 9.05859 8.40006L15.1919 2.26672C15.4364 2.02228 15.5586 1.71117 15.5586 1.33339C15.5586 0.955612 15.4364 0.644501 15.1919 0.400057C14.9475 0.155612 14.6364 0.03339 14.2586 0.03339C13.8808 0.03339 13.5697 0.155612 13.3253 0.400057L8.12526 5.60006Z" fill="%23788F49"/></svg>') no-repeat center center;
+                background-size: contain; /* 確保圖標適合 */
+            }
+            
+            &:not(.collapsed)::after {
+                /* 打開時的箭頭圖示 */
+                background: url('data:image/svg+xml;utf8,<svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00026 5.60006L2.80026 0.400057C2.55582 0.155612 2.2447 0.03339 1.86693 0.03339C1.48915 0.03339 1.17804 0.155612 0.933593 0.400057C0.689149 0.644501 0.566926 0.955612 0.566926 1.33339C0.566926 1.71117 0.689149 2.02228 0.933593 2.26672L7.06693 8.40006C7.20026 8.53339 7.3447 8.62783 7.50026 8.68339C7.65582 8.73895 7.82248 8.76672 8.00026 8.76672C8.17804 8.76672 8.3447 8.73895 8.50026 8.68339C8.65582 8.62783 8.80026 8.53339 8.93359 8.40006L15.0669 2.26672C15.3114 2.02228 15.4336 1.71117 15.4336 1.33339C15.4336 0.955612 15.3114 0.644501 15.0669 0.400057C14.8225 0.155612 14.5114 0.03339 14.1336 0.03339C13.7558 0.03339 13.4447 0.155612 13.2003 0.400057L8.00026 5.60006Z" fill="%23788F49"/></svg>') no-repeat center center;
+            }
+
+            &:not(.collapsed) {
+                color: $primary;
+            }
+        }
+    }
+
+    &-history {
+        border-radius: 1.25rem;
+
+        img {
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+    }
+}
+
+
+@media (max-width: 992px) {
+
+    .allProduct-side {
+    
+        &-history {
+            width: 100vw;
+            border-radius: 0;
+            /*position: relative;
+            /*left: 50%;
+            transform: translateX(-50%);*/
+
+            img {
+                width: 148px;
+                height: 153px;
+            }
+        }
+    }
+}
+
+.allProduct-catalog {
+
+    .dropdown-toggle {
+        background: url('data:image/svg+xml;utf8,<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 7.9L0 1.9L1.4 0.5L6 5.1L10.6 0.5L12 1.9L6 7.9Z" fill="%23788F49"/></svg>') no-repeat right center;
+    
+        &.show {
+            background: url('data:image/svg+xml;utf8,<svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.125 0.0999999L0.125 6.1L1.525 7.5L6.125 2.9L10.725 7.5L12.125 6.1L6.125 0.0999999Z" fill="%23788F49"/></svg>') no-repeat right center;
+        }
+
+        &::after {
+            border-top: 0;
+        }
+    }
+
+    &-sort {
+        padding: 2.5px 0;
+    }
+
+    &-img {
+        aspect-ratio: 306/280;
+        object-fit: cover;
+        border-radius: 1rem;
+    }
+
+    &-card {
+        border: none;
+    }
+}
+
+.allProduct-pagination {
+
+    &-back {
+        margin-right: 18px;
+    }
+
+    &-forward {
+        margin-left: 18px;
+    }
+
+    &-number {
+        margin: 0 6px;
+    }
+
+    &-linkSize {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+.allProduct-bottom-mask {
+    min-height: 228px;
+    object-fit: cover;
+}

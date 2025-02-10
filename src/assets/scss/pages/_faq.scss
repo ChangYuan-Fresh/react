@@ -1,0 +1,13 @@
+
+//faq
+
+.faq-deco{
+    position: absolute;
+    bottom: -14px;
+    right: 0px;
+    width: 48px;
+    @media(min-width: 992px){
+        bottom: -29px;
+        width: 100px;
+    }
+}

@@ -1,0 +1,52 @@
+.member{
+    .nav-link{
+        border: 1px solid $primary;
+        color: $primary;
+        padding: 8px 24px;
+        font-size: 20px;
+        &.active,
+        &:hover{
+            background: $primary;
+            color: $secondary;
+        }
+    }
+    .w-12{
+        width: 12%;
+    }
+    .btn-close{
+        background: $primary;
+        color: $secondary;
+        width: 40px;
+        height: 40px;
+        opacity: 1;
+        border-radius: 100px;
+    }
+    .table{
+        .btn-s{
+            width: 120px;
+            @include media-breakpoint-up(lg){
+                width: 200px;
+            }
+        }
+    }
+    
+    .modal-dialog{
+        img{
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            @include media-breakpoint-up(lg){
+                width: 200px;
+                height: 200px;
+            }
+        }
+    }
+    .btn-pageNum{
+        padding: 8px 16px;
+        &.active,
+        &:hover{
+            background: $accent;
+            color: $secondary;
+        }
+    }
+}
