@@ -7,7 +7,7 @@ function Footer () {
                 <div className="container">
                     <div className="row align-items-center align-items-lg-start">
                         <div className="col-lg-6 text-center text-lg-start mb-5">
-                            <img src="./images/200px.png" alt="logo" />
+                            <img src="src/assets/images/200px.png" alt="logo" />
                             <p className="fs-7 fw-normal">
                                 © 2024 彰源鮮味 本站僅供學習使用，不提供商業用途
                             </p>
@@ -46,27 +46,27 @@ function Footer () {
                                             <picture className="btn btn-white p-2">
                                                 <source
                                                     media="(min-width: 992px)"
-                                                    srcset="./images/icon/Mail.png"
+                                                    srcSet="src/assets/images/icon/Mail.png"
                                                 />
-                                                <img src="./images/icon/Mail-sm.png" alt="logo" />
+                                                <img src="src/assets/images/icon/Mail-sm.png" alt="logo" />
                                             </picture>
                                         </Link>
                                         <Link className="me-5" to='https://www.facebook.com/'>
                                             <picture className="btn btn-white p-2">
                                                 <source
                                                     media="(min-width: 992px)"
-                                                    srcset="./images/icon/FB.png"
+                                                    srcSet="src/assets/images/icon/FB.png"
                                                 />
-                                                <img src="./images/icon/FB-sm.png" alt="logo" />
+                                                <img src="src/assets/images/icon/FB-sm.png" alt="logo" />
                                             </picture>
                                         </Link>
                                         <Link to=''>
                                             <picture className="btn btn-white p-2">
                                                 <source
                                                     media="(min-width: 992px)"
-                                                    srcset="./images/icon/Line.png"
+                                                    srcSet="src/assets/images/icon/Line.png"
                                                 />
-                                                <img src="./images/icon/Line-sm.png" alt="logo" />
+                                                <img src="src/assets/images/icon/Line-sm.png" alt="logo" />
                                             </picture>
                                         </Link>
                                     </li>

@@ -1,6 +1,7 @@
-function Products (){
+import { Link } from "react-router"
+function Products() {
     return (<>
-        所有產品
+        所有商品
     </>
     )
 }

@@ -8,9 +8,9 @@ function Navbar() {
                 <picture>
                     <source
                         media="(min-width: 992px)"
-                        srcSet="../images/LOGO-L.png"
+                        srcSet="src/assets/images/LOGO-L.png"
                     />
-                    <img src="../images/LOGO-S.png" alt="logo" />
+                    <img src="src/assets/images/LOGO-S.png" alt="logo" />
                 </picture>
                 </NavLink>
                 <NavLink className="fs-2 text-primary ms-auto me-3 d-lg-none" to='cart'>
