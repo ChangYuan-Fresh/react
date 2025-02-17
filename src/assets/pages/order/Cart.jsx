@@ -55,7 +55,7 @@ function Cart() {
                             <div className="row align-items-center">
                                 <label for="name" className="col-lg-2 col-3 col-form-label fs-7 fs-lg-6">姓名：</label>
                                 <div className="col-lg-7 col-lg-8 col-9">
-                                    <input type="text" className="form-control" id="name" placeholder="請輸入姓名"/>
+                                    <input type="text" className="form-control" id="name" placeholder="請輸入姓名" />
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@ function Cart() {
                             <div className="row align-items-center">
                                 <label for="phone" className="col-lg-2 col-3 col-form-label fs-7 fs-lg-6">電話：</label>
                                 <div className="col-lg-7 col-lg-8 col-9">
-                                    <input type="tel" className="form-control" id="phone" placeholder="請輸入電話"/>
+                                    <input type="tel" className="form-control" id="phone" placeholder="請輸入電話" />
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@ function Cart() {
                             <div className="row align-items-center">
                                 <label for="address" className="col-lg-1 col-3 col-form-label fs-7 fs-lg-6">地址：</label>
                                 <div className="col-lg-8 col-9">
-                                    <input type="text" className="form-control" id="address" placeholder="請輸入住址"/>
+                                    <input type="text" className="form-control" id="address" placeholder="請輸入住址" />
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ function Cart() {
                             <div className="row align-items-center">
                                 <label for="email" className="col-lg-1 col-3 col-form-label fs-7 fs-lg-6">E-mail：</label>
                                 <div className="col-lg-8 col-9">
-                                    <input type="email" className="form-control" id="email" placeholder="請輸入E-mail"/>
+                                    <input type="email" className="form-control" id="email" placeholder="請輸入E-mail" />
                                 </div>
                             </div>
                         </div>
@@ -90,9 +90,9 @@ function Cart() {
                 <div className="card-header border-secondary d-flex align-items-center bg-secondary py-4">
                     <h1 className="fs-lg-4 fs-5 me-5">收件人</h1>
                     <div className="form-check">
-                        <input className="form-check-input align-middle" type="checkbox" value="" id="sameAsOrder"/>
-                            <label className="form-check-label fs-lg-5 fs-6" for="sameAsOrder">同訂購人
-                            </label>
+                        <input className="form-check-input align-middle" type="checkbox" value="" id="sameAsOrder" />
+                        <label className="form-check-label fs-lg-5 fs-6" for="sameAsOrder">同訂購人
+                        </label>
                     </div>
                 </div>
                 <div className="card-body">
@@ -101,7 +101,7 @@ function Cart() {
                             <div className="row align-items-center">
                                 <label for="name" className="col-lg-2 col-3 col-form-label fs-7 fs-lg-6">姓名：</label>
                                 <div className="col-lg-7 col-lg-8 col-9">
-                                    <input type="text" className="form-control" id="name" placeholder="請輸入姓名"/>
+                                    <input type="text" className="form-control" id="name" placeholder="請輸入姓名" />
                                 </div>
                             </div>
                         </div>
@@ -109,7 +109,7 @@ function Cart() {
                             <div className="row align-items-center">
                                 <label for="phone" className="col-lg-2 col-3 col-form-label fs-7 fs-lg-6">電話：</label>
                                 <div className="col-lg-7 col-lg-8 col-9">
-                                    <input type="tel" className="form-control" id="phone" placeholder="請輸入電話"/>
+                                    <input type="tel" className="form-control" id="phone" placeholder="請輸入電話" />
                                 </div>
                             </div>
                         </div>
@@ -117,7 +117,7 @@ function Cart() {
                             <div className="row align-items-center">
                                 <label for="address" className="col-lg-1 col-3 col-form-label fs-7 fs-lg-6">地址：</label>
                                 <div className="col-lg-8 col-9">
-                                    <input type="text" className="form-control" id="address" placeholder="請輸入住址"/>
+                                    <input type="text" className="form-control" id="address" placeholder="請輸入住址" />
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@ function Cart() {
                             <div className="row align-items-center">
                                 <label for="email" className="col-lg-1 col-3 col-form-label fs-7 fs-lg-6">E-mail：</label>
                                 <div className="col-lg-8 col-9">
-                                    <input type="email" className="form-control" id="email" placeholder="請輸入E-mail"/>
+                                    <input type="email" className="form-control" id="email" placeholder="請輸入E-mail" />
                                 </div>
                             </div>
                         </div>
@@ -139,22 +139,22 @@ function Cart() {
                 <div className="card-body">
                     <div className="py-2">
                         <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="pay1"/>
-                                <label className="form-check-label" for="pay1">信用卡刷卡</label>
+                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="pay1" />
+                            <label className="form-check-label" for="pay1">信用卡刷卡</label>
                         </div>
                         <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="pay2" checked/>
-                                <label className="form-check-label" for="pay2">Google Pay</label>
+                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="pay2" checked />
+                            <label className="form-check-label" for="pay2">Google Pay</label>
                         </div>
                     </div>
                     <div className="py-2">
                         <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="pay3"/>
-                                <label className="form-check-label" for="pay3">LINE Pay</label>
+                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="pay3" />
+                            <label className="form-check-label" for="pay3">LINE Pay</label>
                         </div>
                         <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="pay4" checked/>
-                                <label className="form-check-label" for="pay4">Apple Pay</label>
+                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="pay4" checked />
+                            <label className="form-check-label" for="pay4">Apple Pay</label>
                         </div>
                     </div>
                 </div>
@@ -189,9 +189,9 @@ function Cart() {
                     <div className="col-lg-4">
                         <div className="input-group mb-3">
                             <input type="text" className="form-control border-primary px-4 py-2 py-lg-4" placeholder="請輸入折扣碼"
-                                aria-label="Recipient's username" aria-describedby="discountCode"/>
-                                <a href="#" className="input-group-text px-7 border-primary bg-primary text-white fs-5 px-4 py-2 py-lg-4"
-                                    id="discountCode">確認</a>
+                                aria-label="Recipient's username" aria-describedby="discountCode" />
+                            <a href="#" className="input-group-text px-7 border-primary bg-primary text-white fs-5 px-4 py-2 py-lg-4"
+                                id="discountCode">確認</a>
                         </div>
                     </div>
                 </div>
@@ -254,9 +254,9 @@ function Cart() {
             </div>
         </div>
 
-        <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve"/>
-        </>
-        )
+        <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
+    </>
+    )
 }
 
-        export default Cart;
+export default Cart;

@@ -5,16 +5,17 @@ function Navbar() {
         <header className="navbar navbar-expand-lg p-0 bg-white">
             <div className="container-fluid py-4 px-3">
                 <NavLink className="navbar-brand" to='/'>
-                <picture>
-                    <source
-                        media="(min-width: 992px)"
-                        srcSet="src/assets/images/LOGO-L.png"
-                    />
-                    <img src="src/assets/images/LOGO-S.png" alt="logo" />
-                </picture>
+                    <picture>
+                        <source
+                            media="(min-width: 992px)"
+                            srcSet="../assets/images/LOGO-L.png"
+                        />
+                        <img src="../assets/images/LOGO-S.png" alt="logo" />
+                    </picture>
                 </NavLink>
-                <NavLink className="fs-2 text-primary ms-auto me-3 d-lg-none" to='cart'>
+                <NavLink className="fs-2 text-primary ms-auto me-3 d-lg-none position-relative" to='cart'>
                     <span className="material-symbols-outlined">shopping_cart</span>
+                    <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-50 mt-4 ms-5 translate-middle">1</span>
                 </NavLink>
                 <button
                     className="navbar-toggler border-0 p-0"
@@ -33,7 +34,7 @@ function Navbar() {
                             <p className="fs-5 fs-lg-5 fs-xl-4 text-nowrap">關於我們</p>
                             <p className="small fw-normal en-font">About us</p>
                         </NavLink>
-                        <NavLink className="nav-link text-center py-6 py-lg-0 px-lg-6 border-fix" to='story'>
+                        <NavLink className="nav-link text-center py-6 py-lg-0 px-lg-6 border-fix" to='Stories'>
                             <p className="fs-5 fs-lg-5 fs-xl-4 text-nowrap">產地故事</p>
                             <p className="small fw-normal en-font">Our Story</p>
                         </NavLink>
@@ -46,8 +47,10 @@ function Navbar() {
                             <p className="small fw-normal en-font">FAQ</p>
                         </NavLink>
                         <NavLink className="btn btn-s d-none d-lg-inline-block p-0 border-0 mx-6" to='cart'>
-                            <span className="material-symbols-outlined p-4 fs-2"
-                            >shopping_cart</span>
+                            <button type='button' className="btn position-relative p-0">
+                                <span className="material-symbols-outlined p-4 fs-2">shopping_cart</span>
+                                <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-50 mt-4 ms-5 translate-middle">1</span>
+                            </button>
                         </NavLink>
                         <NavLink className="btn btn-s d-none d-lg-inline-block p-0 border-0" to='login'>
                             <span className="material-symbols-outlined p-4 fs-2">person</span>

@@ -1,7 +1,7 @@
 function About() {
     return (<div className="banner">
         <div className="text-content">
-            <img src="src/assets/images/banner2.png" />
+            <img src="../assets/images/banner2.png" />
             <div className="text-area">
                 <div className="about-us">
                     <p>關於我們 About us</p>
@@ -13,18 +13,18 @@ function About() {
             </div>
         </div>
         <img
-            src="src/assets/images/Illustration/Top-Curve(2).png"
+            src="../assets/images/Illustration/Top-Curve(2).png"
             alt="Top-Curve"
             className="deco-curve top"
         />
         <img
-            src="src/assets/images/Illustration/Top-Curve.png"
+            src="../assets/images/Illustration/Top-Curve.png"
             alt="Bottom-Curve"
             className="deco-curve bottom"
         />
 
         <div className="content-block bg-01">
-            <img src="src/assets/images/about1.png" />
+            <img src="../assets/images/about1.png" />
             <div className="text-content">
                 <div className="number">01</div>
                 <div className="text">
@@ -49,11 +49,11 @@ function About() {
                 </div>
             </div>
             <div className="img-container">
-                <img src="src/assets/images/about2.png" />
+                <img src="../assets/images/about2.png" />
             </div>
         </div>
         <div className="content-block">
-            <img src="src/assets/images/about3.png" />
+            <img src="../assets/images/about3.png" />
             <div className="text-content">
                 <div className="number">03</div>
                 <div className="text">

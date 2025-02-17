@@ -1,22 +1,23 @@
 import Home from "../pages/Home";
-import App from "../../App";
-import Admin from "../pages/Admin";
-import Login from "../pages/Login";
 import About from "../pages/About";
-import Cart from "../pages/order/Cart";
 import Products from "../pages/Products";
 import Faq from "../pages/Faq";
 import Notfound from "../pages/Notfound";
 import ForgetPassword from "../pages/member/ForgetPassword";
 import Signup from "../pages/member/Signup";
-import Product from "../pages/Product";
 import Stories from "../pages/Stories";
+import Cart from '../pages/order/Cart'
+import FrontLayout from "../layout/FrontLayout";
+import ProductDetail from "../pages/ProductDetail";
+import AdminPage from "../pages/admin/AdminPage";
+import AdminProducePage from "../pages/admin/AdminProductPage";
+import LoginPage from "../pages/LoginPage";
 
 
 const routes = [
     {
         path: '/',
-        element: <App />,
+        element: <FrontLayout />,
         children: [
             {
                 index: true,
@@ -27,18 +28,16 @@ const routes = [
                 element: <About />
             },
             {
-                path: 'story',
+                path: 'Stories',
                 element: <Stories />
             },
             {
                 path: 'products',
                 element: <Products />,
-                children: [
-                    {
-                        path: ':id',
-                        element: <Product />
-                    }
-                ]
+            },
+            {
+                path: 'products/:id',
+                element: <ProductDetail />
             },
             {
                 path: 'faq',
@@ -53,11 +52,17 @@ const routes = [
 
     {
         path: 'admin',
-        element: <Admin />
+        element: <AdminPage />,
+        children: [
+            {
+                index :true,
+                element: <AdminProducePage />
+            }
+        ]
     },
     {
         path: 'login',
-        element: <Login />,
+        element: <LoginPage />,
         children: [
             {
                 path: 'forgetpassword',
