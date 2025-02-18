@@ -1,4 +1,7 @@
-import { NavLink } from "react-router"
+import { NavLink } from "react-router";
+import logoS from '../images/LOGO-S.png';
+import logoL from '../images/LOGO-L.png';
+
 
 function Navbar() {
     return (<>
@@ -8,9 +11,9 @@ function Navbar() {
                     <picture>
                         <source
                             media="(min-width: 992px)"
-                            srcSet="../assets/images/LOGO-L.png"
+                            srcSet={logoL}
                         />
-                        <img src="../assets/images/LOGO-S.png" alt="logo" />
+                        <img src={logoS} alt="logo" />
                     </picture>
                 </NavLink>
                 <NavLink className="fs-2 text-primary ms-auto me-3 d-lg-none position-relative" to='cart'>

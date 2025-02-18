@@ -1,4 +1,11 @@
 import { Link } from "react-router";
+import logoWhite from "../images/200px.png";
+import emailM from "../images/icon/Mail.png";
+import emailS from "../images/icon/Mail-sm.png";
+import fbM from "../images/icon/FB.png"
+import fbS from "../images/icon/FB-sm.png"
+import lineM from "../images/icon/Line.png";
+import lineS from "../images/icon/Line-sm.png";
 
 function Footer () {
     return (
@@ -7,7 +14,7 @@ function Footer () {
                 <div className="container">
                     <div className="row align-items-center align-items-lg-start">
                         <div className="col-lg-6 text-center text-lg-start mb-5">
-                            <img src="../assets/images/200px.png" alt="logo" />
+                            <img src={logoWhite} alt="logo" />
                             <p className="fs-7 fw-normal">
                                 © 2024 彰源鮮味 本站僅供學習使用，不提供商業用途
                             </p>
@@ -46,27 +53,27 @@ function Footer () {
                                             <picture className="btn btn-white p-2">
                                                 <source
                                                     media="(min-width: 992px)"
-                                                    srcSet="../assets/images/icon/Mail.png"
+                                                    srcSet={emailM}
                                                 />
-                                                <img src="../assets/images/icon/Mail-sm.png" alt="logo" />
+                                                <img src={emailS} alt="logo" />
                                             </picture>
                                         </Link>
                                         <Link className="me-5" to='https://www.facebook.com/'>
                                             <picture className="btn btn-white p-2">
                                                 <source
                                                     media="(min-width: 992px)"
-                                                    srcSet="../assets/images/icon/FB.png"
+                                                    srcSet={fbM}
                                                 />
-                                                <img src="../assets/images/icon/FB-sm.png" alt="logo" />
+                                                <img src={fbS} alt="logo" />
                                             </picture>
                                         </Link>
                                         <Link to=''>
                                             <picture className="btn btn-white p-2">
                                                 <source
                                                     media="(min-width: 992px)"
-                                                    srcSet="../assets/images/icon/Line.png"
+                                                    srcSet={lineM}
                                                 />
-                                                <img src="../assets/images/icon/Line-sm.png" alt="logo" />
+                                                <img src={lineS} alt="logo" />
                                             </picture>
                                         </Link>
                                     </li>
