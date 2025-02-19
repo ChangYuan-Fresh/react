@@ -1,8 +1,12 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination} from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { Link } from "react-router-dom";
+import Lottie from "lottie-react";
+import animationData from "../../assets/lottie-hand.json"; 
+
 
 
 function Home() {
@@ -200,7 +204,7 @@ function Home() {
                             <div className="tab-pane fade show active" id="hot-product" role="tabpanel" aria-labelledby="hot-product-tab">
                                 {/* <!--熱門商品swiper--> */}
                                 <Swiper
-                                    modules={[Navigation, Pagination ]}
+                                    modules={[Navigation, Pagination]}
                                     navigation
                                     scrollbar={{ draggable: true }}
                                     pagination={{ clickable: true }}
@@ -233,7 +237,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$641</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -252,7 +256,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$44</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -271,7 +275,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$210</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -290,7 +294,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$200</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -309,7 +313,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$570</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -321,7 +325,7 @@ function Home() {
                             <div className="tab-pane fade " id="veggieNfruit" role="tabpanel" aria-labelledby="veggieNfruit-tab">
                                 {/* <!--蔬菜水果swiper--> */}
                                 <Swiper
-                                    modules={[Navigation, Pagination ]}
+                                    modules={[Navigation, Pagination]}
                                     navigation
                                     scrollbar={{ draggable: true }}
                                     pagination={{ clickable: true }}
@@ -353,7 +357,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$999</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -372,7 +376,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$799</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -391,7 +395,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$210</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -410,7 +414,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$200</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -429,7 +433,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$739</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -441,7 +445,7 @@ function Home() {
                             <div className="tab-pane fade " id="meats" role="tabpanel" aria-labelledby="meats-tab">
                                 {/* <!--生鮮肉品swiper--> */}
                                 <Swiper
-                                    modules={[Navigation, Pagination ]}
+                                    modules={[Navigation, Pagination]}
                                     navigation
                                     scrollbar={{ draggable: true }}
                                     pagination={{ clickable: true }}
@@ -473,7 +477,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$249</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -492,7 +496,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$299</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -511,7 +515,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$350</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -530,7 +534,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$450</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -549,7 +553,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$999</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -561,7 +565,7 @@ function Home() {
                             <div className="tab-pane fade " id="seafood" role="tabpanel" aria-labelledby="seafood-tab">
                                 {/* <!--水產海鮮swiper--> */}
                                 <Swiper
-                                    modules={[Navigation, Pagination ]}
+                                    modules={[Navigation, Pagination]}
                                     navigation
                                     scrollbar={{ draggable: true }}
                                     pagination={{ clickable: true }}
@@ -593,7 +597,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$210</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -612,7 +616,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$570</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -631,7 +635,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$999</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -650,7 +654,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$999</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -669,7 +673,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$350</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -681,7 +685,7 @@ function Home() {
                             <div className="tab-pane fade " id="eggNmilk" role="tabpanel" aria-labelledby="eggNmilk-tab">
                                 {/* <!--蛋與乳品swiper--> */}
                                 <Swiper
-                                    modules={[Navigation, Pagination ]}
+                                    modules={[Navigation, Pagination]}
                                     navigation
                                     scrollbar={{ draggable: true }}
                                     pagination={{ clickable: true }}
@@ -713,7 +717,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$399</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -732,7 +736,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$549</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -751,7 +755,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$44</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -770,7 +774,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$159</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -789,7 +793,7 @@ function Home() {
                                                 <del className="fs-8 text-gray fw-normal">NT$200</del>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2">
+                                        <div className="d-grid gap-2">
                                             <button className="btn btn-primary product-btn  border-0 fw-bold fs-lg-4 fs-5">
                                                 立即購買
                                             </button>
@@ -800,11 +804,192 @@ function Home() {
                         </div>
                     </div>
                 </section>
+                {/* <!--產地故事標題--> */}
+                <section>
+                    <div className="container pt-lg-11 pt-6 pb-lg-8 pb-3 d-flex justify-content-lg-between justify-content-center">
+                        <div className="d-lg-flex d-none">
+                            <img src="src/assets/images/Illustration/Pumpkin.png" alt="Pumpkin" className="me-8 d-xl-block d-none" />
+                            <img src="src/assets/images/Illustration/persimmon.png" alt="persimmon" className="me-8" />
+                            <img src="src/assets/images/Illustration/Pumpkin.png" alt="Pumpkin" />
+                        </div>
+                        <div className=" d-flex flex-column align-items-center">
+                            <h4 className="fs-lg-1 mb-lg-4 mb-3">產地故事</h4>
+                            <h5 className="fs-lg-4 text-accent">Story</h5>
+                        </div>
+                        <div className="d-lg-flex d-none">
+                            <img src="src/assets/images/Illustration/Pumpkin.png" alt="Pumpkin" className="me-8 d-xl-block d-none" />
+                            <img src="src/assets/images/Illustration/persimmon.png" alt="persimmon" className="me-8" />
+                            <img src="src/assets/images/Illustration/Pumpkin.png" alt="Pumpkin" />
+                        </div>
+                    </div>
+                </section>
+                {/* <!--產地故事內容--> */}
+                <section className="bg-secondary story-bg">
+                    <div className="container py-lg-11 py-8 ">
+                        <div className="d-lg-flex justify-content-lg-between align-items-center">
+                            <div className="tab-content story-tab-content rounded-5 me-lg-6 me-0 mb-lg-0 mb-4" id="v-pills-tabContent">
+                                <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabindex="0">
+                                    <img src="src/assets/images/Cauliflower HQ (2).png" alt="story1" className="story-img " />
+                                </div>
+                                <div className="tab-pane fade" id="v-pills-grape" role="tabpanel" aria-labelledby="v-pills-grape-tab" tabindex="0">
+                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabindex="0">
+                                        <img src="src/assets/images/story1.png" alt="story1" className="story-img " />
+                                    </div>
+                                </div>
+                                <div className="tab-pane fade" id="v-pills-farmTotable" role="tabpanel" aria-labelledby="v-pills-farmTotable-tab" tabindex="0">
+                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabindex="0">
+                                        <img src="src/assets/images/about3.png" alt="story1" className="story-img " />
+                                    </div>
+                                </div>
+                                <div className="tab-pane fade" id="v-pills-clam" role="tabpanel" aria-labelledby="v-pills-clam-tab" tabindex="0">
+                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabindex="0">
+                                        <img src="src/assets/images/Kindelmedia 8352389 1.png" alt="story1" className="story-img " />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="nav story-nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <Link to="Stories"><button className="nav-link story-btn active text-start fs-lg-4 fs-6 position-relative" id="v-pills-cauliflower-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cauliflower" type="button" role="tab" aria-controls="v-pills-cauliflower" aria-selected="true">
+                                    種植花椰菜的故事<span className="material-symbols-outlined story-icon">chevron_right</span>
+                                </button></Link>
+                                <Link to="Stories"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-grape-tab" data-bs-toggle="pill" data-bs-target="#v-pills-grape" type="button" role="tab" aria-controls="v-pills-grape" aria-selected="false">
+                                    葡萄園的奧秘<span className="material-symbols-outlined story-icon">chevron_right</span>
+                                </button></Link>
+                                <Link to="Stories"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-farmTotable-tab" data-bs-toggle="pill" data-bs-target="#v-pills-farmTotable" type="button" role="tab" aria-controls="v-pills-farmTotable" aria-selected="false">
+                                    從牧場到餐桌的旅程<span className="material-symbols-outlined story-icon">chevron_right</span>
+                                </button></Link>
+                                <Link to="Stories"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-clam-tab" data-bs-toggle="pill" data-bs-target="#v-pills-clam" type="button" role="tab" aria-controls="v-pills-clam" aria-selected="false">
+                                    用蛤打造的精緻佳餚<span className="material-symbols-outlined story-icon">chevron_right</span>
+                                </button></Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="bg-white position-relative py-lg-7 py-3">
+                        <picture>
+                            <source media="(min-width: 992px)" srcset="src/assets/images/deco/Arrow-Curve.png" />
+                            <img src="src/assets/images/deco/Arrow-Curve-sm.png" alt="Arrow-Curve" className="arrow-curve" />
+                        </picture>
+                    </div>
+                </section>
+                {/* <!--滿千免運--> */}
+                <section className='promotion-bg'>
+                    <div className="container pt-8 d-lg-block d-flex flex-column-reverse">
+                        <div className="row row-cols-lg-3 row-cols-1 position-relative ">
+                            <div className="col px-0">
+                                <div className="card border-0" data-aos="fade-right">
+                                    <div className="card-body">
+                                        <h4 className="card-title fs-lg-1 text-accent text-lg-start text-center">01</h4>
+                                        <div className="d-flex flex-column align-items-center">
+                                            <picture>
+                                                <source media="(min-width: 992px)" srcset="src/assets/images/Illustration/Tree.png" />
+                                                <img src="src/assets/images/Illustration/Tree-sm.png" alt="Tree" className="promotion-img" />
+                                            </picture>
+                                        </div>
+                                        <div className="promotion-img-bottom"></div>
+                                        <p className="fs-lg-2 fs-md-3 fs-5 text-primary text-center mt-lg-3 mt-1">產地</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col px-0">
+                                <div className="card border-0" data-aos="fade-right">
+                                    <div className="card-body">
+                                        <h4 className="card-title fs-lg-1 text-accent text-lg-start text-center">02</h4>
+                                        <div className="d-flex flex-column align-items-center">
+                                            <picture>
+                                                <source media="(min-width: 992px)" srcset="src/assets/images/Illustration/Delivery.png" />
+                                                <img src="src/assets/images/Illustration/Delivery-sm.png" alt="Delivery" className="promotion-img" />
+                                            </picture>
+                                        </div>
+                                        <div className="promotion-img-bottom"></div>
+                                        <p className="fs-lg-2 fs-md-3 fs-5 text-primary text-center mt-lg-3 mt-1">運送</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col px-0">
+                                <div className="card border-0" data-aos="fade-right">
+                                    <div className="card-body">
+                                        <h4 className="card-title fs-lg-1 text-accent text-lg-start text-center">03</h4>
+                                        <div className="d-flex flex-column align-items-center">
+                                            <picture>
+                                                <source media="(min-width: 992px)" srcset="src/assets/images/Illustration/Eating.png" />
+                                                <img src="src/assets/images/Illustration/Eating-sm.png" alt="Eating" className="promotion-img" />
+                                            </picture>
+                                        </div>
+                                        <div className="promotion-img-bottom"></div>
+                                        <p className="fs-lg-2 fs-md-3 fs-5 text-primary text-center mt-lg-3 mt-1">餐桌</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="src/assets/images/deco/Arrow-1.png" alt="Arrow-1" className="d-lg-block d-none promotion-arrow1" />
+                                <img src="src/assets/images/deco/Arrow-2.png" alt="Arrow-2" className="d-lg-block d-none promotion-arrow2" />
+                            </div>
+                        </div>
+                        <div className="d-flex flex-column align-items-center pt-lg-8 pt-0">
+                            <h1 className="d-lg-block d-none mb-6">產地到餐桌，全館滿千免運!</h1>
+                            <h4 className="d-lg-none text-center mb-6">產地到餐桌 <br></br> 全館滿千免運</h4>
+                            <Link to="Product"><button className="btn btn-primary promotion-btn border-0 fw-bold fs-lg-4 fs-5 text-white">
+                                立即購買
+                            </button></Link>
+                            <Lottie className='lottie-hand' animationData={animationData} loop={true}  />
+                        </div>
+                    </div>
+                    <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
+                </section>
+                {/* <!--合作店家--> */}
+                <section className="store-bg bg-secondary">
+                    <div className="container py-lg-11 py-6 text-center">
+                        <h4 className="fs-lg-1 mb-lg-4 mb-3">長期合作店家推薦</h4>
+                        <h5 className="fs-lg-4 text-accent mb-lg-8 mb-6">Local Partner</h5>
+                        <div className="row row-cols-lg-4 row-cols-md-2 row-cols-1 gy-4">
+                            <div className="col">
+                                <div className="card rounded-4 border-0 d-md-block d-flex flex-row h-100">
+                                    <div className="d-flex justify-content-center" >
+                                        <img src="src/assets/images/store1.png" className="store-img " alt="store1" />
+                                    </div>
+                                    <div className="card-body">
+                                        <h6 className="card-title fs-lg-5 fw-bold text-md-center text-start">田園西餐廳</h6>
+                                        <p className="card-text text-gray text-start">本餐廳近日在「第十八屆國際美食國際美食大獎」中，榮獲「最佳新興餐廳」。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="card rounded-4 border-0 d-md-block d-flex flex-row h-100">
+                                    <div className="d-flex justify-content-center" >
+                                        <img src="src/assets/images/store2.png" className="store-img " alt="store2" />
+                                    </div>
+                                    <div className="card-body">
+                                        <h6 className="card-title fs-lg-5 fw-bold text-md-center text-start">綠野果汁</h6>
+                                        <p className="card-text text-gray text-start">綠野果汁在今年的「健康飲品大賞」中，榮獲「最佳果汁品牌」！</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="card rounded-4 border-0 d-md-block d-flex flex-row h-100">
+                                    <div className="d-flex justify-content-center" >
+                                        <img src="src/assets/images/store3.png" className="store-img " alt="store3" />
+                                    </div>
+                                    <div className="card-body">
+                                        <h6 className="card-title fs-lg-5 fw-bold text-md-center text-start">阿花肉圓</h6>
+                                        <p className="card-text text-gray text-start">本店榮獲 Google 評比「台灣小吃店家」網路聲量第一名！</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="card rounded-4 border-0 d-md-block d-flex flex-row h-100">
+                                    <div className="d-flex justify-content-center" >
+                                        <img src="src/assets/images/store4.png" className="store-img " alt="store4" />
+                                    </div>
+                                    <div className="card-body">
+                                        <h6 className="card-title fs-lg-5 fw-bold text-md-center text-nowrap text-start">彰水路第一家滷肉飯</h6>
+                                        <p className="card-text text-gray text-start">本店榮獲 Google 評比「台灣小吃店家」網路聲量第二名！</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </main>
         </div>
-
-
-
     )
 }
 

@@ -127,32 +127,38 @@ body {
 }
 
 .swiper-pagination-bullet {
-    background-color: #788F49 !important;    
+    background-color: #788F49 !important;
 }
 
 .swiper-button-prev,
 .swiper-button-next {
-    display: none;
-    @media(min-width: 992px){
-        display: flex;
-        position: absolute;
-        top: 40%;
-        transform: translateY(-50%);
-        z-index: 10;
-        background-color: #F1EAD4;
-        color: #788F49;
-        padding: 16px;
-        border-radius: 12px;
-        --swiper-navigation-size: 12px;
-        &:hover{
-            background-color: #FFFCF3;
-            color: #FF8965;
-        }
+    display: flex;
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: #F1EAD4;
+    color: #788F49;
+    padding: 16px;
+    border-radius: 12px;
+    --swiper-navigation-size: 12px;
+    &:hover {
+        background-color: #FFFCF3;
+        color: #FF8965;
+    }
+    @media(max-width: 992px) {
+        display: none !important;
+
     }
 }
 
 
 //產品故事
+
+.story-bg{
+    margin-left: -100%;
+    margin-right: -100%;
+}
 
 .story-tab-content {
     width: 100%;
@@ -216,6 +222,11 @@ body {
 }
 
 //買千免運
+
+.promotion-bg{
+    margin-left: -100%;
+    margin-right: -100%;
+}
 
 .promotion-img-bottom {
     height: 60px;
@@ -292,7 +303,13 @@ body {
     margin-bottom: -1px;
 }
 
+
+
 //合作店家
+.store-bg{
+    margin-left: -100%;
+    margin-right: -100%;
+}
 
 .store-img {
     width: 96px;
