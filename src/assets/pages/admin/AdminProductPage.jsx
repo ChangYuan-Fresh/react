@@ -22,7 +22,7 @@ const defaultModalState = {
     imagesUrl: [""]
 };
 
-function AdminProducePage() {
+function AdminProductPage() {
     const [products, setProducts] = useState([]);
     const [pageInfo, getPageInfo] = useState({});
     const [modalMode, setModalMode] = useState(null);
@@ -69,7 +69,7 @@ function AdminProducePage() {
     }, [])
     return (
         <>
-            <div className="container mt-5" >
+            <div className="container mt-5 bg-white rounded-3" >
                 <div className="row">
                     <div className="col-12">
                         <div className="d-flex justify-content-between">
@@ -115,4 +115,4 @@ function AdminProducePage() {
         </>
     )
 }
-export default AdminProducePage;
+export default AdminProductPage;
