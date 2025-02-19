@@ -17,6 +17,7 @@ import AdminHomePage from "../pages/admin/AdminHomePage";
 import AdminMember from "../pages/admin/AdminMember";
 import AdminStory from "../pages/admin/AdminStory";
 import AdminOrders from "../pages/admin/AdminOrders";
+import AdminCoupons from "../pages/admin/AdminCoupons";
 
 
 const routes = [
@@ -73,6 +74,10 @@ const routes = [
             {
                 path: 'adminOrders',
                 element: <AdminOrders />
+            },
+            {
+                path: 'adminCoupons',
+                element: <AdminCoupons />
             },
             {
                 path: 'adminMember',

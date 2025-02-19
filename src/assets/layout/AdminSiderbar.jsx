@@ -12,7 +12,7 @@ function AdminSidebar() {
             <hr />
             <NavLink to="/admin/adminOrders">訂單管理</NavLink>
             <hr />
-            <NavLink>優惠券管理</NavLink>
+            <NavLink to="/admin/adminCoupons">優惠券管理</NavLink>
             </div>
             <div>
             <NavLink className="d-grid gap-2 mt-5">
