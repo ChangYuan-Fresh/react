@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
+import AdminSidebar from "./AdminSiderbar";
 
-function AdminPage() {
+function AdminLayout() {
     return (
         <>
             <header className="navbar navbar-expand-lg p-0 bg-white">
@@ -20,12 +21,21 @@ function AdminPage() {
                     </div>
                 </div>
             </header>
-            <div className="container">
-                <Outlet />
+            <div className="bg-light">
+                <div className="container pt-6">
+                    <div className="row">
+                        <div className="col-3">
+                            <AdminSidebar />
+                        </div>
+                        <div className="col-9">
+                            <Outlet />
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
 
 
     )
 }
-export default AdminPage;
+export default AdminLayout;

@@ -9,10 +9,15 @@ import Stories from "../pages/Stories";
 import Cart from '../pages/order/Cart'
 import FrontLayout from "../layout/FrontLayout";
 import ProductDetail from "../pages/ProductDetail";
-import AdminPage from "../pages/admin/AdminPage";
-import AdminProducePage from "../pages/admin/AdminProductPage";
+import AdminLayout from "../layout/AdminLayout";
+import AdminProductPage from "../pages/admin/AdminProductPage";
 import LoginPage from "../pages/LoginPage";
 import AdminLoginPage from "../pages/AdminLoginPage";
+import AdminHomePage from "../pages/admin/AdminHomePage";
+import AdminMember from "../pages/admin/AdminMember";
+import AdminStory from "../pages/admin/AdminStory";
+import AdminOrders from "../pages/admin/AdminOrders";
+import AdminCoupons from "../pages/admin/AdminCoupons";
 
 
 const routes = [
@@ -52,11 +57,31 @@ const routes = [
     },
     {
         path: 'admin',
-        element: <AdminPage />,
+        element: <AdminLayout />,
         children: [
             {
                 index :true,
-                element: <AdminProducePage />
+                element: <AdminHomePage />
+            },
+            {
+                path: 'adminProductPage',
+                element: <AdminProductPage />
+            },
+            {
+                path: 'adminStory',
+                element: <AdminStory />
+            },
+            {
+                path: 'adminOrders',
+                element: <AdminOrders />
+            },
+            {
+                path: 'adminCoupons',
+                element: <AdminCoupons />
+            },
+            {
+                path: 'adminMember',
+                element: <AdminMember />
             }
         ]
     },
