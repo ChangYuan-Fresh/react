@@ -1,5 +1,8 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination} from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 
 function Home() {
@@ -106,14 +109,14 @@ function Home() {
                     </div>
                 </section>
                 {/* <!--商品列表--> */}
-                <section className='swiper-container'>
-                    <div className="container py-lg-9 py-6 swiper-container">
+                <section>
+                    <div className="container py-lg-9 py-6 ">
                         {/* <!--商品列表nav--> */}
-                        <ul className="nav nav-tabs product-nav-tabs px-auto" id="MyProductTab" role="tablist">
+                        <ul className="nav nav-tabs product-nav-tabs px-auto " id="MyProductTab" role="tablist">
                             <Swiper
                                 spaceBetween={48}
-                                slidesPerView={3.5}
-                                className="swiper MyProduct-nav-product-swiper px-6 swiper-container">
+                                slidesPerView={3.2}
+                                className="swiper MyProduct-nav-product-swiper px-6">
                                 <SwiperSlide className="swiper-slide">
                                     <li className="nav-item" role="presentation">
                                         <button
@@ -197,6 +200,10 @@ function Home() {
                             <div className="tab-pane fade show active" id="hot-product" role="tabpanel" aria-labelledby="hot-product-tab">
                                 {/* <!--熱門商品swiper--> */}
                                 <Swiper
+                                    modules={[Navigation, Pagination ]}
+                                    navigation
+                                    scrollbar={{ draggable: true }}
+                                    pagination={{ clickable: true }}
                                     breakpoints={{
                                         500: {
                                             slidesPerView: 1,
@@ -211,7 +218,7 @@ function Home() {
                                             spaceBetween: 12,
                                         }
                                     }}
-                                    className="MyProduct-product-card-wrap swiper MyProduct-product-swiper py-8 position-relative swiper-container">
+                                    className="MyProduct-product-card-wrap swiper MyProduct-product-swiper py-8 position-relative">
 
                                     <SwiperSlide className="swiper-slide card border-0 swiper-slide-active ">
                                         <div className="">
@@ -308,16 +315,16 @@ function Home() {
                                             </button>
                                         </div>
                                     </SwiperSlide>
-
-                                    <div className="swiper-button-prev my-button-disabled"></div>
-                                    <div className="swiper-button-next my-button-disabled"></div>
-                                    <div className="swiper-scrollbar bg-secondary d-none d-lg-block rounded-3 start-50 translate-middle  w-120" ></div>
                                 </Swiper>
                             </div>
                             {/* <!--蔬菜水果內容--> */}
                             <div className="tab-pane fade " id="veggieNfruit" role="tabpanel" aria-labelledby="veggieNfruit-tab">
                                 {/* <!--蔬菜水果swiper--> */}
                                 <Swiper
+                                    modules={[Navigation, Pagination ]}
+                                    navigation
+                                    scrollbar={{ draggable: true }}
+                                    pagination={{ clickable: true }}
                                     breakpoints={{
                                         500: {
                                             slidesPerView: 1,
@@ -332,8 +339,7 @@ function Home() {
                                             spaceBetween: 12,
                                         }
                                     }}
-                                    className="MyProduct-product-card-wrap swiper MyProduct-product-swiper py-8 position-relative swiper-container">
-
+                                    className="MyProduct-product-card-wrap swiper MyProduct-product-swiper py-8 position-relative ">
                                     <SwiperSlide className="swiper-slide card border-0 swiper-slide-active ">
                                         <div className="">
                                             <img src="src/assets/images/Cauliflower HQ (7).png" alt="cauliflower" className="rounded-4 product-index-img" />
@@ -429,16 +435,16 @@ function Home() {
                                             </button>
                                         </div>
                                     </SwiperSlide>
-
-                                    <div className="swiper-button-prev my-button-disabled"></div>
-                                    <div className="swiper-button-next my-button-disabled"></div>
-                                    <div className="swiper-scrollbar bg-secondary d-none d-lg-block rounded-3 start-50 translate-middle w-120" ></div>
                                 </Swiper>
                             </div>
                             {/* <!--生鮮肉品內容--> */}
                             <div className="tab-pane fade " id="meats" role="tabpanel" aria-labelledby="meats-tab">
                                 {/* <!--生鮮肉品swiper--> */}
                                 <Swiper
+                                    modules={[Navigation, Pagination ]}
+                                    navigation
+                                    scrollbar={{ draggable: true }}
+                                    pagination={{ clickable: true }}
                                     breakpoints={{
                                         500: {
                                             slidesPerView: 1,
@@ -453,8 +459,7 @@ function Home() {
                                             spaceBetween: 12,
                                         }
                                     }}
-                                    className="MyProduct-product-card-wrap swiper MyProduct-product-swiper py-8 position-relative swiper-container swiper-container">
-
+                                    className="MyProduct-product-card-wrap swiper MyProduct-product-swiper py-8 position-relative">
                                     <SwiperSlide className="swiper-slide card border-0 swiper-slide-active ">
                                         <div className="">
                                             <img src="https://lululushop.com/wp-content/uploads/2020/12/%E5%8E%BB%E9%AA%A8%E9%9B%9E%E8%85%BF%E6%8E%92.jpg" alt="chickenLegs" className="rounded-4 product-index-img" />
@@ -550,16 +555,16 @@ function Home() {
                                             </button>
                                         </div>
                                     </SwiperSlide>
-
-                                    <div className="swiper-button-prev my-button-disabled"></div>
-                                    <div className="swiper-button-next my-button-disabled"></div>
-                                    <div className="swiper-scrollbar bg-secondary d-none d-lg-block rounded-3 start-50 translate-middle w-120"></div>
                                 </Swiper>
                             </div>
                             {/* <!--水產海鮮內容--> */}
                             <div className="tab-pane fade " id="seafood" role="tabpanel" aria-labelledby="seafood-tab">
                                 {/* <!--水產海鮮swiper--> */}
                                 <Swiper
+                                    modules={[Navigation, Pagination ]}
+                                    navigation
+                                    scrollbar={{ draggable: true }}
+                                    pagination={{ clickable: true }}
                                     breakpoints={{
                                         500: {
                                             slidesPerView: 1,
@@ -574,8 +579,7 @@ function Home() {
                                             spaceBetween: 12,
                                         }
                                     }}
-                                    className="MyProduct-product-card-wrap swiper MyProduct-product-swiper py-8 position-relative swiper-container">
-
+                                    className="MyProduct-product-card-wrap swiper MyProduct-product-swiper py-8 position-relative">
                                     <SwiperSlide className="swiper-slide card border-0 swiper-slide-active ">
                                         <div className="">
                                             <img src="src/assets/images/type3.png" alt="clam" className="rounded-4 product-index-img" />
@@ -671,16 +675,16 @@ function Home() {
                                             </button>
                                         </div>
                                     </SwiperSlide>
-
-                                    <div className="swiper-button-prev my-button-disabled"></div>
-                                    <div className="swiper-button-next my-button-disabled"></div>
-                                    <div className="swiper-scrollbar bg-secondary d-none d-lg-block rounded-3 start-50 translate-middle w-120"></div>
                                 </Swiper>
                             </div>
                             {/* <!--蛋與乳品內容--> */}
                             <div className="tab-pane fade " id="eggNmilk" role="tabpanel" aria-labelledby="eggNmilk-tab">
                                 {/* <!--蛋與乳品swiper--> */}
                                 <Swiper
+                                    modules={[Navigation, Pagination ]}
+                                    navigation
+                                    scrollbar={{ draggable: true }}
+                                    pagination={{ clickable: true }}
                                     breakpoints={{
                                         500: {
                                             slidesPerView: 1,
@@ -695,8 +699,7 @@ function Home() {
                                             spaceBetween: 12,
                                         }
                                     }}
-                                    className="MyProduct-product-card-wrap swiper MyProduct-product-swiper py-8 position-relative swiper-container">
-
+                                    className="MyProduct-product-card-wrap swiper MyProduct-product-swiper py-8 position-relative">
                                     <SwiperSlide className="swiper-slide card border-0 swiper-slide-active ">
                                         <div className="">
                                             <img src="https://images.unsplash.com/photo-1723478447127-c3e652f8fe3d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="duckEggs" className="rounded-4 product-index-img" />
@@ -792,8 +795,6 @@ function Home() {
                                             </button>
                                         </div>
                                     </SwiperSlide>
-
-
                                 </Swiper>
                             </div>
                         </div>

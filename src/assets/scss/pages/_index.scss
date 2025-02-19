@@ -2,6 +2,10 @@ main {
     margin: auto;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 //banner
 
 .banner-img {
@@ -25,34 +29,31 @@ main {
 
 //3個理由
 
-.reason-bg{
-    background: linear-gradient(#F1EAD4,#FFFFFF);
+.reason-bg {
+    background: linear-gradient(#F1EAD4, #FFFFFF);
     margin-left: -100%;
     margin-right: -100%;
 }
 
-.reason-card-body{
+.reason-card-body {
     margin-top: -32px;
-    @media(min-width: 992px){
+
+    @media(min-width: 992px) {
         margin-top: -48px;
     }
-    @media(min-width: 1200px){
+
+    @media(min-width: 1200px) {
         margin-top: -64px;
-    }   
-    
+    }
+
 }
 
-.reason-card-text{
+.reason-card-text {
     box-shadow: 0px 4px 40px 0px #0000000A;
 }
 
 
 //商品列表
-.swiper-container {
-    width: 100%;
-    height: 100%;
-    overflow: hidden; 
-}
 
 .product-nav-tabs {
     display: flex;
@@ -121,6 +122,32 @@ main {
     &:hover {
         background-color: #FFFCF3;
         color: #FF8965;
+    }
+
+}
+
+.swiper-pagination-bullet {
+    background-color: #788F49 !important;    
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    display: none;
+    @media(min-width: 992px){
+        display: flex;
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+        z-index: 10;
+        background-color: #F1EAD4;
+        color: #788F49;
+        padding: 16px;
+        border-radius: 12px;
+        --swiper-navigation-size: 12px;
+        &:hover{
+            background-color: #FFFCF3;
+            color: #FF8965;
+        }
     }
 }
 
