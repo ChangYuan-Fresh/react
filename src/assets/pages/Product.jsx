@@ -1,3 +1,6 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.css';
+
 function Product() {
     return (<>
         <div className="container product">
