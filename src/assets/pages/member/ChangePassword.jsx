@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-function Admin (){
+function ChangePassword (){
     return (<>
         <div className="container login">
             <div className="row">
@@ -44,4 +44,4 @@ function Admin (){
     )
 }
 
-export default Admin;
+export default ChangePassword;

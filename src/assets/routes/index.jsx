@@ -12,6 +12,7 @@ import ProductDetail from "../pages/ProductDetail";
 import AdminPage from "../pages/admin/AdminPage";
 import AdminProducePage from "../pages/admin/AdminProductPage";
 import LoginPage from "../pages/LoginPage";
+import AdminLoginPage from "../pages/AdminLoginPage";
 
 
 const routes = [
@@ -49,7 +50,6 @@ const routes = [
             }
         ]
     },
-
     {
         path: 'admin',
         element: <AdminPage />,
@@ -59,6 +59,10 @@ const routes = [
                 element: <AdminProducePage />
             }
         ]
+    },
+    {
+        path: 'adminlogin',
+        element: <AdminLoginPage />,
     },
     {
         path: 'login',
