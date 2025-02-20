@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import Pagination from '../../component/Pagination';
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
-import Pagination from '../../component/Pagination';
+import PaginationCompo from '../../component/PaginationCompo';
 
 
 function ProductListAll() {
@@ -60,7 +59,7 @@ function ProductListAll() {
             })}
         </div>
         {/* <!-- 頁碼 --> */}
-        <Pagination pageInfo={{
+        <PaginationCompo pageInfo={{
             "total_pages": 3,
             "current_page": 1,
             "has_pre": false,
