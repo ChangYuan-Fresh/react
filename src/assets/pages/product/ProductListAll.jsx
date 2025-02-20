@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import Pagination from '../../component/Pagination';
+import Pagination from '../../component/Pagination'
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
+import IsScreenLoading from '../../component/IsScreenLoading'
 
 
 function ProductListAll() {
@@ -66,7 +67,7 @@ function ProductListAll() {
             "has_next": false,
             "category": ""
         }} />
-        <isScreenLoading isScreenLoading={isScreenLoading} />
+        <IsScreenLoading isScreenLoading={isScreenLoading} />
     </section>
 
 
