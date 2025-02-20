@@ -1,19 +1,16 @@
 import { Link } from "react-router";
+import Banner from "../layout/Banner";
 
 function Stories() {
     return (<>
         <main>
             {/* <!--banner--> */}
-            <section className=" px-lg-10 position-relative h-100" >
-                <img src="src/assets/images/banner3.png" alt="banner" className="banner-img w-100" />
-                <div className="container">
-                    <div className="position-absolute top-50 translate-middle-y ">
-                        <h6 className="fs-lg-4 bg-white px-2 px-lg-4 py-2 d-inline-block mb-2 mb-lg-4">產品故事 <span className="fs-lg-5 align-baseline">Story</span></h6>
-                        <h4 className="fs-lg-1 bg-primary text-white px-2 px-lg-4 py-2 py-lg-3">探索農田的秘密</h4>
-                    </div>
-                </div>
-                <img src="src/assets/images/Illustration/Top-Curve(2).png" alt="Top-Curve" className="deco-curve" />
-            </section>
+            <Banner
+            bannerImg={"/images/banner3.png"}
+            title="產品故事"
+            enTitle="Story"
+            slogan1="產地到餐桌"
+            />
             {/* <!--故事列表--> */}
             <section>
                 <div className="container position-relative py-lg-11 py-6">

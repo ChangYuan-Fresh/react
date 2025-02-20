@@ -1,12 +1,15 @@
 import { useEffect, useRef } from 'react'
 import axios from 'axios'
 import { Modal } from 'bootstrap';
+import { useDispatch } from 'react-redux';
+import { creatAsyncMessage } from '../redux/slice/toastSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
 function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, modelRef }) {
     const productRef = useRef(null);
+    const dispatch = useDispatch();
     //新增產品
     const createNewProduct = async () => {
         try {
@@ -17,10 +20,21 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                     price: Number(tempProduct.price),
                     is_enabled: tempProduct.is_enabled ? 1 : 0
                 }
-            })
+            });
+
+            dispatch(creatAsyncMessage({
+                text: res.data.message,
+                type: '成功',
+                status: "success"
+            }));
         } catch (error) {
-            alert(res.data.message)
-        }
+            const { message } = error.response.data;
+            dispatch(creatAsyncMessage({
+                text: message.join("、"),
+                type: '失敗',
+                status: "failed"
+            }));
+        } 
     }
     //更新產品
     const updateProduct = async () => {
@@ -32,9 +46,19 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                     price: Number(tempProduct.price),
                     is_enabled: tempProduct.is_enabled ? 1 : 0
                 }
-            })
+            });
+            dispatch(creatAsyncMessage({
+                text: res.data.message,
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert(res.data.message)
+            const { message } = error.response.data;
+            dispatch(creatAsyncMessage({
+                text: message.join("、"),
+                type: '失敗',
+                status: "failed"
+            }))
         }
     }
     //新增或更新產品
@@ -45,7 +69,14 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
             getProductList();
             closeModal()
         } catch (error) {
-            alert('更新產品失敗')
+            const { message } = error.response.data;
+            dispatch(creatAsyncMessage({
+                text: message.join("、"),
+                type: '失敗',
+                status: "failed"
+            }))
+        } finally {
+            closeModal()
         }
 
     }
@@ -62,7 +93,9 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                 imageUrl: upLoadImgUrl
             })
         } catch (error) {
-            alert(res.data.message)
+            alert(error.response.data.message)
+        } finally {
+            e.target.value = "";
         }
     }
     //表單控制
@@ -81,7 +114,6 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
             ...tempProduct,
             imagesUrl: newImages
         })
-
     }
     const addImage = () => {
         const newImages = [...tempProduct.imagesUrl, ''];
@@ -176,7 +208,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                         value={tempProduct.title}
                                         onChange={getinputValue} />
                                 </div>
-                                <div className="row g-4">
+                                <div className="row g-4 mb-3">
                                     <div className="col-6">
                                         <label htmlFor="category" className="form-label">分類</label>
                                         <select id="category" className="form-select" name="category" value={tempProduct.category} onChange={getinputValue}>
@@ -258,8 +290,8 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary px-5" onClick={closeModal}>取消</button>
-                        <button type="button" className="btn btn-primary px-5" onClick={btnUpdateProduct}>確認</button>
+                        <button type="button" className="btn btn-secondary px-6" onClick={closeModal}>取消</button>
+                        <button type="button" className="btn btn-primary px-6 text-white" onClick={btnUpdateProduct}>確認</button>
                     </div>
                 </div>
             </div>

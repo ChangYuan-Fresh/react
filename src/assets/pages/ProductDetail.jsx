@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react'
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Thumbs, Pagination } from 'swiper/modules';
+import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import ReactLoading from 'react-loading'
 import axios from 'axios'
+import 'swiper/css';
+import 'swiper/css/thumbs';
+import 'swiper/css/pagination'
+import Comment from '../component/Comment'
+import UpdateQtyBtnGroup from '../component/UpdateQtyBtnGroup';
+
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
-
 
 
 function ProductDetail() {
@@ -13,6 +20,22 @@ function ProductDetail() {
     const [isLoadingBtn, setIsLoadingBtn] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const { id: product_id } = useParams();
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const nevigate = useNavigate();
+
+    const nevigateCart = async (product_id, qtySelect) => {
+        try {
+            await axios.post(`${baseUrl}/v2/api/${apiPath}/cart`, {
+                data: {
+                    product_id,
+                    qty: Number(qtySelect)
+                }
+            });
+            nevigate("/cart")
+        } catch (error) {
+            alert(error.data.message)
+        } 
+    }
 
     const addCartItem = async (product_id, qtySelect) => {
         setIsLoadingBtn(true);
@@ -33,8 +56,8 @@ function ProductDetail() {
         }
     }
 
-    const getQuantity = (e) => {
-        setQtySelect(e.target.value);
+    const getQuantity = (qtySelect) => {
+        setQtySelect(qtySelect);
     }
 
     const getProductDetail = async () => {
@@ -55,9 +78,49 @@ function ProductDetail() {
     return (<>
         <main className="position-relative mb-lg-8 mb-0 mt-lg-7">
             <div className="row gx-lg-5">
-                <div className="col-lg-5">
-                    <img src={product.imageUrl} alt={product.title} height="400px" width="100%" className="object-fit-cover border rounded" />
+                {/* 電腦版輪播 */}
+                <div className="col-lg-5 d-none d-lg-block">
+                    <Swiper
+                        modules={[Thumbs]}
+                        thumbs={{ swiper: thumbsSwiper }}
+                    >
+                        {product.imagesUrl?.map((img) => (
+                            <SwiperSlide key={img} className="text-center mb-5">
+                                <img src={img} alt="" className="object-fit-cover border rounded" width='100%' height="400px" />
+                            </SwiperSlide>))}
+                    </Swiper>
+                    <Swiper
+                        modules={[Thumbs]}
+                        watchSlidesProgress
+                        onSwiper={setThumbsSwiper}
+                        slidesPerView={4}
+                        spaceBetween={16}>
+                        {product.imagesUrl?.map((img) => (
+                            <SwiperSlide key={img} className="text-center mb-5 d-flex">
+                                <img src={img} alt="" className="object-fit-cover w-100 rounded" height="86px" />
+                            </SwiperSlide>))}
+                    </Swiper>
                 </div>
+                {/* 手機板輪播 */}
+                <div className="col d-lg-none">
+                    <Swiper
+                        modules={[Pagination]}
+                        pagination={{
+                            type: 'fraction',
+                            renderFraction: function (currentClass, totalClass) {
+                                return `<span class="${currentClass}"></span> / <span class="${totalClass}"></span>`;
+                            },
+                        }}
+                    >
+                        {
+                            product.imagesUrl?.map((img) => (
+                                <SwiperSlide key={img} className="text-center mb-5">
+                                    <img src={img} alt="" className="object-fit-cover" width='100%' height="350px" />
+                                </SwiperSlide>))
+                        }
+                    </Swiper>
+                </div>
+                {/* 商品資料 */}
                 <div className="col-lg-7 d-flex flex-column justify-content-between px-lg-5">
                     <div className="mt-5 mt-lg-0">
                         <nav aria-label="breadcrumb">
@@ -92,17 +155,16 @@ function ProductDetail() {
                                 <p className="text-gray">{`剩餘 3 ${product.unit}`}</p>
 
                             </div>
-                            <div className="d-flex align-items-center justify-content-between">
-                                <select
-                                    className="form-select px-5 w-25"
-                                    id="quantity"
-                                    value={qtySelect}
-                                    onChange={getQuantity}>
-                                    {[...Array(10)].map((_, i) => (<option value={i + 1} key={i + 1}>{i + 1}</option>))}
-                                </select>
+                            <div className="mb-5">
+                                <UpdateQtyBtnGroup
+                                    itemQty={qtySelect}
+                                    onClickfn1={() => getQuantity(qtySelect - 1)}
+                                    onClickfn2={() => getQuantity(qtySelect + 1)} />
+                            </div>
+                            <div className="d-lg-flex">
                                 <button
                                     type="button"
-                                    className="btn btn-primary w-25 d-flex justify-content-center"
+                                    className="btn btn-L btn-primary w-100 mb-3 mb-lg-0 fs-5 py-3 me-lg-5 me-0 d-flex justify-content-center"
                                     disabled={isLoadingBtn}
                                     onClick={() => addCartItem(product_id, qtySelect)}>
                                     <div className="text-white">加入購物車</div>
@@ -113,14 +175,20 @@ function ProductDetail() {
                                         width={"1rem"}
                                     />)}
                                 </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-L btn-primary w-100 fs-5 py-3"
+                                    onClick={() => nevigateCart(product_id, qtySelect)}>
+                                    <div className="text-white">立即購買</div>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </main >
         {/* <!-- pc文案 --> */}
-        <article className="d-none d-lg-block">
+        < article className="d-none d-lg-block" >
             <nav id="navbar-example2">
                 <ul className="list-unstyled d-flex justify-content-between w-100 border-bottom mb-8">
                     <li className="btn text-center w-100 me-5 p-0 border-bottom-transparent border-4">
@@ -163,7 +231,11 @@ function ProductDetail() {
                     </li>
                 </ul>
             </div>
-        </article>
+            <div>
+                <Comment />
+            </div>
+        </article >
+
         {isLoading && (<div
             className="d-flex justify-content-center align-items-center"
             style={{
@@ -174,7 +246,8 @@ function ProductDetail() {
             }}
         >
             <ReactLoading type="balls" color="pink" width="4rem" height="4rem" />
-        </div>)}
+        </div>)
+        }
     </>
     )
 }

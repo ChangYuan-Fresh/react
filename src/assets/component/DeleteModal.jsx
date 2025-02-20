@@ -1,12 +1,15 @@
 import { useEffect, useRef, } from 'react'
 import axios from 'axios'
 import { Modal } from 'bootstrap';
+import { useDispatch } from 'react-redux';
+import { creatAsyncMessage } from '../redux/slice/toastSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
 function DeleteModal({ tempProduct, getProductList, delModelRef}) {
     const delProductRef = useRef(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         delModelRef.current = new Modal(delProductRef.current, {
@@ -20,12 +23,22 @@ function DeleteModal({ tempProduct, getProductList, delModelRef}) {
     //刪除產品
     const removeProduct = async () => {
         try {
-            await axios.delete(`${baseUrl}/v2/api/${apiPath}/admin/product/${tempProduct.id}`)
-            alert('刪除資料成功');
+            const res = await axios.delete(`${baseUrl}/v2/api/${apiPath}/admin/product/${tempProduct.id}`)
+            dispatch(creatAsyncMessage({
+                text: res.data.message,
+                type: '成功',
+                status: "success"
+            }));
             getProductList()
-            closeDelModal()
         } catch (error) {
-            alert('修改資料失敗')
+            const { message } = error.response.data;
+            dispatch(creatAsyncMessage({
+                text: message.join("、"),
+                type: '失敗',
+                status: "failed"
+            }));
+        }finally{
+            closeDelModal()
         }
     }
     return (
@@ -41,8 +54,8 @@ function DeleteModal({ tempProduct, getProductList, delModelRef}) {
                         <span className="text-danger">{tempProduct.title}</span>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" onClick={closeDelModal}>取消</button>
-                        <button type="button" className="btn btn-primary" onClick={removeProduct}>刪除</button>
+                        <button type="button" className="btn btn-secondary px-6" onClick={closeDelModal}>取消</button>
+                        <button type="button" className="btn btn-accent px-6 text-white" onClick={removeProduct}>刪除</button>
                     </div>
                 </div>
             </div>

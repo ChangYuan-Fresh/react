@@ -6,7 +6,7 @@ import Notfound from "../pages/Notfound";
 import ForgetPassword from "../pages/member/ForgetPassword";
 import Signup from "../pages/member/Signup";
 import Stories from "../pages/Stories";
-import Cart from '../pages/order/Cart'
+import Cart from "../pages/Cart";
 import FrontLayout from "../layout/FrontLayout";
 import ProductDetail from "../pages/ProductDetail";
 import AdminLayout from "../layout/AdminLayout";

@@ -18,7 +18,7 @@ function Navbar() {
                 </NavLink>
                 <NavLink className="fs-2 text-primary ms-auto me-3 d-lg-none position-relative" to='cart'>
                     <span className="material-symbols-outlined">shopping_cart</span>
-                    <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-50 mt-4 ms-5 translate-middle">1</span>
+                    <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle fz-6 p-0" style={{ width: "24px", height: "24px" }}>1</span>
                 </NavLink>
                 <button
                     className="navbar-toggler border-0 p-0"
@@ -52,14 +52,14 @@ function Navbar() {
                         <NavLink className="btn btn-s d-none d-lg-inline-block p-0 border-0 mx-6" to='cart'>
                             <button type='button' className="btn position-relative p-0">
                                 <span className="material-symbols-outlined p-4 fs-2">shopping_cart</span>
-                                <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-50 mt-4 ms-5 translate-middle">1</span>
+                                <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle">1</span>
                             </button>
                         </NavLink>
                         <NavLink className="btn btn-s d-none d-lg-inline-block p-0 border-0" to='login'>
                             <span className="material-symbols-outlined p-4 fs-2">person</span>
                         </NavLink>
                         <div className="d-lg-none">
-                            <NavLink className="nav-link py-6 link-primary text-center py-6" to='login'>
+                            <NavLink className="nav-link py-6 link-primary text-center py-6" to='/login'>
                                 <p className="fs-5 fs-lg-4">登入</p>
                                 <p className="small fw-normal en-font">Sign in</p>
                             </NavLink>
