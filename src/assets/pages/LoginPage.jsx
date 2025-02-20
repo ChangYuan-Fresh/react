@@ -47,8 +47,8 @@ function LoginPage() {
                         </form>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <Link to="/login/forgetpassword" className="card-link me-4 link-primary">忘記密碼?</Link>
-                        <Link className="card-link me-4 link-primary">註冊會員</Link>
+                        <Link to="/forgetpassword" className="card-link me-4 link-primary">忘記密碼?</Link>
+                        <Link to="/signup" className="card-link me-4 link-primary">註冊會員</Link>
                         <Link to="/adminlogin" className="card-link link-primary">管理者登入</Link>
                     </div>
                     {isLoading && (
