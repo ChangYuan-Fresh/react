@@ -92,20 +92,18 @@ const routes = [
     {
         path: 'login',
         element: <LoginPage />,
-        children: [
-            {
-                path: 'forgetpassword',
-                element: <ForgetPassword />
-            },
-            {
-                path: 'signup',
-                element: <Signup />
-            }
-        ]
     },
     {
         path: '*',
         element: <Notfound />
+    },
+    {
+        path: 'forgetpassword',
+        element: <ForgetPassword />
+    },
+    {
+        path: 'signup',
+        element: <Signup />
     }
 ]
 

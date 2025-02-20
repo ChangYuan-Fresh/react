@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
+import Pagination from '../../component/Pagination';
 
 
 function ProductListAll() {
@@ -20,7 +21,7 @@ function ProductListAll() {
             setIsScreenLoading(false)
         }
     }
-    
+
     useEffect(() => {
         getProductList();
     }, [])
@@ -58,44 +59,18 @@ function ProductListAll() {
             })}
         </div>
         {/* <!-- 頁碼 --> */}
-        <nav aria-label="Page navigation" className="border-0">
-            <ul className="pagination justify-content-center mb-5 mt-lg-4 mt-0 border-0 allProduct-pagination">
-                <li className="page-item allProduct-pagination-back">
-                    <a className="page-link border-0 bg-transparent d-flex justify-content-center align-items-center allProduct-pagination-linkSize" href="#">
-                        <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3.40007 7.99998L8.60007 13.2C8.84451 13.4444 8.96673 13.7555 8.96673 14.1333C8.96673 14.5111 8.84451 14.8222 8.60007 15.0667C8.35562 15.3111 8.04451 15.4333 7.66673 15.4333C7.28895 15.4333 6.97784 15.3111 6.7334 15.0667L0.600065 8.93332C0.466732 8.79998 0.372287 8.65554 0.316732 8.49998C0.261176 8.34443 0.233398 8.17776 0.233398 7.99998C0.233398 7.82221 0.261176 7.65554 0.316732 7.49998C0.372287 7.34443 0.466732 7.19998 0.600065 7.06665L6.7334 0.933317C6.97784 0.688873 7.28895 0.56665 7.66673 0.56665C8.04451 0.56665 8.35562 0.688873 8.60007 0.933317C8.84451 1.17776 8.96673 1.48887 8.96673 1.86665C8.96673 2.24443 8.84451 2.55554 8.60007 2.79998L3.40007 7.99998Z" fill="#919191" />
-                        </svg>
-                    </a>
-                </li>
-                <li className="page-item active allProduct-pagination-number">
-                    <a className="page-link border-0 fs-5 fw-bold rounded-3 d-flex justify-content-center align-items-center allProduct-pagination-linkSize" href="#">
-                        1
-                    </a>
-                </li>
-                <li className="page-item allProduct-pagination-number">
-                    <a className="page-link border-0 fs-5 fw-normal rounded-3 d-flex justify-content-center align-items-center allProduct-pagination-linkSize" href="#">
-                        2
-                    </a>
-                </li>
-                <li className="page-item allProduct-pagination-number">
-                    <a className="page-link border-0 fs-5 fw-normal rounded-3 d-flex justify-content-center align-items-center allProduct-pagination-linkSize" href="#">
-                        3
-                    </a>
-                </li>
-                <li className="page-item allProduct-pagination-forward">
-                    <a className="page-link border-0 bg-transparent d-flex justify-content-center align-items-center allProduct-pagination-linkSize" href="#">
-                        <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5.80007 7.99998L0.600065 2.79998C0.355621 2.55554 0.233398 2.24443 0.233398 1.86665C0.233398 1.48887 0.355621 1.17776 0.600065 0.933317C0.84451 0.688873 1.15562 0.56665 1.5334 0.56665C1.91118 0.56665 2.22229 0.688873 2.46673 0.933317L8.60007 7.06665C8.7334 7.19998 8.82784 7.34443 8.8834 7.49998C8.93895 7.65554 8.96673 7.82221 8.96673 7.99998C8.96673 8.17776 8.93895 8.34443 8.8834 8.49998C8.82784 8.65554 8.7334 8.79998 8.60007 8.93332L2.46673 15.0667C2.22229 15.3111 1.91118 15.4333 1.5334 15.4333C1.15562 15.4333 0.84451 15.3111 0.600065 15.0667C0.355621 14.8222 0.233398 14.5111 0.233398 14.1333C0.233398 13.7555 0.355621 13.4444 0.600065 13.2L5.80007 7.99998Z" fill="#788F49" />
-                        </svg>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <isScreenLoading isScreenLoading={isScreenLoading}/>
+        <Pagination pageInfo={{
+            "total_pages": 3,
+            "current_page": 1,
+            "has_pre": false,
+            "has_next": false,
+            "category": ""
+        }} />
+        <isScreenLoading isScreenLoading={isScreenLoading} />
     </section>
 
-    
-)
+
+    )
 }
 
 export default ProductListAll
