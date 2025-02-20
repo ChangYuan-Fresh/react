@@ -14,7 +14,7 @@ function LoginPage() {
         console.log("Submitted Data:", data);
         setIsLoading(true);
         setTimeout(() => {
-            navigate("/");
+            navigate("/member");
         }, 2000);
     };
 

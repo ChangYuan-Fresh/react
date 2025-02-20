@@ -18,6 +18,7 @@ import AdminMember from "../pages/admin/AdminMember";
 import AdminStory from "../pages/admin/AdminStory";
 import AdminOrders from "../pages/admin/AdminOrders";
 import AdminCoupons from "../pages/admin/AdminCoupons";
+import Member from "../pages/member/Member"
 
 
 const routes = [
@@ -104,7 +105,11 @@ const routes = [
     {
         path: 'signup',
         element: <Signup />
-    }
+    },
+    {
+        path: 'member',
+        element: <Member />
+    },
 ]
 
 export default routes;
