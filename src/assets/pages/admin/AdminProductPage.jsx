@@ -1,7 +1,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios'
-import Pagination from '../../component/Pagination';
+import PaginationCompo from '../../component/PaginationCompo';
 import ProductModal from '../../component/ProductModal';
 import DeleteModal from '../../component/DeleteModal';
 
@@ -106,7 +106,7 @@ function AdminProductPage() {
                             </tbody>
                         </table>
                     </div>
-                    <Pagination pageInfo={pageInfo} btnChangePage={btnChangePage} />
+                    <PaginationCompo pageInfo={pageInfo} btnChangePage={btnChangePage} />
                 </div>
             </div>
             <ProductModal modalMode={modalMode} setTempProduct={setTempProduct} tempProduct={tempProduct} getProductList={getProductList} modelRef={modelRef} />

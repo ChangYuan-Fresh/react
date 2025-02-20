@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import Banner from "../layout/Banner";
-import Pagination from "../component/Pagination";
+import PaginationCompo from "../component/PaginationCompo";
 
 function Stories() {
     return (<>
@@ -10,7 +10,7 @@ function Stories() {
                 bannerImg={"/images/banner3.png"}
                 title="產品故事"
                 enTitle="Story"
-                slogan1="產地到餐桌"
+                slogan1="探索農田的秘密"
             />
             {/* <!--故事列表--> */}
             <section>
@@ -94,7 +94,7 @@ function Stories() {
                     <img src="src/assets/images/Illustration/house.png" alt="house" className="story-deco2" />
                     {/* <!--頁籤--> */}
                     <div className="pt-6 pt-lg-7">
-                        <Pagination pageInfo={{
+                        <PaginationCompo pageInfo={{
                             "total_pages": 3,
                             "current_page": 1,
                             "has_pre": false,

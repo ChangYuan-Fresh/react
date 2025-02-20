@@ -1,4 +1,4 @@
-function Pagination({pageInfo, btnChangePage}) {
+function PaginationCompo({pageInfo, btnChangePage}) {
     
     return (
         <div className="d-flex justify-content-center">
@@ -30,4 +30,4 @@ function Pagination({pageInfo, btnChangePage}) {
         </div>)
 }
 
-export default Pagination
+export default PaginationCompo
