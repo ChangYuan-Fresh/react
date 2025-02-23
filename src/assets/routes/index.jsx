@@ -19,6 +19,8 @@ import AdminStory from "../pages/admin/AdminStory";
 import AdminOrders from "../pages/admin/AdminOrders";
 import AdminCoupons from "../pages/admin/AdminCoupons";
 import Member from "../pages/member/Member"
+import ChangePassword from "../pages/member/ChangePassword";
+import ResetPassword from "../pages/member/ResetPassword";
 
 
 const routes = [
@@ -110,6 +112,14 @@ const routes = [
         path: 'member',
         element: <Member />
     },
+    {
+        path: 'changePassword',
+        element: <ChangePassword />
+    },
+    {
+        path: 'resetPassword',
+        element: <ResetPassword />
+    }
 ]
 
 export default routes;

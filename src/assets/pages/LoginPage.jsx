@@ -10,8 +10,7 @@ function LoginPage() {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    const onSubmit = (data) => {
-        console.log("Submitted Data:", data);
+    const onSubmit = () => {
         setIsLoading(true);
         setTimeout(() => {
             navigate("/member");
