@@ -15,7 +15,7 @@ function ForgetPassword() {
     const onSubmit = () => {
         setIsLoading(true);
         setTimeout(() => {
-            navigate("/changePassword");
+            navigate("/resetPassword");
         }, 2000);
     };
 
