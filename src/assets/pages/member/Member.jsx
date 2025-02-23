@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 function Member() {
+    
+
     return (<>
         <div className="container member">
             <div className="row my-7">
@@ -29,7 +31,7 @@ function Member() {
                             <Link  className="btn btn-L w-100 mb-4 fs-5 py-3 rounded-pill">收件地址管理</Link>
                             <Link  className="btn btn-L w-100 fs-5 py-3 rounded-pill">優惠券查詢</Link>
                         </div>
-                        <Link className="mt-auto ms-auto fs-5 fs-lg-4 link-primary">登出<span
+                        <Link to="/" className="mt-auto ms-auto fs-5 fs-lg-4 link-primary">登出<span
                             className="material-symbols-outlined align-middle ms-2">logout</span></Link>
                     </div>
                 </div>
