@@ -1,4 +1,5 @@
 import Banner from "../layout/Banner";
+import { Link } from "react-router";
 
 function Faq() {
     return (<main>
@@ -24,7 +25,7 @@ function Faq() {
                                 </h2>
                                 <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse ">
                                     <div className="accordion-body fw-normal fs-lg-4">
-                                        <strong>A：</strong>登入<strong><a href="login.html">會員帳號</a></strong>,或<strong><a href="signup.html">註冊會員</a></strong>，再將需要的產品加到購物車，就可以訂購囉！
+                                        <strong>A：</strong>登入<strong><Link to="/login">會員帳號</Link></strong>,或<strong><Link to="/signup">註冊會員</Link></strong>，再將需要的產品加到購物車，就可以訂購囉！
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +37,7 @@ function Faq() {
                                 </h2>
                                 <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
                                     <div className="accordion-body fw-normal fs-lg-4">
-                                        <strong>A：</strong>請於登入畫面點選「<strong><a href="forgetPassword.html">忘記密碼</a></strong>」,輸入您的註冊電子郵件,我們將會寄送「重新設定密碼」連結給您進行密碼設定。
+                                        <strong>A：</strong>請於登入畫面點選「<strong><Link to="/forgetPassword">忘記密碼</Link></strong>」,輸入您的註冊電子郵件,我們將會寄送「重新設定密碼」連結給您進行密碼設定。
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +90,7 @@ function Faq() {
                                 </h2>
                                 <div id="panelsStayOpen-collapseSix" className="accordion-collapse collapse">
                                     <div className="accordion-body fw-normal fs-lg-4">
-                                        <strong>A：</strong>請您先「<strong><a href="login.html">會員登入</a></strong>」進入會員中心，即可查詢該訂單的處理狀態。
+                                        <strong>A：</strong>請您先「<strong><Link to="/login">會員登入</Link></strong>」進入會員中心，即可查詢該訂單的處理狀態。
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +131,7 @@ function Faq() {
                                 </h2>
                                 <div id="panelsStayOpen-collapseNine" className="accordion-collapse collapse">
                                     <div className="accordion-body fw-normal fs-lg-4">
-                                        <strong>A：</strong>請您先「<strong><a href="login.html">會員登入</a></strong>」進入會員中心，即可查詢該訂單的配送狀態。
+                                        <strong>A：</strong>請您先「<strong><Link to="/login">會員登入</Link></strong>」進入會員中心，即可查詢該訂單的配送狀態。
                                     </div>
                                 </div>
                             </div>
