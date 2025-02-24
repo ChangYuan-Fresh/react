@@ -18,7 +18,8 @@ import AdminMember from "../pages/admin/AdminMember";
 import AdminStory from "../pages/admin/AdminStory";
 import AdminOrders from "../pages/admin/AdminOrders";
 import AdminCoupons from "../pages/admin/AdminCoupons";
-import Member from "../pages/member/Member"
+import Member from "../pages/member/Member";
+import ComfirmOrder from "../pages/order/ComfirmOrder"
 
 
 const routes = [
@@ -53,6 +54,10 @@ const routes = [
             {
                 path: 'cart',
                 element: <Cart />
+            },
+            {
+                path: 'cart/comfirmorder',
+                element: <ComfirmOrder />
             }
         ]
     },

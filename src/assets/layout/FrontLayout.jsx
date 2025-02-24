@@ -5,9 +5,9 @@ import Footer from "./Footer"
 function FrontLayout() {
     return (<>
         <Navbar />
-        <div className="container">
+        {/* <div className="container"> */}
             <Outlet />
-        </div>
+        {/* </div> */}
         <Footer />
     </>)
 }
