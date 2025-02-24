@@ -1,4 +1,8 @@
+import { Link } from "react-router";
+
 function Member() {
+    
+
     return (<>
         <div className="container member">
             <div className="row my-7">
@@ -6,9 +10,9 @@ function Member() {
                     <div className="card border-0">
                         <img src="src/assets/images/lisa.png" className="card-img mb-5 rounded-circle" alt="member-pic" />
                         <div className="card-body d-none d-lg-block">
-                            <a href="changepw.html" className="btn btn-L w-100 mb-4 fs-5 py-3 rounded-pill">修改密碼</a>
-                            <a href="#" className="btn btn-L w-100 mb-4 fs-5 py-3 rounded-pill">收件地址管理</a>
-                            <a href="#" className="btn btn-L w-100 fs-5 py-3 rounded-pill">優惠券查詢</a>
+                            <Link to="/changePassword" className="btn btn-L w-100 mb-4 fs-5 py-3 rounded-pill">修改密碼</Link>
+                            <Link  className="btn btn-L w-100 mb-4 fs-5 py-3 rounded-pill">收件地址管理</Link>
+                            <Link  className="btn btn-L w-100 fs-5 py-3 rounded-pill">優惠券查詢</Link>
                         </div>
                     </div>
                 </div>
@@ -23,12 +27,12 @@ function Member() {
                             <li className="fs-5">常用住址:<span className="ms-5">彰化縣彰化市民生路129巷1號2樓</span></li>
                         </ul>
                         <div className="d-lg-none mb-4">
-                            <a href="changepw.html" className="btn btn-L w-100 mb-4 fs-5 py-3 rounded-pill">修改密碼</a>
-                            <a href="#" className="btn btn-L w-100 mb-4 fs-5 py-3 rounded-pill">收件地址管理</a>
-                            <a href="#" className="btn btn-L w-100 fs-5 py-3 rounded-pill">優惠券查詢</a>
+                            <Link  className="btn btn-L w-100 mb-4 fs-5 py-3 rounded-pill">修改密碼</Link>
+                            <Link  className="btn btn-L w-100 mb-4 fs-5 py-3 rounded-pill">收件地址管理</Link>
+                            <Link  className="btn btn-L w-100 fs-5 py-3 rounded-pill">優惠券查詢</Link>
                         </div>
-                        <a href="#" className="mt-auto ms-auto fs-5 fs-lg-4 link-primary">登出<span
-                            className="material-symbols-outlined align-middle ms-2">logout</span></a>
+                        <Link to="/" className="mt-auto ms-auto fs-5 fs-lg-4 link-primary">登出<span
+                            className="material-symbols-outlined align-middle ms-2">logout</span></Link>
                     </div>
                 </div>
             </div>

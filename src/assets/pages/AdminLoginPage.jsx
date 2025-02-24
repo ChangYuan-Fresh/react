@@ -6,6 +6,7 @@ import axios from 'axios'
 import Input from "../component/Input";
 
 
+
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function AdminLoginPage (){
@@ -95,6 +96,7 @@ function AdminLoginPage (){
                         <Link className="card-link link-primary" to="/">回首頁</Link>                      
                     </div>  
                 </div>
+                
             </div>
 
             {isLoading && (
