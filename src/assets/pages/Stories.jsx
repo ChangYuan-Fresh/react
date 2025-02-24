@@ -10,7 +10,7 @@ function Stories() {
                 bannerImg={"/images/banner3.png"}
                 title="產品故事"
                 enTitle="Story"
-                slogan1="產地到餐桌"
+                slogan1="探索農田的秘密"
             />
             {/* <!--故事列表--> */}
             <section>

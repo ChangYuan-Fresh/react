@@ -1,7 +1,6 @@
 import Banner from "../layout/Banner";
 function About() {
     return (<>
-        <div className="banner">
             <Banner
                 bannerImg={"/images/banner2.png"}
                 title="關於我們"
@@ -9,6 +8,7 @@ function About() {
                 slogan1="在彰化"
                 slogan2="有一群充滿熱情的孩子"
             />
+        <div className="container">
             <div className="content-block bg-01">
                 <img src="/images/about1.png" />
                 <div className="text-content d-flex flex-column justify-content-between">

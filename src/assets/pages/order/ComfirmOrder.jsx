@@ -1,154 +1,469 @@
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form"
+import { Link } from "react-router";
+import axios from 'axios'
+import Input from "../../component/Input";
+import Select from "../../component/Select";
+import ReactLoading from 'react-loading';
+import cityData from './form/taiwan.json'
+
+
+const baseUrl = import.meta.env.VITE_BASE_URL;
+const apiPath = import.meta.env.VITE_API_PATH;
+
 function ComfirmOrder() {
+    const [cartList, setCartList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [addressData, setAddressData] = useState([]);
+
+    const {
+        register,
+        handleSubmit,
+        getValues,
+        reset,
+        formState: { errors },
+    } = useForm({
+        defaultValues: {
+            email: '',
+            name: '',
+            tel: '',
+            address: '',
+            message: ''
+        },
+        mode: 'onTouched'
+    }
+    )
+
+    const onSubmit = handleSubmit((data) => {
+        const { message, ...user } = data;
+        const userInfo = {
+            data: {
+                user,
+                message
+            }
+        }
+        placeOrder(userInfo);
+
+    })
+    //送出訂單
+    const placeOrder = async (data) => {
+        setIsLoading(true);
+        try {
+            await axios.post(`${baseUrl}/v2/api/${apiPath}/order`, data)
+            alert('結帳成功');
+            reset();
+            getCartList()
+        } catch (error) {
+            alert('結帳失敗' || error.data.message)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const getCartList = async () => {
+        try {
+            const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
+            setCartList(res.data.data);
+        } catch (error) {
+            alert(error.data)
+        }
+    }
+    useEffect(() => {
+        getCartList()
+    }, [])
+
+    // 取得地址資料
+    useEffect(() => {
+        setAddressData(cityData)
+    }, [])
+
     return (<>
-        <div className="container order mt-7">
-            <h1 className="card-title fs-2 text-center text-primary mb-9">訂單確認</h1>
-            {/* <!-- 時間軸 --> */}
-            <div className="position-relative m-8 m-md-9">
-                <div className="progress" style="height: 1px;">
-                    <div className="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                </div>
-                <button type="button"
-                    className="position-absolute top-0 start-0 translate-middle btn btn-primary rounded-pill text-white px-lg-5 py-lg-3 py-2 px-3 fs-lg-5 fs-7"><span
-                        className="material-symbols-outlined p-0 me-1 fs-lg-3 fs-5 align-bottom">
-                        counter_1</span>訂單確認</button>
-                <button type="button"
-                    className="position-absolute top-0 start-50 translate-middle btn btn-secondary rounded-pill px-lg-5 py-lg-3 py-2 px-3 fs-lg-5 fs-7 text-accent"
-                    disabled><span
-                        className="material-symbols-outlined p-0 me-1 fs-lg-3 fs-5 align-bottom">counter_2</span>訂單建立</button>
-                <button type="button"
-                    className="position-absolute top-0 start-100 translate-middle btn btn-secondary rounded-pill text-nowrap px-lg-5 py-lg-3 py-2 px-3 fs-lg-5 fs-7 text-accent"
-                    disabled><span className="material-symbols-outlined p-0 me-1 fs-lg-3 fs-5 align-bottom">
-                        counter_3
-                    </span>購物完成</button>
-            </div>
-            {/* <!-- 購買商品內容 --> */}
-            <main className="mt-7">
-                <div className="card mb-3 mt-lg-9 mt-7">
-                    <div className="row g-0">
-                        <div className="col-3 p-lg-5 p-0">
-                            <img src="src/assets/images/Cauliflower HQ (7).png" className="img-fluid rounded mb-4 mb-lg-0"
-                                alt="cauliflower"/>
-                        </div>
-                        <div className="col-9 p-lg-5 p-0">
-                            <ul className="list-unstyled d-lg-flex justify-content-between mb-0 h-100">
-                                <li className="d-lg-flex">
-                                    <div className="card-body d-flex flex-column justify-content-between mb-4 mb-lg-0">
-                                        <div className="d-flex justify-content-between">
-                                            <h4 className="card-title text-primary fs-6 fs-lg-4 mb-1 mb-lg-2">埔鹽鄉白花椰菜</h4>
-                                            <a href="#" className="d-lg-none"><span
-                                                className="material-symbols-outlined fs-5 text-primary">delete</span></a>
-                                        </div>
-                                        <p className="card-text fs-7 fs-lg-6">規格：1盒5顆</p>
-                                    </div>
-                                    <div className="d-flex">
-                                        <div className="card-body d-flex align-items-end">
-                                            <button className="btn btn-s me-lg-2 me-1"><span
-                                                className="material-symbols-outlined align-middle fs-6 fs-lg-5">remove</span></button>
-                                            <button className="btn fs-6 fs-lg-5 btn-num">1</button>
-                                            <button className="btn btn-s ms-lg-2 ms-1"><span
-                                                className="material-symbols-outlined align-middle fs-6 fs-lg-5">add</span></button>
-                                        </div>
-                                        <div className="card-body d-lg-none d-flex flex-column justify-content-end">
-                                            <h2 className="text-accent fs-6 en-font text-end">NT$599</h2>
-                                            <p
-                                                className="text-decoration-line-through text-gray fs-7 fw-normal en-font text-end">
-                                                原價:NT$999</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li className="d-lg-flex align-items-center d-none d-lg-block">
-                                    <div className="card-body me-5">
-                                        <h2 className="text-accent fs-5 fs-lg-4 en-font me-2">NT$599</h2>
-                                        <p
-                                            className="text-decoration-line-through text-gray fs-7 fs-lg-6 fw-normal en-font">
-                                            原價:NT$999</p>
-                                    </div>
-                                    <a href="#" className="me-3"><span
-                                        className="material-symbols-outlined fs-lg-3 text-primary">delete</span></a>
-                                </li>
-                            </ul>
+        <div className="container">
 
-                        </div>
-                    </div>
-                </div>
-                <div className="card mb-3 mt-lg-5 mt-4">
-                    <div className="row g-0">
-                        <div className="col-3 p-lg-5 p-0">
-                            <img src="src/assets/images/Oyster HD Image (1) 1.png" className="img-fluid rounded mb-4 mb-lg-0"
-                                alt="Oyster"/>
-                        </div>
-                        <div className="col-9 p-lg-5 p-0">
-                            <ul className="list-unstyled d-lg-flex justify-content-between mb-0 h-100">
-                                <li className="d-lg-flex">
-                                    <div className="card-body d-flex flex-column justify-content-between mb-4 mb-lg-0">
-                                        <div className="d-flex justify-content-between">
-                                            <h4 className="card-title text-primary fs-6 fs-lg-4 mb-1 mb-lg-2">伸港鄉生猛鮮蚵</h4>
-                                            <a href="#" className="d-lg-none"><span
-                                                className="material-symbols-outlined fs-5 text-primary">delete</span></a>
-                                        </div>
-                                        <p className="card-text fs-7 fs-lg-6">規格:1盒300克</p>
+            <div className="row g-5">
+                <div className="col-lg-9">
+                    {/* 進度條 */}
+                    <div className="bg-secondary-200 row mb-5 mx-0" style={{ height: "92px", borderRadius: "16px" }}>
+                        <div className="col-9 m-auto">
+                            <div className="m-4 d-block ">
+                                <div className="d-flex justify-content-between">
+                                    <div className="d-lg-flex align-items-center">
+                                        <button type="button" className="btn btn-sm btn-primary rounded-pill me-1 text-secondary" style={{ width: "2rem", height: "2rem" }}>1</button>
+                                        <p className="text-primary">購物車內容</p>
                                     </div>
-                                    <div className="d-flex">
-                                        <div className="card-body d-flex align-items-end">
-                                            <button className="btn btn-s me-lg-2 me-1"><span
-                                                className="material-symbols-outlined align-middle fs-6 fs-lg-5">remove</span></button>
-                                            <button className="btn fs-6 fs-lg-5 btn-num">2</button>
-                                            <button className="btn btn-s ms-lg-2 ms-1"><span
-                                                className="material-symbols-outlined align-middle fs-6 fs-lg-5">add</span></button>
-                                        </div>
-                                        <div className="card-body d-lg-none d-flex flex-column justify-content-end">
-                                            <h2 className="text-accent fs-6 en-font text-end">NT$400</h2>
-                                            <p
-                                                className="text-decoration-line-through text-gray fs-7 fw-normal en-font text-end d-none">
-                                                原價:NT$999</p>
-                                        </div>
+                                    <div className="bg-primary m-auto" style={{ height: "1px", width: "15%" }} />
+                                    <div className="d-lg-flex align-items-center">
+                                        <button type="button" className="btn btn-sm btn-secondary rounded-pill me-1 text-secondary text-gray" style={{ width: "2rem", height: "2rem" }}>2</button>
+                                        <p className="text-gray">付款運送方式</p>
                                     </div>
-                                </li>
-                                <li className="d-lg-flex align-items-center d-none d-lg-block">
-                                    <div className="card-body me-5">
-                                        <h2 className="text-accent fs-5 fs-lg-4 en-font me-2">NT$400</h2>
+                                    <div className="bg-primary m-auto" style={{ height: "1px", width: "15%" }} />
+                                    <div className="d-lg-flex align-items-center">
+                                        <button type="button" className="btn btn-sm btn-secondary rounded-pill me-1 text-secondary text-gray" style={{ width: "2rem", height: "2rem" }}>3</button>
+                                        <p className="text-gray">購物完成</p>
                                     </div>
-                                    <a href="#" className="me-3"><span
-                                        className="material-symbols-outlined fs-lg-3 text-primary">delete</span></a>
-                                </li>
-                            </ul>
+                                </div>
 
-                        </div>
-                    </div>
-                </div>
-            </main>
-            {/* <!-- 總結 --> */}
-            <div className="card mb-3 mt-lg-5 mt-0 py-4 bg-secondary border-0 rounded-3">
-                <div className="row g-0">
-                    <div className="col-lg-6">
-                    </div>
-                    <div className="col-lg-6 p-lg-5 p-0">
-                        <div className="d-flex flex-column mb-0 h-100">
-                            <div className="d-flex justify-content-end mb-4 mb-lg-6 justify-content-lg-around">
-                                <div className="d-flex me-4 align-items-center">
-                                    <p className="text-primary fs-7 fs-lg-5">商品數量：</p>
-                                    <button className="btn btn-white fs-6 fs-lg-5 py-2 px-4">3</button>
-                                </div>
-                                <div className="d-flex me-2 me-lg-7 align-items-center">
-                                    <p className="text-primary fs-7 fs-lg-5">商品總金額：</p>
-                                    <button
-                                        className="btn btn-white fs-6 fs-lg-4 text-accent en-font text-end fw-bold py-2 px-lg-4">NT$999</button>
-                                </div>
-                            </div>
-                            <div className="d-flex justify-content-end align-items-end">
-                                <p className="fs-7 me-2 me-lg-5 fs-lg-6 me-lg-5">滿1000享免運優惠</p>
-                                <a href="order-confirmInfo.html" className="btn btn-L py-2 px-6 fs-6 me-2 me-lg-5 py-lg-3 px-lg-7 fs-lg-4">下一步</a>
                             </div>
                         </div>
+                    </div>
+                    {/* 商品總覽 */}
+                    <div className="card bg-white mb-3 p-5 border-primary mb-5" style={{ borderRadius: "16px" }}>
+                        <div className="card-title text-primary fs-4 mb-6">商品明細</div>
+                        <div>
+                            <table className="table">
+                                <thead>
+                                    <tr >
+                                        <th scope="col" className="text-muted fs-7" width="25%">商品</th>
+                                        <th scope="col" className="text-muted fs-7 text-center" width="30%">規格</th>
+                                        <th scope="col" className="text-muted fs-7 text-center" width="15%">單價</th>
+                                        <th scope="col" className="text-muted fs-7 text-center" width="15%">數量</th>
+                                        <th scope="col" className="text-muted fs-7 text-center" width="15%">小計</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {cartList.carts?.map((item) => {
+                                        return (
+                                            <tr key={item.id} className="py-3">
+                                                <th>{item.product.title}</th>
+                                                <td className="text-center">{item.product.description}</td>
+                                                <td className="text-center">${item.product.price}</td>
+                                                <td className="text-center">{item.qty}</td>
+                                                <td className="text-center">${item.total}</td>
+                                            </tr>)
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
+                    {/* 訂購人資訊 */}
+                    <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
+                        <div className="card-title text-primary fs-4 mb-6">訂購人資訊</div>
+                        <form className="row my-5" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="col-6">
+                                <Input
+                                    register={register}
+                                    errors={errors}
+                                    id='name'
+                                    labelText='訂購人'
+                                    type='text'
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: '訂購人為必填'
+                                        },
+                                        minLength: {
+                                            value: 2,
+                                            message: '訂購人姓名至少兩個字'
+                                        }
+                                    }}
+                                />
+                            </div>
+                            <div className="col-6">
+                                <Input
+                                    register={register}
+                                    errors={errors}
+                                    id='tel'
+                                    labelText='收件人電話'
+                                    type='tel'
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: '收件人電話為必填'
+                                        },
+                                        minLength: {
+                                            value: 8,
+                                            message: '收件人電話至少8碼'
+                                        },
+                                        maxLength: {
+                                            value: 12,
+                                            message: '收件人電話不超過12碼'
+                                        },
+                                        pattern: {
+                                            value: /^(0[2-8]\d{7}|09\d{8})$/,
+                                            message: '格式不正確'
+                                        }
+                                    }}
+                                />
+                            </div>
+                            <div className="col-12">
+                                <Input
+                                    register={register}
+                                    errors={errors}
+                                    id='email'
+                                    labelText='Email'
+                                    type='email'
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: 'Email為必填'
+                                        },
+                                        pattern: {
+                                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                                            message: '格式不正確'
+                                        }
+                                    }}
+                                />
+                            </div>
+                            <div className="col-6">
+                                <Select id='city'
+                                    labelText='縣市'
+                                    errors={errors}
+                                    register={register}
+                                    rules={{
+                                        required: '縣市為必填'
+                                    }}>
+                                    <option value="">請選擇縣市</option>
+                                    {addressData.map((city) => {
+                                        return <option value={city.CityName} key={city.CityEngName}>{city.CityName}</option>
+                                    })}
+                                </Select>
+                            </div>
+                            <div className="col-6">
+                                <Select id='district'
+                                    labelText='鄉鎮市區'
+                                    errors={errors}
+                                    register={register}
+                                    disabled={!getValues().city}
+                                    rules={{
+                                        required: '鄉鎮市區為必填'
+                                    }}>
+                                    <option value="">請選擇鄉鎮市區</option>
+                                    {
+                                        addressData.find((city) => city.CityName === getValues().city)
+                                            ?.AreaList?.map((area) => {
+                                                return <option value={area} key={area.AreaName}>{area.AreaName}</option>
+                                            })
+                                    }
+                                </Select>
+                            </div>
+                            <div className="col-12">
+                                <Input
+                                    id='address'
+                                    labelText='地址'
+                                    type='address'
+                                    errors={errors}
+                                    register={register}
+                                    rules={{
+                                        required: '地址為必填',
+                                    }}
+                                ></Input>
+                            </div>
+                        </form>
+                    </div>
+
+                    {/* 寄送方式 */}
+                    <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
+                        <div className="card-title text-primary fs-4 mb-6">寄送方式</div>
+                        <div className="d-flex text-accent bg-secondary-200 p-4 rounded rounded-3">
+                            <span className="material-symbols-outlined">info</span>
+                            <p>因含生鮮冷藏食品，僅提供宅配服務</p>
+                        </div>
+                        <div className="mt-5">
+                            <div className="form-check">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                                <label className="form-check-label fs-5" for="flexRadioDefault1">
+                                    冷凍宅配
+                                    <span className="en-font me-3">NT$160</span>
+                                    <span className="text-accent fs-7">滿 NT$1,000 免運</span>
+                                </label>
+                            </div>
+                            <div className="form-check mt-5">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" disabled />
+                                <label className="form-check-label fs-5" for="flexRadioDefault2">
+                                    全家取貨
+                                    <span className="en-font me-3">NT$65</span>
+                                    <span className="text-accent fs-7">滿 NT$499 免運</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {/* 付款方式 */}
+                    <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
+                        <div className="card-title text-primary fs-4 mb-6">付款方式</div>
+                        <div className="mt-5">
+                            <div className="form-check">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                                <label className="form-check-label fs-5" for="flexRadioDefault1">
+                                    信用卡付款
+                                </label>
+                            </div>
+                            <div className="row ms-7 px-0 mt-4">
+                                <div className="col-12">
+                                    <Input
+                                        register={register}
+                                        errors={errors}
+                                        id='cardnumber'
+                                        labelText='卡號'
+                                        type='number'
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: '卡號為必填'
+                                            },
+                                            pattern: {
+                                                value: /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9]{2})[0-9]{12}|3[47][0-9]{13}|35[2-8][0-9]{12}|6(?:22[2-9]|4[0-9]{2}|[1-9]{2})[0-9]{12})$/,
+                                                message: '格式不正確'
+                                            }
+                                        }}
+                                    />
+                                </div>
+                                <div className="col-6">
+                                    <Input
+                                        register={register}
+                                        errors={errors}
+                                        id='expiryDate'
+                                        labelText='有效日期'
+                                        type='text'
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: '有效日期為必填'
+                                            },
+                                            pattern: {
+                                                value: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
+                                                message: '格式不正確'
+                                            }
+                                        }}
+                                    />
+                                </div>
+                                <div className="col-6">
+                                    <Input
+                                        register={register}
+                                        errors={errors}
+                                        id='CVC'
+                                        labelText='安全碼'
+                                        type='number'
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: '安全碼為必填'
+                                            },
+                                            maxLength: {
+                                                value: 3,
+                                                message: '安全碼不超過3碼'
+                                            },
+                                        }}
+                                    />
+                                </div>
+                                <div className="form-check col mt-2">
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                    <label className="form-check-label" for="flexCheckDefault">
+                                        記住我的信用卡資訊
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div className="form-check mt-5">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                                <label className="form-check-label fs-5 en-font" for="flexRadioDefault2">
+                                    <img src="/images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
+                                    Line Pay
+                                </label>
+                            </div>
+                            <div className="form-check mt-5">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                                <label className="form-check-label fs-5 en-font" for="flexRadioDefault2">
+                                    <img src="/images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
+                                    Apple Pay
+                                </label>
+                            </div>
+                            <div className="form-check mt-5">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                                <label className="form-check-label fs-5 en-font" for="flexRadioDefault2">
+                                    <img src="/images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
+                                    Google Pay
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {/* 訂單備註 */}
+                    <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
+                        <div className="card-title text-primary fs-4 mb-6">訂單備註</div>
+                        <div className="mb-3">
+                            <textarea
+                                {...register('message')}
+                                className="form-control"
+                                id="message"
+                                rows="3"
+                            ></textarea>
+                        </div>
+                    </div>
+                    {isLoading && (<div
+                        className="d-flex justify-content-center align-items-center"
+                        style={{
+                            position: "fixed",
+                            inset: 0,
+                            backgroundColor: "rgba(255,255,255,0.3)",
+                            zIndex: 999,
+                        }}
+                    >
+                        <ReactLoading type="balls" color="pink" width="4rem" height="4rem" />
+                    </div>)}
+                </div>
+                <div className="col-lg-3">
+                    {cartList.total >= 1000 ? (
+                        <div className="bg-secondary-200 rounded rounded-3">
+                            <div className="d-flex py-4 ms-5 text-primary">
+                                <span className="material-symbols-outlined me-2">check_circle</span>
+                                <p>已達免運門檻</p>
+                            </div>
+                        </div>)
+                        : (
+                            <div className="bg-accent rounded rounded-3">
+                                <div className="d-flex py-4 ms-5 text-white">
+                                    <span className="material-symbols-outlined me-2">package_2</span>
+                                    <p>還差$ {1000 - cartList.total}元免運</p>
+                                </div>
+                            </div>)}
+                    <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">
+                        <div className="card-body p-5">
+                            <h5 className="card-title mb-6">結帳明細</h5>
+                            <div className="card-text mb-4">
+                                <div>
+                                    <div className="d-flex justify-content-between">
+                                        <p className="mb-2">商品總額</p>
+                                        <p>{`NT$${cartList.total}`}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="d-flex justify-content-between text-accent">
+                                        <p>商品折扣</p>
+                                        <p>NT$0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-text border-top mb-4 pt-4">
+                                <div>
+                                    <div className="d-flex justify-content-between">
+                                        <p className="mb-2">小計</p>
+                                        <p>{`NT$${cartList.total}`}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="d-flex justify-content-between text-accent">
+                                        <p>運費</p>
+                                        <p>NT$0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
+                                <p>總額</p>
+                                <p className="float-end text-accent ">{`NT$${cartList.total}`}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-6">
+                        <Link className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold" to="cart">上一步</Link>
+                        <button type="submit" className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold mt-3">確認付款</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve"/>
-        </>)
+        <div>
+            <img src="/images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />
+        </div>
+    </>)
 }
 
-        export default ComfirmOrder;
+export default ComfirmOrder;

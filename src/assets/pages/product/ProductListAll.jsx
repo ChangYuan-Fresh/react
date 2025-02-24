@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 import PaginationCompo from '../../component/PaginationCompo';
-
+import IsScreenLoading from '../../component/IsScreenLoading'
 
 function ProductListAll() {
     const [products, setProducts] = useState([]);
@@ -66,7 +66,7 @@ function ProductListAll() {
             "has_next": false,
             "category": ""
         }} />
-        <isScreenLoading isScreenLoading={isScreenLoading} />
+        <IsScreenLoading isScreenLoading={isScreenLoading} />
     </section>
 
 

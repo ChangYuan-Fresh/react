@@ -21,6 +21,7 @@ import AdminCoupons from "../pages/admin/AdminCoupons";
 import Member from "../pages/member/Member"
 import ChangePassword from "../pages/member/ChangePassword";
 import ResetPassword from "../pages/member/ResetPassword";
+import ComfirmOrder from "../pages/order/ComfirmOrder"
 
 
 const routes = [
@@ -55,6 +56,10 @@ const routes = [
             {
                 path: 'cart',
                 element: <Cart />
+            },
+            {
+                path: 'cart/comfirmorder',
+                element: <ComfirmOrder />
             }
         ]
     },
