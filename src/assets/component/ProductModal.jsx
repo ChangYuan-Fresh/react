@@ -24,14 +24,14 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
 
             dispatch(creatAsyncMessage({
                 text: res.data.message,
-                type: '成功',
+                type: '新增產品成功',
                 status: "success"
             }));
         } catch (error) {
             const { message } = error.response.data;
             dispatch(creatAsyncMessage({
                 text: message.join("、"),
-                type: '失敗',
+                type: '新增產品失敗',
                 status: "failed"
             }));
         } 
@@ -49,14 +49,14 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
             });
             dispatch(creatAsyncMessage({
                 text: res.data.message,
-                type: '成功',
+                type: '更新產品成功',
                 status: "success"
             }))
         } catch (error) {
             const { message } = error.response.data;
             dispatch(creatAsyncMessage({
                 text: message.join("、"),
-                type: '失敗',
+                type: '更新產品失敗',
                 status: "failed"
             }))
         }
