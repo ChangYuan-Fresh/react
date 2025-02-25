@@ -7,7 +7,6 @@ import Select from "../../component/Select";
 import ReactLoading from 'react-loading';
 import cityData from './form/taiwan.json'
 
-
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
@@ -15,6 +14,8 @@ function ComfirmOrder() {
     const [cartList, setCartList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [addressData, setAddressData] = useState([]);
+    const [useCreditCard, setUseCreditCard] = useState(false)
+    const [useOtherPay, setUseOtherPay] = useState(false)
 
     const {
         register,
@@ -77,6 +78,20 @@ function ComfirmOrder() {
         setAddressData(cityData)
     }, [])
 
+    const handleUseCreditCard = (e) => {
+        setUseCreditCard(e.target.checked)
+        if(e.target.checked){
+            setUseOtherPay(false)
+        }
+    }
+
+    const handleOtherPay = (e) =>{
+        setUseOtherPay(e.target.checked)
+        if(e.target.checked){
+            setUseCreditCard(false)
+        }   
+    }
+
     return (<>
         <div className="container mb-7">
             <div className="row g-5">
@@ -87,8 +102,8 @@ function ComfirmOrder() {
                             <div className="m-0 m-lg-4 d-block ">
                                 <div className="d-flex justify-content-between">
                                     <div className="d-flex flex-column flex-lg-row align-items-center">
-                                        <button type="button" className="btn btn-sm btn-secondary rounded-pill me-1 text-secondary text-gray" style={{ width: "2rem", height: "2rem" }}>1</button>
-                                        <p className="text-gray fs-lg-6 fs-7 text-nowrap">購物車內容</p>
+                                        <button type="button" className="btn btn-sm btn-primary rounded-pill me-1 text-secondary" style={{ width: "2rem", height: "2rem" }}>1</button>
+                                        <p className="text-primary fs-lg-6 fs-7 text-nowrap">購物車內容</p>
                                     </div>
                                     <div className="bg-primary m-auto" style={{ height: "1px", width: "15%" }} />
                                     <div className="d-flex flex-column flex-lg-row align-items-center">
@@ -97,7 +112,7 @@ function ComfirmOrder() {
                                     </div>
                                     <div className="bg-primary m-auto" style={{ height: "1px", width: "15%" }} />
                                     <div className="d-flex flex-column flex-lg-row align-items-center">
-                                        <button type="button" className="btn btn-sm btn-secondary rounded-pill me-1 text-secondary text-gray" style={{ width: "2rem", height: "2rem" }}>3</button>
+                                        <button type="button" className="btn btn-sm btn-secondary rounded-pill me-1 text-gray" style={{ width: "2rem", height: "2rem" }}>3</button>
                                         <p className="text-gray fs-lg-6 fs-7 text-nowrap">購物完成</p>
                                     </div>
                                 </div>
@@ -124,9 +139,9 @@ function ComfirmOrder() {
                                             <tr key={item.id} className="py-3">
                                                 <th>{item.product.title}</th>
                                                 <td className="text-center">{item.product.description}</td>
-                                                <td className="text-center">${item.product.price}</td>
+                                                <td className="text-center">${item.product.price?.toLocaleString()}</td>
                                                 <td className="text-center">{item.qty}</td>
-                                                <td className="text-center">${item.total}</td>
+                                                <td className="text-center">${item.total?.toLocaleString()}</td>
                                             </tr>)
                                     })}
                                 </tbody>
@@ -260,7 +275,7 @@ function ComfirmOrder() {
                         <div className="mt-5">
                             <div className="form-check">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                                <label className="form-check-label fs-lg-5 fs-6" for="flexRadioDefault1">
+                                <label className="form-check-label fs-lg-5 fs-6" htmlFor="flexRadioDefault1">
                                     冷凍宅配
                                     <span className="en-font me-3">NT$160</span>
                                     <span className="text-accent fs-7">滿 NT$1,000 免運</span>
@@ -268,7 +283,7 @@ function ComfirmOrder() {
                             </div>
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" disabled />
-                                <label className="form-check-label fs-lg-5 fs-6" for="flexRadioDefault2">
+                                <label className="form-check-label fs-lg-5 fs-6" htmlFor="flexRadioDefault2">
                                     全家取貨
                                     <span className="en-font me-3">NT$65</span>
                                     <span className="text-accent fs-7">滿 NT$499 免運</span>
@@ -281,12 +296,12 @@ function ComfirmOrder() {
                         <div className="card-title text-primary fs-4 mb-6">付款方式</div>
                         <div className="mt-5">
                             <div className="form-check">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                                <label className="form-check-label fs-lg-5 fs-6" for="flexRadioDefault1">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onClick={handleUseCreditCard}/>
+                                <label className="form-check-label fs-lg-5 fs-6" htmlFor="flexRadioDefault1" >
                                     信用卡付款
                                 </label>
                             </div>
-                            <div className="row ms-7 px-0 mt-4">
+                            {useCreditCard && (<div className="row ms-7 px-0 mt-4">
                                 <div className="col-12">
                                     <Input
                                         register={register}
@@ -346,29 +361,30 @@ function ComfirmOrder() {
                                 </div>
                                 <div className="form-check col mt-2">
                                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                    <label className="form-check-label" for="flexCheckDefault">
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
                                         記住我的信用卡資訊
                                     </label>
                                 </div>
-                            </div>
+                            </div>)}
+
 
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-                                <label className="form-check-label fs-lg-5 fs-6 en-font" for="flexRadioDefault2">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={handleOtherPay}/>
+                                <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
                                     <img src="/images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
                                     Line Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-                                <label className="form-check-label fs-lg-5 fs-6 en-font" for="flexRadioDefault2">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={handleOtherPay}/>
+                                <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
                                     <img src="/images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
                                     Apple Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-                                <label className="form-check-label fs-lg-5 fs-6 en-font" for="flexRadioDefault2">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={handleOtherPay}/>
+                                <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
                                     <img src="/images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
                                     Google Pay
                                 </label>
@@ -421,7 +437,7 @@ function ComfirmOrder() {
                                 <div>
                                     <div className="d-flex justify-content-between">
                                         <p className="mb-2">商品總額</p>
-                                        <p>{`NT$${cartList.total}`}</p>
+                                        <p>{`NT$${cartList.total?.toLocaleString()}`}</p>
                                     </div>
                                 </div>
                                 <div>
@@ -435,7 +451,7 @@ function ComfirmOrder() {
                                 <div>
                                     <div className="d-flex justify-content-between">
                                         <p className="mb-2">小計</p>
-                                        <p>{`NT$${cartList.total}`}</p>
+                                        <p>{`NT$${cartList.total?.toLocaleString()}`}</p>
                                     </div>
                                 </div>
                                 <div>
@@ -447,13 +463,13 @@ function ComfirmOrder() {
                             </div>
                             <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
                                 <p>總額</p>
-                                <p className="float-end text-accent ">{`NT$${cartList.total}`}</p>
+                                <p className="float-end text-accent ">{`NT$${cartList.total?.toLocaleString()}`}</p>
                             </div>
                         </div>
                     </div>
                     <div className="mt-6">
-                        <Link className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold" to="cart">上一步</Link>
-                        <button type="submit" className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold mt-3">確認付款</button>
+                        <Link className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold" to="/cart">上一步</Link>
+                        <button type="submit" className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold mt-3" to="placeordersuccess">確認付款</button>
                     </div>
                 </div>
             </div>

@@ -1,9 +1,12 @@
 import { NavLink } from "react-router";
 import logoS from '../images/LOGO-S.png';
 import logoL from '../images/LOGO-L.png';
+import { useSelector } from "react-redux";
 
 
 function Navbar() {
+    const cartNum = useSelector(state => state.cart.carts);
+
     return (<>
         <header className="navbar navbar-expand-lg p-0 bg-white">
             <div className="container-fluid py-4 px-3">
@@ -18,7 +21,7 @@ function Navbar() {
                 </NavLink>
                 <NavLink className="fs-2 text-primary ms-auto me-3 d-lg-none position-relative" to='cart'>
                     <span className="material-symbols-outlined">shopping_cart</span>
-                    <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle fz-6 p-0" style={{ width: "24px", height: "24px" }}>1</span>
+                    <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle fz-6 p-0" style={{ width: "24px", height: "24px" }}>{cartNum?.length}</span>
                 </NavLink>
                 <button
                     className="navbar-toggler border-0 p-0"
@@ -52,7 +55,7 @@ function Navbar() {
                         <NavLink className="btn btn-s d-none d-lg-inline-block p-0 border-0 mx-6" to='cart'>
                             <button type='button' className="btn position-relative p-0">
                                 <span className="material-symbols-outlined p-4 fs-2">shopping_cart</span>
-                                <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle">1</span>
+                                <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle fs-6">{cartNum?.length}</span>
                             </button>
                         </NavLink>
                         <NavLink className="btn btn-s d-none d-lg-inline-block p-0 border-0" to='login'>

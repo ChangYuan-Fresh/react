@@ -21,18 +21,18 @@ function Products() {
              <!--手機版選單列表--> */}
             <ProductMobileNav/>
             {/* <!-- 電腦版 --> */}
-            <section className="bg-Tertiary container allProduct-container">
+            {/* <section className="bg-Tertiary container allProduct-container">
                 <div className="row d-flex flex-lg-row flex-column-reverse justify-content-between">
                     <div className="col-xl-2 col-lg-3 allProduct-side overflow-auto d-lg-block d-none">
                         {/* <!-- 手風琴版選單列表 --> */}
-                        <ProductPCNav/>
+                        {/* <ProductPCNav/> */}
                         {/* <!-- 左側瀏覽紀錄 --> */}
-                        <ProductBrowsingHistory />
-                    </div>
+                        {/* <ProductBrowsingHistory /> */}
+                    {/* </div> */}
                     {/* <!-- 商品列表 --> */}
                     <ProductListAll />
-                </div>
-            </section>
+                {/* </div>
+            </section> */} 
             <div className="allProduct-bottom-history">
                 <section className="mt-5 p-lg-5 pb-lg-0 pt-5 px-4 pb-0 d-lg-none allProduct-bottom-history-width">
                     <h6 className="fs-5 mb-4">你曾瀏覽過：</h6>

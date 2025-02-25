@@ -21,9 +21,9 @@ function ProductDetail() {
     const [textExtend, setTextExtend] = useState(false);
     const { id: product_id } = useParams();
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    const nevigate = useNavigate();
+    const navigate = useNavigate();
 
-    const nevigateCart = async (product_id, qtySelect) => {
+    const navigateCart = async (product_id, qtySelect) => {
         try {
             await axios.post(`${baseUrl}/v2/api/${apiPath}/cart`, {
                 data: {
@@ -31,7 +31,7 @@ function ProductDetail() {
                     qty: Number(qtySelect)
                 }
             });
-            nevigate("/cart")
+            navigate("/cart")
         } catch (error) {
             alert(error.data.message)
         }
@@ -183,7 +183,7 @@ function ProductDetail() {
                                     <button
                                         type="button"
                                         className="btn btn-L btn-primary w-100 fs-5 py-3"
-                                        onClick={() => nevigateCart(product_id, qtySelect)}>
+                                        onClick={() => navigateCart(product_id, qtySelect)}>
                                         <div className="text-white">立即購買</div>
                                     </button>
                                 </div>
