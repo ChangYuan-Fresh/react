@@ -8,19 +8,20 @@ body {
 
 //banner
 
-.banner-img {
-    height: 75vh; //讓手機版維持高度
-    object-fit: cover; //讓背景圖底下圓角被裝飾確實遮擋
-
-    @media(min-width: 992px) {
-        border-radius: 80px;
+.banner-text{
+    top: 30%;
+    left: 50%;
+    @media(min-width: 992px){
+        top: 40%;
+        left: 25%;
     }
+
 }
 
 .deco-curve {
     position: absolute;
     left: 0;
-    bottom: -2px;
+    bottom: -5px;
     z-index: 1;
     width: 100%;
     height: 228px; //裝飾維持高度

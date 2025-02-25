@@ -6,32 +6,39 @@ import 'swiper/css/pagination';
 import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
 import animationData from "../../assets/lottie-hand.json";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 
 
 function Home() {
-
+     useEffect(() => {
+    AOS.init();
+  }, []);
 
     return (
         <div>
             <main>
                 {/* <!--banner--> */}
-                <section>
-                    {/* <!--手機版--> */}
-                    <img src="src/assets/images/banner.png" alt="banner" className="banner-img position-relative w-100  d-lg-none" />
-                    <div className='container'>
-                        <img src="src/assets/images/banner.png" alt="banner" className="banner-img position-relative w-100 d-none d-lg-block" />
-                    </div>
-                    <div className="container position-absolute top-50 start-50 translate-middle text-center d-lg-none z-2">
-                        <div>
-                            <h4 className="bg-primary text-white px-4 py-3 mb-4 d-inline-block text-nowrap ">來自彰化的新鮮美味</h4>
+                <section className="mt-6 position-relative">
+                    <div className="allProduct-banner-mx">
+                        <img src="src/assets/images/banner.png" alt="" className="d-block w-100 allProduct-banner-img" />
+                        <div className="position-absolute banner-text translate-middle ">
+                            <h3 className="d-lg-inline-block d-sm-flex  justify-content-sm-center bg-primary text-white text-nowrap py-lg-3 mb-lg-4 mb-2 px-lg-4 p-2 ">
+                                 來自彰化的新鮮美味
+                            </h3>                       
+                            <br />
+                            <h4 className="d-inline-block bg-white py-lg-2 px-lg-4 p-2 mb-lg-4 mb-2 fs-lg-4 fs-5 d-none d-lg-block">
+                                 在地農夫精心栽培，每一口都是健康的保證
+                            </h4>
                             <form role="search" className="position-relative d-flex" >
                                 <div className="dropdown position-absolute top-50 start-0 translate-middle-y z-2">
                                     <button className="btn btn-white btn-sm fw-semibold fs-lg-6 fs-7 border-end border-1 rounded-0 text-nowrap ms-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         全部商品 <span className="material-symbols-outlined text-primary align-bottom">keyboard_arrow_down</span>
                                     </button>
                                     <ul className="dropdown-menu py-0">
-                                        <li><a className="dropdown-item border-bottom fw-semsibold" href="#">熱門商品</a></li>
+                                        <li><a className="dropdown-item border-bottom fw-bold " href="#">熱門商品</a></li>
                                         <li><a className="dropdown-item fw-semibold" href="#">蔬菜水果</a></li>
                                         <li><a className="dropdown-item fw-semibold" href="#">生鮮肉品</a></li>
                                         <li><a className="dropdown-item fw-semibold" href="#">水產海鮮</a></li>
@@ -39,36 +46,12 @@ function Home() {
                                     </ul>
                                 </div>
                                 <input className="form-control form-control-lg fs-7 ps-11 " type="search" placeholder="立即選購！新鮮抵家啦～" aria-label="Search" />
-                                <a href="#"><span className="material-symbols-outlined text-primary fs-2 position-absolute top-50 end-0 translate-middle-y  me-2">search</span ></a>
+                                <Link><span className="material-symbols-outlined text-primary fs-2 position-absolute top-50 end-0 translate-middle-y  me-2">search</span ></Link>
                             </form>
                         </div>
+                        <img src="/images/Illustration/Top-Curve.png" alt="" className="d-block position-absolute  deco-curve" />
                     </div>
-                    {/* <!--電腦版--> */}
-                    <div className="container px-lg-6 d-none d-lg-block">
-
-                        <div className="position-absolute top-50 translate-middle-y z-2">
-                            <h4 className="bg-primary text-white px-4 py-3 mb-4 d-inline-block fs-lg-4 fs-xl-1 text-nowrap ">來自彰化的新鮮美味</h4>
-                            <h4 className="bg-white px-4 py-3 mb-7 text-nowrap fs-lg-6 fs-xl-4 " >在地農夫精心栽培，每一口都是健康的保證</h4>
-                            <form role="search" className="position-relative d-flex" >
-                                <div className="dropdown position-absolute top-50 start-0 translate-middle-y z-2">
-                                    <button className="btn btn-white btn-sm fw-semibold fs-lg-6 fs-7 border-end border-1 rounded-0 text-nowrap ms-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        全部商品 <span className="material-symbols-outlined text-primary align-bottom">keyboard_arrow_down</span>
-                                    </button>
-                                    <ul className="dropdown-menu py-0">
-                                        <li><a className="dropdown-item border-bottom fw-semibold" href="#">熱門商品</a></li>
-                                        <li><a className="dropdown-item fw-semibold" href="#">蔬菜水果</a></li>
-                                        <li><a className="dropdown-item fw-semibold" href="#">生鮮肉品</a></li>
-                                        <li><a className="dropdown-item fw-semibold" href="#">水產海鮮</a></li>
-                                        <li><a className="dropdown-item fw-semibold" href="#">蛋與乳品</a></li>
-                                    </ul>
-                                </div>
-                                <input className="form-control form-control-lg fs-lg-6 fs-7 ps-11 " type="search" placeholder="立即選購！新鮮抵家啦～" aria-label="Search" />
-                                <a href="#"><span className="material-symbols-outlined text-primary fs-2 position-absolute top-50 end-0 translate-middle-y  me-2">search</span ></a>
-                            </form>
-                        </div>
-                    </div>
-                    <img src="src/assets/images/Illustration/Top-Curve.png" alt="Top-Curve" className="deco-curve" />
-                </section>
+                </section>               
                 {/* <!--3個理由--> */}
                 <section className="reason reason-bg">
                     <div className="container d-flex flex-column align-items-center py-lg-11 py-6" >
