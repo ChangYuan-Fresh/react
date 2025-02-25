@@ -4,6 +4,7 @@ import axios from 'axios'
 import PaginationCompo from '../../component/PaginationCompo';
 import ProductModal from '../../component/ProductModal';
 import DeleteModal from '../../component/DeleteModal';
+import Toast from "../../layout/Toast";
 
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -107,11 +108,13 @@ function AdminProductPage() {
                         </table>
                     </div>
                     <PaginationCompo pageInfo={pageInfo} btnChangePage={btnChangePage} />
-                </div>
+                </div>               
             </div>
             <ProductModal modalMode={modalMode} setTempProduct={setTempProduct} tempProduct={tempProduct} getProductList={getProductList} modelRef={modelRef} />
 
             <DeleteModal tempProduct={tempProduct} getProductList={getProductList} delModelRef={delModelRef} />
+
+            <Toast />
         </>
     )
 }

@@ -5,7 +5,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
-import animationData from "../../assets/lottie-hand.json"; 
+import animationData from "../../assets/lottie-hand.json";
 
 
 
@@ -17,8 +17,11 @@ function Home() {
             <main>
                 {/* <!--banner--> */}
                 <section>
-                    <img src="src/assets/images/banner.png" alt="banner" className="banner-img position-relative w-100" />
                     {/* <!--手機版--> */}
+                    <img src="src/assets/images/banner.png" alt="banner" className="banner-img position-relative w-100  d-lg-none" />
+                    <div className='container'>
+                        <img src="src/assets/images/banner.png" alt="banner" className="banner-img position-relative w-100 d-none d-lg-block" />
+                    </div>
                     <div className="container position-absolute top-50 start-50 translate-middle text-center d-lg-none z-2">
                         <div>
                             <h4 className="bg-primary text-white px-4 py-3 mb-4 d-inline-block text-nowrap ">來自彰化的新鮮美味</h4>
@@ -42,6 +45,7 @@ function Home() {
                     </div>
                     {/* <!--電腦版--> */}
                     <div className="container px-lg-6 d-none d-lg-block">
+
                         <div className="position-absolute top-50 translate-middle-y z-2">
                             <h4 className="bg-primary text-white px-4 py-3 mb-4 d-inline-block fs-lg-4 fs-xl-1 text-nowrap ">來自彰化的新鮮美味</h4>
                             <h4 className="bg-white px-4 py-3 mb-7 text-nowrap fs-lg-6 fs-xl-4 " >在地農夫精心栽培，每一口都是健康的保證</h4>
@@ -930,7 +934,7 @@ function Home() {
                             <Link to="Product"><button className="btn btn-primary promotion-btn border-0 fw-bold fs-lg-4 fs-5 text-white">
                                 立即購買
                             </button></Link>
-                            <Lottie className='lottie-hand' animationData={animationData} loop={true}  />
+                            <Lottie className='lottie-hand' animationData={animationData} loop={true} />
                         </div>
                     </div>
                     <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
