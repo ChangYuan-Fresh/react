@@ -6,12 +6,16 @@ import 'swiper/css/pagination';
 import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
 import animationData from "../../assets/lottie-hand.json";
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 
 
 function Home() {
-
+     useEffect(() => {
+    AOS.init();
+  }, []);
 
     return (
         <div>

@@ -70,45 +70,50 @@ function AdminProductPage() {
     }, [])
     return (
         <>
-            <div className="container mt-5 bg-white rounded-3" >
+            <div className="container  rounded-3 py-5" >
                 <div className="row">
                     <div className="col-12">
-                        <div className="d-flex justify-content-between">
-                            <h2>產品列表</h2>
-                            <button type="button" className="btn btn-primary px-5 text-white" onClick={() => openModal('create')}>建立新的產品</button>
+                        <div className="d-flex justify-content-between mb-6">
+                            <h3>商品管理</h3>
+                            <button type="button" className="btn btn-primary py-1 text-white f-6" onClick={() => openModal('create')}>
+                                <i class="bi bi-plus-circle me-1"></i>
+                                新增產品
+                            </button>
                         </div>
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">產品名稱</th>
-                                    <th scope="col">原價</th>
-                                    <th scope="col">售價</th>
-                                    <th scope="col">是否啟用</th>
-                                    <th scope="col">查看細節</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {products.map((product) => {
-                                    return (
-                                        <tr key={product.id}>
-                                            <th scope="row">{product.title}</th>
-                                            <td>{product.origin_price}</td>
-                                            <td>{product.price}</td>
-                                            <td><p id={product.id} className="text-decoration-none">{product.is_enabled ? (<span className="text-success">啟用</span>) : (<span>未啟用</span>)}</p ></td>
-                                            <td>
-                                                <div className="btn-group" role="group">
-                                                    <button type="button" className="btn btn-outline-primary btn-sm" onClick={() => openModal('edit', product)}>編輯</button>
-                                                    <button type="button" className="btn btn-outline-danger btn-sm" onClick={() => openDelModal(product)}>刪除</button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>
+                        <div className='bg-white  rounded-3'>
+                            <table className="table ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">產品名稱</th>
+                                        <th scope="col">原價</th>
+                                        <th scope="col">售價</th>
+                                        <th scope="col">是否上架</th>
+                                        <th scope="col">查看細節</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {products.map((product) => {
+                                        return (
+                                            <tr key={product.id}>
+                                                <th scope="row">{product.title}</th>
+                                                <td>{product.origin_price}</td>
+                                                <td>{product.price}</td>
+                                                <td><p id={product.id} className="text-decoration-none">{product.is_enabled ? (<span className="text-success">上架</span>) : (<span>下架</span>)}</p ></td>
+                                                <td>
+                                                    <div className="btn-group" role="group">
+                                                        <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', product)}>編輯</button>
+                                                        <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openDelModal(product)}>刪除</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                            <PaginationCompo pageInfo={pageInfo} btnChangePage={btnChangePage} />
+                        </div>
                     </div>
-                    <PaginationCompo pageInfo={pageInfo} btnChangePage={btnChangePage} />
-                </div>               
+                </div>
             </div>
             <ProductModal modalMode={modalMode} setTempProduct={setTempProduct} tempProduct={tempProduct} getProductList={getProductList} modelRef={modelRef} />
 
