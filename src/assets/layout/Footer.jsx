@@ -9,7 +9,7 @@ import lineS from "../images/icon/Line-sm.png";
 
 function Footer () {
     return (
-        <div className="bg-secondary pt-11 pb-0 ">
+        <div className="bg-secondary pt-lg-11 pt-0 pb-0 ">
             <footer className="footer py-7 py-lg-9">
                 <div className="container">
                     <div className="row align-items-center align-items-lg-start">

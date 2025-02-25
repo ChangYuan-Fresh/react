@@ -1,113 +1,42 @@
-
 .product {
     main {
-        .row {
-            .pc-box{
-                max-height: 587px;
-            }
-            .swiper-slide {
-                text-align: center;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 12px;
-                }
-            }
-
-            .mySwiper2 {
-                height: 80%;
-                border-radius: 24px;
-            }
-
-            .mySwiper {
-                height: 18%;
-
-                .swiper-slide {
-                    opacity: 0.4;
-                }
-
-                .swiper-slide-thumb-active {
-                    opacity: 1;
-                }
-            }
-
-            .mobile-box{
-                padding: 0 0;
-            }
-            .mySwiper3 {
-                height: 346px;
-                img{
-                    border-radius: 0;
-                }
-                .swiper-pagination{
-                    color: $tertiary;
-                    background: rgba(25, 33, 21, 0.7);
-                    width: 44px;
-                    border-radius: 100px;
-                    right: 0;
-                    bottom: 0;
-                    margin: 12px 12px;
-                }
-            }
-            .breadcrumb-item{
-                color: $gray;
-                &.active,
-                &:hover{
-                    color: $primary;
-                }
-            }
-        }
-
-        .btn-outline-gray {
-            padding: 12px 24px;
-            background: white;
-            color: $gray;
-            font-weight: bold;
-            border-radius: 8px;
-            min-width: 98px;
-            &-big{
-                @include media-breakpoint-up(lg){
-                    width: 194px;
-                }
-            }
-            
-
-            &.active,
-            &:hover {
-                border-color: $primary;
-                color: $primary;
-            }
-
+        .swiper-pagination {
+            color: $tertiary;
+            background: rgba(25, 33, 21, 0.7);
+            width: 44px;
+            border-radius: 100px;
+            bottom: 32px;
+            margin: 12px 12px;
         }
 
         .btn-s {
             border-radius: 8px;
             padding: 8px;
         }
-        .btn-L{
+
+        .btn-L {
             border: 0;
+
             &.active,
-            &:hover{
+            &:hover {
                 color: $primary;
                 background: $secondary;
             }
         }
     }
-    article{
-        h2{
+
+    article {
+        h2 {
             color: $black;
             font-size: 20px;
             margin-bottom: 12px;
-            @include media-breakpoint-up(lg){
+
+            @include media-breakpoint-up(lg) {
                 font-size: 24px;
             }
         }
-        .card-img{
+
+        .card-img {
             width: 100%;
             max-height: 263px;
             border-radius: 8px;
@@ -115,64 +44,80 @@
             object-fit: cover;
         }
 
-        .border-bottom-transparent{
+        .border-bottom-transparent {
             font-weight: bold;
+
             &.active,
-            &:hover{
+            &:hover {
                 border-bottom: 4px solid $primary;
                 color: $primary;
             }
         }
-        
-        
-        .scrollspy-example{
+
+
+        .scrollspy-example {
             max-width: 856px;
             margin: 0 auto;
-            img{
+
+            img {
                 width: 100%;
                 max-height: 560px;
                 object-fit: cover;
                 margin: 40px 0;
                 border-radius: 8px;
             }
+
             p,
-            li{
+            li {
                 font-size: 20px;
                 font-weight: 400;
             }
         }
+
+        .text-content {
+            max-height: 200px;
+        }
+        .text-extend {
+            max-height: auto;
+        }
     }
 
-    .section1{
-        h2{
+    .section1 {
+        h2 {
             color: $black;
             font-size: 20px;
-            @include media-breakpoint-up(lg){
+
+            @include media-breakpoint-up(lg) {
                 font-size: 24px;
             }
         }
-        .card{
+
+        .card {
             border-radius: 16px;
             height: 120px;
-            @include media-breakpoint-up(lg){
+
+            @include media-breakpoint-up(lg) {
                 height: 240px;
             }
-            &-text{
+
+            &-text {
                 max-height: 72px;
                 overflow: hidden;
             }
         }
-        span{
+
+        span {
             padding: 0 0;
             display: inline-block;
         }
     }
 
-    .modal-content{
+    .modal-content {
         width: 100%;
         border-radius: 16px;
         padding: 0 24px;
-        @include media-breakpoint-up(lg){
+
+        @include media-breakpoint-up(lg) {
             width: 635px;
         }
 

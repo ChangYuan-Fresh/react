@@ -78,31 +78,29 @@ function ComfirmOrder() {
     }, [])
 
     return (<>
-        <div className="container">
-
+        <div className="container mb-7">
             <div className="row g-5">
                 <div className="col-lg-9">
                     {/* 進度條 */}
                     <div className="bg-secondary-200 row mb-5 mx-0" style={{ height: "92px", borderRadius: "16px" }}>
-                        <div className="col-9 m-auto">
-                            <div className="m-4 d-block ">
+                        <div className="col-lg-9 col m-auto">
+                            <div className="m-0 m-lg-4 d-block ">
                                 <div className="d-flex justify-content-between">
-                                    <div className="d-lg-flex align-items-center">
-                                        <button type="button" className="btn btn-sm btn-primary rounded-pill me-1 text-secondary" style={{ width: "2rem", height: "2rem" }}>1</button>
-                                        <p className="text-primary">購物車內容</p>
+                                    <div className="d-flex flex-column flex-lg-row align-items-center">
+                                        <button type="button" className="btn btn-sm btn-secondary rounded-pill me-1 text-secondary text-gray" style={{ width: "2rem", height: "2rem" }}>1</button>
+                                        <p className="text-gray fs-lg-6 fs-7 text-nowrap">購物車內容</p>
                                     </div>
                                     <div className="bg-primary m-auto" style={{ height: "1px", width: "15%" }} />
-                                    <div className="d-lg-flex align-items-center">
-                                        <button type="button" className="btn btn-sm btn-secondary rounded-pill me-1 text-secondary text-gray" style={{ width: "2rem", height: "2rem" }}>2</button>
-                                        <p className="text-gray">付款運送方式</p>
+                                    <div className="d-flex flex-column flex-lg-row align-items-center">
+                                        <button type="button" className="btn btn-sm btn-primary rounded-pill me-1 text-secondary" style={{ width: "2rem", height: "2rem" }}>2</button>
+                                        <p className="text-primary fs-lg-6 fs-7 text-nowrap">付款運送方式</p>
                                     </div>
                                     <div className="bg-primary m-auto" style={{ height: "1px", width: "15%" }} />
-                                    <div className="d-lg-flex align-items-center">
+                                    <div className="d-flex flex-column flex-lg-row align-items-center">
                                         <button type="button" className="btn btn-sm btn-secondary rounded-pill me-1 text-secondary text-gray" style={{ width: "2rem", height: "2rem" }}>3</button>
-                                        <p className="text-gray">購物完成</p>
+                                        <p className="text-gray fs-lg-6 fs-7 text-nowrap">購物完成</p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -140,7 +138,7 @@ function ComfirmOrder() {
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
                         <div className="card-title text-primary fs-4 mb-6">訂購人資訊</div>
                         <form className="row my-5" onSubmit={handleSubmit(onSubmit)}>
-                            <div className="col-6">
+                            <div className="col-lg-6">
                                 <Input
                                     register={register}
                                     errors={errors}
@@ -159,7 +157,7 @@ function ComfirmOrder() {
                                     }}
                                 />
                             </div>
-                            <div className="col-6">
+                            <div className="col-lg-6">
                                 <Input
                                     register={register}
                                     errors={errors}
@@ -205,7 +203,7 @@ function ComfirmOrder() {
                                     }}
                                 />
                             </div>
-                            <div className="col-6">
+                            <div className="col-lg-6">
                                 <Select id='city'
                                     labelText='縣市'
                                     errors={errors}
@@ -219,7 +217,7 @@ function ComfirmOrder() {
                                     })}
                                 </Select>
                             </div>
-                            <div className="col-6">
+                            <div className="col-lg-6">
                                 <Select id='district'
                                     labelText='鄉鎮市區'
                                     errors={errors}
@@ -262,7 +260,7 @@ function ComfirmOrder() {
                         <div className="mt-5">
                             <div className="form-check">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                                <label className="form-check-label fs-5" for="flexRadioDefault1">
+                                <label className="form-check-label fs-lg-5 fs-6" for="flexRadioDefault1">
                                     冷凍宅配
                                     <span className="en-font me-3">NT$160</span>
                                     <span className="text-accent fs-7">滿 NT$1,000 免運</span>
@@ -270,7 +268,7 @@ function ComfirmOrder() {
                             </div>
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" disabled />
-                                <label className="form-check-label fs-5" for="flexRadioDefault2">
+                                <label className="form-check-label fs-lg-5 fs-6" for="flexRadioDefault2">
                                     全家取貨
                                     <span className="en-font me-3">NT$65</span>
                                     <span className="text-accent fs-7">滿 NT$499 免運</span>
@@ -284,7 +282,7 @@ function ComfirmOrder() {
                         <div className="mt-5">
                             <div className="form-check">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                                <label className="form-check-label fs-5" for="flexRadioDefault1">
+                                <label className="form-check-label fs-lg-5 fs-6" for="flexRadioDefault1">
                                     信用卡付款
                                 </label>
                             </div>
@@ -308,7 +306,7 @@ function ComfirmOrder() {
                                         }}
                                     />
                                 </div>
-                                <div className="col-6">
+                                <div className="col-lg-6">
                                     <Input
                                         register={register}
                                         errors={errors}
@@ -327,7 +325,7 @@ function ComfirmOrder() {
                                         }}
                                     />
                                 </div>
-                                <div className="col-6">
+                                <div className="col-lg-6">
                                     <Input
                                         register={register}
                                         errors={errors}
@@ -356,21 +354,21 @@ function ComfirmOrder() {
 
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-                                <label className="form-check-label fs-5 en-font" for="flexRadioDefault2">
+                                <label className="form-check-label fs-lg-5 fs-6 en-font" for="flexRadioDefault2">
                                     <img src="/images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
                                     Line Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-                                <label className="form-check-label fs-5 en-font" for="flexRadioDefault2">
+                                <label className="form-check-label fs-lg-5 fs-6 en-font" for="flexRadioDefault2">
                                     <img src="/images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
                                     Apple Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-                                <label className="form-check-label fs-5 en-font" for="flexRadioDefault2">
+                                <label className="form-check-label fs-lg-5 fs-6 en-font" for="flexRadioDefault2">
                                     <img src="/images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
                                     Google Pay
                                 </label>

@@ -65,27 +65,27 @@ function Cart() {
         }
     }
     return (<>
-        <div className="container">
-            <div className="row">
+        <div className="container mb-7">
+            <div className="row position-relative">
                 <div className="col-lg-9">
                     {/* 進度條 */}
                     <div className="bg-secondary-200 row mb-5 mx-0" style={{ height: "92px", borderRadius: "16px" }}>
-                        <div className="col-9 m-auto">
-                            <div className="m-4 d-block ">
+                        <div className="col-lg-9 col m-auto">
+                            <div className="m-0 m-lg-4 d-block ">
                                 <div className="d-flex justify-content-between">
-                                    <div className="d-lg-flex align-items-center">
+                                    <div className="d-flex flex-column flex-lg-row align-items-center">
                                         <button type="button" className="btn btn-sm btn-primary rounded-pill me-1 text-secondary" style={{ width: "2rem", height: "2rem" }}>1</button>
-                                        <p className="text-primary">購物車內容</p>
+                                        <p className="text-primary fs-lg-6 fs-7 text-nowrap">購物車內容</p>
                                     </div>
                                     <div className="bg-primary m-auto" style={{ height: "1px", width: "15%" }} />
-                                    <div className="d-lg-flex align-items-center">
+                                    <div className="d-flex flex-column flex-lg-row align-items-center">
                                         <button type="button" className="btn btn-sm btn-secondary rounded-pill me-1 text-secondary text-gray" style={{ width: "2rem", height: "2rem" }}>2</button>
-                                        <p className="text-gray">付款運送方式</p>
+                                        <p className="text-gray fs-lg-6 fs-7 text-nowrap">付款運送方式</p>
                                     </div>
                                     <div className="bg-primary m-auto" style={{ height: "1px", width: "15%" }} />
-                                    <div className="d-lg-flex align-items-center">
+                                    <div className="d-flex flex-column flex-lg-row align-items-center">
                                         <button type="button" className="btn btn-sm btn-secondary rounded-pill me-1 text-secondary text-gray" style={{ width: "2rem", height: "2rem" }}>3</button>
-                                        <p className="text-gray">購物完成</p>
+                                        <p className="text-gray fs-lg-6 fs-7 text-nowrap">購物完成</p>
                                     </div>
                                 </div>
                             </div>
@@ -99,23 +99,25 @@ function Cart() {
                         </div>
                         <div className="card mb-3" style={{ borderRadius: "16px" }}>
                             {cartList.carts?.map((item) => {
-                                return (<div className="row g-0" key={item.id}>
-                                    <div className="col-3 p-lg-5 p-0">
+                                return (<div className="row g-0 border-bottom" key={item.id}>
+                                    <div className="col-lg-3 p-lg-5 p-0">
                                         <img src={item.product.imageUrl} className="object-fit-cover rounded mb-4 mb-lg-0"
                                             alt={item.product.title} width="100%" height="150px" />
                                     </div>
-                                    <div className="col-9 p-lg-5 p-0">
+                                    <div className="col-lg-9 p-lg-5 p-0 mb-3 mb-lg-0">
                                         <ul className="list-unstyled d-lg-flex justify-content-between mb-0 h-100">
-                                            <li className="d-lg-flex w-75">
-                                                <div className="card-body d-flex flex-column justify-content-between mb-4 mb-lg-0">
+                                            <li className="d-lg-flex row w-100 px-0 g-0">
+                                                <div className="col-lg-4 card-body d-flex flex-column justify-content-between mb-0">
                                                     <div className="d-flex justify-content-between">
                                                         <h4 className="card-title text-primary fs-6 fs-lg-4 mb-1 mb-lg-2">{item.product.title}</h4>
-                                                        <button className="d-lg-none" onClick={() => removeCartItem(item.id)}><span
-                                                            className="material-symbols-outlined fs-5 text-primary">delete</span></button>
+                                                        <button className="btn d-lg-none p-0" onClick={() => removeCartItem(item.id)}>
+                                                            <span
+                                                                className="material-symbols-outlined fs-5 text-primary">delete</span>
+                                                        </button>
                                                     </div>
                                                     <p className="card-text fs-7 fs-lg-6">{item.product.description}</p>
                                                 </div>
-                                                <div className="d-flex">
+                                                <div className="col-lg-5 card-body d-flex py-0">
                                                     <div className="d-flex align-items-center">
                                                         <UpdateQtyBtnGroup
                                                             itemQty={item.qty}
@@ -132,16 +134,16 @@ function Cart() {
                                                             {item.product.origin_price}</p>
                                                     </div>
                                                 </div>
-                                            </li>
-                                            <li className="d-lg-flex align-items-center d-none d-lg-block">
-                                                <div className="card-body me-5">
-                                                    <h2 className="text-accent fs-5 fs-lg-4 en-font me-2">NT${item.product.price}</h2>
-                                                    <p
-                                                        className="text-decoration-line-through text-gray fs-7 fs-lg-6 fw-normal en-font text-center">
-                                                        NT${item.product.origin_price}</p>
+                                                <div className="col-lg-3 d-lg-flex align-items-center d-none d-lg-block justify-content-between px-0">
+                                                    <div>
+                                                        <h2 className="text-accent fs-5 fs-lg-4 en-font me-2">NT${item.product.price}</h2>
+                                                        <p
+                                                            className="text-decoration-line-through text-gray fs-7 fs-lg-6 fw-normal en-font text-center">
+                                                            NT${item.product.origin_price}</p>
+                                                    </div>
+                                                    <button className="btn px-1"><span
+                                                        className="material-symbols-outlined fs-lg-3 text-primary" onClick={() => removeCartItem(item.id)}>delete</span></button>
                                                 </div>
-                                                <button className="btn me-3"><span
-                                                    className="material-symbols-outlined fs-lg-3 text-primary" onClick={() => removeCartItem(item.id)}>delete</span></button>
                                             </li>
                                         </ul>
                                     </div>

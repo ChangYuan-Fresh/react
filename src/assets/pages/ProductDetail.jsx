@@ -13,12 +13,12 @@ import UpdateQtyBtnGroup from '../component/UpdateQtyBtnGroup';
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
-
 function ProductDetail() {
     const [product, setProduct] = useState({});
     const [qtySelect, setQtySelect] = useState(1);
     const [isLoadingBtn, setIsLoadingBtn] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+    const [textExtend, setTextExtend] = useState(false);
     const { id: product_id } = useParams();
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const nevigate = useNavigate();
@@ -75,8 +75,12 @@ function ProductDetail() {
         getProductDetail();
     }, [])
 
+    const handleTextExtend = () => {
+        setTextExtend(prevState => !prevState)
+    }
+
     return (<>
-        <div className="container">
+        <div className="container product">
             <main className="position-relative mb-lg-8 mb-0 mt-lg-7">
                 <div className="row gx-lg-5">
                     {/* 電腦版輪播 */}
@@ -109,7 +113,7 @@ function ProductDetail() {
                             pagination={{
                                 type: 'fraction',
                                 renderFraction: function (currentClass, totalClass) {
-                                    return `<span class="${currentClass}"></span> / <span class="${totalClass}"></span>`;
+                                    return `<span className="${currentClass}"></span> / <span className="${totalClass}"></span>`;
                                 },
                             }}
                         >
@@ -232,11 +236,57 @@ function ProductDetail() {
                         </li>
                     </ul>
                 </div>
-                <div>
+                
+            </article >
+            {/* <!-- mobile文案 --> */}
+            <article className="d-lg-none">
+                <ul className="list-unstyled">
+                    <li className={`mt-5 overflow-hidden ${textExtend ? "text-extend" : "text-content"}`}>
+                        <h2>商品介紹</h2>
+                        <p className="mb-2">
+                            {product.content}
+                        </p>
+                        {product.imagesUrl?.map((img) => (<div key={img} className="text-center mb-5"><img src={img} alt="" className="mb-3 border rounded object-fit-cover" width='100%' height="300px" /></div>))}
+                    </li>
+                    <li className="text-center">
+                        <button className="expand-button btn mx-auto text-primary d-flex" onClick={handleTextExtend}>
+                            {textExtend ? (<>
+                                <div className="me-3">收合</div>
+                                <span className="material-symbols-outlined">keyboard_arrow_up</span></>):(
+                                    <>
+                                    <div className="me-3">看全部</div>
+                                    <span
+                                        className="material-symbols-outlined align-middle">keyboard_arrow_down</span>
+                                </>)}
+
+                            </button>
+                    </li>
+                    <li className="my-5">
+                        <h2>規格說明</h2>
+                        <p>200g /包， 200g ±10% /包</p>
+                        <p>450g /包， 450g ±10% /包</p>
+                    </li>
+                    <li className="my-5">
+                        <h2>保存方法</h2>
+                        <p>收到後冷凍保存 7-10 天,請盡快於賞味期限內食用完畢</p>
+                    </li>
+                    <li className="my-5">
+                        <h2>滿額免運原則</h2>
+                        <ol>
+                            <li>
+                                全館商品滿 $1000 (含及以上)即享免運服務
+                            </li>
+                            <li>
+                                訂單含冷凍商品時，僅提供宅配服務
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </article>
+            {/* 評論 */}
+            <div>
                     <Comment />
                 </div>
-            </article >
-
             {isLoading && (<div
                 className="d-flex justify-content-center align-items-center"
                 style={{
