@@ -5,6 +5,9 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 import PaginationCompo from '../../component/PaginationCompo';
 import IsScreenLoading from '../../component/IsScreenLoading'
+import ProductBrowsingHistory from './ProductBrowsingHistory'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 function ProductListAll() {
     const [products, setProducts] = useState([]);
@@ -27,14 +30,32 @@ function ProductListAll() {
         getProductList();
     }, [])
 
-    const categories = ['熱門商品', ...new Set(products.map((product)=> product.category))];
+    const categories = ['熱門商品', ...new Set(products.map((product) => product.category))];
 
-    const filterProducts = products.filter((product)=>{
-        if(selectCategory === '熱門商品') return product;
+    const filterProducts = products.filter((product) => {
+        if (selectCategory === '熱門商品') return product;
 
         return product.category === selectCategory
     })
-    return (
+    return (<>
+
+        <div className="overflow-hidden container mb-5">
+            {/* <!-- Navs --> */}
+            <Swiper 
+            slidesPerView={3}
+            className="nav nav-pills d-lg-none d-flex justify-content-between flex-nowrap text-nowrap allProduct-nav-pills" id="productTab" 
+            role="tablist">
+                {categories.map((category) => {
+                    return (
+                    <SwiperSlide className="nav-item" key={category}>
+                        <button type="button" className="nav-link" onClick={() => setSelectCategory(category)}>
+                        {category}
+                        </button>
+                    </SwiperSlide>)
+                })}
+            </Swiper>
+        </div>
+
         <section className="bg-Tertiary container allProduct-container">
             <div className="row d-flex flex-lg-row flex-column-reverse justify-content-between">
                 <div className="col-xl-2 col-lg-3 allProduct-side overflow-auto d-lg-block d-none">
@@ -43,7 +64,7 @@ function ProductListAll() {
                         {categories.map((category) => {
                             return (<div className="accordion-item" key={category}>
                                 <h2 className="accordion-header" id="headingTwo">
-                                    <button type="button" className="accordion-button collapsed px-0 fw-bold fs-4" onClick={()=>setSelectCategory(category)}>
+                                    <button type="button" className="accordion-button collapsed px-0 fw-bold fs-4" onClick={() => setSelectCategory(category)}>
                                         {category}
                                     </button>
                                 </h2>
@@ -58,7 +79,7 @@ function ProductListAll() {
                         })}
                     </section>
                     {/* <!-- 左側瀏覽紀錄 --> */}
-                    {/* <ProductBrowsingHistory /> */}
+                    <ProductBrowsingHistory />
                 </div>
                 {/* <!-- 商品列表 --> */}
                 <section className="col-xl-9 col-lg-8 allProduct-catalog">
@@ -105,9 +126,7 @@ function ProductListAll() {
                 </section>
             </div>
         </section>
-
-
-
+    </>
     )
 }
 

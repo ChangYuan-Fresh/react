@@ -1,7 +1,28 @@
 import { Link } from "react-router";
+import axios from 'axios'
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+const baseUrl = import.meta.env.VITE_BASE_URL;
+const apiPath = import.meta.env.VITE_API_PATH;
+import { updateCartData } from '../../redux/slice/cartSlice'
+
 function PlaceOrder() {
+    const dispatch = useDispatch();
+
+    const getCartList = async () => {
+        try {
+            const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
+            dispatch(updateCartData(res.data.data))
+        } catch (error) {
+            alert(error.error)
+        }
+    }
+    useEffect(() => {
+        getCartList()
+    }, [])
+
     return (<>
-        <div className="container order mt-7 mb-10">
+        <div className="container order mt-lg-7 mt-5 mb-lg-10 mb-0 ">
             <div className="row">
                 <div className="col-lg-9">
                     {/* 進度條 */}
@@ -35,15 +56,15 @@ function PlaceOrder() {
                         </div>
                         {/* <!-- 總額 --> */}
                         <div className="mb-3 mt-lg-5 mt-0 py-4">
-                            <div className="d-flex justify-content-center">
+                            <div className="d-flex justify-content-between justify-content-lg-center">
                                 <Link className="btn btn-L py-2 px-6 fs-6 ms-2 ms-lg-5 py-lg-3 px-lg-7 fs-lg-4 me-lg-5 me-0" to='product'>繼續購物</Link>
                                 <Link className="btn btn-L py-2 px-6 fs-6 me-2 me-lg-5 py-lg-3 px-lg-7 fs-lg-4" to='member'>查看訂單</Link>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-3">
-                    <img src="/images/LOGO-L.png" alt="" width="100%" className="object-fit-cover mb-4 px-3"/>
+                <div className="col-lg-3 d-none d-lg-block">
+                    <img src="/images/LOGO-L.png" alt="" width="100%" className="object-fit-cover mb-4 px-3" />
                     <img src="/images/banner.png" alt="" height="100%" width="100%" className="object-fit-cover" />
                 </div>
             </div>

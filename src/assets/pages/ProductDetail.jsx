@@ -9,6 +9,9 @@ import 'swiper/css/thumbs';
 import 'swiper/css/pagination'
 import Comment from '../component/Comment'
 import UpdateQtyBtnGroup from '../component/UpdateQtyBtnGroup';
+import { useDispatch } from 'react-redux';
+import { updateCartData } from '../redux/slice/cartSlice'
+
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -22,6 +25,9 @@ function ProductDetail() {
     const { id: product_id } = useParams();
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+
 
     const navigateCart = async (product_id, qtySelect) => {
         try {
@@ -41,7 +47,7 @@ function ProductDetail() {
         setIsLoadingBtn(true);
         setIsLoading(true)
         try {
-            await axios.post(`${baseUrl}/v2/api/${apiPath}/cart`, {
+            const res = await axios.post(`${baseUrl}/v2/api/${apiPath}/cart`, {
                 data: {
                     product_id,
                     qty: Number(qtySelect)
@@ -52,7 +58,8 @@ function ProductDetail() {
         } finally {
             setIsLoadingBtn(false);
             setIsLoading(false)
-            setQtySelect(1)
+            setQtySelect(1);
+            getCartList()
         }
     }
 
@@ -78,6 +85,17 @@ function ProductDetail() {
     const handleTextExtend = () => {
         setTextExtend(prevState => !prevState)
     }
+    const getCartList = async () => {
+        try {
+            const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
+            dispatch(updateCartData(res.data.data))
+        } catch (error) {
+            alert(error.data)
+        }
+    }
+    useEffect(() => {
+        getCartList()
+    }, [])
 
     return (<>
         <div className="container product">
@@ -236,7 +254,7 @@ function ProductDetail() {
                         </li>
                     </ul>
                 </div>
-                
+
             </article >
             {/* <!-- mobile文案 --> */}
             <article className="d-lg-none">
@@ -252,14 +270,14 @@ function ProductDetail() {
                         <button className="expand-button btn mx-auto text-primary d-flex" onClick={handleTextExtend}>
                             {textExtend ? (<>
                                 <div className="me-3">收合</div>
-                                <span className="material-symbols-outlined">keyboard_arrow_up</span></>):(
-                                    <>
+                                <span className="material-symbols-outlined">keyboard_arrow_up</span></>) : (
+                                <>
                                     <div className="me-3">看全部</div>
                                     <span
                                         className="material-symbols-outlined align-middle">keyboard_arrow_down</span>
                                 </>)}
 
-                            </button>
+                        </button>
                     </li>
                     <li className="my-5">
                         <h2>規格說明</h2>
@@ -285,8 +303,8 @@ function ProductDetail() {
             </article>
             {/* 評論 */}
             <div>
-                    <Comment />
-                </div>
+                <Comment />
+            </div>
             {isLoading && (<div
                 className="d-flex justify-content-center align-items-center"
                 style={{

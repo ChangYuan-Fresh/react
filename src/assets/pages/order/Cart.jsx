@@ -18,8 +18,8 @@ function Cart() {
     const getCartList = async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
-            console.log(res.data.data)
             dispatch(updateCartData(res.data.data))
+            setCartList(res.data.data)
         } catch (error) {
             alert(error.data)
         }
@@ -69,6 +69,7 @@ function Cart() {
             setIsLoading(false)
         }
     }
+
     return (<>
         <div className="container mb-7">
             <div className="row position-relative">
@@ -222,7 +223,7 @@ function Cart() {
                         </div>
                     </div>
                     <div className="mt-6">
-                        <Link className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold" to="comfirmorder">下一步</Link>
+                        <Link className={`btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold ${cartList.carts?.length < 1 ? "disabled" : ''}`} to="comfirmorder">下一步</Link>
                     </div>
                 </div>
             </div>

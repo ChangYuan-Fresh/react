@@ -296,6 +296,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                 </div>
             </div>
         </div>
+
     )
 }
 

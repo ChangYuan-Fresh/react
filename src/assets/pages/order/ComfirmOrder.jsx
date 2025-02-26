@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import axios from 'axios'
 import Input from "../../component/Input";
 import Select from "../../component/Select";
 import ReactLoading from 'react-loading';
 import cityData from './form/taiwan.json'
+
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -15,7 +16,8 @@ function ComfirmOrder() {
     const [isLoading, setIsLoading] = useState(false);
     const [addressData, setAddressData] = useState([]);
     const [useCreditCard, setUseCreditCard] = useState(false)
-    const [useOtherPay, setUseOtherPay] = useState(false)
+    const [useOtherPay, setUseOtherPay] = useState(false);
+    const navigate = useNavigate()
 
     const {
         register,
@@ -51,9 +53,9 @@ function ComfirmOrder() {
         setIsLoading(true);
         try {
             await axios.post(`${baseUrl}/v2/api/${apiPath}/order`, data)
-            alert('結帳成功');
             reset();
             getCartList()
+            navigate("/cart/placeordersuccess")
         } catch (error) {
             alert('結帳失敗' || error.data.message)
         } finally {
@@ -80,21 +82,21 @@ function ComfirmOrder() {
 
     const handleUseCreditCard = (e) => {
         setUseCreditCard(e.target.checked)
-        if(e.target.checked){
+        if (e.target.checked) {
             setUseOtherPay(false)
         }
     }
 
-    const handleOtherPay = (e) =>{
+    const handleOtherPay = (e) => {
         setUseOtherPay(e.target.checked)
-        if(e.target.checked){
+        if (e.target.checked) {
             setUseCreditCard(false)
-        }   
+        }
     }
 
     return (<>
         <div className="container mb-7">
-            <div className="row g-5">
+            <form className="row g-5" onSubmit={handleSubmit(onSubmit)}>
                 <div className="col-lg-9">
                     {/* 進度條 */}
                     <div className="bg-secondary-200 row mb-5 mx-0" style={{ height: "92px", borderRadius: "16px" }}>
@@ -152,7 +154,7 @@ function ComfirmOrder() {
                     {/* 訂購人資訊 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
                         <div className="card-title text-primary fs-4 mb-6">訂購人資訊</div>
-                        <form className="row my-5" onSubmit={handleSubmit(onSubmit)}>
+                        <div className="row my-5">
                             <div className="col-lg-6">
                                 <Input
                                     register={register}
@@ -262,7 +264,7 @@ function ComfirmOrder() {
                                     }}
                                 ></Input>
                             </div>
-                        </form>
+                        </div>
                     </div>
 
                     {/* 寄送方式 */}
@@ -296,8 +298,8 @@ function ComfirmOrder() {
                         <div className="card-title text-primary fs-4 mb-6">付款方式</div>
                         <div className="mt-5">
                             <div className="form-check">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onClick={handleUseCreditCard}/>
-                                <label className="form-check-label fs-lg-5 fs-6" htmlFor="flexRadioDefault1" >
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" onClick={handleUseCreditCard} />
+                                <label className="form-check-label fs-lg-5 fs-6" htmlFor="flexRadioDefault2" >
                                     信用卡付款
                                 </label>
                             </div>
@@ -369,21 +371,21 @@ function ComfirmOrder() {
 
 
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={handleOtherPay}/>
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" onClick={handleOtherPay} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
                                     <img src="/images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
                                     Line Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={handleOtherPay}/>
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" onClick={handleOtherPay} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
                                     <img src="/images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
                                     Apple Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={handleOtherPay}/>
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={handleOtherPay} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
                                     <img src="/images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
                                     Google Pay
@@ -469,10 +471,10 @@ function ComfirmOrder() {
                     </div>
                     <div className="mt-6">
                         <Link className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold" to="/cart">上一步</Link>
-                        <button type="submit" className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold mt-3" to="placeordersuccess">確認付款</button>
+                        <button type="submit" className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold mt-3" disabled={cartList.length < 1}>確認付款</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <div>
             <img src="/images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />

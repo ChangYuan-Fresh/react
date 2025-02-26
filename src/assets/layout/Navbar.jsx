@@ -1,11 +1,29 @@
 import { NavLink } from "react-router";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from 'axios'
 import logoS from '../images/LOGO-S.png';
 import logoL from '../images/LOGO-L.png';
-import { useSelector } from "react-redux";
+import { updateCartData } from '../redux/slice/cartSlice'
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+const apiPath = import.meta.env.VITE_API_PATH;
 
 function Navbar() {
     const cartNum = useSelector(state => state.cart.carts);
+    const dispatch = useDispatch();
+
+    const getCartList = async () => {
+        try {
+            const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
+            dispatch(updateCartData(res.data.data))
+        } catch (error) {
+            alert(error.response)
+        }
+    }
+    useEffect(() => {
+        getCartList()
+    }, [])
 
     return (<>
         <header className="navbar navbar-expand-lg p-0 bg-white">
