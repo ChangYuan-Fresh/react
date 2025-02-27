@@ -10,7 +10,7 @@ import Input from "../component/Input";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function AdminLoginPage (){
-    const nevigate = useNavigate();
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [isAuth ,setIsAuth] =useState(false)
     const {
@@ -27,10 +27,10 @@ function AdminLoginPage (){
             const { token, expired } = res.data;
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
             axios.defaults.headers.common['Authorization'] = token;
-            nevigate("/admin")
+            navigate("/admin")
             setIsAuth(true);
         } catch (error) {
-            alert(error.data)
+            alert(error.data.response)
         } finally {
             setIsLoading(false)
         }
