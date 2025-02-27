@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import axios from 'axios'
 import PaginationCompo from '../../component/PaginationCompo';
 import ProductModal from '../../component/ProductModal';
-import DeleteModal from '../../component/DeleteModal';
+import DeleteProductModal from '../../component/DeleteProductModal';
 import Toast from "../../layout/Toast";
 
 
@@ -117,7 +117,7 @@ function AdminProductPage() {
             </div>
             <ProductModal modalMode={modalMode} setTempProduct={setTempProduct} tempProduct={tempProduct} getProductList={getProductList} modelRef={modelRef} />
 
-            <DeleteModal tempProduct={tempProduct} getProductList={getProductList} delModelRef={delModelRef} />
+            <DeleteProductModal tempProduct={tempProduct} getProductList={getProductList} delModelRef={delModelRef} />
 
             <Toast />
         </>
