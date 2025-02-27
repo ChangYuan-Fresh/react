@@ -1,10 +1,11 @@
 import { NavLink } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios'
 import logoS from '../images/LOGO-S.png';
 import logoL from '../images/LOGO-L.png';
 import { updateCartData } from '../redux/slice/cartSlice'
+
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -12,6 +13,17 @@ const apiPath = import.meta.env.VITE_API_PATH;
 function Navbar() {
     const cartNum = useSelector(state => state.cart.carts);
     const dispatch = useDispatch();
+    const [isOpen, setIsOpen] = useState(false);
+
+    // 當用戶點擊導航連結時，將折疊區域關閉
+    const handleLinkClick = () => {
+        setIsOpen(false); // 點擊後關閉導航欄
+    };
+
+    // 切換導航欄的折疊狀態
+    const toggleNavbar = () => {
+        setIsOpen(!isOpen);
+    };
 
     const getCartList = async () => {
         try {
@@ -24,6 +36,7 @@ function Navbar() {
     useEffect(() => {
         getCartList()
     }, [])
+
 
     return (<>
         <header className="navbar navbar-expand-lg p-0 bg-white">
@@ -44,29 +57,27 @@ function Navbar() {
                 <button
                     className="navbar-toggler border-0 p-0"
                     type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavAltMarkup"
+                    onClick={toggleNavbar} // 切換折疊狀態
                     aria-controls="navbarNavAltMarkup"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span className="material-symbols-outlined">menu</span>
+                    aria-expanded={isOpen ? 'true' : 'false'}
+                    aria-label="Toggle navigation">
+                    {isOpen ? (<span className="material-symbols-outlined border-0">close</span>) : (<span className="material-symbols-outlined border-0">menu</span>)}
                 </button>
-                <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarNavAltMarkup">
                     <div className="navbar-nav ms-auto mt-5 mt-lg-0">
-                        <NavLink className="nav-link active text-center py-6 py-lg-0 px-lg-6 border-fix" to='about'>
+                        <NavLink className="nav-link active text-center py-6 py-lg-0 px-lg-6 border-fix" to='about' onClick={handleLinkClick}>
                             <p className="fs-5 fs-lg-5 fs-xl-4 text-nowrap">關於我們</p>
                             <p className="small fw-normal en-font">About us</p>
                         </NavLink>
-                        <NavLink className="nav-link text-center py-6 py-lg-0 px-lg-6 border-fix" to='Stories'>
+                        <NavLink className="nav-link text-center py-6 py-lg-0 px-lg-6 border-fix" to='stories' onClick={handleLinkClick}>
                             <p className="fs-5 fs-lg-5 fs-xl-4 text-nowrap">產地故事</p>
                             <p className="small fw-normal en-font">Our Story</p>
                         </NavLink>
-                        <NavLink className="nav-link text-center py-6 py-lg-0 px-lg-6 border-fix" to='products'>
+                        <NavLink className="nav-link text-center py-6 py-lg-0 px-lg-6 border-fix" to='products' onClick={handleLinkClick}>
                             <p className="fs-5 fs-lg-5 fs-xl-4 text-nowrap">全部商品</p>
                             <p className="small fw-normal en-font">Store</p>
                         </NavLink>
-                        <NavLink className="nav-link text-center py-6 py-lg-0 px-lg-6" to='faq'>
+                        <NavLink className="nav-link text-center py-6 py-lg-0 px-lg-6" to='faq' onClick={handleLinkClick}>
                             <p className="fs-5 fs-lg-5 fs-xl-4 text-nowrap">常見問題</p>
                             <p className="small fw-normal en-font">FAQ</p>
                         </NavLink>
@@ -80,7 +91,7 @@ function Navbar() {
                             <span className="material-symbols-outlined p-4 fs-2">person</span>
                         </NavLink>
                         <div className="d-lg-none">
-                            <NavLink className="nav-link py-6 link-primary text-center py-6" to='/login'>
+                            <NavLink className="nav-link py-6 link-primary text-center py-6" to='/login' onClick={handleLinkClick}>
                                 <p className="fs-5 fs-lg-4">登入</p>
                                 <p className="small fw-normal en-font">Sign in</p>
                             </NavLink>

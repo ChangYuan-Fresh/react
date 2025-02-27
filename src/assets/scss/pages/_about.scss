@@ -6,86 +6,42 @@
   position: relative;
   overflow: hidden;
 }
-
-.text-content {
-  position: relative;
-  height: 80vh;
-  overflow: hidden;
-  border-radius: 0;
-  margin-bottom: 0;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .text-area {
-    position: absolute;
-    top: 50%;
-    left: 5%;
-    transform: translateY(-50%);
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    .about-us {
-      margin-bottom: 10px;
-
-      p {
-        font-size: 1rem;
-        padding: 10px 20px;
-        background-color: #fff;
-        color: rgba(120, 143, 73, 1);
-        font-weight: 700;
-        border-radius: 5px;
-      }
-    }
-
-    .main-text {
-      background-color: rgba(120, 143, 73, 1);
-      padding: 10px;
-
-      h1,
-      h2 {
-        font-weight: 700;
-        color: white;
-        margin: 0;
-        padding: 5px 10px;
-      }
-
-      h1 {
-        font-size: 2rem;
-        float: left;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-        float: left;
-        clear: left;
-      }
-    }
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50px;
-  }
+.number {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1;
+  color: rgba(255, 137, 101, 1);
+  @include media-breakpoint-up(lg) {
+    font-size: 5rem;
+}
+  
 }
 
 .content-block {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto 3rem;
-  padding: 0 2rem;
-  height: auto;
+  height: 600px;
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
+
+  img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+      height: 294px;
+    }
+  }
+
+  .bgchange{
+    background: white;
+    @include media-breakpoint-up(lg) {
+      background: $secondary-200;
+  }
+  }
+
 
   .content-block:first-of-type {
     margin-top: -100px;
@@ -93,13 +49,69 @@
     z-index: 3;
   }
 
-  img {
-    width: 50%;
-    height: 600px;
-    object-fit: cover;
-    border-radius: 40px;
-    flex-shrink: 0;
+  .text-content {
+
+    .text-area {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      transform: translateY(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .about-us {
+        margin-bottom: 10px;
+
+        p {
+          font-size: 1rem;
+          padding: 10px 20px;
+          background-color: #fff;
+          color: rgba(120, 143, 73, 1);
+          font-weight: 700;
+          border-radius: 5px;
+        }
+      }
+
+      .main-text {
+        background-color: rgba(120, 143, 73, 1);
+        padding: 10px;
+
+        h1,
+        h2 {
+          font-weight: 700;
+          color: white;
+          margin: 0;
+          padding: 5px 10px;
+        }
+
+        h1 {
+          font-size: 2rem;
+          float: left;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+          float: left;
+          clear: left;
+        }
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+    }
   }
+
+
+
+
 
   .reverse {
     flex-direction: row-reverse;
@@ -121,20 +133,11 @@
   }
 
   .text-content {
-    width: 55%;
 
-    .number {
-      font-size: 5rem;
-      font-weight: bold;
-      line-height: 1;
-      margin-bottom: 9rem;
-      color: rgba(255, 137, 101, 1);
-    }
+
 
     .text {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 0.5rem;
+      border-radius: 16px;
     }
 
     p {
@@ -143,7 +146,6 @@
       line-height: 1.6;
       background-color: rgba(248, 245, 233, 1);
       padding: 32px 40px;
-      border-radius: 16px;
     }
   }
 }
@@ -156,6 +158,7 @@
   z-index: 1;
 
   object-fit: cover; //讓背景圖底下圓角被裝飾確實遮擋
+
   @media (mix-width: 992px) {
     height: 78vh; //讓手機版維持高度
   }
@@ -164,7 +167,8 @@
     top: 480px; // 確保與內容完全貼合
 
     @media (max-width: 768px) {
-      display: none; /* 在小螢幕上隱藏 */
+      display: none;
+      /* 在小螢幕上隱藏 */
     }
   }
 
@@ -173,7 +177,8 @@
     z-index: 2; // 確保波浪在內容之上
 
     @media (max-width: 768px) {
-      display: none; /* 在小螢幕上隱藏 */
+      display: none;
+      /* 在小螢幕上隱藏 */
     }
   }
 }
@@ -200,7 +205,7 @@
       margin-top: 12rem;
     }
 
-    & + .content-block {
+    &+.content-block {
       margin-top: -16rem;
     }
 

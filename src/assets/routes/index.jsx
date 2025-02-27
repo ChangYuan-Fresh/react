@@ -23,6 +23,7 @@ import ChangePassword from "../pages/member/ChangePassword";
 import ResetPassword from "../pages/member/ResetPassword";
 import ComfirmOrder from "../pages/order/ComfirmOrder"
 import PlaceOrder from "../pages/order/PlaceOrder";
+import Story from "../pages/Story"
 
 
 const routes = [
@@ -39,8 +40,12 @@ const routes = [
                 element: <About />
             },
             {
-                path: 'Stories',
+                path: 'stories',
                 element: <Stories />
+            },
+            {
+                path: 'stories/:id',
+                element: <Story />
             },
             {
                 path: 'products',

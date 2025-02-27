@@ -170,60 +170,62 @@ function Cart() {
                     </div>) : (<div className="text-center"><h3>購物車是空的</h3></div>)
                     }
                 </div>
-                <div className="col-lg-3">
-                    {cartList.total >= 1000 ? (
-                        <div className="bg-secondary-200 rounded rounded-3">
-                            <div className="d-flex py-4 ms-5 text-primary">
-                                <span className="material-symbols-outlined me-2">check_circle</span>
-                                <p>已達免運門檻</p>
-                            </div>
-                        </div>)
-                        : (
-                            <div className="bg-accent rounded rounded-3">
-                                <div className="d-flex py-4 ms-5 text-white">
-                                    <span className="material-symbols-outlined me-2">package_2</span>
-                                    <p>還差$ {1000 - cartList.total}元免運</p>
+                <div className="col-lg-3 sticky-top">
+                    <div className="sticky-top">
+                        {cartList.total >= 1000 ? (
+                            <div className="bg-secondary-200 rounded rounded-3">
+                                <div className="d-flex py-4 ms-5 text-primary">
+                                    <span className="material-symbols-outlined me-2">check_circle</span>
+                                    <p>已達免運門檻</p>
                                 </div>
-                            </div>)}
-                    <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">
-                        <div className="card-body p-5">
-                            <h5 className="card-title mb-6">結帳明細</h5>
-                            <div className="card-text mb-4">
-                                <div>
-                                    <div className="d-flex justify-content-between">
-                                        <p className="mb-2">商品總額</p>
-                                        <p>{`NT$${cartList.total?.toLocaleString()}`}</p>
+                            </div>)
+                            : (
+                                <div className="bg-accent rounded rounded-3">
+                                    <div className="d-flex py-4 ms-5 text-white">
+                                        <span className="material-symbols-outlined me-2">package_2</span>
+                                        <p>還差$ {1000 - cartList.total}元免運</p>
+                                    </div>
+                                </div>)}
+                        <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">
+                            <div className="card-body p-5">
+                                <h5 className="card-title mb-6">結帳明細</h5>
+                                <div className="card-text mb-4">
+                                    <div>
+                                        <div className="d-flex justify-content-between">
+                                            <p className="mb-2">商品總額</p>
+                                            <p>{`NT$${cartList.total?.toLocaleString()}`}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="d-flex justify-content-between text-accent">
+                                            <p>商品折扣</p>
+                                            <p>NT$0</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div className="d-flex justify-content-between text-accent">
-                                        <p>商品折扣</p>
-                                        <p>NT$0</p>
+                                <div className="card-text border-top mb-4 pt-4">
+                                    <div>
+                                        <div className="d-flex justify-content-between">
+                                            <p className="mb-2">小計</p>
+                                            <p>{`NT$${cartList.total?.toLocaleString()}`}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="d-flex justify-content-between text-accent">
+                                            <p>運費</p>
+                                            <p>NT$0</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="card-text border-top mb-4 pt-4">
-                                <div>
-                                    <div className="d-flex justify-content-between">
-                                        <p className="mb-2">小計</p>
-                                        <p>{`NT$${cartList.total?.toLocaleString()}`}</p>
-                                    </div>
+                                <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
+                                    <p>總額</p>
+                                    <p className="float-end text-accent ">{`NT$${cartList.total?.toLocaleString()}`}</p>
                                 </div>
-                                <div>
-                                    <div className="d-flex justify-content-between text-accent">
-                                        <p>運費</p>
-                                        <p>NT$0</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
-                                <p>總額</p>
-                                <p className="float-end text-accent ">{`NT$${cartList.total?.toLocaleString()}`}</p>
                             </div>
                         </div>
-                    </div>
-                    <div className="mt-6">
-                        <Link className={`btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold ${cartList.carts?.length < 1 ? "disabled" : ''}`} to="comfirmorder">下一步</Link>
+                        <div className="mt-6">
+                            <Link className={`btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold ${cartList.carts?.length < 1 ? "disabled" : ''}`} to="comfirmorder">下一步</Link>
+                        </div>
                     </div>
                 </div>
             </div>
