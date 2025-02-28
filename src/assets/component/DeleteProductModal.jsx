@@ -7,7 +7,7 @@ import { creatAsyncMessage } from '../redux/slice/toastSlice';
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
-function DeleteModal({ tempProduct, getProductList, delModelRef}) {
+function DeleteProductModal({ tempProduct, getProductList, delModelRef}) {
     const delProductRef = useRef(null);
     const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ function DeleteModal({ tempProduct, getProductList, delModelRef}) {
             const res = await axios.delete(`${baseUrl}/v2/api/${apiPath}/admin/product/${tempProduct.id}`)
             dispatch(creatAsyncMessage({
                 text: res.data.message,
-                type: '成功',
+                type: '刪除產品成功',
                 status: "success"
             }));
             getProductList()
@@ -34,7 +34,7 @@ function DeleteModal({ tempProduct, getProductList, delModelRef}) {
             const { message } = error.response.data;
             dispatch(creatAsyncMessage({
                 text: message.join("、"),
-                type: '失敗',
+                type: '刪除產品失敗',
                 status: "failed"
             }));
         }finally{
@@ -63,4 +63,4 @@ function DeleteModal({ tempProduct, getProductList, delModelRef}) {
     )
 }
 
-export default DeleteModal
+export default DeleteProductModal
