@@ -11,9 +11,9 @@ const apiPath = import.meta.env.VITE_API_PATH;
 const defaultModalState = {
     title: "",
     is_enabled: 1,
-    percent: 80,
-    due_date: 1555459200,
-    code: "testCode"
+    percent: "",
+    due_date: "",
+    code: ""
 };
 
 function AdminCoupons() {
@@ -45,9 +45,11 @@ function AdminCoupons() {
         switch (mode) {
             case 'create':
                 setTempCoupon(defaultModalState);
+                
                 break;
             case 'edit':
                 setTempCoupon(coupon);
+             
                 break;
             default:
                 break;
@@ -92,7 +94,7 @@ function AdminCoupons() {
                                                 <th scope="row">{coupon.title}</th>
                                                 <td>{coupon.code}</td>
                                                 <td>{coupon.percent}</td>
-                                                <td>{coupon.due_date}</td>
+                                                <td>{new Date(coupon.due_date).toDateString()}</td>
                                                 <td><p id={coupon.id} className="text-decoration-none">{coupon.is_enabled ? (<span className="text-success">上架</span>) : (<span>下架</span>)}</p ></td>
                                                 <td>
                                                     <div className="btn-group" role="group">

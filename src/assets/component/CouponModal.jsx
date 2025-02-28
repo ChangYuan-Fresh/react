@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
@@ -10,6 +10,8 @@ const apiPath = import.meta.env.VITE_API_PATH;
 function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, modelRef }) {
     const couponRef = useRef(null);
     const dispatch = useDispatch();
+    const [date, setDate] = useState(new Date()); //轉換日期
+
     //新增優惠券
     const createNewCoupon = async () => {
         try {
@@ -17,11 +19,11 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                 data: {
                     ...tempCoupon,
                     percent: Number(tempCoupon. percent),
-                    due_date: Number(tempCoupon.due_date),
+                    due_date: date.getTime(),
                     is_enabled: tempCoupon.is_enabled ? 1 : 0
                 }
-            });
-
+            });     
+            setDate(new Date());             
             dispatch(creatAsyncMessage({
                 text: res.data.message,
                 type: '新增優惠券成功',
@@ -42,10 +44,12 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
             const res = await axios.put(`${baseUrl}/v2/api/${apiPath}/admin/coupon/${tempCoupon.id}`, {
                 data: {
                     ...tempCoupon,
-                    due_date: Number(tempCoupon.due_date),
+                    percent: Number(tempCoupon. percent),
+                    due_date: date.getTime(),
                     is_enabled: tempCoupon.is_enabled ? 1 : 0
                 }
-            });
+            });          
+            setDate(new Date(tempCoupon.due_date));  
             dispatch(creatAsyncMessage({
                 text: res.data.message,
                 type: '更新優惠券成功',
@@ -79,7 +83,6 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
         }
 
     }
-    //上傳圖片
 
     //表單控制
     const getinputValue = (e) => {
@@ -150,8 +153,12 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                                     id="due_date"
                                     placeholder="請輸入到期日"
                                     name="due_date"
-                                    value={tempCoupon.due_date}
-                                    onChange={getinputValue} />
+                                    value={`${date.getFullYear().toString()}
+                                    -${(date.getMonth()+1).toString().padStart(2,0)}
+                                    -${date.getDate().toString().padStart(2,0)}`}
+                                    onChange={(e)=>{
+                                        setDate(new Date(e.target.value))
+                                    }} />
                             </div>
                         </div>
                         <div className="form-check">
