@@ -65,7 +65,7 @@ function Navbar() {
                 </button>
                 <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarNavAltMarkup">
                     <div className="navbar-nav ms-auto mt-5 mt-lg-0">
-                        <NavLink className="nav-link active text-center py-6 py-lg-0 px-lg-6 border-fix" to='about' onClick={handleLinkClick}>
+                        <NavLink className="nav-link text-center py-6 py-lg-0 px-lg-6 border-fix" to='about' onClick={handleLinkClick}>
                             <p className="fs-5 fs-lg-5 fs-xl-4 text-nowrap">關於我們</p>
                             <p className="small fw-normal en-font">About us</p>
                         </NavLink>

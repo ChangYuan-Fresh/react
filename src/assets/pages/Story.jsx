@@ -52,7 +52,7 @@ function Story() {
             <section>
                 <div className="container pb-lg-11 pt-lg-7 py-md-7 py-4 d-flex flex-column flex-lg-row position-relative">
                     <img src="src/assets/images/Illustration/trees.png" alt="tree" className="deco-tree" />
-                    <article className="story-article bg-secondary-200 p-lg-7 p-5 rounded-3">
+                    <article className="story-article bg-secondary-200 p-lg-7 p-5 rounded-3 mb-5 mb-lg-0">
                         <div className="d-sm-flex justify-content-between align-items-baseline mb-lg-5 mb-3">
                             <h4 className="fs-lg-1 fs-md-3 text-nowrap">{story.title}</h4>
                             <p className="text-gray fs-7" >{new Date(story.create_at * 1000).toLocaleDateString()}</p>
@@ -61,7 +61,7 @@ function Story() {
                         <img src={story.image} className="img-fluid story-cauliflower-img" />
                         {story.content}
                     </article>
-                    <aside className="ms-lg-5 mb-3 mb-lg-5 sticky-top d-none d-lg-block">
+                    <aside className="ms-lg-5 mb-8 mb-lg-5 sticky-lg-top ">
                         <div className="list-group list-group-flush p-5 bg-secondary rounded-3 sticky-top ">
                             <Link className="story-cauliflower-btn list-group-item list-group-item-action bg-primary text-white text-center mb-3" to='/Stories'>產地故事</Link>
                             {stories.map((item) => {
@@ -72,17 +72,6 @@ function Story() {
                             })}
                         </div>
                     </aside>
-                    <div className="ms-lg-5 mb-3 mb-lg-5 d-lg-none">
-                        <div className="list-group list-group-flush p-5 bg-secondary rounded-3">
-                            <Link className="story-cauliflower-btn list-group-item list-group-item-action bg-primary text-white text-center mb-3" to='/Stories'>產地故事</Link>
-                            {stories.map((item) => {
-                                return (
-                                    <Link className={`story-cauliflower-btn list-group-item list-group-item-action mb-3 ${item.id === story_id ? 'active' : ''}`} key={item.id} to={`/stories/${item.id}`}>
-                                        <span className="material-symbols-outlined align-middle fs-7">chevron_left</span>{item.title}
-                                    </Link>)
-                            })}
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

@@ -96,7 +96,7 @@ function ComfirmOrder() {
 
     return (<>
         <div className="container mb-7">
-            <form className="row g-5" onSubmit={handleSubmit(onSubmit)}>
+            <form className="row g-5 position-relative" onSubmit={handleSubmit(onSubmit)}>
                 <div className="col-lg-9">
                     {/* 進度條 */}
                     <div className="bg-secondary-200 row mb-5 mx-0" style={{ height: "92px", borderRadius: "16px" }}>
@@ -417,7 +417,7 @@ function ComfirmOrder() {
                         <ReactLoading type="balls" color="pink" width="4rem" height="4rem" />
                     </div>)}
                 </div>
-                <div className="col-lg-3">
+                <div className="col-lg-3 sticky-top">
                     {cartList.total >= 1000 ? (
                         <div className="bg-secondary-200 rounded rounded-3">
                             <div className="d-flex py-4 ms-5 text-primary">

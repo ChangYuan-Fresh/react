@@ -71,8 +71,8 @@ function Cart() {
     }
 
     return (<>
-        <div className="container mb-7">
-            <div className="row position-relative">
+        <div className="container mb-7 position-relative">
+            <div className="row">
                 <div className="col-lg-9">
                     {/* 進度條 */}
                     <div className="bg-secondary-200 row mb-5 mx-0" style={{ height: "92px", borderRadius: "16px" }}>
@@ -99,7 +99,7 @@ function Cart() {
                     </div>
                     {cartList.carts?.length > 0 ? (<div>
                         <div className="text-end py-3 col-12">
-                            <button className="btn btn-outline-danger px-5" type="button" onClick={removeCart}>
+                            <button className="btn btn-outline-accent px-5" type="button" onClick={removeCart}>
                                 清空購物車
                             </button>
                         </div>
@@ -170,8 +170,8 @@ function Cart() {
                     </div>) : (<div className="text-center"><h3>購物車是空的</h3></div>)
                     }
                 </div>
-                <div className="col-lg-3 sticky-top">
-                    <div className="sticky-top">
+                <aside className="col-lg-3 sticky-top">
+                    <div>
                         {cartList.total >= 1000 ? (
                             <div className="bg-secondary-200 rounded rounded-3">
                                 <div className="d-flex py-4 ms-5 text-primary">
@@ -227,11 +227,11 @@ function Cart() {
                             <Link className={`btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold ${cartList.carts?.length < 1 ? "disabled" : ''}`} to="comfirmorder">下一步</Link>
                         </div>
                     </div>
-                </div>
+                </aside>
             </div>
         </div>
         <div>
-            <img src="/images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />
+            <img src="/images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask"/>
         </div>
     </>
     )
