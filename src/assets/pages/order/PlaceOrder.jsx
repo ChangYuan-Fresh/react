@@ -1,14 +1,24 @@
 import { Link } from "react-router";
 import axios from 'axios'
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 import { updateCartData } from '../../redux/slice/cartSlice'
 
 function PlaceOrder() {
+    const [orderId, setOrderId] = useState([])
     const dispatch = useDispatch();
 
+    const getOrders = async ()=>{
+        try {
+            const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/orders`);
+            console.log(res.data.orders)
+            setOrderId(res.data.orders)
+        } catch (error) {
+            alert(error.error)
+        }
+    }
     const getCartList = async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
@@ -18,7 +28,8 @@ function PlaceOrder() {
         }
     }
     useEffect(() => {
-        getCartList()
+        getCartList();
+        getOrders()
     }, [])
 
     return (<>
@@ -52,13 +63,13 @@ function PlaceOrder() {
                         <div className="mb-5">
                             <span className="material-symbols-outlined text-primary mb-5" style={{ fontSize: '86px' }}>check_circle</span>
                             <h2 className="mb-2">感謝您的購買!</h2>
-                            <h3 className="text-dark">訂單編號：123456789</h3>
+                            <h3 className="text-dark">訂單編號：{orderId[0]?.create_at}</h3>
                         </div>
                         {/* <!-- 總額 --> */}
                         <div className="mb-3 mt-lg-5 mt-0 py-4">
                             <div className="d-flex justify-content-between justify-content-lg-center">
-                                <Link className="btn btn-L py-2 px-6 fs-6 ms-2 ms-lg-5 py-lg-3 px-lg-7 fs-lg-4 me-lg-5 me-0" to='product'>繼續購物</Link>
-                                <Link className="btn btn-L py-2 px-6 fs-6 me-2 me-lg-5 py-lg-3 px-lg-7 fs-lg-4" to='member'>查看訂單</Link>
+                                <Link className="btn btn-L py-2 px-6 fs-6 ms-2 ms-lg-5 py-lg-3 px-lg-7 fs-lg-4 me-lg-5 me-0" to='/products'>繼續購物</Link>
+                                <Link className="btn btn-L py-2 px-6 fs-6 me-2 me-lg-5 py-lg-3 px-lg-7 fs-lg-4" to='/member'>查看訂單</Link>
                             </div>
                         </div>
                     </div>

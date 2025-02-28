@@ -17,6 +17,7 @@ function ComfirmOrder() {
     const [addressData, setAddressData] = useState([]);
     const [useCreditCard, setUseCreditCard] = useState(false)
     const [useOtherPay, setUseOtherPay] = useState(false);
+    const [couponCode, setCouponCode] = useState('');
     const navigate = useNavigate()
 
     const {
@@ -58,6 +59,7 @@ function ComfirmOrder() {
             navigate("/cart/placeordersuccess")
         } catch (error) {
             alert('結帳失敗' || error.data.message)
+            navigate("/cart")
         } finally {
             setIsLoading(false)
         }
@@ -72,7 +74,7 @@ function ComfirmOrder() {
         }
     }
     useEffect(() => {
-        getCartList()
+        getCartList();
     }, [])
 
     // 取得地址資料
@@ -93,6 +95,25 @@ function ComfirmOrder() {
             setUseCreditCard(false)
         }
     }
+
+    // 取得優惠卷代碼
+    const getCouponCode = (e) => {
+        setCouponCode(e.target.value)
+    }
+    //取得優惠
+    const getDiscount = async () => {
+        try {
+            await axios.post(`${baseUrl}/v2/api/${apiPath}/coupon`, {
+                data: {
+                    code: couponCode
+                }
+            });
+            getCartList()
+        } catch (error) {
+            alert("此優惠代碼無效" || error.response)
+        }
+    }
+
 
     return (<>
         <div className="container mb-7">
@@ -393,6 +414,16 @@ function ComfirmOrder() {
                             </div>
                         </div>
                     </div>
+                    {/* 優惠卷 */}
+                    <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
+                        <div className="card-title text-primary fs-4 mb-6">請輸入優惠卷代碼</div>
+                        <div className="input-group mb-3 w-50">
+                            <input type="text" className="form-control px-5" onChange={getCouponCode} placeholder="7788" value={couponCode}/>
+                            <button className="btn btn-primary text-white fs-5 px-7" type="button" onClick={getDiscount}>確認</button>
+                        </div>
+
+                    </div>
+
                     {/* 訂單備註 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
                         <div className="card-title text-primary fs-4 mb-6">訂單備註</div>
@@ -445,7 +476,7 @@ function ComfirmOrder() {
                                 <div>
                                     <div className="d-flex justify-content-between text-accent">
                                         <p>商品折扣</p>
-                                        <p>NT$0</p>
+                                        <p>NT${cartList.total-cartList.final_total === 0 ? 0: Math.floor(cartList.total-cartList.final_total)}</p>
                                     </div>
                                 </div>
                             </div>
@@ -453,7 +484,7 @@ function ComfirmOrder() {
                                 <div>
                                     <div className="d-flex justify-content-between">
                                         <p className="mb-2">小計</p>
-                                        <p>{`NT$${cartList.total?.toLocaleString()}`}</p>
+                                        <p>{`NT$${Math.floor(cartList.final_total).toLocaleString()}`}</p>
                                     </div>
                                 </div>
                                 <div>
@@ -465,7 +496,7 @@ function ComfirmOrder() {
                             </div>
                             <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
                                 <p>總額</p>
-                                <p className="float-end text-accent ">{`NT$${cartList.total?.toLocaleString()}`}</p>
+                                <p className="float-end text-accent ">{`NT$${Math.floor(cartList.final_total).toLocaleString()}`}</p>
                             </div>
                         </div>
                     </div>

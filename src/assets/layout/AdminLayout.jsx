@@ -1,12 +1,33 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import AdminSidebar from "./AdminSiderbar";
 import AdminNavbar from "./AdminNavbar";
+import { useEffect } from "react";
+import axios from 'axios'
+
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 
 function AdminLayout() {
+    const navigate = useNavigate()
+    const checkLogin = async () => {
+        try {
+            await axios.post(`${baseUrl}/v2/api/user/check`)
+        } catch (error) {
+            alert("請登入管理員帳號")
+            navigate('/adminlogin')
+        }
+    }
+    useEffect(() => {
+        const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = token;
+            checkLogin()
+        }
+    }, [])
+
     return (
-        <> 
-           <AdminNavbar/>
+        <>
+            <AdminNavbar />
             <div className="bg-light">
                 <div className="container pt-6 d-none d-lg-block">
                     <div className="row">

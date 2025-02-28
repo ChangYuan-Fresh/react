@@ -5,7 +5,7 @@ import PaginationCompo from '../../component/PaginationCompo';
 import ProductModal from '../../component/ProductModal';
 import DeleteProductModal from '../../component/DeleteProductModal';
 import Toast from "../../layout/Toast";
-
+import { useNavigate } from 'react-router';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -30,8 +30,24 @@ function AdminProductPage() {
     const [tempProduct, setTempProduct] = useState(defaultModalState);
     const modelRef = useRef(null);
     const delModelRef = useRef(null);
+    const navigate = useNavigate()
 
-
+    
+    const checkLogin = async () => {
+        try {
+            await axios.post(`${baseUrl}/v2/api/user/check`)
+        } catch (error) {
+            alert("請登入管理員帳號")
+            navigate('/adminlogin')
+        }
+    }
+    useEffect(() => {
+        const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = token;
+            checkLogin()
+        }
+    }, [])
 
     const getProductList = async (page = 1) => {
         try {
@@ -40,6 +56,7 @@ function AdminProductPage() {
             getPageInfo(res.data.pagination)
         } catch (error) {
             alert('取得資料失敗' || res.data.message)
+            navigate('/adminlogin')
         }
     }
 
@@ -68,6 +85,7 @@ function AdminProductPage() {
     useEffect(() => {
         getProductList()
     }, [])
+    
     return (
         <>
             <div className="container  rounded-3 py-5" >

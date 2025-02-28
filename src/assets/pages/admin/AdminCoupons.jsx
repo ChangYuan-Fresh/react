@@ -4,6 +4,7 @@ import PaginationCompo from '../../component/PaginationCompo';
 import CouponModal from '../../component/CouponModal';
 import DeleteCouponModal from '../../component/DeleteCouponModal';
 import Toast from "../../layout/Toast";
+import { useNavigate } from 'react-router';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -15,7 +16,6 @@ const defaultModalState = {
     due_date: "",
     code: ""
 };
-
 function AdminCoupons() {
     const [coupons, setCoupons] = useState([]);
     const [pageInfo, getPageInfo] = useState({});
@@ -23,7 +23,24 @@ function AdminCoupons() {
     const [tempCoupon, setTempCoupon] = useState(defaultModalState);
     const modelRef = useRef(null);
     const delModelRef = useRef(null);
+    const navigate = useNavigate()
 
+    
+    const checkLogin = async () => {
+        try {
+            await axios.post(`${baseUrl}/v2/api/user/check`)
+        } catch (error) {
+            alert("請登入管理員帳號")
+            navigate('/adminlogin')
+        }
+    }
+    useEffect(() => {
+        const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = token;
+            checkLogin()
+        }
+    }, [])
 
 
     const getCouponList = async (page = 1) => {
@@ -32,7 +49,8 @@ function AdminCoupons() {
             setCoupons(res.data.coupons);
             getPageInfo(res.data.pagination)
         } catch (error) {
-            alert('取得優惠券列表失敗' || res.data.message)
+            alert("請登入管理員帳號" || res.data.message)
+            navigate('/adminlogin')
         }
     }
 
