@@ -10,13 +10,13 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
 const defaultModalState = {
-    author: "alice",
-    create_at: 123455,
-    description: "123",
+    author: "",
+    create_at: "",
+    description: "",
     image: "",
     isPublic: 0,
-    title: "title1234",
-    content: "abc"
+    title: "",
+    content: ""
 };
 
 function AdminStory() {

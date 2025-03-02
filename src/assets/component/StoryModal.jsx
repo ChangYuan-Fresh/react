@@ -11,6 +11,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
     const articleRef = useRef(null);
     const dispatch = useDispatch();
     const [date, setDate] = useState(new Date()); //轉換日期
+    
     //新增文章
     const createNewArticle = async () => {
         try {
@@ -18,7 +19,6 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                 data: {
                     ...tempArticle,
                     create_at: date.getTime(),
-                    //content: tempArticle.content || "（尚無內容）",
                     isPublic: tempArticle.isPublic ? true : false
                 }
             });
@@ -85,7 +85,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
         const formData = new FormData();
         formData.append('file-to-upload', file)
         try {
-            const res = await axios.post(`${baseUrl}/v2/api/${apiPath}/admin/upload`, formData);           
+            const res = await axios.post(`${baseUrl}/v2/api/${apiPath}/admin/upload`, formData);
             console.log(res);
             const upLoadImg = res.data.imageUrl;
             setTempArticle({
@@ -195,21 +195,23 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                                     <textarea
                                         className="form-control"
                                         id="description"
-                                        rows="2"
+                                        rows="3"
                                         name="description"
                                         value={tempArticle.description}
-                                        onChange={getinputValue}></textarea>
-                                </div>   
+                                        onChange={getinputValue}>
+                                    </textarea>
+                                </div>
                                 <div className="mb-3">
                                     <label htmlFor="content" className="form-label">文章後段</label>
                                     <textarea
                                         className="form-control"
                                         id="content"
-                                        rows="2"
+                                        rows="3"
                                         name="content"
                                         value={tempArticle.content}
-                                        onChange={getinputValue}></textarea>
-                                </div>   
+                                        onChange={getinputValue}>
+                                    </textarea>
+                                </div>
                                 <div className="form-check">
                                     <input
                                         className="form-check-input"
@@ -220,7 +222,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                                     <label className="form-check-label" htmlFor="isPublic">
                                         是否公開
                                     </label>
-                                </div>                             
+                                </div>
                             </div>
                         </div>
                     </div>
