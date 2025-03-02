@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import AdminSidebar from "./AdminSiderbar";
+import AdminSidebar from "./AdminSidebar";
 import AdminNavbar from "./AdminNavbar";
 import { useEffect } from "react";
 import axios from 'axios'
