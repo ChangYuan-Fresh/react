@@ -55,11 +55,11 @@ function Story() {
                     <article className="story-article bg-secondary-200 p-lg-7 p-5 rounded-3 mb-5 mb-lg-0">
                         <div className="d-sm-flex justify-content-between align-items-baseline mb-lg-5 mb-3">
                             <h4 className="fs-lg-1 fs-md-3 text-nowrap">{story.title}</h4>
-                            <p className="text-gray fs-7" >{new Date(story.create_at * 1000).toLocaleDateString()}</p>
+                            <p className="text-gray fs-7" >{new Date(story.create_at).toLocaleDateString()}</p>
                         </div>
-                        {story.description}
+                        <p dangerouslySetInnerHTML={{ __html: story.description }}></p>
                         <img src={story.image} className="img-fluid story-cauliflower-img" />
-                        {story.content}
+                        <p dangerouslySetInnerHTML={{ __html: story.content }}></p>
                     </article>
                     <aside className="ms-lg-5 mb-8 mb-lg-5 sticky-lg-top ">
                         <div className="list-group list-group-flush p-5 bg-secondary rounded-3 sticky-top ">

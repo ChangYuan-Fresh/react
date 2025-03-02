@@ -115,7 +115,7 @@ function AdminStory() {
                                                 </td>
                                                 <td>{article.title}</td>
                                                 <td>{article.author}</td>
-                                                <td>{article.create_at}</td>
+                                                <td>{new Date(article.create_at).toDateString()}</td>
                                                 <td><p id={article.id} className="text-decoration-none">{article.isPublic ? (<span className="text-success">公開</span>) : (<span>未公開</span>)}</p ></td>
                                                 <td>
                                                     <div className="btn-group" role="group">

@@ -86,7 +86,6 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
         formData.append('file-to-upload', file)
         try {
             const res = await axios.post(`${baseUrl}/v2/api/${apiPath}/admin/upload`, formData);
-            console.log(res);
             const upLoadImg = res.data.imageUrl;
             setTempArticle({
                 ...tempArticle,

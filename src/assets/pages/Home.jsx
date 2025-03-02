@@ -13,9 +13,9 @@ import { useEffect } from 'react';
 
 
 function Home() {
-     useEffect(() => {
-    AOS.init();
-  }, []);
+    useEffect(() => {
+        AOS.init();
+    }, []);
 
     return (
         <div>
@@ -26,11 +26,11 @@ function Home() {
                         <img src="src/assets/images/banner.png" alt="" className="d-block w-100 allProduct-banner-img" />
                         <div className="position-absolute banner-text translate-middle ">
                             <h3 className="d-lg-inline-block d-sm-flex  justify-content-sm-center bg-primary text-white text-nowrap py-lg-3 mb-lg-4 mb-2 px-lg-4 p-2 ">
-                                 來自彰化的新鮮美味
-                            </h3>                       
+                                來自彰化的新鮮美味
+                            </h3>
                             <br />
                             <h4 className="d-inline-block bg-white py-lg-2 px-lg-4 p-2 mb-lg-4 mb-2 fs-lg-4 fs-5 d-none d-lg-block">
-                                 在地農夫精心栽培，每一口都是健康的保證
+                                在地農夫精心栽培，每一口都是健康的保證
                             </h4>
                             <form role="search" className="position-relative d-flex" >
                                 <div className="dropdown position-absolute top-50 start-0 translate-middle-y z-2">
@@ -51,7 +51,7 @@ function Home() {
                         </div>
                         <img src="/images/Illustration/Top-Curve.png" alt="" className="d-block position-absolute  deco-curve" />
                     </div>
-                </section>               
+                </section>
                 {/* <!--3個理由--> */}
                 <section className="reason reason-bg">
                     <div className="container d-flex flex-column align-items-center py-lg-11 py-6" >
@@ -87,7 +87,7 @@ function Home() {
                             <div className="col">
                                 <div className="card bg-transparent border-0 d-flex flex-column align-items-center justify-content-ceter" data-aos="fade-up">
                                     <picture>
-                                        <source media="(min-width: 992px)" srcset="src/assets/images/Illustration/Earth-sm.png" />
+                                        <source media="(min-width: 992px)" srcSet="src/assets/images/Illustration/Earth-sm.png" />
                                         <img src="src/assets/images/Illustration/Earth.png" alt="#" />
                                     </picture>
                                     <div className="reason-card-body d-flex flex-column align-items-center">
@@ -815,21 +815,21 @@ function Home() {
                     <div className="container py-lg-11 py-8 ">
                         <div className="d-lg-flex justify-content-lg-between align-items-center">
                             <div className="tab-content story-tab-content rounded-5 me-lg-6 me-0 mb-lg-0 mb-4" id="v-pills-tabContent">
-                                <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabindex="0">
+                                <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabIndex="0">
                                     <img src="src/assets/images/Cauliflower HQ (2).png" alt="story1" className="story-img " />
                                 </div>
-                                <div className="tab-pane fade" id="v-pills-grape" role="tabpanel" aria-labelledby="v-pills-grape-tab" tabindex="0">
-                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabindex="0">
+                                <div className="tab-pane fade" id="v-pills-grape" role="tabpanel" aria-labelledby="v-pills-grape-tab" tabIndex="0">
+                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabIndex="0">
                                         <img src="src/assets/images/story1.png" alt="story1" className="story-img " />
                                     </div>
                                 </div>
-                                <div className="tab-pane fade" id="v-pills-farmTotable" role="tabpanel" aria-labelledby="v-pills-farmTotable-tab" tabindex="0">
-                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabindex="0">
+                                <div className="tab-pane fade" id="v-pills-farmTotable" role="tabpanel" aria-labelledby="v-pills-farmTotable-tab" tabIndex="0">
+                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabIndex="0">
                                         <img src="src/assets/images/about3.png" alt="story1" className="story-img " />
                                     </div>
                                 </div>
-                                <div className="tab-pane fade" id="v-pills-clam" role="tabpanel" aria-labelledby="v-pills-clam-tab" tabindex="0">
-                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabindex="0">
+                                <div className="tab-pane fade" id="v-pills-clam" role="tabpanel" aria-labelledby="v-pills-clam-tab" tabIndex="0">
+                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabIndex="0">
                                         <img src="src/assets/images/Kindelmedia 8352389 1.png" alt="story1" className="story-img " />
                                     </div>
                                 </div>
@@ -852,7 +852,7 @@ function Home() {
                     </div>
                     <div className="bg-white position-relative py-lg-7 py-3">
                         <picture>
-                            <source media="(min-width: 992px)" srcset="src/assets/images/deco/Arrow-Curve.png" />
+                            <source media="(min-width: 992px)" srcSet="src/assets/images/deco/Arrow-Curve.png" />
                             <img src="src/assets/images/deco/Arrow-Curve-sm.png" alt="Arrow-Curve" className="arrow-curve" />
                         </picture>
                     </div>
@@ -867,7 +867,7 @@ function Home() {
                                         <h4 className="card-title fs-lg-1 text-accent text-lg-start text-center">01</h4>
                                         <div className="d-flex flex-column align-items-center">
                                             <picture>
-                                                <source media="(min-width: 992px)" srcset="src/assets/images/Illustration/Tree.png" />
+                                                <source media="(min-width: 992px)" srcSet="src/assets/images/Illustration/Tree.png" />
                                                 <img src="src/assets/images/Illustration/Tree-sm.png" alt="Tree" className="promotion-img" />
                                             </picture>
                                         </div>
@@ -882,7 +882,7 @@ function Home() {
                                         <h4 className="card-title fs-lg-1 text-accent text-lg-start text-center">02</h4>
                                         <div className="d-flex flex-column align-items-center">
                                             <picture>
-                                                <source media="(min-width: 992px)" srcset="src/assets/images/Illustration/Delivery.png" />
+                                                <source media="(min-width: 992px)" srcSet="src/assets/images/Illustration/Delivery.png" />
                                                 <img src="src/assets/images/Illustration/Delivery-sm.png" alt="Delivery" className="promotion-img" />
                                             </picture>
                                         </div>
@@ -897,7 +897,7 @@ function Home() {
                                         <h4 className="card-title fs-lg-1 text-accent text-lg-start text-center">03</h4>
                                         <div className="d-flex flex-column align-items-center">
                                             <picture>
-                                                <source media="(min-width: 992px)" srcset="src/assets/images/Illustration/Eating.png" />
+                                                <source media="(min-width: 992px)" srcSet="src/assets/images/Illustration/Eating.png" />
                                                 <img src="src/assets/images/Illustration/Eating-sm.png" alt="Eating" className="promotion-img" />
                                             </picture>
                                         </div>
