@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import AdminSidebar from "./AdminSiderbar";
+import AdminSidebar from "./AdminSidebar";
 
 function AdminNavbar() {
     return (<>
@@ -21,7 +21,7 @@ function AdminNavbar() {
                             <button className="mx-3 d-lg-none navbar-toggler border border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                                 <span className="navbar-toggler-icon text-primary"></span>
                             </button>
-                            <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                            <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                                 <div className="offcanvas-header">
                                     <img className="offcanvas-title" id="offcanvasNavbarLabel" src="src/assets/images/LOGO-S.png" alt="LOGO" />
                                     <div className="ms-auto d-flex justify-content-end align-items-center">

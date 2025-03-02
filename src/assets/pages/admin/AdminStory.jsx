@@ -10,13 +10,13 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
 const defaultModalState = {
-    author: "alice",
-    create_at: 123455,
-    description: "123",
+    author: "",
+    create_at: "",
+    description: "",
     image: "",
     isPublic: 0,
-    title: "title1234",
-    content: "abc"
+    title: "",
+    content: ""
 };
 
 function AdminStory() {
@@ -90,7 +90,7 @@ function AdminStory() {
                         <div className="d-flex justify-content-between mb-6">
                             <h3>文章管理</h3>
                             <button type="button" className="btn btn-primary py-1 text-white f-6" onClick={() => openModal('create')}>
-                                <i class="bi bi-plus-circle me-1"></i>
+                                <i className="bi bi-plus-circle me-1"></i>
                                 新增文章
                             </button>
                         </div>
@@ -115,7 +115,7 @@ function AdminStory() {
                                                 </td>
                                                 <td>{article.title}</td>
                                                 <td>{article.author}</td>
-                                                <td>{article.create_at}</td>
+                                                <td>{new Date(article.create_at).toDateString()}</td>
                                                 <td><p id={article.id} className="text-decoration-none">{article.isPublic ? (<span className="text-success">公開</span>) : (<span>未公開</span>)}</p ></td>
                                                 <td>
                                                     <div className="btn-group" role="group">
