@@ -21,7 +21,6 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                     is_enabled: tempProduct.is_enabled ? 1 : 0
                 }
             });
-
             dispatch(creatAsyncMessage({
                 text: res.data.message,
                 type: '新增產品成功',
