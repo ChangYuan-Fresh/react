@@ -33,14 +33,14 @@ function AdminSidebar() {
                 >商品管理</NavLink>
                 <hr />
                 <NavLink
+                    to="/admin/adminOrders"
+                    className="adminNavLink"
+                >訂單管理</NavLink>               
+                <hr />
+                <NavLink
                     to="/admin/adminStory"
                     className="adminNavLink"
                 >文章管理</NavLink>
-                <hr />
-                <NavLink
-                    to="/admin/adminOrders"
-                    className="adminNavLink"
-                >訂單管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminCoupons"
@@ -70,14 +70,14 @@ function AdminSidebar() {
                 >商品管理</NavLink>
                 <hr />
                 <NavLink
+                    to="/admin/adminOrders"
+                    className="adminNavLink d-flex justify-content-center"
+                >訂單管理</NavLink>                
+                <hr />
+                <NavLink
                     to="/admin/adminStory"
                     className="adminNavLink d-flex justify-content-center"
                 >文章管理</NavLink>
-                <hr />
-                <NavLink
-                    to="/admin/adminOrders"
-                    className="adminNavLink d-flex justify-content-center"
-                >訂單管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminCoupons"
