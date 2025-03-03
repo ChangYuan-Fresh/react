@@ -67,7 +67,7 @@ function AdminStory() {
                 setTempArticle(defaultModalState);
                 break;
             case 'edit':
-                setTempArticle(article);
+                getArticleInfo(article.id);
                 break;
             default:
                 break;
@@ -81,6 +81,16 @@ function AdminStory() {
     useEffect(() => {
         getArticleList()
     }, [])
+
+    const getArticleInfo = async (id) => {
+        try {
+            const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/article/${id}`);
+            setTempArticle(res.data.article)
+        } catch (error) {
+            alert('取得資料失敗' || res.data.message)
+            navigate('/adminlogin')
+        }
+    }
 
     return (
         <>

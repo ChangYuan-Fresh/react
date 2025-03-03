@@ -47,7 +47,7 @@ function Stories() {
                                         <div>
                                             <div className="d-flex justify-content-between align-items-baseline ">
                                                 <h6 className="card-title fs-lg-2  fs-md-4 fs-sm-5 text-primary text-nowrap">{story.title}</h6>
-                                                <p className="card-text text-gray d-none d-lg-block"><small>{new Date(story.create_at * 1000).toLocaleDateString()}</small></p>
+                                                <p className="card-text text-gray d-none d-lg-block"><small>{new Date(story.create_at).toLocaleDateString()}</small></p>
                                             </div>
                                             <p className="card-text fs-lg-5 d-lg-block d-none">{story.description}</p>
                                         </div>
