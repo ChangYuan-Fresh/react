@@ -114,7 +114,6 @@ function ComfirmOrder() {
         }
     }
 
-
     return (<>
         <div className="container mb-7">
             <form className="row g-5 position-relative" onSubmit={handleSubmit(onSubmit)}>

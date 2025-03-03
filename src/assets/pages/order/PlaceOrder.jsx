@@ -13,7 +13,6 @@ function PlaceOrder() {
     const getOrders = async ()=>{
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/orders`);
-            console.log(res.data.orders)
             setOrderId(res.data.orders)
         } catch (error) {
             alert(error.error)
