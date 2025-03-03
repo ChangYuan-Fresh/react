@@ -112,7 +112,7 @@ function AdminCoupons() {
                                                 <th scope="row">{coupon.title}</th>
                                                 <td>{coupon.code}</td>
                                                 <td>{coupon.percent}</td>
-                                                <td>{new Date(coupon.due_date).toDateString()}</td>
+                                                <td>{new Date(coupon.due_date).toLocaleDateString()}</td>
                                                 <td><p id={coupon.id} className="text-decoration-none">{coupon.is_enabled ? (<span className="text-success">上架</span>) : (<span>下架</span>)}</p ></td>
                                                 <td>
                                                     <div className="btn-group" role="group">
