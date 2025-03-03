@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import axios from 'axios'
 import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
-import { creatAsyncMessage } from '../redux/slice/toastSlice';
+import { createAsyncMessage } from '../redux/slice/toastSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -24,7 +24,7 @@ function DeleteCouponModal({ tempCoupon, getCouponList, delModelRef}) {
     const removeCoupon = async () => {
         try {
             const res = await axios.delete(`${baseUrl}/v2/api/${apiPath}/admin/coupon/${tempCoupon.id}`)
-            dispatch(creatAsyncMessage({
+            dispatch(createAsyncMessage({
                 text: res.data.message,
                 type: '刪除優惠券成功',
                 status: "success"
@@ -32,7 +32,7 @@ function DeleteCouponModal({ tempCoupon, getCouponList, delModelRef}) {
             getCouponList()
         } catch (error) {
             const { message } = error.response.data;
-            dispatch(creatAsyncMessage({
+            dispatch(createAsyncMessage({
                 text: message.join("、"),
                 type: '刪除優惠券失敗',
                 status: "failed"

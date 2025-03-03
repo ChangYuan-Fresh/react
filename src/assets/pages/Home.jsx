@@ -9,6 +9,8 @@ import animationData from "../../assets/lottie-hand.json";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
+import Toast from '../layout/Toast';
+
 
 
 
@@ -510,7 +512,7 @@ function Home() {
                                     </SwiperSlide>
                                     <SwiperSlide className="swiper-slide card border-0 swiper-slide-active ">
                                         <div className="">
-                                            <img src="https://y3.yooho.com.tw/images/202306/goods_img/7036_G_1686867769187.jpg" alt="porkRibs" className="rounded-4 product-index-img" />
+                                            <img src="https://images.unsplash.com/photo-1723466982423-9425425492a1?q=80&w=1024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="porkRibs" className="rounded-4 product-index-img" />
                                         </div>
                                         <div className="card-body px-0">
                                             <h6 className="card-title  product-card-title fs-lg-5 text-nowrap fw-bold">
@@ -835,17 +837,17 @@ function Home() {
                                 </div>
                             </div>
                             <div className="nav story-nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <Link to="Stories"><button className="nav-link story-btn active text-start fs-lg-4 fs-6 position-relative" id="v-pills-cauliflower-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cauliflower" type="button" role="tab" aria-controls="v-pills-cauliflower" aria-selected="true">
+                                <Link to="/stories/-OK5M9Em5IQqFNCZCDXS"><button className="nav-link story-btn active text-start fs-lg-4 fs-6 position-relative" id="v-pills-cauliflower-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cauliflower" type="button" role="tab" aria-controls="v-pills-cauliflower" aria-selected="true">
                                     種植花椰菜的故事<span className="material-symbols-outlined story-icon">chevron_right</span>
                                 </button></Link>
-                                <Link to="Stories"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-grape-tab" data-bs-toggle="pill" data-bs-target="#v-pills-grape" type="button" role="tab" aria-controls="v-pills-grape" aria-selected="false">
+                                <Link to="/stories/-OK5MfbrpHIayuP0WYAC"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-grape-tab" data-bs-toggle="pill" data-bs-target="#v-pills-grape" type="button" role="tab" aria-controls="v-pills-grape" aria-selected="false">
                                     葡萄園的奧秘<span className="material-symbols-outlined story-icon">chevron_right</span>
                                 </button></Link>
-                                <Link to="Stories"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-farmTotable-tab" data-bs-toggle="pill" data-bs-target="#v-pills-farmTotable" type="button" role="tab" aria-controls="v-pills-farmTotable" aria-selected="false">
+                                <Link to="/stories/-OK5LgP5Khusdh8K_m3h"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-farmTotable-tab" data-bs-toggle="pill" data-bs-target="#v-pills-farmTotable" type="button" role="tab" aria-controls="v-pills-farmTotable" aria-selected="false">
                                     從牧場到餐桌的旅程<span className="material-symbols-outlined story-icon">chevron_right</span>
                                 </button></Link>
-                                <Link to="Stories"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-clam-tab" data-bs-toggle="pill" data-bs-target="#v-pills-clam" type="button" role="tab" aria-controls="v-pills-clam" aria-selected="false">
-                                    用蛤打造的精緻佳餚<span className="material-symbols-outlined story-icon">chevron_right</span>
+                                <Link to="/stories"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-clam-tab" data-bs-toggle="pill" data-bs-target="#v-pills-clam" type="button" role="tab" aria-controls="v-pills-clam" aria-selected="false">
+                                    想知道更多產地故事嗎?<span className="material-symbols-outlined story-icon">chevron_right</span>
                                 </button></Link>
                             </div>
                         </div>
@@ -975,6 +977,7 @@ function Home() {
                         </div>
                     </div>
                 </section>
+                <Toast />
             </main>
         </div>
     )

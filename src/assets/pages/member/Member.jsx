@@ -1,7 +1,24 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom"
+import Toast from "../../layout/Toast";
+import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from "../../redux/slice/toastSlice";
+
+
 
 function Member() {
-    
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        navigate("/"); 
+        setTimeout(()=>{
+            dispatch(createAsyncMessage({
+                text: "已成功登出",
+                type: '登出',
+                status: "success"
+            }));
+        },500)
+    };
 
     return (<>
         <div className="container member">
@@ -31,7 +48,7 @@ function Member() {
                             <Link  className="btn btn-L w-100 mb-4 fs-5 py-3 rounded-pill">收件地址管理</Link>
                             <Link  className="btn btn-L w-100 fs-5 py-3 rounded-pill">優惠券查詢</Link>
                         </div>
-                        <Link to="/" className="mt-auto ms-auto fs-5 fs-lg-4 link-primary">登出<span
+                        <Link to="/" onClick={handleLogout} className="mt-auto ms-auto fs-5 fs-lg-4 link-primary">登出<span
                             className="material-symbols-outlined align-middle ms-2">logout</span></Link>
                     </div>
                 </div>
@@ -656,9 +673,7 @@ function Member() {
 
             </div>
         </div >
-
-
-
+        <Toast />
         <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
     </>
     )

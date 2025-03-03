@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router';
 import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
-import { creatAsyncMessage } from '../../redux/slice/toastSlice';
+import { createAsyncMessage } from '../../redux/slice/toastSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -79,14 +79,14 @@ function AdminOrders() {
             });
             getOrderList();
             closeModal()
-            dispatch(creatAsyncMessage({
+            dispatch(createAsyncMessage({
                 text: res.data.message,
                 type: '更新訂單成功',
                 status: "success"
             }))
         } catch (error) {
             const { message } = error.response.data;
-            dispatch(creatAsyncMessage({
+            dispatch(createAsyncMessage({
                 text: message.join("、"),
                 type: '更新訂單失敗',
                 status: "failed"

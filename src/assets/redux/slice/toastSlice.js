@@ -21,8 +21,8 @@ export const toastSlice = createSlice({
         }
     }
 });
-export const creatAsyncMessage = createAsyncThunk(
-    'toast/creatAsyncMessage',
+export const createAsyncMessage = createAsyncThunk(
+    'toast/createAsyncMessage',
     async (payload, {dispatch, requestId})=>{
         dispatch(toastSlice.actions.updateMessage({
             ...payload,

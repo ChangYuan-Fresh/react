@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import ReactLoading from 'react-loading'
 import axios from 'axios'
 import Input from "../component/Input";
-
+import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../redux/slice/toastSlice';
+import Toast from "../layout/Toast";
 
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -12,7 +14,8 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 function AdminLoginPage (){
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
-    const [isAuth ,setIsAuth] =useState(false)
+    const [isAuth ,setIsAuth] =useState(false);
+    const dispatch = useDispatch();
     const {
         register,
         handleSubmit,
@@ -29,6 +32,11 @@ function AdminLoginPage (){
             axios.defaults.headers.common['Authorization'] = token;
             navigate("/admin")
             setIsAuth(true);
+            dispatch(createAsyncMessage({
+                text: "登入成功",
+                type: '歡迎登入管理中心',
+                status: "success"
+            }));
         } catch (error) {
             alert(error.data.response)
         } finally {
@@ -112,8 +120,8 @@ function AdminLoginPage (){
                 <ReactLoading type="balls" color="pink" width="4rem" height="4rem" />
                 </div>
             )}
+            <Toast />
         </div >
-
     )
 }
 

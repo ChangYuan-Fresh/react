@@ -1,17 +1,24 @@
 import { NavLink, useNavigate } from "react-router";
 import axios from "axios";
-
+import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../redux/slice/toastSlice';
 
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function AdminSidebar() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogout = async () => {
         try {
             await axios.post(`${baseUrl}/v2/logout`);
-            navigate("/adminlogin")
+            navigate("/adminlogin");
+            dispatch(createAsyncMessage({
+                text: "登出成功",
+                type: '登出管理中心',
+                status: "success"
+            }));
         } catch (error) {
             console.log(error)
             alert("登出失敗");
@@ -33,14 +40,14 @@ function AdminSidebar() {
                 >商品管理</NavLink>
                 <hr />
                 <NavLink
+                    to="/admin/adminOrders"
+                    className="adminNavLink"
+                >訂單管理</NavLink>               
+                <hr />
+                <NavLink
                     to="/admin/adminStory"
                     className="adminNavLink"
                 >文章管理</NavLink>
-                <hr />
-                <NavLink
-                    to="/admin/adminOrders"
-                    className="adminNavLink"
-                >訂單管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminCoupons"
@@ -70,14 +77,14 @@ function AdminSidebar() {
                 >商品管理</NavLink>
                 <hr />
                 <NavLink
+                    to="/admin/adminOrders"
+                    className="adminNavLink d-flex justify-content-center"
+                >訂單管理</NavLink>                
+                <hr />
+                <NavLink
                     to="/admin/adminStory"
                     className="adminNavLink d-flex justify-content-center"
                 >文章管理</NavLink>
-                <hr />
-                <NavLink
-                    to="/admin/adminOrders"
-                    className="adminNavLink d-flex justify-content-center"
-                >訂單管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminCoupons"

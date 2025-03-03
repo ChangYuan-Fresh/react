@@ -6,3 +6,27 @@
     color: $primary;
 }
 
+.products-nav-link{
+    color: #000;
+    font-weight: 700;
+}
+
+.products-nav-link.active {
+    color: #788F49 !important;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        background-color:  #788F49;
+        width: 120px;
+        height: 3px;
+        border-radius: 4px;
+        bottom: 1px;
+        left: 50%;
+        transform: translate(-50%);
+        @media(min-width: 992px) {
+            width: 120px;
+        }
+    }
+}
