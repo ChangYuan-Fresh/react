@@ -3,18 +3,27 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ReactLoading from 'react-loading';
 import Input from "../component/Input";
+import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../redux/slice/toastSlice';
+
 
 
 function LoginPage() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onSubmit = () => {
         setIsLoading(true);
         setTimeout(() => {
             navigate("/member");
-        }, 2000);
+            dispatch(createAsyncMessage({
+                text: "登入成功",
+                type: '歡迎登入',
+                status: "success"
+            }));
+        }, 2000);       
     };
 
     return (
@@ -41,7 +50,7 @@ function LoginPage() {
                                 rules={{ required: "密碼為必填" }}
                             />
                             <button type="submit" disabled={isLoading} className="btn btn-L  py-3 my-5 mx-auto w-50">
-                            登入
+                                登入
                             </button>
                         </form>
                     </div>
@@ -62,7 +71,7 @@ function LoginPage() {
                         >
                             <ReactLoading type="balls" color="pink" width="4rem" height="4rem" />
                         </div>
-                    )}
+                    )}                  
                 </div>
             </div>
         </div>

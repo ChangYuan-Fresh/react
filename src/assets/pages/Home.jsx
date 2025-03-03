@@ -9,6 +9,8 @@ import animationData from "../../assets/lottie-hand.json";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
+import Toast from '../layout/Toast';
+
 
 
 
@@ -975,6 +977,7 @@ function Home() {
                         </div>
                     </div>
                 </section>
+                <Toast />
             </main>
         </div>
     )

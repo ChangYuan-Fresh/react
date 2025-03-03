@@ -1,17 +1,24 @@
 import { NavLink, useNavigate } from "react-router";
 import axios from "axios";
-
+import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../redux/slice/toastSlice';
 
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 function AdminSidebar() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogout = async () => {
         try {
             await axios.post(`${baseUrl}/v2/logout`);
-            navigate("/adminlogin")
+            navigate("/adminlogin");
+            dispatch(createAsyncMessage({
+                text: "登出成功",
+                type: '登出管理中心',
+                status: "success"
+            }));
         } catch (error) {
             console.log(error)
             alert("登出失敗");

@@ -2,13 +2,14 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
 import AdminNavbar from "./AdminNavbar";
 import { useEffect } from "react";
-import axios from 'axios'
+import axios from 'axios';
+import Toast from "./Toast";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 
 function AdminLayout() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const checkLogin = async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
@@ -43,6 +44,7 @@ function AdminLayout() {
                     <Outlet />
                 </div>
             </div>
+            <Toast />
         </>
     )
 }
