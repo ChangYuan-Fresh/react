@@ -3,7 +3,6 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
-import PaginationCompo from '../../component/PaginationCompo';
 import IsScreenLoading from '../../component/IsScreenLoading'
 import ProductBrowsingHistory from './ProductBrowsingHistory'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,12 +11,13 @@ import 'swiper/css';
 function ProductListAll() {
     const [products, setProducts] = useState([]);
     const [isScreenLoading, setIsScreenLoading] = useState(false);
-    const [selectCategory, setSelectCategory] = useState('熱門商品')
+    const [selectCategory, setSelectCategory] = useState('熱門商品');
+    const [ascending, setAscending] = useState(true)
 
     const getProductList = async () => {
         setIsScreenLoading(true);
         try {
-            const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/products`);
+            const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/products/all`);
             setProducts(res.data.products);
         } catch (error) {
             alert('取得資料失敗' || error.data.message)
@@ -32,26 +32,28 @@ function ProductListAll() {
 
     const categories = ['熱門商品', ...new Set(products.map((product) => product.category))];
 
-    const filterProducts = products.filter((product) => {
-        if (selectCategory === '熱門商品') return product;
+    const filterProducts =  products
+            .filter((product) => {
+                if (selectCategory === '熱門商品') return product;
+                return product.category === selectCategory
+            })
+            .sort((a, b) =>  ascending ? a.price - b.price : b.price - a.price)
 
-        return product.category === selectCategory
-    })
     return (<>
 
         <div className="overflow-hidden container mb-5">
             {/* <!-- Navs --> */}
-            <Swiper 
-            slidesPerView={3}
-            className="nav nav-pills d-lg-none d-flex justify-content-between flex-nowrap text-nowrap allProduct-nav-pills" id="productTab" 
-            role="tablist">
+            <Swiper
+                slidesPerView={3}
+                className="nav nav-pills d-lg-none d-flex justify-content-between flex-nowrap text-nowrap allProduct-nav-pills" id="productTab"
+                role="tablist">
                 {categories.map((category) => {
                     return (
-                    <SwiperSlide className="nav-item" key={category}>
-                        <button type="button" className="nav-link" onClick={() => setSelectCategory(category)}>
-                        {category}
-                        </button>
-                    </SwiperSlide>)
+                        <SwiperSlide className="nav-item" key={category}>
+                            <button type="button" className="nav-link" onClick={() => setSelectCategory(category)}>
+                                {category}
+                            </button>
+                        </SwiperSlide>)
                 })}
             </Swiper>
         </div>
@@ -88,15 +90,13 @@ function ProductListAll() {
                         <div className="dropdown">
                             <button className="btn dropdown-toggle border-0 px-0 allProduct-catalog-sort" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span className="pe-2">
-                                    排序方式：熱門
+                                    排序方式：價格低至高
                                 </span>
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a className="dropdown-item" href="#">熱門</a></li>
-                                <li><a className="dropdown-item" href="#">價格高至低</a></li>
-                                <li><a className="dropdown-item" href="#">價格低至高</a></li>
-                                <li><a className="dropdown-item" href="#">銷售量高至低</a></li>
-                                <li><a className="dropdown-item" href="#">銷售量低至高</a></li>
+                                <li><button className="dropdown-item" onClick={() => { setAscending(true) }}>價格低至高</button></li>
+                                <li><button className="dropdown-item" onClick={() => { setAscending(false) }}>價格高至低</button></li>
+
                             </ul>
                         </div>
                     </div>
@@ -114,14 +114,6 @@ function ProductListAll() {
                                 </div>)
                         })}
                     </div>
-                    {/* <!-- 頁碼 --> */}
-                    <PaginationCompo pageInfo={{
-                        "total_pages": 3,
-                        "current_page": 1,
-                        "has_pre": false,
-                        "has_next": false,
-                        "category": ""
-                    }} />
                     <IsScreenLoading isScreenLoading={isScreenLoading} />
                 </section>
             </div>

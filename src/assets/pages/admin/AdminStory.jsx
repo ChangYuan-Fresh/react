@@ -5,6 +5,7 @@ import StoryModal from '../../component/StoryModal';
 import DeleteStoryModal from '../../component/DeleteStoryModal';
 import Toast from "../../layout/Toast";
 import { useNavigate } from 'react-router';
+import IsScreenLoading from '../../component/IsScreenLoading';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -27,6 +28,7 @@ function AdminStory() {
     const modelRef = useRef(null);
     const delModelRef = useRef(null);
     const navigate = useNavigate()
+    const [isScreenLoading, setIsScreenLoading] = useState(false)
 
 
     const checkLogin = async () => {
@@ -46,6 +48,7 @@ function AdminStory() {
     }, [])
 
     const getArticleList = async (page = 1) => {
+        setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/articles?page=${page}`);
             setArticles(res.data.articles);
@@ -53,6 +56,8 @@ function AdminStory() {
         } catch (error) {
             alert('取得資料失敗' || res.data.message)
             navigate('/adminlogin')
+        }finally{
+            setIsScreenLoading(false)
         }
     }
 
@@ -148,6 +153,8 @@ function AdminStory() {
             <DeleteStoryModal tempArticle={tempArticle} getArticleList={getArticleList} delModelRef={delModelRef} />
 
             <Toast />
+
+            <IsScreenLoading isScreenLoading={isScreenLoading} />
         </>
     )
 }

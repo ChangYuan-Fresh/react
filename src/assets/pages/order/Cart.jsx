@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import ReactLoading from 'react-loading';
 import UpdateQtyBtnGroup from "../../component/UpdateQtyBtnGroup";
 import { Link } from "react-router";
 import { useDispatch } from 'react-redux';
 import { updateCartData } from '../../redux/slice/cartSlice'
+import ReactLoading from 'react-loading'
+import IsScreenLoading from "../../component/IsScreenLoading";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -12,16 +13,19 @@ const apiPath = import.meta.env.VITE_API_PATH;
 
 function Cart() {
     const [cartList, setCartList] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isScreenLoading, setIsScreenLoading] = useState(false)
     const dispatch = useDispatch();
 
     const getCartList = async () => {
+        setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
             dispatch(updateCartData(res.data.data))
             setCartList(res.data.data)
         } catch (error) {
             alert(error.data)
+        }finally{
+            setIsScreenLoading(false)
         }
     }
     useEffect(() => {
@@ -29,7 +33,7 @@ function Cart() {
     }, [])
     //清空購物車
     const removeCart = async () => {
-        setIsLoading(true);
+        setIsScreenLoading(true)
         try {
             await axios.delete(`${baseUrl}/v2/api/${apiPath}/carts`)
             alert('清空購物車成功');
@@ -37,24 +41,24 @@ function Cart() {
         } catch (error) {
             alert('清空購物車失敗' || error.data.message)
         } finally {
-            setIsLoading(false)
+            setIsScreenLoading(false)
         }
     }
     //刪除單一商品
     const removeCartItem = async (id) => {
-        setIsLoading(true);
+        setIsScreenLoading(true)
         try {
             await axios.delete(`${baseUrl}/v2/api/${apiPath}/cart/${id}`)
             getCartList()
         } catch (error) {
             alert('刪除品項失敗' || error.data.message)
         } finally {
-            setIsLoading(false)
+            setIsScreenLoading(false)
         }
     }
     //更新商品數量
     const updateCartItem = async (id, product_id, quantity) => {
-        setIsLoading(true);
+        setIsScreenLoading(true);
         try {
             await axios.put(`${baseUrl}/v2/api/${apiPath}/cart/${id}`, {
                 data: {
@@ -66,7 +70,7 @@ function Cart() {
         } catch (error) {
             alert('更新品項失敗' || error.data.message)
         } finally {
-            setIsLoading(false)
+            setIsScreenLoading(false)
         }
     }
 
@@ -156,7 +160,7 @@ function Cart() {
                                 </div>)
                             })}
                         </div>
-                        {isLoading && (<div
+                        {isScreenLoading && (<div
                             className="d-flex justify-content-center align-items-center"
                             style={{
                                 position: "fixed",
@@ -233,6 +237,7 @@ function Cart() {
         <div>
             <img src="/images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask"/>
         </div>
+        <IsScreenLoading isScreenLoading={isScreenLoading} />
     </>
     )
 }
