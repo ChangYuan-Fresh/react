@@ -33,7 +33,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                 type: '新增產品失敗',
                 status: "failed"
             }));
-        } 
+        }
     }
     //更新產品
     const updateProduct = async () => {
@@ -153,6 +153,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                     <div className="modal-body">
                         <div className="row g-3">
                             <div className="col-4">
+
                                 <div className="mb-5">
                                     <label htmlFor="fileInput" className="form-label"> 圖片上傳 </label>
                                     <input
@@ -196,19 +197,30 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                 </div>
                             </div>
                             <div className="col-8">
-                                <div className="mb-3">
-                                    <label htmlFor="title" className="form-label">標題</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="title"
-                                        placeholder="請輸入標題"
-                                        name="title"
-                                        value={tempProduct.title}
-                                        onChange={getinputValue} />
-                                </div>
                                 <div className="row g-4 mb-3">
                                     <div className="col-6">
+                                        <label htmlFor="productCode" className="form-label">商品編號</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="productCode"
+                                            placeholder="請輸入商品編號"
+                                            name="product_code"
+                                            value={tempProduct.product_code || 3}
+                                            onChange={getinputValue} />
+                                    </div>
+                                    <div className="col-6">
+                                        <label htmlFor="title" className="form-label">標題</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="title"
+                                            placeholder="請輸入標題"
+                                            name="title"
+                                            value={tempProduct.title}
+                                            onChange={getinputValue} />
+                                    </div>
+                                    <div className="col-4">
                                         <label htmlFor="category" className="form-label">分類</label>
                                         <select id="category" className="form-select" name="category" value={tempProduct.category} onChange={getinputValue}>
                                             <option value="">請選擇</option>
@@ -218,7 +230,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                             <option value="生鮮肉品">生鮮肉品</option>
                                         </select>
                                     </div>
-                                    <div className="col-6">
+                                    <div className="col-4">
                                         <label htmlFor="unit" className="form-label">單位</label>
                                         <input
                                             type="text"
@@ -227,6 +239,18 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                             placeholder="請輸入單位"
                                             name="unit"
                                             value={tempProduct.unit}
+                                            onChange={getinputValue} />
+                                    </div>
+                                    <div className="col-4">
+                                        <label htmlFor="product_stock" className="form-label">庫存</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            id="product_stock"
+                                            placeholder="請輸入售價"
+                                            name="product_stock"
+                                            min="0"
+                                            value={tempProduct.product_stock || ""}
                                             onChange={getinputValue} />
                                     </div>
                                     <div className="col-6">
@@ -282,7 +306,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                         checked={tempProduct.is_enabled}
                                         onChange={getinputValue} />
                                     <label className="form-check-label" htmlFor="isEnabled">
-                                        是否啟用
+                                        是否上架
                                     </label>
                                 </div>
                             </div>

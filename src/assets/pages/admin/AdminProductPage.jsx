@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios'
 import PaginationCompo from '../../component/PaginationCompo';
@@ -20,7 +19,9 @@ const defaultModalState = {
     description: "",
     content: "",
     is_enabled: 0,
-    imagesUrl: [""]
+    imagesUrl: [""],
+    product_code: " ", // 新增商品編號
+    product_stock: ""  // 新增商品庫存
 };
 
 function AdminProductPage() {
@@ -111,7 +112,7 @@ function AdminProductPage() {
                         <div className='bg-white  rounded-3 p-3'>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link products-nav-link border-0 active" id="products-tab" data-bs-toggle="tab" data-bs-target="#products-tab-pane" type="button" role="tab" aria-controls="products-tab-pane" aria-selected="true"> 全部商品({totalProducts})</button>
+                                    <button class="nav-link products-nav-link border-0 active" id="products-tab" data-bs-toggle="tab" data-bs-target="#products-tab-pane" type="button" role="tab" aria-controls="products-tab-pane" aria-selected="true"> 全部({totalProducts})</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link products-nav-link border-0" id="onSale-tab" data-bs-toggle="tab" data-bs-target="#onSale-tab-pane" type="button" role="tab" aria-controls="onSale-tab-pane" aria-selected="false">上架中(0)</button>
@@ -127,11 +128,8 @@ function AdminProductPage() {
                                         全部商品 <span className="material-symbols-outlined text-primary align-bottom">keyboard_arrow_down</span>
                                     </button>
                                     <ul className="dropdown-menu py-0">
-                                        <li><Link className="dropdown-item border-bottom fw-bold" >熱門商品</Link></li>
-                                        <li><Link className="dropdown-item fw-semibold" >蔬菜水果</Link></li>
-                                        <li><Link className="dropdown-item fw-semibold" >生鮮肉品</Link></li>
-                                        <li><Link className="dropdown-item fw-semibold" >水產海鮮</Link></li>
-                                        <li><Link className="dropdown-item fw-semibold" >蛋與乳品</Link></li>
+                                        <li><Link className="dropdown-item fw-semibold" >商品編號</Link></li>
+                                        <li><Link className="dropdown-item fw-semibold" >商品名稱</Link></li>
                                     </ul>
                                 </div>
                                 <input className="form-control form-control-lg fs-7 ps-11 " type="search" placeholder="可輸入商品編號、名稱等" aria-label="Search" />
@@ -147,22 +145,28 @@ function AdminProductPage() {
                                 >
                                     <table className="table ">
                                         <thead>
-                                            <tr>
-                                                <th scope="col">產品名稱</th>
-                                                <th scope="col">原價</th>
-                                                <th scope="col">售價</th>
-                                                <th scope="col">是否上架</th>
-                                                <th scope="col">查看細節</th>
+                                            <tr  >
+                                                <th className='bg-secondary-200 text-gray fs-7 text-center'>編號</th>
+                                                <th className='bg-secondary-200 text-gray fs-7' scope="col">商品</th>
+                                                <th className='bg-secondary-200 text-gray fs-7' scope="col"></th>
+                                                <th className='bg-secondary-200 text-gray fs-7 text-center' scope="col">售價</th>
+                                                <th className='bg-secondary-200 text-gray fs-7 text-center' scope="col">庫存</th>
+                                                <th className='bg-secondary-200 text-gray fs-7' scope="col"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {products.map((product) => {
                                                 return (
                                                     <tr key={product.id}>
-                                                        <th scope="row">{product.title}</th>
-                                                        <td>{product.origin_price}</td>
-                                                        <td>{product.price}</td>
-                                                        <td><p id={product.id} className="text-decoration-none">{product.is_enabled ? (<span className="text-success">上架</span>) : (<span>下架</span>)}</p ></td>
+                                                        <th scope="row" className='fw-normal text-center'>{product.product_code || '無編號'}</th>
+                                                        <td><img className='rounded-3' style={{width:"60px", height:"60px",objectFit: 'cover'}} src={product.imageUrl} alt="商品圖片" /></td>
+                                                        <td>{product.title}
+                                                            <p id={product.id} className="text-decoration-none">{product.is_enabled ? (<span></span>) : (<span className='bg-secondary text-primary rounded-2 p-1 fw-normal fs-7'>未上架</span>)}</p >
+                                                        </td>
+                                                        <td className='text-center'><p className='text-accent'>NT${product.origin_price}</p>
+                                                            <p className='text-gray fw-normal text-decoration-line-through'>NT${product.price}</p>
+                                                        </td>
+                                                        <td className='fw-normal text-center'>{product.product_stock || 3 }</td>                                                      
                                                         <td>
                                                             <div className="btn-group" role="group">
                                                                 <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', product)}>編輯</button>
