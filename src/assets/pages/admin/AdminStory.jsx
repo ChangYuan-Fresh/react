@@ -126,7 +126,7 @@ function AdminStory() {
                                         return (
                                             <tr key={article.id}>
                                                 <td>
-                                                    <img src={article.image} alt="文章圖片" style={{ width: '100px', height: '100px' ,objectFit: 'cover'}} />
+                                                    <img className='rounded-3' src={article.image} alt="文章圖片" style={{ width: '60px', height: '60px' ,objectFit: 'cover'}} />
                                                 </td>
                                                 <td>{article.title}</td>
                                                 <td>{article.author}</td>
