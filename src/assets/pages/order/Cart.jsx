@@ -4,7 +4,6 @@ import UpdateQtyBtnGroup from "../../component/UpdateQtyBtnGroup";
 import { Link } from "react-router";
 import { useDispatch } from 'react-redux';
 import { updateCartData } from '../../redux/slice/cartSlice'
-import ReactLoading from 'react-loading'
 import IsScreenLoading from "../../component/IsScreenLoading";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -160,17 +159,6 @@ function Cart() {
                                 </div>)
                             })}
                         </div>
-                        {isScreenLoading && (<div
-                            className="d-flex justify-content-center align-items-center"
-                            style={{
-                                position: "fixed",
-                                inset: 0,
-                                backgroundColor: "rgba(255,255,255,0.3)",
-                                zIndex: 999,
-                            }}
-                        >
-                            <ReactLoading type="balls" color="pink" width="4rem" height="4rem" />
-                        </div>)}
                     </div>) : (<div className="text-center"><h3>購物車是空的</h3></div>)
                     }
                 </div>
