@@ -5,6 +5,7 @@ import ProductModal from '../../component/ProductModal';
 import DeleteProductModal from '../../component/DeleteProductModal';
 import Toast from "../../layout/Toast";
 import { Link, useNavigate } from 'react-router';
+import IsScreenLoading from '../../component/IsScreenLoading';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -32,12 +33,22 @@ function AdminProductPage() {
     const modelRef = useRef(null);
     const delModelRef = useRef(null);
     const navigate = useNavigate()
-    const [totalProducts, setTotalProducts] = useState(0); //計算所有商品
+    const [isScreenLoading, setIsScreenLoading] = useState(false)
+    const [totalProducts, setTotalProducts] = useState(0);  // 全部商品數
+    const [totalOnSale, setTotalOnSale] = useState(0);      // 上架商品數
+    const [totalNoOnSale, setTotalNoOnSale] = useState(0);  // 未上架商品數
+    const [searchTerm, setSearchTerm] = useState(""); // 搜尋字串
+    const [status, setStatus] = useState("all"); // 當前篩選的狀態（全部 / 上架 / 未上架）
+    const [isInputFocused, setIsInputFocused] = useState(false); // 控制放大鏡顯示
+
 
     const getTotalProducts = async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/products/all`);
-            setTotalProducts(Object.keys(res.data.products).length);
+            const allProducts = Object.values(res.data.products); // 取得所有商品陣列
+            setTotalProducts(allProducts.length);  // 計算全部商品數
+            setTotalOnSale(allProducts.filter(product => product.is_enabled === 1).length); // 上架中
+            setTotalNoOnSale(allProducts.filter(product => product.is_enabled === 0).length); // 未上架
         } catch (error) {
             console.error("取得所有商品數量失敗", error);
         }
@@ -60,6 +71,7 @@ function AdminProductPage() {
     }, [])
 
     const getProductList = async (page = 1) => {
+        setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/products?page=${page}`);
             setProducts(res.data.products);
@@ -67,6 +79,8 @@ function AdminProductPage() {
         } catch (error) {
             alert('取得資料失敗' || res.data.message)
             navigate('/adminlogin')
+        } finally {
+            setIsScreenLoading(false)
         }
     }
 
@@ -92,6 +106,29 @@ function AdminProductPage() {
         setTempProduct(product);
         delModelRef.current.show()
     }
+
+    const filterProducts = (status) => {
+        let filtered = products;
+
+        // 篩選上架狀態
+        if (status === "onSale") {
+            filtered = filtered.filter((product) => product.is_enabled === 1);
+        } else if (status === "noOnSale") {
+            filtered = filtered.filter((product) => product.is_enabled === 0);
+        }
+
+        // 套用搜尋條件
+        if (searchTerm) {
+            filtered = filtered.filter(
+                (product) =>
+                    product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (product.product_code && product.product_code.toLowerCase().includes(searchTerm.toLowerCase()))
+            );
+        }
+
+        return filtered;
+    };
+
     useEffect(() => {
         getProductList();
         getTotalProducts();
@@ -115,10 +152,10 @@ function AdminProductPage() {
                                     <button class="nav-link products-nav-link border-0 active" id="products-tab" data-bs-toggle="tab" data-bs-target="#products-tab-pane" type="button" role="tab" aria-controls="products-tab-pane" aria-selected="true"> 全部({totalProducts})</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link products-nav-link border-0" id="onSale-tab" data-bs-toggle="tab" data-bs-target="#onSale-tab-pane" type="button" role="tab" aria-controls="onSale-tab-pane" aria-selected="false">上架中(0)</button>
+                                    <button class="nav-link products-nav-link border-0" id="onSale-tab" data-bs-toggle="tab" data-bs-target="#onSale-tab-pane" type="button" role="tab" aria-controls="onSale-tab-pane" aria-selected="false">上架中({totalOnSale})</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link products-nav-link border-0" id="noOnSale-tab" data-bs-toggle="tab" data-bs-target="#noOnSale-tab-pane" type="button" role="tab" aria-controls="noOnSale-tab-pane" aria-selected="false">未上架(0)</button>
+                                    <button class="nav-link products-nav-link border-0" id="noOnSale-tab" data-bs-toggle="tab" data-bs-target="#noOnSale-tab-pane" type="button" role="tab" aria-controls="noOnSale-tab-pane" aria-selected="false">未上架({totalNoOnSale})</button>
                                 </li>
                             </ul>
 
@@ -128,59 +165,35 @@ function AdminProductPage() {
                                         全部商品 <span className="material-symbols-outlined text-primary align-bottom">keyboard_arrow_down</span>
                                     </button>
                                     <ul className="dropdown-menu py-0">
-                                        <li><Link className="dropdown-item fw-semibold" >商品編號</Link></li>
-                                        <li><Link className="dropdown-item fw-semibold" >商品名稱</Link></li>
+                                        <li><Link className="dropdown-item fw-semibold" >全部商品</Link></li>
                                     </ul>
                                 </div>
-                                <input className="form-control form-control-lg fs-7 ps-11 " type="search" placeholder="可輸入商品編號、名稱等" aria-label="Search" />
-                                <Link><span className="material-symbols-outlined text-primary fs-2 position-absolute top-50 end-0 translate-middle-y  me-2">search</span ></Link>
+                                <input
+                                    className="form-control form-control-lg fs-7 ps-11"
+                                    type="search"
+                                    placeholder="可輸入商品編號、名稱等"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    onFocus={() => setIsInputFocused(true)}  // 當 input 聚焦時隱藏放大鏡
+                                    onBlur={() => setIsInputFocused(false)} // 當 input 失焦時，如果沒有輸入內容，就顯示放大鏡
+                                    aria-label="Search"
+                                />
+                                {!isInputFocused && !searchTerm && (
+                                    <span className="material-symbols-outlined text-primary fs-2 position-absolute top-50 end-0 translate-middle-y me-2">
+                                        search
+                                    </span>
+                                )}
                             </form>
                             <div class="tab-content" id="myTabContent">
-                                <div
-                                    class="tab-pane fade show active"
-                                    id="products-tab-pane"
-                                    role="tabpanel"
-                                    aria-labelledby="products-tab"
-                                    tabindex="0"
-                                >
-                                    <table className="table ">
-                                        <thead>
-                                            <tr  >
-                                                <th className='bg-secondary-200 text-gray fs-7 text-center'>編號</th>
-                                                <th className='bg-secondary-200 text-gray fs-7' scope="col">商品</th>
-                                                <th className='bg-secondary-200 text-gray fs-7' scope="col"></th>
-                                                <th className='bg-secondary-200 text-gray fs-7 text-center' scope="col">售價</th>
-                                                <th className='bg-secondary-200 text-gray fs-7 text-center' scope="col">庫存</th>
-                                                <th className='bg-secondary-200 text-gray fs-7' scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {products.map((product) => {
-                                                return (
-                                                    <tr key={product.id}>
-                                                        <th scope="row" className='fw-normal text-center'>{product.product_code || '無編號'}</th>
-                                                        <td><img className='rounded-3' style={{width:"60px", height:"60px",objectFit: 'cover'}} src={product.imageUrl} alt="商品圖片" /></td>
-                                                        <td>{product.title}
-                                                            <p id={product.id} className="text-decoration-none">{product.is_enabled ? (<span></span>) : (<span className='bg-secondary text-primary rounded-2 p-1 fw-normal fs-7'>未上架</span>)}</p >
-                                                        </td>
-                                                        <td className='text-center'><p className='text-accent'>NT${product.origin_price}</p>
-                                                            <p className='text-gray fw-normal text-decoration-line-through'>NT${product.price}</p>
-                                                        </td>
-                                                        <td className='fw-normal text-center'>{product.product_stock || 3 }</td>                                                      
-                                                        <td>
-                                                            <div className="btn-group" role="group">
-                                                                <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', product)}>編輯</button>
-                                                                <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openDelModal(product)}>刪除</button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })}
-                                        </tbody>
-                                    </table>
+                                <div class="tab-pane fade show active" id="products-tab-pane" role="tabpanel" aria-labelledby="products-tab" tabindex="0">
+                                    {renderProductTable(filterProducts('all'))}
                                 </div>
-                                <div class="tab-pane fade" id="onSale-tab-pane" role="tabpanel" aria-labelledby="onSale-tab" tabindex="0">上架中</div>
-                                <div class="tab-pane fade" id="noOnSale-tab-pane" role="tabpanel" aria-labelledby="noOnSale-tab" tabindex="0">未上架</div>
+                                <div class="tab-pane fade" id="onSale-tab-pane" role="tabpanel" aria-labelledby="onSale-tab" tabindex="0">
+                                    {renderProductTable(filterProducts('onSale'))}
+                                </div>
+                                <div class="tab-pane fade" id="noOnSale-tab-pane" role="tabpanel" aria-labelledby="noOnSale-tab" tabindex="0">
+                                    {renderProductTable(filterProducts('noOnSale'))}
+                                </div>
                             </div>
 
                             <PaginationCompo pageInfo={pageInfo} btnChangePage={btnChangePage} />
@@ -193,7 +206,56 @@ function AdminProductPage() {
             <DeleteProductModal tempProduct={tempProduct} getProductList={getProductList} delModelRef={delModelRef} />
 
             <Toast />
+
+            <IsScreenLoading isScreenLoading={isScreenLoading} />
         </>
     )
+    function renderProductTable(filteredProducts) {
+        return (
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th className="bg-secondary-200 text-gray text-center fs-7">編號</th>
+                        <th className="bg-secondary-200 text-gray fs-7">商品</th>
+                        <th className="bg-secondary-200 text-gray fs-7"></th>
+                        <th className="bg-secondary-200 text-gray fs-7 text-center">售價</th>
+                        <th className="bg-secondary-200 text-gray fs-7 text-center">庫存</th>
+                        <th className="bg-secondary-200 text-gray fs-7"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredProducts.length > 0 ? (
+                        filterProducts(status).map((product) => (
+                            <tr key={product.id}>
+                                <td className="text-center fw-normal">{product.product_code || '無編號'}</td>
+                                <td>
+                                    <img className="rounded-3" style={{ width: "60px", height: "60px", objectFit: "cover" }} src={product.imageUrl} alt="商品圖片" />
+                                </td>
+                                <td>
+                                    <p>{product.title}</p>
+                                    {!product.is_enabled && <span className="bg-secondary text-primary rounded-2 p-1 fw-normal">未上架</span>}
+                                </td>
+                                <td className="text-center">
+                                    <p className="text-accent">NT${product.price}</p>
+                                    <p className="text-gray text-decoration-line-through">NT${product.origin_price}</p>
+                                </td>
+                                <td className="text-center fw-normal">{product.product_stock || 3}</td>
+                                <td>
+                                    <div className="btn-group">
+                                        <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', product)}>編輯</button>
+                                        <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openDelModal(product)}>刪除</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="6" className="text-primary text-center py-3">目前沒有符合條件的商品</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        );
+    }
 }
 export default AdminProductPage;
