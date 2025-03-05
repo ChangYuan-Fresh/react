@@ -3,18 +3,32 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import animationData from "../../assets/lottie-hand.json";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Toast from '../layout/Toast';
 
 
 
 
 function Home() {
+    const [searchInput, setSearchInput] = useState("");
+    const navigate = useNavigate();
+
+    const handleCategorySelect = (category) => {
+        navigate(`/products?category=${encodeURIComponent(category)}`);
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchInput.trim()) {
+            navigate(`/products?query=${encodeURIComponent(searchInput)}`);
+        }
+    };
+
     useEffect(() => {
         AOS.init();
     }, []);
@@ -40,15 +54,26 @@ function Home() {
                                         全部商品 <span className="material-symbols-outlined text-primary align-bottom">keyboard_arrow_down</span>
                                     </button>
                                     <ul className="dropdown-menu py-0">
-                                        <li><a className="dropdown-item border-bottom fw-bold " href="#">熱門商品</a></li>
-                                        <li><a className="dropdown-item fw-semibold" href="#">蔬菜水果</a></li>
-                                        <li><a className="dropdown-item fw-semibold" href="#">生鮮肉品</a></li>
-                                        <li><a className="dropdown-item fw-semibold" href="#">水產海鮮</a></li>
-                                        <li><a className="dropdown-item fw-semibold" href="#">蛋與乳品</a></li>
+                                        <li><button className="dropdown-item border-bottom fw-bold " onClick={() => handleCategorySelect('熱門商品')}>熱門商品</button></li>
+                                        <li><button className="dropdown-item fw-semibold" onClick={() => handleCategorySelect('蔬菜水果')}>蔬菜水果</button></li>
+                                        <li><button className="dropdown-item fw-semibold" onClick={() => handleCategorySelect('生鮮肉品')}>生鮮肉品</button></li>
+                                        <li><button className="dropdown-item fw-semibold" onClick={() => handleCategorySelect('水產海鮮')}>水產海鮮</button></li>
+                                        <li><button className="dropdown-item fw-semibold" onClick={() => handleCategorySelect('蛋與乳品')}>蛋與乳品</button></li>
                                     </ul>
                                 </div>
-                                <input className="form-control form-control-lg fs-7 ps-11 " type="search" placeholder="立即選購！新鮮抵家啦～" aria-label="Search" />
-                                <Link><span className="material-symbols-outlined text-primary fs-2 position-absolute top-50 end-0 translate-middle-y  me-2">search</span ></Link>
+                                <input
+                                    className="form-control form-control-lg fs-7 ps-11"
+                                    type="search"
+                                    placeholder="立即選購！新鮮抵家啦～"
+                                    value={searchInput}
+                                    onChange={(e) => setSearchInput(e.target.value)}
+                                />
+                                <button type="submit" className="btn" style={{ display: searchInput ? 'none' : 'block' }} >
+                                    <span
+                                        className="search-btn material-symbols-outlined text-primary fs-2 position-absolute top-50 translate-middle-y  me-2">
+                                        search
+                                    </span >
+                                </button>
                             </form>
                         </div>
                         <img src="/images/Illustration/Top-Curve.png" alt="" className="d-block position-absolute  deco-curve" />
