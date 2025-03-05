@@ -5,6 +5,7 @@ import CouponModal from '../../component/CouponModal';
 import DeleteCouponModal from '../../component/DeleteCouponModal';
 import Toast from "../../layout/Toast";
 import { useNavigate } from 'react-router';
+import IsScreenLoading from '../../component/IsScreenLoading';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -23,7 +24,8 @@ function AdminCoupons() {
     const [tempCoupon, setTempCoupon] = useState(defaultModalState);
     const modelRef = useRef(null);
     const delModelRef = useRef(null);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [isScreenLoading, setIsScreenLoading] = useState(false);
 
     
     const checkLogin = async () => {
@@ -44,6 +46,7 @@ function AdminCoupons() {
 
 
     const getCouponList = async (page = 1) => {
+        setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/coupons?page=${page}`);
             setCoupons(res.data.coupons);
@@ -51,6 +54,8 @@ function AdminCoupons() {
         } catch (error) {
             alert("請登入管理員帳號" || res.data.message)
             navigate('/adminlogin')
+        }finally{
+            setIsScreenLoading(false)
         }
     }
 
@@ -135,6 +140,8 @@ function AdminCoupons() {
             <DeleteCouponModal tempCoupon={tempCoupon} getCouponList={getCouponList} delModelRef={delModelRef} />
 
             <Toast />
+
+            <IsScreenLoading isScreenLoading={isScreenLoading} />
         </>
     )
 }
