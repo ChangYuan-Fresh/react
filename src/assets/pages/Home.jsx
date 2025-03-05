@@ -1,5 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
+import axios from 'axios';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -11,7 +12,8 @@ import 'aos/dist/aos.css';
 import { useState, useEffect } from 'react';
 import Toast from '../layout/Toast';
 
-
+const baseUrl = 'https://ec-course-api.hexschool.io/v2/api';
+const apiPath = 'changyuan_fresh';
 
 
 function Home() {
