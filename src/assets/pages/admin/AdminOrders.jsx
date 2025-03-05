@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useRef} from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router';
 import IsScreenLoading from '../../component/IsScreenLoading';
@@ -20,6 +20,7 @@ function AdminOrders() {
     const [searchInput, setSearchInput] = useState('')
     const [search, setSearch] = useState('');
     const [pageInfo, getPageInfo] = useState({});
+    const [searchType, setSearchType] = useState('訂單編號')
 
     const checkLogin = async () => {
         try {
@@ -62,22 +63,30 @@ function AdminOrders() {
     const handleSearch = () => {
         setSearch(searchInput)
     }
-    const orderState = ['全部', '已付款', '未付款']
+    const orderState = ['全部', '已付款', '未付款','已出貨','已完成','取消/退貨']
 
 
+    const filterOrders = orders.filter((order) => {
+            let matchSearch = true;// 預設為 true，這樣當 search 為空時，不會影響篩選
 
-    const filterOrders = useMemo(() => {
-        return orders.filter((order) => {
-            const matchSearch = order.create_at ? order.create_at.toString().match(search) : true;
-            if (!matchSearch) return false;
+            // 當有輸入搜尋條件時，才進行比對
+            if (search) {
+                if (searchType === '訂單編號') {
+                    matchSearch = order.create_at?.toString().includes(search);
+                } else if (searchType === '訂購帳戶') {
+                    matchSearch = order.user?.name?.includes(search);
+                }
+            }
 
+            if (!matchSearch) return false;// 如果搜尋條件沒有匹配，則直接排除該筆資料
+
+            // 繼續篩選付款狀態
             if (selectState === '全部') return true;
             else if (selectState === '已付款') return order.is_paid === true;
             else if (selectState === '未付款') return order.is_paid === false;
 
             return false
         })
-    }, [orders, search, selectState])
 
 
     const btnChangePage = (page) => {
@@ -89,11 +98,11 @@ function AdminOrders() {
                 <h3>訂單管理</h3>
             </div>
             <div>
-                <ul className="nav nav-tabs border-0" id="myTab" role="tablist">
+                <ul className="nav nav-tabs border-0 d-flex justify-content-between bg-white border-bottom">
                     {orderState.map((state) => {
                         return (
-                            <li className="nav-item" role="presentation" key={state}>
-                                <button className={`nav-link px-8 bg-white border-0 py-4 ${selectState === state ? 'border-bottom border-primary border-3 text-primary' : 'border-bottom  border-1 text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
+                            <li className="nav-item" key={state}>
+                                <button className={`nav-link px-8 bg-white border-0 border-3 py-4 border-bottom ${selectState === state ? 'border-primary text-primary' : ' border-transparent text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
                             </li>)
                     })}
                 </ul>
@@ -101,8 +110,9 @@ function AdminOrders() {
                     <div className="tab-pane fade show active">
                         <div className='rounded-3'>
                             <div className="input-group mb-3 w-50 pt-5">
-                                <select className="form-select" style={{ maxWidth: '120px' }} defaultValue="訂單編號">
+                                <select className="form-select" style={{ maxWidth: '120px' }} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
                                     <option value="訂單編號">訂單編號</option>
+                                    <option value="訂購帳戶">訂購帳戶</option>
                                 </select>
                                 <input type="text" className="form-control" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                                 <button type="button" className="btn border border-top border-bottom border-end" onClick={handleSearch}>
@@ -128,7 +138,7 @@ function AdminOrders() {
                                                     <button type="button" className="btn text-accent" onClick={() => openModal(order)}>{order.create_at}
                                                     </button>
                                                 </th>
-                                                <td><FormatDate timestamp={order.create_at}/></td>
+                                                <td><FormatDate timestamp={order.create_at} /></td>
                                                 <td>{order.user?.name}</td>
                                                 <td>NT${order.total?.toLocaleString()}</td>
                                                 <td className={`${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? '已付款' : '未付款'}</td>
@@ -143,7 +153,7 @@ function AdminOrders() {
             </div>
         </div>
         <PaginationCompo pageInfo={pageInfo} btnChangePage={btnChangePage} />
-        <OrderModal modelRef={modelRef} setTempOrder={setTempOrder} tempOrder={tempOrder} getOrderList={getOrderList}/>
+        <OrderModal modelRef={modelRef} setTempOrder={setTempOrder} tempOrder={tempOrder} getOrderList={getOrderList} />
         <IsScreenLoading isScreenLoading={isScreenLoading} />
         <Toast />
     </>
