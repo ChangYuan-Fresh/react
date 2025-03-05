@@ -19,6 +19,14 @@ const apiPath = 'changyuan_fresh';
 function Home() {
     const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
+    const [activeImage, setActiveImage] = useState("src/assets/images/Cauliflower HQ (2).png");
+
+    const storyImages = {
+        cauliflower: "src/assets/images/Cauliflower HQ (2).png",
+        grape: "https://changyuan-fresh.github.io/FirstProject/assets/grape1-7a8c01cc.png",
+        farmTotable: "src/assets/images/about3.png",
+        clam: "src/assets/images/Kindelmedia 8352389 1.png",
+    };
 
     const handleCategorySelect = (category) => {
         navigate(`/products?category=${encodeURIComponent(category)}`);
@@ -30,7 +38,6 @@ function Home() {
             navigate(`/products?query=${encodeURIComponent(searchInput)}`);
         }
     };
-
 
     const [products, setProducts] = useState([]); // 儲存所有商品
     const [activeCategory, setActiveCategory] = useState("熱門商品"); // 當前選擇的分類
@@ -64,17 +71,17 @@ function Home() {
     const handleBuyNow = async (product_id) => {
         try {
             await axios.post(`${baseUrl}/${apiPath}/cart`, {
-            data: {
-                product_id,
-                qty: 1, 
-            },
+                data: {
+                    product_id,
+                    qty: 1,
+                },
             });
             navigate('/cart'); // 跳轉到購物車頁面
         } catch (error) {
             alert(error.response?.data?.message || '加入購物車失敗');
         }
-        };
-    
+    };
+
     useEffect(() => {
         AOS.init();
     }, []);
@@ -227,9 +234,9 @@ function Home() {
                                                     </div>
                                                 </div>
                                                 <div className="d-grid gap-2">
-                                                    <button 
-                                                    className="btn btn-primary product-btn border-0 fw-bold fs-lg-4 fs-5"
-                                                    onClick={() => handleBuyNow(product.id)}
+                                                    <button
+                                                        className="btn btn-primary product-btn border-0 fw-bold fs-lg-4 fs-5"
+                                                        onClick={() => handleBuyNow(product.id)}
                                                     >
                                                         立即購買
                                                     </button>
@@ -267,39 +274,44 @@ function Home() {
                 <section className="bg-secondary story-bg">
                     <div className="container py-lg-11 py-8 ">
                         <div className="d-lg-flex justify-content-lg-between align-items-center">
-                            <div className="tab-content story-tab-content rounded-5 me-lg-6 me-0 mb-lg-0 mb-4" id="v-pills-tabContent">
-                                <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabIndex="0">
-                                    <img src="src/assets/images/Cauliflower HQ (2).png" alt="story1" className="story-img " />
-                                </div>
-                                <div className="tab-pane fade" id="v-pills-grape" role="tabpanel" aria-labelledby="v-pills-grape-tab" tabIndex="0">
-                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabIndex="0">
-                                        <img src="src/assets/images/story1.png" alt="story1" className="story-img " />
-                                    </div>
-                                </div>
-                                <div className="tab-pane fade" id="v-pills-farmTotable" role="tabpanel" aria-labelledby="v-pills-farmTotable-tab" tabIndex="0">
-                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabIndex="0">
-                                        <img src="src/assets/images/about3.png" alt="story1" className="story-img " />
-                                    </div>
-                                </div>
-                                <div className="tab-pane fade" id="v-pills-clam" role="tabpanel" aria-labelledby="v-pills-clam-tab" tabIndex="0">
-                                    <div className="tab-pane fade show active" id="v-pills-cauliflower" role="tabpanel" aria-labelledby="v-pills-cauliflower-tab" tabIndex="0">
-                                        <img src="src/assets/images/Kindelmedia 8352389 1.png" alt="story1" className="story-img " />
-                                    </div>
-                                </div>
+                            <div className="story-tab-content rounded-5 me-lg-6 me-0 mb-lg-0 mb-4 story-img">
+                                <img src={activeImage} alt="story" className="" />
                             </div>
                             <div className="nav story-nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <Link to="/stories/-OK5M9Em5IQqFNCZCDXS"><button className="nav-link story-btn active text-start fs-lg-4 fs-6 position-relative" id="v-pills-cauliflower-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cauliflower" type="button" role="tab" aria-controls="v-pills-cauliflower" aria-selected="true">
-                                    種植花椰菜的故事<span className="material-symbols-outlined story-icon">chevron_right</span>
-                                </button></Link>
-                                <Link to="/stories/-OK5MfbrpHIayuP0WYAC"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-grape-tab" data-bs-toggle="pill" data-bs-target="#v-pills-grape" type="button" role="tab" aria-controls="v-pills-grape" aria-selected="false">
-                                    葡萄園的奧秘<span className="material-symbols-outlined story-icon">chevron_right</span>
-                                </button></Link>
-                                <Link to="/stories/-OK5LgP5Khusdh8K_m3h"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-farmTotable-tab" data-bs-toggle="pill" data-bs-target="#v-pills-farmTotable" type="button" role="tab" aria-controls="v-pills-farmTotable" aria-selected="false">
-                                    從牧場到餐桌的旅程<span className="material-symbols-outlined story-icon">chevron_right</span>
-                                </button></Link>
-                                <Link to="/stories"><button className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative" id="v-pills-clam-tab" data-bs-toggle="pill" data-bs-target="#v-pills-clam" type="button" role="tab" aria-controls="v-pills-clam" aria-selected="false">
-                                    想知道更多產地故事嗎?<span className="material-symbols-outlined story-icon">chevron_right</span>
-                                </button></Link>
+                                <Link to="/stories/-OK5M9Em5IQqFNCZCDXS">
+                                    <button
+                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
+                                        onMouseEnter={() => setActiveImage(storyImages.cauliflower)}
+                                    >
+                                        種植花椰菜的故事
+                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
+                                    </button>
+                                </Link>
+                                <Link to="/stories/-OK5MfbrpHIayuP0WYAC">
+                                    <button
+                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
+                                        onMouseEnter={() => setActiveImage(storyImages.grape)}
+                                    >
+                                        葡萄園的奧秘
+                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
+                                    </button>
+                                </Link>
+                                <Link to="/stories/-OK5LgP5Khusdh8K_m3h">
+                                    <button
+                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
+                                        onMouseEnter={() => setActiveImage(storyImages.farmTotable)}
+                                    >
+                                        從牧場到餐桌的旅程
+                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
+                                    </button></Link>
+                                <Link to="/stories">
+                                    <button
+                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
+                                        onMouseEnter={() => setActiveImage(storyImages.clam)}
+                                    >
+                                        想知道更多產地故事嗎?
+                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
+                                    </button></Link>
                             </div>
                         </div>
                     </div>
@@ -367,7 +379,7 @@ function Home() {
                         <div className="d-flex flex-column align-items-center pt-lg-8 pt-0">
                             <h1 className="d-lg-block d-none mb-6">產地到餐桌，全館滿千免運!</h1>
                             <h4 className="d-lg-none text-center mb-6">產地到餐桌 <br></br> 全館滿千免運</h4>
-                            <Link to="Product"><button className="btn btn-primary promotion-btn border-0 fw-bold fs-lg-4 fs-5 text-white">
+                            <Link to="/products"><button className="btn btn-primary promotion-btn border-0 fw-bold fs-lg-4 fs-5 text-white">
                                 立即購買
                             </button></Link>
                             <Lottie className='lottie-hand' animationData={animationData} loop={true} />
