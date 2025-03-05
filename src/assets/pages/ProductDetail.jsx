@@ -171,7 +171,7 @@ function ProductDetail() {
                             </div>
                         </div>
                         <div>
-                            <p className="text-primary fs-7 mb-2">{product.description}</p>
+                            <p className="text-primary fs-7 mb-2">{`規格：${product.description}`}</p>
                             <div className="mb-5">
                                 <div className="d-flex justify-content-between w-25 align-items-center mb-2">
                                     <p className="text-primary fs-7">數量</p>
