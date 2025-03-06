@@ -40,6 +40,17 @@ function AdminProductPage() {
     const [searchTerm, setSearchTerm] = useState(""); // 搜尋字串
     const [status, setStatus] = useState("all"); // 當前篩選的狀態（全部 / 上架 / 未上架）
     const [isInputFocused, setIsInputFocused] = useState(false); // 控制放大鏡顯示
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => setScreenWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+
+        // 清除監聽器
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
 
     const getTotalProducts = async () => {
@@ -158,7 +169,7 @@ function AdminProductPage() {
                                 </li>
                             </ul>
 
-                            <form role="search" className="position-relative d-flex py-5" style={{ width: "50%" }}>
+                            <form role="search" className="position-relative d-flex py-5" style={{width: screenWidth > 767 ? "50%" : "100%" }}>
                                 <div className="dropdown position-absolute top-50 start-0 translate-middle-y z-2">
                                     <button className="btn btn-white btn-sm fw-semibold fs-lg-6 fs-7 border-end border-1 rounded-0 text-nowrap ms-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         全部商品 <span className="material-symbols-outlined text-primary align-bottom">keyboard_arrow_down</span>
@@ -170,7 +181,7 @@ function AdminProductPage() {
                                 <input
                                     className="form-control form-control-lg fs-7 ps-11"
                                     type="search"
-                                    placeholder="可輸入商品編號、名稱等"
+                                    placeholder="可輸入商品編號、名稱"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     onFocus={() => setIsInputFocused(true)}  // 當 input 聚焦時隱藏放大鏡
