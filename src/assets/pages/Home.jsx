@@ -92,7 +92,7 @@ function Home() {
                 {/* <!--banner--> */}
                 <section className="mt-6 position-relative">
                     <div className="allProduct-banner-mx">
-                        <img src="public/images/banner.png" alt="" className="d-block w-100 allProduct-banner-img" />
+                        <img src="src/assets/images/banner.png" alt="" className="d-block w-100 allProduct-banner-img" />
                         <div className="position-absolute banner-text translate-middle ">
                             <h3 className="d-lg-inline-block d-sm-flex  justify-content-sm-center bg-primary text-white text-nowrap py-lg-3 mb-lg-4 mb-2 px-lg-4 p-2 ">
                                 來自彰化的新鮮美味
