@@ -233,36 +233,45 @@ function Member() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {filterOrders.map((order) => {
-                                            return (
-                                                <tr key={order.id} className="py-5">
-                                                    <th scope="row" className="py-5">{order.create_at}</th>
-                                                    <td className="py-5"><FormatDate timestamp={order.create_at} /></td>
-                                                    {order.products && Object.values(order.products).map((item) => {
-                                                        return (
-                                                            <td key={item.id} className="d-flex flex-column py-5">
-                                                                <div className="row g-0">
-                                                                    <div className="col-3 px-0">
-                                                                        <img src={item.product?.imageUrl} alt={item.id} className="object-fit-cover rounded-1" style={{ width: "60px", height: "60px" }} />
-                                                                    </div>
-                                                                    <div className="col-9 px-0">
-                                                                        <div className="d-flex justify-content-between mb-2 w-100">
-                                                                            <p>{item.product?.title}</p>
-                                                                            {order.is_paid ? (<button type="button" className="btn text-accent p-0 border-0" onClick={() => openModal(item)}>評價</button>) : (<></>)}
+                                        {filterOrders.length === 0 ? (
+                                            <tr>
+                                                <th colSpan="6" className="text-center border-0">
+                                                    <img src="/images/Illustration/Frame.png" alt="empty" className="mx-auto mt-11" />
+                                                    <h5 className="mt-6 text-dark">目前還沒有訂單</h5>
+                                                </th>
+                                            </tr>
+                                        ) : (
+                                            filterOrders.map((order) => {
+                                                return (
+                                                    <tr key={order.id} className="py-5">
+                                                        <th scope="row" className="py-5">{order.create_at}</th>
+                                                        <td className="py-5"><FormatDate timestamp={order.create_at} /></td>
+                                                        {order.products && Object.values(order.products).map((item) => {
+                                                            return (
+                                                                <td key={item.id} className="d-flex flex-column py-5">
+                                                                    <div className="row g-0">
+                                                                        <div className="col-3 px-0">
+                                                                            <img src={item.product?.imageUrl} alt={item.id} className="object-fit-cover rounded-1" style={{ width: "60px", height: "60px" }} />
                                                                         </div>
-                                                                        <p className="fs-7 text-muted">{item.product?.description}</p>
-                                                                        <p className="fs-7 text-muted">{`數量：${item.qty}`}</p>
+                                                                        <div className="col-9 px-0">
+                                                                            <div className="d-flex justify-content-between mb-2 w-100">
+                                                                                <p>{item.product?.title}</p>
+                                                                                {order.is_paid ? (<button type="button" className="btn text-accent p-0 border-0" onClick={() => openModal(item)}>評價</button>) : (<></>)}
+                                                                            </div>
+                                                                            <p className="fs-7 text-muted">{item.product?.description}</p>
+                                                                            <p className="fs-7 text-muted">{`數量：${item.qty}`}</p>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>)
-                                                    })}
-                                                    <td className="py-5">{`NT$ ${order.total.toLocaleString()}`}</td>
-                                                    <td className="py-5">
-                                                        {order.is_paid ? "已付款" : "未付款"}
-                                                    </td>
-                                                    <td className="py-5"></td>
-                                                </tr>)
-                                        })}
+                                                                </td>)
+                                                        })}
+                                                        <td className="py-5">{`NT$ ${order.total.toLocaleString()}`}</td>
+                                                        <td className="py-5">
+                                                            {order.is_paid ? "已付款" : "未付款"}
+                                                        </td>
+                                                        <td className="py-5"></td>
+                                                    </tr>)
+                                            })
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
@@ -282,8 +291,12 @@ function Member() {
                         </li>)
                 })}
             </ul>
-            {
-                filterOrders.map((order, index) => {
+            {filterOrders.length === 0 ? (
+                <div className="text-center mt-10">
+                    <img src="/images/Illustration/Frame.png" alt="empty" />
+                    <h6 className="mt-6 text-dark">目前還沒有訂單</h6>
+                </div>) :
+                (filterOrders.map((order, index) => {
                     const isExpanded = expandedOrders.has(order.id);
                     return (
                         <div key={order.id} className="card my-4 mx-3 border-0 p-4 bg-secondary-200">
@@ -325,7 +338,7 @@ function Member() {
                                 </div>
                             </>)}
                         </div>)
-                })
+                }))
             }
         </main >
         <CommentModal tempProduct={tempProduct} modelRef={modelRef} />

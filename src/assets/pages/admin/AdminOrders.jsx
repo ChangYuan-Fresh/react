@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef} from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router';
 import IsScreenLoading from '../../component/IsScreenLoading';
@@ -63,30 +63,30 @@ function AdminOrders() {
     const handleSearch = () => {
         setSearch(searchInput)
     }
-    const orderState = ['全部', '已付款', '未付款','已出貨','已完成','取消/退貨']
+    const orderState = ['全部', '已付款', '未付款', '已出貨', '已完成', '取消/退貨']
 
 
     const filterOrders = orders.filter((order) => {
-            let matchSearch = true;// 預設為 true，這樣當 search 為空時，不會影響篩選
+        let matchSearch = true;// 預設為 true，這樣當 search 為空時，不會影響篩選
 
-            // 當有輸入搜尋條件時，才進行比對
-            if (search) {
-                if (searchType === '訂單編號') {
-                    matchSearch = order.create_at?.toString().includes(search);
-                } else if (searchType === '訂購帳戶') {
-                    matchSearch = order.user?.name?.includes(search);
-                }
+        // 當有輸入搜尋條件時，才進行比對
+        if (search) {
+            if (searchType === '訂單編號') {
+                matchSearch = order.create_at?.toString().includes(search);
+            } else if (searchType === '訂購帳戶') {
+                matchSearch = order.user?.name?.includes(search);
             }
+        }
 
-            if (!matchSearch) return false;// 如果搜尋條件沒有匹配，則直接排除該筆資料
+        if (!matchSearch) return false;// 如果搜尋條件沒有匹配，則直接排除該筆資料
 
-            // 繼續篩選付款狀態
-            if (selectState === '全部') return true;
-            else if (selectState === '已付款') return order.is_paid === true;
-            else if (selectState === '未付款') return order.is_paid === false;
+        // 繼續篩選付款狀態
+        if (selectState === '全部') return true;
+        else if (selectState === '已付款') return order.is_paid === true;
+        else if (selectState === '未付款') return order.is_paid === false;
 
-            return false
-        })
+        return false
+    })
 
 
     const btnChangePage = (page) => {
@@ -131,20 +131,26 @@ function AdminOrders() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filterOrders.map((order) => {
-                                        return (
-                                            <tr key={order.id} className="align-middle en-font">
-                                                <th scope="row">
-                                                    <button type="button" className="btn text-accent" onClick={() => openModal(order)}>{order.create_at}
-                                                    </button>
-                                                </th>
-                                                <td><FormatDate timestamp={order.create_at} /></td>
-                                                <td>{order.user?.name}</td>
-                                                <td>NT${Math.floor(order.total).toLocaleString()}</td>
-                                                <td className={`${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? '已付款' : '未付款'}</td>
-                                            </tr>
-                                        )
-                                    })}
+                                    {filterOrders.length === 0 ? (<tr>
+                                        <th colSpan="6" className="text-center border-0">
+                                            <img src="/images/Illustration/Frame.png" alt="empty" className="mx-auto mt-11" />
+                                            <h5 className="mt-6 text-dark">目前還沒有訂單</h5>
+                                        </th>
+                                    </tr>) : (
+                                        filterOrders.map((order) => {
+                                            return (
+                                                <tr key={order.id} className="align-middle en-font">
+                                                    <th scope="row">
+                                                        <button type="button" className="btn text-accent" onClick={() => openModal(order)}>{order.create_at}
+                                                        </button>
+                                                    </th>
+                                                    <td><FormatDate timestamp={order.create_at} /></td>
+                                                    <td>{order.user?.name}</td>
+                                                    <td>NT${Math.floor(order.total).toLocaleString()}</td>
+                                                    <td className={`${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? '已付款' : '未付款'}</td>
+                                                </tr>
+                                            )
+                                        }))}
                                 </tbody>
                             </table>
                         </div>
