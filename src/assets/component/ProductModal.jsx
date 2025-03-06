@@ -20,7 +20,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                     price: Number(tempProduct.price),
                     is_enabled: tempProduct.is_enabled ? 1 : 0,
                     product_stock: Number(tempProduct.product_stock),
-                    is_frozen: tempProduct.is_frozen ? 1:0,
+                    is_frozen: tempProduct.is_frozen ? 1 : 0,
                     sub_category: tempProduct.sub_category,
                     sub_title: tempProduct.sub_title
                 }
@@ -49,7 +49,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                     price: Number(tempProduct.price),
                     is_enabled: tempProduct.is_enabled ? 1 : 0,
                     product_stock: Number(tempProduct.product_stock),
-                    is_frozen: tempProduct.is_frozen ? 1:0,
+                    is_frozen: tempProduct.is_frozen ? 1 : 0,
                     sub_category: tempProduct.sub_category,
                     sub_title: tempProduct.sub_title
                 }
@@ -156,183 +156,198 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
             <div className="modal-dialog modal-dialog-centered modal-xl">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">{modalMode === 'create' ? '新增產品' : '編輯產品'}</h5>
+                        <h5 className="modal-title text-black">{modalMode === 'create' ? '新增商品' : '編輯商品'}</h5>
                         <button type="button" className="btn-close me-1" onClick={closeModal} aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <div className="row g-3">
-                            <div className="col-4">
-
-                                <div className="mb-5">
-                                    <label htmlFor="fileInput" className="form-label"> 圖片上傳 </label>
-                                    <input
-                                        type="file"
-                                        accept=".jpg,.jpeg,.png"
-                                        className="form-control"
-                                        id="fileInput"
-                                        onChange={fileUpload}
-                                    />
-                                </div>
-                                <div className="mx-3">
-                                    <label htmlFor="imageUrl" className="form-label">主圖</label>
-                                    <div className="input-group mb-3">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="請輸入主圖網址"
-                                            id="imageUrl"
-                                            name="imageUrl"
-                                            value={tempProduct.imageUrl} onChange={getinputValue} />
-                                        <img src={tempProduct.imageUrl} alt={tempProduct.id} className="img-fluid" />
-                                    </div>
-                                </div>
-                                <div className="border rounded-3">
-                                    <div className="mx-3 mt-2">
-                                        {tempProduct.imagesUrl?.map((item, index) => {
-                                            return (<div key={index}>
-                                                <label htmlFor={`imagesUrl-${index + 1}`} className="form-label">副圖{index + 1}</label>
-                                                <div className="input-group mb-3">
-                                                    <input type="text" className="form-control" placeholder="請輸入圖片網址" id={`imagesUrl-${index + 1}`} value={item} onChange={(e) => imageChange(e, index)} />
-                                                    <img src={item} alt="" className="img-fluid" />
+                        <div className="row g-1">
+                            <div className="col-12">
+                                <div className='row'>
+                                    <div className="col-12">
+                                        <div className="border rounded-3 p-5 mb-3">
+                                            <h5 className='pb-3'>商品主圖</h5>
+                                            <div>
+                                                <label htmlFor="imageUrl" className="form-label">主圖</label>
+                                                <div className="input-group mb-3 ">
+                                                    <img src={tempProduct.imageUrl} alt={tempProduct.id} className="img-fluid rounded-3" style={{ width: "80px", height: "80px" }} />
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        placeholder="請輸入主圖網址"
+                                                        id="imageUrl"
+                                                        name="imageUrl"
+                                                        value={tempProduct.imageUrl} onChange={getinputValue} />
                                                 </div>
                                             </div>
-                                            )
-                                        })}
-                                        <div className="btn-group w-100">
-                                            {tempProduct.imagesUrl.length < 5 && tempProduct.imagesUrl[tempProduct.imagesUrl.length - 1] !== '' && (<button className="btn btn-outline-primary btn-sm w-100" onClick={addImage}>新增圖片</button>)}
-                                            {tempProduct.imagesUrl.length > 1 && (<button className="btn btn-outline-danger btn-sm w-100" onClick={removeImage}>取消圖片</button>)}
+                                            <div >
+                                                <label htmlFor="fileInput" className="form-label"> 圖片上傳 </label>
+                                                <input
+                                                    type="file"
+                                                    accept=".jpg,.jpeg,.png"
+                                                    className="form-control"
+                                                    id="fileInput"
+                                                    onChange={fileUpload}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12">
+                                        <div className="border rounded-3 p-5 mb-3">
+                                            <h5>商品副圖</h5>
+                                            <div className="d-flex-column">
+                                                {tempProduct.imagesUrl?.map((item, index) => {
+                                                    return (<div key={index}>
+                                                        <label htmlFor={`imagesUrl-${index + 1}`} className="form-label">副圖{index + 1}</label>
+                                                        <div className="input-group mb-3">
+                                                            <img src={item} alt="" className="img-fluid rounded-3" style={{ width: "80px", height: "80px" }} />
+                                                            <input type="text" className="form-control" placeholder="請輸入圖片網址" id={`imagesUrl-${index + 1}`} value={item} onChange={(e) => imageChange(e, index)} />
+                                                        </div>
+                                                    </div>
+                                                    )
+                                                })}
+                                                <div className="btn-group w-100 mb-2">
+                                                    {tempProduct.imagesUrl.length < 5 && tempProduct.imagesUrl[tempProduct.imagesUrl.length - 1] !== '' && (<button className="btn btn-outline-primary btn-sm w-100" onClick={addImage}>新增圖片</button>)}
+                                                    {tempProduct.imagesUrl.length > 1 && (<button className="btn btn-outline-accent btn-sm w-100" onClick={removeImage}>取消圖片</button>)}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-8">
-                                <div className="row g-4 mb-3">
-                                    <div className="col-6">
-                                        <label htmlFor="productCode" className="form-label">商品編號</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="productCode"
-                                            placeholder="請輸入商品編號"
-                                            name="product_code"
-                                            value={tempProduct.product_code || 3}
-                                            onChange={getinputValue} />
-                                    </div>
-                                    <div className="col-6">
-                                        <label htmlFor="title" className="form-label">標題</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="title"
-                                            placeholder="請輸入標題"
-                                            name="title"
-                                            value={tempProduct.title}
-                                            onChange={getinputValue} />
-                                    </div>
-                                    <div className="col-4">
-                                        <label htmlFor="category" className="form-label">分類</label>
-                                        <select id="category" className="form-select" name="category" value={tempProduct.category} onChange={getinputValue}>
-                                            <option value="">請選擇</option>
-                                            <option value="蔬菜水果">蔬菜水果</option>
-                                            <option value="蛋與乳品">蛋與乳品</option>
-                                            <option value="水產海鮮">水產海鮮</option>
-                                            <option value="生鮮肉品">生鮮肉品</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-4">
-                                        <label htmlFor="unit" className="form-label">單位</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="unit"
-                                            placeholder="請輸入單位"
-                                            name="unit"
-                                            value={tempProduct.unit}
-                                            onChange={getinputValue} />
-                                    </div>
-                                    <div className="col-4">
-                                        <label htmlFor="product_stock" className="form-label">庫存</label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            id="product_stock"
-                                            placeholder="請輸入售價"
-                                            name="product_stock"
-                                            min="0"
-                                            value={tempProduct.product_stock || ""}
-                                            onChange={getinputValue} />
-                                    
-                                    </div>
-                                    <div className="col-4">
-                                        <label htmlFor="product_stock" className="form-label">子分類</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="sub_category"
-                                            placeholder="請輸入子分類"
-                                            name="sub_category"
-                                            min="0"
-                                            value={tempProduct.sub_category || ""}
-                                            onChange={getinputValue} />
-                                    
-                                    </div>
-                                    <div className="col-8">
-                                        <label htmlFor="product_stock" className="form-label">副標題</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="sub_title"
-                                            placeholder="請輸入副標題"
-                                            name="sub_title"
-                                            min="0"
-                                            value={tempProduct.sub_title || ""}
-                                            onChange={getinputValue} />
-                                    
-                                    </div>
-                                    <div className="col-6">
-                                        <label htmlFor="originPrice" className="form-label">原價</label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            id="originPrice"
-                                            placeholder="請輸入原價"
-                                            name="origin_price"
-                                            min="0"
-                                            value={tempProduct.origin_price}
-                                            onChange={getinputValue} />
-                                    </div>
-                                    <div className="col-6">
-                                        <label htmlFor="price" className="form-label">售價</label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            id="price"
-                                            placeholder="請輸入售價"
-                                            name="price"
-                                            min="0"
-                                            value={tempProduct.price}
-                                            onChange={getinputValue} />
+                            <div className="col-12">
+                                <div className="border rounded-3 p-5 mb-3">
+                                    <div className="row g-4">
+                                        <h5 className='pb-3'>商品資訊</h5>
+                                        <div className="col-6 ">
+                                            <label htmlFor="productCode" className="form-label">商品編號</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="productCode"
+                                                placeholder="請輸入商品編號"
+                                                name="product_code"
+                                                value={tempProduct.product_code || 3}
+                                                onChange={getinputValue} />
+                                        </div>
+                                        <div className="col-6">
+                                            <label htmlFor="title" className="form-label">標題</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="title"
+                                                placeholder="請輸入標題"
+                                                name="title"
+                                                value={tempProduct.title}
+                                                onChange={getinputValue} />
+                                        </div>
+                                        <div className="col-12">
+                                            <label htmlFor="product_stock" className="form-label">副標題</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="sub_title"
+                                                placeholder="請輸入副標題"
+                                                name="sub_title"
+                                                min="0"
+                                                value={tempProduct.sub_title || ""}
+                                                onChange={getinputValue} />
+
+                                        </div>
+                                        <div className="col-6">
+                                            <label htmlFor="category" className="form-label">分類</label>
+                                            <select id="category" className="form-select" name="category" value={tempProduct.category} onChange={getinputValue}>
+                                                <option value="">請選擇</option>
+                                                <option value="蔬菜水果">蔬菜水果</option>
+                                                <option value="蛋與乳品">蛋與乳品</option>
+                                                <option value="水產海鮮">水產海鮮</option>
+                                                <option value="生鮮肉品">生鮮肉品</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-6">
+                                            <label htmlFor="product_stock" className="form-label">子分類</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="sub_category"
+                                                placeholder="請輸入子分類"
+                                                name="sub_category"
+                                                min="0"
+                                                value={tempProduct.sub_category || ""}
+                                                onChange={getinputValue} />
+
+                                        </div>
+                                        <div className="col-6">
+                                            <label htmlFor="product_stock" className="form-label">庫存</label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                id="product_stock"
+                                                placeholder="請輸入售價"
+                                                name="product_stock"
+                                                min="0"
+                                                value={tempProduct.product_stock || ""}
+                                                onChange={getinputValue} />
+
+                                        </div>
+                                        <div className="col-6">
+                                            <label htmlFor="unit" className="form-label">單位</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="unit"
+                                                placeholder="請輸入單位"
+                                                name="unit"
+                                                value={tempProduct.unit}
+                                                onChange={getinputValue} />
+                                        </div>                                       
+                                        <div className="col-6">
+                                            <label htmlFor="originPrice" className="form-label">原價</label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                id="originPrice"
+                                                placeholder="請輸入原價"
+                                                name="origin_price"
+                                                min="0"
+                                                value={tempProduct.origin_price}
+                                                onChange={getinputValue} />
+                                        </div>
+                                        <div className="col-6">
+                                            <label htmlFor="price" className="form-label">售價</label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                id="price"
+                                                placeholder="請輸入售價"
+                                                name="price"
+                                                min="0"
+                                                value={tempProduct.price}
+                                                onChange={getinputValue} />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="description" className="form-label">產品描述</label>
-                                    <textarea
-                                        className="form-control"
-                                        id="description"
-                                        rows="2"
-                                        name="description"
-                                        value={tempProduct.description}
-                                        onChange={getinputValue}></textarea>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="content" className="form-label">說明內容</label>
-                                    <textarea
-                                        className="form-control"
-                                        id="content"
-                                        rows="5"
-                                        name="content"
-                                        value={tempProduct.content}
-                                        onChange={getinputValue}></textarea>
+                                <div className="border rounded-3 p-5 mb-3">
+                                    <h5 className='pb-3'>商品介紹</h5>                                   
+                                    <div className="mb-3">
+                                        <label htmlFor="content" className="form-label">商品介紹</label>
+                                        <textarea
+                                            className="form-control"
+                                            id="content"
+                                            rows="5"
+                                            name="content"
+                                            value={tempProduct.content}
+                                            onChange={getinputValue}></textarea>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="description" className="form-label">規格說明</label>
+                                        <textarea
+                                            className="form-control"
+                                            id="description"
+                                            rows="2"
+                                            name="description"
+                                            value={tempProduct.description}
+                                            onChange={getinputValue}></textarea>
+                                    </div>
                                 </div>
                                 <div className="form-check mb-3">
                                     <input
@@ -359,8 +374,8 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                             </div>
                         </div>
                     </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary px-6" onClick={closeModal}>取消</button>
+                    <div className="modal-footer bg-secondary-200">
+                        <button type="button" className="btn btn-outline-primary px-6" onClick={closeModal}>取消</button>
                         <button type="button" className="btn btn-primary px-6 text-white" onClick={btnUpdateProduct}>確認</button>
                     </div>
                 </div>

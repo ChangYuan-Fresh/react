@@ -40,6 +40,17 @@ function AdminProductPage() {
     const [searchTerm, setSearchTerm] = useState(""); // 搜尋字串
     const [status, setStatus] = useState("all"); // 當前篩選的狀態（全部 / 上架 / 未上架）
     const [isInputFocused, setIsInputFocused] = useState(false); // 控制放大鏡顯示
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => setScreenWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+
+        // 清除監聽器
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
 
     const getTotalProducts = async () => {
@@ -158,7 +169,7 @@ function AdminProductPage() {
                                 </li>
                             </ul>
 
-                            <form role="search" className="position-relative d-flex py-5" style={{ width: "50%" }}>
+                            <form role="search" className="position-relative d-flex py-5" style={{ width: screenWidth > 767 ? "50%" : "100%" }}>
                                 <div className="dropdown position-absolute top-50 start-0 translate-middle-y z-2">
                                     <button className="btn btn-white btn-sm fw-semibold fs-lg-6 fs-7 border-end border-1 rounded-0 text-nowrap ms-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         全部商品 <span className="material-symbols-outlined text-primary align-bottom">keyboard_arrow_down</span>
@@ -170,7 +181,7 @@ function AdminProductPage() {
                                 <input
                                     className="form-control form-control-lg fs-7 ps-11"
                                     type="search"
-                                    placeholder="可輸入商品編號、名稱等"
+                                    placeholder="可輸入商品編號、名稱"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     onFocus={() => setIsInputFocused(true)}  // 當 input 聚焦時隱藏放大鏡
@@ -183,7 +194,7 @@ function AdminProductPage() {
                                     </span>
                                 )}
                             </form>
-                            <div className="tab-content" id="myTabContent">
+                            <div className="tab-content " id="myTabContent">
                                 <div className="tab-pane fade show active" id="products-tab-pane" role="tabpanel" aria-labelledby="products-tab" tabIndex="0">
                                     {renderProductTable(filterProducts('all'))}
                                 </div>
@@ -210,8 +221,9 @@ function AdminProductPage() {
         </>
     )
     function renderProductTable(filteredProducts) {
-        return (
-            <table className="table">
+        return (<>
+            {/* 電腦版 */}
+            <table className="table d-none d-sm-table">
                 <thead>
                     <tr>
                         <th className="bg-secondary-200 text-gray text-center fs-7">編號</th>
@@ -226,23 +238,27 @@ function AdminProductPage() {
                     {filteredProducts.length > 0 ? (
                         filterProducts(status).map((product) => (
                             <tr key={product.id}>
-                                <td className="text-center fw-normal">{product.product_code || '無編號'}</td>
+                                <td className="text-center text-nowrap fw-normal ">{product.product_code || '無編號'}</td>
                                 <td>
                                     <img className="rounded-3" style={{ width: "60px", height: "60px", objectFit: "cover" }} src={product.imageUrl} alt="商品圖片" />
                                 </td>
                                 <td>
-                                    <p>{product.title}</p>
+                                    <p className='text-nowrap'>{product.title}</p>
                                     {!product.is_enabled && <span className="bg-secondary text-primary rounded-2 p-1 fw-normal">未上架</span>}
                                 </td>
                                 <td className="text-center">
                                     <p className="text-accent">NT${product.price}</p>
-                                    <p className="text-gray text-decoration-line-through">NT${product.origin_price}</p>
+                                    <p className="text-gray text-decoration-line-through fw-normal">NT${product.origin_price}</p>
                                 </td>
                                 <td className="text-center fw-normal">{product.product_stock || 3}</td>
                                 <td>
-                                    <div className="btn-group">
+                                    <div className="btn-group d-none d-md-block">
                                         <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', product)}>編輯</button>
                                         <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openDelModal(product)}>刪除</button>
+                                    </div>
+                                    <div className="btn-group d-md-none d-flex flex-column">
+                                        <button type="button" className="btn bg-transparent text-accent btn-sm text-nowrap" onClick={() => openModal('edit', product)}>編輯</button>
+                                        <button type="button" className="btn bg-transparent text-accent btn-sm text-nowrap" onClick={() => openDelModal(product)}>刪除</button>
                                     </div>
                                 </td>
                             </tr>
@@ -254,6 +270,50 @@ function AdminProductPage() {
                     )}
                 </tbody>
             </table>
+            {/* 手機版 */}
+            <table className="table table-bordered d-sm-none">
+                <tbody>
+                    {filteredProducts.length > 0 ? (
+                        filterProducts(status).map((product) => (
+                            <tr key={product.id}>
+                                <div className='d-flex justify-content-between'>
+                                    <td className="text-center fw-normal">{product.product_code || '無編號'}</td>
+                                    <td>
+                                        <div className="btn-group">
+                                            <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', product)}>編輯</button>
+                                            <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openDelModal(product)}>刪除</button>
+                                        </div>
+                                    </td>
+                                </div>
+                                <div className='d-flex '>
+                                    <div className='me-5'>
+                                        <td>
+                                            <img className="rounded-3" style={{ width: "80px", height: "80px", objectFit: "cover" }} src={product.imageUrl} alt="商品圖片" />
+                                        </td>
+                                    </div>
+                                    <div className='d-flex flex-column align-items-start'>
+                                        <td className='d-flex'>
+                                            <p className='me-2'>{product.title}</p>
+                                            <p>{!product.is_enabled && <span className="bg-secondary text-primary rounded-2 p-1 fw-normal">未上架</span>}</p>
+                                        </td>
+                                        <td className="text-center">
+                                            <p className="text-accent">NT${product.price}</p>
+                                            <p className="text-gray text-decoration-line-through fw-normal">NT${product.origin_price}</p>
+                                        </td>
+                                        <td className="text-center fw-normal">數量 {product.product_stock || 3}</td>
+                                    </div>
+                                </div>
+
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="6" className="text-primary text-center py-3">目前沒有符合條件的商品</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </>
         );
     }
 }
