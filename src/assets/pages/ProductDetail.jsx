@@ -161,12 +161,13 @@ function ProductDetail() {
                             <div className="tab-content" id="pills-tabContent">
                                 <div className="tab-pane fade show active" id="pills-home" role="tabpanel"
                                     aria-labelledby="price1">
-                                    <div className="d-flex align-items-end">
+                                    <div className="d-flex align-items-end mb-2">
                                         <h2 className="text-accent fs-5 fs-lg-4 en-font me-2">{`NT$${product.price}`}</h2>
                                         <p
                                             className="text-decoration-line-through text-gray fs-7 fs-lg-6 fw-normal en-font">
                                             {`NT$${product.origin_price}`}</p>
                                     </div>
+                                    {product.is_frozen?<small className="text-accent">*低溫冷凍商品</small>:<></>}
                                 </div>
                             </div>
                         </div>
@@ -175,7 +176,7 @@ function ProductDetail() {
                             <div className="mb-5">
                                 <div className="d-flex justify-content-between w-25 align-items-center mb-2">
                                     <p className="text-primary fs-7">數量</p>
-                                    <p className="text-gray">{`剩餘 3 ${product.unit}`}</p>
+                                    <p className="text-gray">{`剩餘 ${product.product_stock} ${product.unit}`}</p>
 
                                 </div>
                                 <div className="mb-5">

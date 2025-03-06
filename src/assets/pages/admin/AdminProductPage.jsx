@@ -134,6 +134,7 @@ function AdminProductPage() {
         getTotalProducts();
     }, [])
 
+    console.log(tempProduct)
     return (
         <>
             <div className="container  rounded-3 py-5" >
@@ -142,20 +143,20 @@ function AdminProductPage() {
                         <div className="d-flex justify-content-between mb-6">
                             <h3>商品管理</h3>
                             <button type="button" className="btn btn-primary py-1 text-white f-6" onClick={() => openModal('create')}>
-                                <i class="bi bi-plus-circle me-1"></i>
+                                <i className="bi bi-plus-circle me-1"></i>
                                 新增產品
                             </button>
                         </div>
                         <div className='bg-white  rounded-3 p-3'>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link products-nav-link border-0 active" id="products-tab" data-bs-toggle="tab" data-bs-target="#products-tab-pane" type="button" role="tab" aria-controls="products-tab-pane" aria-selected="true"> 全部({totalProducts})</button>
+                            <ul className="nav nav-tabs" id="myTab" role="tablist">
+                                <li className="nav-item" role="presentation">
+                                    <button className="nav-link products-nav-link border-0 active" id="products-tab" data-bs-toggle="tab" data-bs-target="#products-tab-pane" type="button" role="tab" aria-controls="products-tab-pane" aria-selected="true"> 全部({totalProducts})</button>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link products-nav-link border-0" id="onSale-tab" data-bs-toggle="tab" data-bs-target="#onSale-tab-pane" type="button" role="tab" aria-controls="onSale-tab-pane" aria-selected="false">上架中({totalOnSale})</button>
+                                <li className="nav-item" role="presentation">
+                                    <button className="nav-link products-nav-link border-0" id="onSale-tab" data-bs-toggle="tab" data-bs-target="#onSale-tab-pane" type="button" role="tab" aria-controls="onSale-tab-pane" aria-selected="false">上架中({totalOnSale})</button>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link products-nav-link border-0" id="noOnSale-tab" data-bs-toggle="tab" data-bs-target="#noOnSale-tab-pane" type="button" role="tab" aria-controls="noOnSale-tab-pane" aria-selected="false">未上架({totalNoOnSale})</button>
+                                <li className="nav-item" role="presentation">
+                                    <button className="nav-link products-nav-link border-0" id="noOnSale-tab" data-bs-toggle="tab" data-bs-target="#noOnSale-tab-pane" type="button" role="tab" aria-controls="noOnSale-tab-pane" aria-selected="false">未上架({totalNoOnSale})</button>
                                 </li>
                             </ul>
 
@@ -184,14 +185,14 @@ function AdminProductPage() {
                                     </span>
                                 )}
                             </form>
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="products-tab-pane" role="tabpanel" aria-labelledby="products-tab" tabindex="0">
+                            <div className="tab-content" id="myTabContent">
+                                <div className="tab-pane fade show active" id="products-tab-pane" role="tabpanel" aria-labelledby="products-tab" tabIndex="0">
                                     {renderProductTable(filterProducts('all'))}
                                 </div>
-                                <div class="tab-pane fade" id="onSale-tab-pane" role="tabpanel" aria-labelledby="onSale-tab" tabindex="0">
+                                <div className="tab-pane fade" id="onSale-tab-pane" role="tabpanel" aria-labelledby="onSale-tab" tabIndex="0">
                                     {renderProductTable(filterProducts('onSale'))}
                                 </div>
-                                <div class="tab-pane fade" id="noOnSale-tab-pane" role="tabpanel" aria-labelledby="noOnSale-tab" tabindex="0">
+                                <div className="tab-pane fade" id="noOnSale-tab-pane" role="tabpanel" aria-labelledby="noOnSale-tab" tabIndex="0">
                                     {renderProductTable(filterProducts('noOnSale'))}
                                 </div>
                             </div>

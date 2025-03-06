@@ -185,7 +185,7 @@ function Cart() {
                                     <div>
                                         <div className="d-flex justify-content-between">
                                             <p className="mb-2">商品總額</p>
-                                            <p>{`NT$${cartList.total?.toLocaleString()}`}</p>
+                                            <p>{`NT$${(cartList.total?? 0).toLocaleString()}`}</p>
                                         </div>
                                     </div>
                                     <div>
@@ -199,7 +199,7 @@ function Cart() {
                                     <div>
                                         <div className="d-flex justify-content-between">
                                             <p className="mb-2">小計</p>
-                                            <p>{`NT$${cartList.total?.toLocaleString()}`}</p>
+                                            <p>{`NT$${(cartList.total?? 0).toLocaleString()}`}</p>
                                         </div>
                                     </div>
                                     <div>
@@ -211,7 +211,7 @@ function Cart() {
                                 </div>
                                 <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
                                     <p>總額</p>
-                                    <p className="float-end text-accent ">{`NT$${cartList.total?.toLocaleString()}`}</p>
+                                    <p className="float-end text-accent ">{`NT$${(cartList.total?? 0).toLocaleString()}`}</p>
                                 </div>
                             </div>
                         </div>

@@ -25,6 +25,7 @@ function ComfirmOrder() {
         handleSubmit,
         getValues,
         reset,
+        watch,
         formState: { errors },
     } = useForm({
         defaultValues: {
@@ -114,6 +115,7 @@ function ComfirmOrder() {
         }
     }
 
+    const city = watch('city');
     return (<>
         <div className="container mb-7">
             <form className="row g-5 position-relative" onSubmit={handleSubmit(onSubmit)}>
@@ -259,7 +261,7 @@ function ComfirmOrder() {
                                     labelText='鄉鎮市區'
                                     errors={errors}
                                     register={register}
-                                    disabled={!getValues().city}
+                                    disabled={!city}
                                     rules={{
                                         required: '鄉鎮市區為必填'
                                     }}>
@@ -267,7 +269,7 @@ function ComfirmOrder() {
                                     {
                                         addressData.find((city) => city.CityName === getValues().city)
                                             ?.AreaList?.map((area) => {
-                                                return <option value={area} key={area.AreaName}>{area.AreaName}</option>
+                                                return <option value={area.AreaName} key={area.AreaName}>{area.AreaName}</option>
                                             })
                                     }
                                 </Select>
@@ -469,13 +471,13 @@ function ComfirmOrder() {
                                 <div>
                                     <div className="d-flex justify-content-between">
                                         <p className="mb-2">商品總額</p>
-                                        <p>{`NT$${cartList.total?.toLocaleString()}`}</p>
+                                        <p>{`NT$${(cartList.total?? 0).toLocaleString()}`}</p>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="d-flex justify-content-between text-accent">
                                         <p>商品折扣</p>
-                                        <p>NT${cartList.total-cartList.final_total === 0 ? 0: Math.floor(cartList.total-cartList.final_total)}</p>
+                                        <p>NT${Math.floor((cartList?.total ?? 0) - (cartList?.final_total ?? 0))}</p>
                                     </div>
                                 </div>
                             </div>
@@ -483,7 +485,7 @@ function ComfirmOrder() {
                                 <div>
                                     <div className="d-flex justify-content-between">
                                         <p className="mb-2">小計</p>
-                                        <p>{`NT$${Math.floor(cartList.final_total).toLocaleString()}`}</p>
+                                        <p>{`NT$${Math.floor(cartList.final_total ?? 0).toLocaleString()}`}</p>
                                     </div>
                                 </div>
                                 <div>
@@ -495,7 +497,7 @@ function ComfirmOrder() {
                             </div>
                             <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
                                 <p>總額</p>
-                                <p className="float-end text-accent ">{`NT$${Math.floor(cartList.final_total).toLocaleString()}`}</p>
+                                <p className="float-end text-accent ">{`NT$${Math.floor(cartList.final_total ?? 0).toLocaleString()}`}</p>
                             </div>
                         </div>
                     </div>

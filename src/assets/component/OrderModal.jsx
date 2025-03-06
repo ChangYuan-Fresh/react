@@ -71,7 +71,7 @@ function OrderModal({modelRef,setTempOrder,tempOrder,getOrderList}) {
                         <li className="col-6 mb-3">訂單姓名： {tempOrder.user?.name}</li>
                         <li className="col-6 mb-3">訂單電話： {tempOrder.user?.tel}</li>
                         <li className="col-12 mb-3">訂單E-mail： {tempOrder.user?.email}</li>
-                        <li className="col-12 mb-3">訂單住址： {tempOrder.user?.city}{tempOrder.user?.address}</li>
+                        <li className="col-12 mb-3">訂單住址： {tempOrder.user?.city}{tempOrder.user?.district}{tempOrder.user?.address}</li>
                         <li className="col-12 mt-5 bg-secondary-200 rounded-3">
                             <table className="table bg-secondary-200 mt-5 table-borderless">
                                 <thead>
@@ -100,7 +100,7 @@ function OrderModal({modelRef,setTempOrder,tempOrder,getOrderList}) {
                                     <tr>
                                         <td colSpan="5" className="bg-secondary-200 text-end">
                                             總計：
-                                            <span className="bg-secondary-200">NT${tempOrder.total}</span>
+                                            <span className="bg-secondary-200">NT${Math.floor(tempOrder.total)}</span>
                                         </td>
                                     </tr>
                                 </tfoot>

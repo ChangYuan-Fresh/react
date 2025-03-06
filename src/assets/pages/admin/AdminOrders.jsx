@@ -92,6 +92,7 @@ function AdminOrders() {
     const btnChangePage = (page) => {
         getOrderList(page);
     }
+    console.log(tempOrder)
     return (<>
         <div className="container  rounded-3 py-5" >
             <div className="d-flex justify-content-between mb-6">
@@ -140,7 +141,7 @@ function AdminOrders() {
                                                 </th>
                                                 <td><FormatDate timestamp={order.create_at} /></td>
                                                 <td>{order.user?.name}</td>
-                                                <td>NT${order.total?.toLocaleString()}</td>
+                                                <td>NT${Math.floor(order.total).toLocaleString()}</td>
                                                 <td className={`${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? '已付款' : '未付款'}</td>
                                             </tr>
                                         )

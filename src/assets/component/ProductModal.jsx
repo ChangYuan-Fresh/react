@@ -18,7 +18,9 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                     ...tempProduct,
                     origin_price: Number(tempProduct.origin_price),
                     price: Number(tempProduct.price),
-                    is_enabled: tempProduct.is_enabled ? 1 : 0
+                    is_enabled: tempProduct.is_enabled ? 1 : 0,
+                    product_stock: Number(tempProduct.product_stock),
+                    is_frozen: tempProduct.is_frozen ? 1:0
                 }
             });
             dispatch(createAsyncMessage({
@@ -43,7 +45,9 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                     ...tempProduct,
                     origin_price: Number(tempProduct.origin_price),
                     price: Number(tempProduct.price),
-                    is_enabled: tempProduct.is_enabled ? 1 : 0
+                    is_enabled: tempProduct.is_enabled ? 1 : 0,
+                    product_stock: Number(tempProduct.product_stock),
+                    is_frozen: tempProduct.is_frozen ? 1:0
                 }
             });
             dispatch(createAsyncMessage({
@@ -142,6 +146,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
             backdrop: false
         })
     }, [])
+
     return (
         <div className="modal" tabIndex="-1" ref={productRef} id="productModal" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
             <div className="modal-dialog modal-dialog-centered modal-xl">
@@ -298,7 +303,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                         value={tempProduct.content}
                                         onChange={getinputValue}></textarea>
                                 </div>
-                                <div className="form-check">
+                                <div className="form-check mb-3">
                                     <input
                                         className="form-check-input"
                                         type="checkbox" id="isEnabled"
@@ -307,6 +312,17 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                         onChange={getinputValue} />
                                     <label className="form-check-label" htmlFor="isEnabled">
                                         是否上架
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox" id="isFrozen"
+                                        name="is_frozen"
+                                        checked={tempProduct.is_frozen}
+                                        onChange={getinputValue} />
+                                    <label className="form-check-label" htmlFor="isEnabled">
+                                        是否為冷凍運送商品
                                     </label>
                                 </div>
                             </div>
