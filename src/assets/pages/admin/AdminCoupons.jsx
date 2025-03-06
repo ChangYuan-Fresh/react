@@ -94,7 +94,7 @@ function AdminCoupons() {
                         <div className="d-flex justify-content-between mb-6">
                             <h3>優惠券管理</h3>
                             <button type="button" className="btn btn-primary py-1 text-white f-6" onClick={() => openModal('create')}>
-                                <i class="bi bi-plus-circle me-1"></i>
+                                <i className="bi bi-plus-circle me-1"></i>
                                 新增優惠券
                             </button>
                         </div>

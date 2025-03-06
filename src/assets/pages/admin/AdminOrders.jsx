@@ -92,7 +92,6 @@ function AdminOrders() {
     const btnChangePage = (page) => {
         getOrderList(page);
     }
-    console.log(tempOrder)
     return (<>
         <div className="container  rounded-3 py-5" >
             <div className="d-flex justify-content-between mb-6">

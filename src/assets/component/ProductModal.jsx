@@ -20,7 +20,9 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                     price: Number(tempProduct.price),
                     is_enabled: tempProduct.is_enabled ? 1 : 0,
                     product_stock: Number(tempProduct.product_stock),
-                    is_frozen: tempProduct.is_frozen ? 1:0
+                    is_frozen: tempProduct.is_frozen ? 1:0,
+                    sub_category: tempProduct.sub_category,
+                    sub_title: tempProduct.sub_title
                 }
             });
             dispatch(createAsyncMessage({
@@ -47,7 +49,9 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                     price: Number(tempProduct.price),
                     is_enabled: tempProduct.is_enabled ? 1 : 0,
                     product_stock: Number(tempProduct.product_stock),
-                    is_frozen: tempProduct.is_frozen ? 1:0
+                    is_frozen: tempProduct.is_frozen ? 1:0,
+                    sub_category: tempProduct.sub_category,
+                    sub_title: tempProduct.sub_title
                 }
             });
             dispatch(createAsyncMessage({
@@ -257,6 +261,33 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                             min="0"
                                             value={tempProduct.product_stock || ""}
                                             onChange={getinputValue} />
+                                    
+                                    </div>
+                                    <div className="col-4">
+                                        <label htmlFor="product_stock" className="form-label">子分類</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="sub_category"
+                                            placeholder="請輸入子分類"
+                                            name="sub_category"
+                                            min="0"
+                                            value={tempProduct.sub_category || ""}
+                                            onChange={getinputValue} />
+                                    
+                                    </div>
+                                    <div className="col-8">
+                                        <label htmlFor="product_stock" className="form-label">副標題</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="sub_title"
+                                            placeholder="請輸入副標題"
+                                            name="sub_title"
+                                            min="0"
+                                            value={tempProduct.sub_title || ""}
+                                            onChange={getinputValue} />
+                                    
                                     </div>
                                     <div className="col-6">
                                         <label htmlFor="originPrice" className="form-label">原價</label>

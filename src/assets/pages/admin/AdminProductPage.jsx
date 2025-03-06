@@ -133,8 +133,6 @@ function AdminProductPage() {
         getProductList();
         getTotalProducts();
     }, [])
-
-    console.log(tempProduct)
     return (
         <>
             <div className="container  rounded-3 py-5" >

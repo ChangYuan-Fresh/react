@@ -152,12 +152,15 @@ function ProductDetail() {
                                         <NavLink>{product.category}</NavLink>
                                     </li>
                                     <li className="breadcrumb-item fs-7 fs-lg-6 fw-normal">
+                                        <NavLink>{product.sub_category}</NavLink>
+                                    </li>
+                                    <li className="breadcrumb-item fs-7 fs-lg-6 fw-normal">
                                         <NavLink>{product.title}</NavLink>
                                     </li>
                                 </ol>
                             </nav>
                             <h1 className="fs-4 fs-lg-2 mb-1">{product.title}</h1>
-                            <p className="mb-3 text-gray fw-normal fs-6 fs-lg-5">天然、安全、優質</p>
+                            <p className="mb-3 text-gray fw-normal fs-6 fs-lg-5">{product.sub_title}</p>
                             <div className="tab-content" id="pills-tabContent">
                                 <div className="tab-pane fade show active" id="pills-home" role="tabpanel"
                                     aria-labelledby="price1">
@@ -228,9 +231,7 @@ function ProductDetail() {
                 </nav>
                 <div className="w-50 mx-auto pt-8">
                     <div>
-                        <p className="mb-5" >
-                            {product.content}
-                        </p>
+                        <p className="mb-5" >{product.content}</p>
                         {product.imagesUrl?.map((img) => (<div key={img} className="text-center mb-5"><img src={img} alt="" className="mb-3 border rounded object-fit-cover" width='100%' height="400px" /></div>))}
                     </div>
                     <ul className="list-unstyled">

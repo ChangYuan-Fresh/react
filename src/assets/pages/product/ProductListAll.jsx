@@ -44,6 +44,11 @@ function ProductListAll() {
         )
         .sort((a, b) => (ascending ? a.price - b.price : b.price - a.price));
 
+    // 處理分類變更
+    const handleCategoryChange = (category) => {
+        setSelectCategory(selectCategory === category ? null : category); // 點擊同一個分類可以切換顯示/隱藏
+    };
+
     const handleSearch = (e) => {
         e.preventDefault();
         setSelectCategory("全部商品"); // 確保搜尋後仍然顯示全部商品
@@ -65,7 +70,7 @@ function ProductListAll() {
                             </button>
                         </SwiperSlide>)
                 })}
- 
+
             </Swiper>
         </div>
 
@@ -77,17 +82,10 @@ function ProductListAll() {
                         {categories.map((category) => {
                             return (<div className="accordion-item" key={category}>
                                 <h2 className="accordion-header" id="headingTwo">
-                                    <button type="button" className="accordion-button collapsed px-0 fw-bold fs-4" onClick={() => handleCategoryChange(category)}>
+                                    <button type="button" className={`accordion-button px-0 fw-bold fs-4 ${selectCategory === category ?"text-primary collapsed":"text-dark"}`} onClick={() => handleCategoryChange(category)}>
                                         {category}
                                     </button>
                                 </h2>
-                                {/* <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
-                                    <div className="accordion-body p-0">
-                                        <button type="button" className="text-black fw-normal ps-4 py-2 btn">子項目1</button><br />
-                                        <button type="button" className="text-black fw-normal ps-4 py-2 btn">子項目2</button><br />
-                                        <button type="button" className="text-black fw-normal ps-4 py-2 btn">子項目3</button>
-                                    </div>
-                                </div> */}
                             </div>)
                         })}
                     </section>

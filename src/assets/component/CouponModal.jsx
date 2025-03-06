@@ -153,9 +153,7 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                                     id="due_date"
                                     placeholder="請輸入到期日"
                                     name="due_date"
-                                    value={`${date.getFullYear().toString()}
-                                    -${(date.getMonth()+1).toString().padStart(2,0)}
-                                    -${date.getDate().toString().padStart(2,0)}`}
+                                    value={`${date.getFullYear().toString()}-${(date.getMonth()+1).toString().padStart(2,0)}-${date.getDate().toString().padStart(2,0)}`}
                                     onChange={(e)=>{
                                         setDate(new Date(e.target.value))
                                     }} />

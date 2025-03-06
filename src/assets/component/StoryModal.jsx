@@ -170,9 +170,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                                             id="create_at"
                                             placeholder="請輸入日期"
                                             name="create_at"
-                                            value={`${date.getFullYear().toString()}
-                                            -${(date.getMonth() + 1).toString().padStart(2, 0)}
-                                            -${date.getDate().toString().padStart(2, 0)}`}
+                                            value={`${date.getFullYear().toString()}-${(date.getMonth() + 1).toString().padStart(2, 0)}-${date.getDate().toString().padStart(2, 0)}`}
                                             onChange={(e) => {
                                                 setDate(new Date(e.target.value))
                                             }} />

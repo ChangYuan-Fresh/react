@@ -20,8 +20,10 @@ function Member() {
     const [selectState, setSelectState] = useState('全部');
     const [expandedOrders, setExpandedOrders] = useState(new Set());
     const [textExtend, setTextExtend] = useState(false);
+    const [couponExtend, setCouponExtend] = useState(false)
     const modelRef = useRef(null);
-    const [tempProduct, setTempProduct] = useState({})
+    const [tempProduct, setTempProduct] = useState({});
+    const [discountCode] = useState("75code");
 
 
     const handleLogout = () => {
@@ -84,12 +86,26 @@ function Member() {
         setTextExtend(prevState => !prevState)
     }
 
+    const handleCouponExtend = () => {
+        setCouponExtend(prevState => !prevState)
+    }
+
+    // 複製折扣碼
+    const handleCopyCode = () => {
+        navigator.clipboard.writeText(discountCode)  // 複製折扣碼到剪貼簿
+            .then(() => {
+                alert("折扣碼已複製！"); // 顯示提示訊息
+            })
+            .catch((error) => {
+                alert("複製失敗！"); // 顯示錯誤訊息
+            });
+    };
     //modal
     const openModal = (product) => {
         setTempProduct(product);
         modelRef.current.show()
     }
-    
+
     return (<>
         <div className="container member">
             <div className="row my-lg-7 my-0 g-5">
@@ -110,7 +126,24 @@ function Member() {
                         <div className="card-body bg-secondary-200 rounded rounded-3 mb-3">
                             <Link to="/changePassword" className="btn w-100 fs-6 py-3 text-start">修改密碼</Link>
                             <Link className="btn w-100 fs-6 py-3 text-start">收件地址管理</Link>
-                            <Link className="btn w-100 fs-6 py-3 text-start">優惠券查詢</Link>
+                            <button type="button" className="btn w-100 fs-6 py-3 d-flex justify-content-between align-items-center" onClick={handleCouponExtend}>
+                                我的優惠券
+                                <span className="material-symbols-outlined">
+                                    {couponExtend ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+                                </span>
+                            </button>
+                            {couponExtend && (
+                                <div className="card">
+                                    <div className="card-body">
+                                        <h5 className="card-title">限時折扣</h5>
+                                        <p className="card-text">限時折扣75折</p>
+                                        <p className="card-text">使用期限：2025/3/16</p>
+                                    </div>
+                                    <div className="card-footer d-flex justify-content-between align-items-center">
+                                        <h5>{discountCode}</h5>
+                                        <button type="button" className="btn btn-outline-primary py-2" onClick={handleCopyCode}>複製折扣碼</button>
+                                    </div>
+                                </div>)}
                         </div>
                         <div className="card-body bg-secondary-200 rounded rounded-3">
                             <Link to="/" onClick={handleLogout} className="mt-auto ms-auto fs-5 fs-lg-4 link-primary">登出
@@ -140,7 +173,24 @@ function Member() {
                                     <div className="card-footer bg-secondary-200 px-0">
                                         <Link to="/changePassword" className="btn w-100 fs-6 text-start pt-3 pb-2  border-0">修改密碼</Link>
                                         <Link className="btn w-100 fs-6 text-start pt-0 pb-2 border-0">收件地址管理</Link>
-                                        <Link className="btn w-100 fs-6 text-start pt-0 pb-2 border-0">優惠券查詢</Link>
+                                        <button type="button" className="btn w-100 fs-6 pt-0 pb-2 d-flex justify-content-between align-items-center" onClick={handleCouponExtend}>
+                                            我的優惠券
+                                            <span className="material-symbols-outlined">
+                                                {couponExtend ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+                                            </span>
+                                        </button>
+                                        {couponExtend && (
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <h5 className="card-title">限時折扣</h5>
+                                                    <p className="card-text">限時折扣75折</p>
+                                                    <p className="card-text">使用期限：2025/3/16</p>
+                                                </div>
+                                                <div className="card-footer d-flex justify-content-between align-items-center">
+                                                    <h5>{discountCode}</h5>
+                                                    <button type="button" className="btn btn-outline-primary py-2" onClick={handleCopyCode}>複製折扣碼</button>
+                                                </div>
+                                            </div>)}
                                     </div>
                                     <div className="d-flex text-accent justify-content-center">
                                         <div className="me-3">收合</div>
@@ -278,7 +328,7 @@ function Member() {
                 })
             }
         </main >
-        <CommentModal tempProduct={tempProduct} modelRef={modelRef}/>
+        <CommentModal tempProduct={tempProduct} modelRef={modelRef} />
         <Toast />
         <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
         <IsScreenLoading isScreenLoading={isScreenLoading} />
