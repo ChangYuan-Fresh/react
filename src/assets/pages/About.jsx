@@ -2,7 +2,7 @@ import Banner from "../layout/Banner";
 function About() {
     return (<>
         <Banner
-            bannerImg={"/images/banner2.png"}
+            bannerImg={"images/banner2.png"}
             title="關於我們"
             enTitle="About us"
             slogan1="在彰化"
@@ -13,7 +13,7 @@ function About() {
                 <div className="content-block row g-lg-5 g-0 w-100 my-lg-11 my-0 px-0">
                     <div className="col d-lg-none number mb-5 ms-3">01</div>
                     <div className="col-lg-6">
-                        <img className="mb-0" src="/images/about1.png" />
+                        <img className="mb-0" src="images/about1.png" />
                     </div>
                     <div className="col-lg-6 card border-0 h-100 px-0 mb-5 mb-lg-0" >
                         <div className="card-body d-flex flex-column justify-content-between py-0 px-0 px-lg-4">
@@ -29,7 +29,7 @@ function About() {
                 <div className="content-block row g-lg-5 g-0 w-100 my-lg-11 my-0 px-0 d-flex flex-lg-row-reverse">
                     <div className="col d-lg-none number mb-5 ms-3">02</div>
                     <div className="col-lg-6">
-                        <img className="mb-0" src="/images/about2.png" />
+                        <img className="mb-0" src="images/about2.png" />
                     </div>
                     <div className="col-lg-6 card border-0 h-100 px-0 mb-5 mb-lg-0" >
                         <div className="card-body d-flex flex-column justify-content-between py-0 px-0 px-lg-4">
@@ -49,7 +49,7 @@ function About() {
                 <div className="content-block row g-lg-5 g-0 w-100 my-lg-11 my-0 px-0">
                     <div className="col d-lg-none number mb-5 ms-3">03</div>
                     <div className="col-lg-6">
-                        <img className="mb-0" src="/images/about3.png" />
+                        <img className="mb-0" src="images/about3.png" />
                     </div>
                     <div className="col-lg-6 card border-0 h-100 px-0 mb-8 mb-lg-0" >
                         <div className="card-body d-flex flex-column justify-content-between py-0 px-0 px-lg-4">
@@ -68,7 +68,7 @@ function About() {
             </div>
         </div>
         <div>
-            <img src="/images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />
+            <img src="images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />
         </div>
     </>)
 }

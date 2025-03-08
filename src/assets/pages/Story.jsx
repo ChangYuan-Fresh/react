@@ -51,7 +51,7 @@ function Story() {
             {/* <!--文章--> */}
             <section>
                 <div className="container pb-lg-11 pt-lg-7 py-md-7 py-4 d-flex flex-column flex-lg-row position-relative">
-                    <img src="src/assets/images/Illustration/trees.png" alt="tree" className="deco-tree" />
+                    <img src="images/Illustration/trees.png" alt="tree" className="deco-tree" />
                     <article className="story-article bg-secondary-200 p-lg-7 p-5 rounded-3 mb-5 mb-lg-0">
                         <div className="d-sm-flex justify-content-between align-items-baseline mb-lg-5 mb-3">
                             <h4 className="fs-lg-1 fs-md-3 text-nowrap">{story.title}</h4>

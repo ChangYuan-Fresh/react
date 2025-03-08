@@ -19,13 +19,13 @@ const apiPath = 'changyuan_fresh';
 function Home() {
     const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
-    const [activeImage, setActiveImage] = useState("src/assets/images/Cauliflower HQ (2).png");
+    const [activeImage, setActiveImage] = useState("images/Cauliflower HQ (2).png");
 
     const storyImages = {
-        cauliflower: "src/assets/images/Cauliflower HQ (2).png",
+        cauliflower: "images/Cauliflower HQ (2).png",
         grape: "https://changyuan-fresh.github.io/FirstProject/assets/grape1-7a8c01cc.png",
-        farmTotable: "src/assets/images/about3.png",
-        clam: "src/assets/images/Kindelmedia 8352389 1.png",
+        farmTotable: "images/about3.png",
+        clam: "images/Kindelmedia 8352389 1.png",
     };
 
     const handleCategorySelect = (category) => {
@@ -92,7 +92,7 @@ function Home() {
                 {/* <!--banner--> */}
                 <section className="mt-6 position-relative">
                     <div className="allProduct-banner-mx">
-                        <img src="src/assets/images/banner.png" alt="" className="d-block w-100 allProduct-banner-img" />
+                        <img src="images/banner.png" alt="" className="d-block w-100 allProduct-banner-img" />
                         <div className="position-absolute banner-text translate-middle ">
                             <h3 className="d-lg-inline-block d-sm-flex  justify-content-sm-center bg-primary text-white text-nowrap py-lg-3 mb-lg-4 mb-2 px-lg-4 p-2 ">
                                 來自彰化的新鮮美味
@@ -143,8 +143,8 @@ function Home() {
                             <div className="col">
                                 <div className="card bg-transparent border-0 d-flex flex-column align-items-center justify-content-ceter" data-aos="fade-up">
                                     <picture>
-                                        <source media="(min-width: 992px)" srcSet="src/assets/images/Illustration/Farmer-sm.png" />
-                                        <img src="src/assets/images/Illustration/Farmer.png" alt="#" />
+                                        <source media="(min-width: 992px)" srcSet="images/Illustration/Farmer-sm.png" />
+                                        <img src="images/Illustration/Farmer.png" alt="#" />
                                     </picture>
                                     <div className="reason-card-body d-flex flex-column align-items-center ">
                                         <h5 className="reason-card-title fs-lg-4 bg-accent text-white px-lg-6 px-8 py-lg-3 py-2 rounded-4 mb-3">支持在地小農</h5>
@@ -155,8 +155,8 @@ function Home() {
                             <div className="col">
                                 <div className="card bg-transparent border-0 d-flex flex-column align-items-center justify-content-ceter" data-aos="fade-up">
                                     <picture>
-                                        <source media="(min-width: 992px)" srcSet="src/assets/images/Illustration/ITruck-sm.png" />
-                                        <img src="src/assets/images/Illustration/ITruck.png" alt="#" />
+                                        <source media="(min-width: 992px)" srcSet="images/Illustration/ITruck-sm.png" />
+                                        <img src="images/Illustration/ITruck.png" alt="#" />
                                     </picture>
                                     <div className="reason-card-body d-flex flex-column align-items-center">
                                         <h5 className="card-title fs-lg-4 bg-accent text-white px-lg-6 px-8 py-lg-3 py-2 rounded-4 mb-3">產地新鮮直送</h5>
@@ -167,8 +167,8 @@ function Home() {
                             <div className="col">
                                 <div className="card bg-transparent border-0 d-flex flex-column align-items-center justify-content-ceter" data-aos="fade-up">
                                     <picture>
-                                        <source media="(min-width: 992px)" srcSet="src/assets/images/Illustration/Earth-sm.png" />
-                                        <img src="src/assets/images/Illustration/Earth.png" alt="#" />
+                                        <source media="(min-width: 992px)" srcSet="images/Illustration/Earth-sm.png" />
+                                        <img src="images/Illustration/Earth.png" alt="#" />
                                     </picture>
                                     <div className="reason-card-body d-flex flex-column align-items-center">
                                         <h5 className="card-title fs-lg-4 bg-accent text-white px-lg-6 px-8 py-lg-3 py-2 rounded-4 mb-3">維護環境永續</h5>
@@ -255,18 +255,18 @@ function Home() {
                 <section>
                     <div className="container pt-lg-11 pt-6 pb-lg-8 pb-3 d-flex justify-content-lg-between justify-content-center">
                         <div className="d-lg-flex d-none">
-                            <img src="src/assets/images/Illustration/Pumpkin.png" alt="Pumpkin" className="me-8 d-xl-block d-none" />
-                            <img src="src/assets/images/Illustration/persimmon.png" alt="persimmon" className="me-8" />
-                            <img src="src/assets/images/Illustration/Pumpkin.png" alt="Pumpkin" />
+                            <img src="images/Illustration/Pumpkin.png" alt="Pumpkin" className="me-8 d-xl-block d-none" />
+                            <img src="images/Illustration/persimmon.png" alt="persimmon" className="me-8" />
+                            <img src="images/Illustration/Pumpkin.png" alt="Pumpkin" />
                         </div>
                         <div className=" d-flex flex-column align-items-center">
                             <h4 className="fs-lg-1 mb-lg-4 mb-3">產地故事</h4>
                             <h5 className="fs-lg-4 text-accent">Story</h5>
                         </div>
                         <div className="d-lg-flex d-none">
-                            <img src="src/assets/images/Illustration/Pumpkin.png" alt="Pumpkin" className="me-8 d-xl-block d-none" />
-                            <img src="src/assets/images/Illustration/persimmon.png" alt="persimmon" className="me-8" />
-                            <img src="src/assets/images/Illustration/Pumpkin.png" alt="Pumpkin" />
+                            <img src="images/Illustration/Pumpkin.png" alt="Pumpkin" className="me-8 d-xl-block d-none" />
+                            <img src="images/Illustration/persimmon.png" alt="persimmon" className="me-8" />
+                            <img src="images/Illustration/Pumpkin.png" alt="Pumpkin" />
                         </div>
                     </div>
                 </section>
@@ -317,8 +317,8 @@ function Home() {
                     </div>
                     <div className="bg-white position-relative py-lg-7 py-3">
                         <picture>
-                            <source media="(min-width: 992px)" srcSet="src/assets/images/deco/Arrow-Curve.png" />
-                            <img src="src/assets/images/deco/Arrow-Curve-sm.png" alt="Arrow-Curve" className="arrow-curve" />
+                            <source media="(min-width: 992px)" srcSet="images/deco/Arrow-Curve.png" />
+                            <img src="images/deco/Arrow-Curve-sm.png" alt="Arrow-Curve" className="arrow-curve" />
                         </picture>
                     </div>
                 </section>
@@ -332,8 +332,8 @@ function Home() {
                                         <h4 className="card-title fs-lg-1 text-accent text-lg-start text-center">01</h4>
                                         <div className="d-flex flex-column align-items-center">
                                             <picture>
-                                                <source media="(min-width: 992px)" srcSet="src/assets/images/Illustration/Tree.png" />
-                                                <img src="src/assets/images/Illustration/Tree-sm.png" alt="Tree" className="promotion-img" />
+                                                <source media="(min-width: 992px)" srcSet="images/Illustration/Tree.png" />
+                                                <img src="images/Illustration/Tree-sm.png" alt="Tree" className="promotion-img" />
                                             </picture>
                                         </div>
                                         <div className="promotion-img-bottom"></div>
@@ -347,8 +347,8 @@ function Home() {
                                         <h4 className="card-title fs-lg-1 text-accent text-lg-start text-center">02</h4>
                                         <div className="d-flex flex-column align-items-center">
                                             <picture>
-                                                <source media="(min-width: 992px)" srcSet="src/assets/images/Illustration/Delivery.png" />
-                                                <img src="src/assets/images/Illustration/Delivery-sm.png" alt="Delivery" className="promotion-img" />
+                                                <source media="(min-width: 992px)" srcSet="images/Illustration/Delivery.png" />
+                                                <img src="images/Illustration/Delivery-sm.png" alt="Delivery" className="promotion-img" />
                                             </picture>
                                         </div>
                                         <div className="promotion-img-bottom"></div>
@@ -362,8 +362,8 @@ function Home() {
                                         <h4 className="card-title fs-lg-1 text-accent text-lg-start text-center">03</h4>
                                         <div className="d-flex flex-column align-items-center">
                                             <picture>
-                                                <source media="(min-width: 992px)" srcSet="src/assets/images/Illustration/Eating.png" />
-                                                <img src="src/assets/images/Illustration/Eating-sm.png" alt="Eating" className="promotion-img" />
+                                                <source media="(min-width: 992px)" srcSet="images/Illustration/Eating.png" />
+                                                <img src="images/Illustration/Eating-sm.png" alt="Eating" className="promotion-img" />
                                             </picture>
                                         </div>
                                         <div className="promotion-img-bottom"></div>
@@ -372,8 +372,8 @@ function Home() {
                                 </div>
                             </div>
                             <div>
-                                <img src="src/assets/images/deco/Arrow-1.png" alt="Arrow-1" className="d-lg-block d-none promotion-arrow1" />
-                                <img src="src/assets/images/deco/Arrow-2.png" alt="Arrow-2" className="d-lg-block d-none promotion-arrow2" />
+                                <img src="images/deco/Arrow-1.png" alt="Arrow-1" className="d-lg-block d-none promotion-arrow1" />
+                                <img src="images/deco/Arrow-2.png" alt="Arrow-2" className="d-lg-block d-none promotion-arrow2" />
                             </div>
                         </div>
                         <div className="d-flex flex-column align-items-center pt-lg-8 pt-0">
@@ -385,7 +385,7 @@ function Home() {
                             <Lottie className='lottie-hand' animationData={animationData} loop={true} />
                         </div>
                     </div>
-                    <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
+                    <img src="images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
                 </section>
                 {/* <!--合作店家--> */}
                 <section className="store-bg bg-secondary">
@@ -396,7 +396,7 @@ function Home() {
                             <div className="col">
                                 <div className="card rounded-4 border-0 d-md-block d-flex flex-row h-100">
                                     <div className="d-flex justify-content-center" >
-                                        <img src="src/assets/images/store1.png" className="store-img " alt="store1" />
+                                        <img src="images/store1.png" className="store-img " alt="store1" />
                                     </div>
                                     <div className="card-body">
                                         <h6 className="card-title fs-lg-5 fw-bold text-md-center text-start">田園西餐廳</h6>
@@ -407,7 +407,7 @@ function Home() {
                             <div className="col">
                                 <div className="card rounded-4 border-0 d-md-block d-flex flex-row h-100">
                                     <div className="d-flex justify-content-center" >
-                                        <img src="src/assets/images/store2.png" className="store-img " alt="store2" />
+                                        <img src="images/store2.png" className="store-img " alt="store2" />
                                     </div>
                                     <div className="card-body">
                                         <h6 className="card-title fs-lg-5 fw-bold text-md-center text-start">綠野果汁</h6>
@@ -418,7 +418,7 @@ function Home() {
                             <div className="col">
                                 <div className="card rounded-4 border-0 d-md-block d-flex flex-row h-100">
                                     <div className="d-flex justify-content-center" >
-                                        <img src="src/assets/images/store3.png" className="store-img " alt="store3" />
+                                        <img src="images/store3.png" className="store-img " alt="store3" />
                                     </div>
                                     <div className="card-body">
                                         <h6 className="card-title fs-lg-5 fw-bold text-md-center text-start">阿花肉圓</h6>
@@ -429,7 +429,7 @@ function Home() {
                             <div className="col">
                                 <div className="card rounded-4 border-0 d-md-block d-flex flex-row h-100">
                                     <div className="d-flex justify-content-center" >
-                                        <img src="src/assets/images/store4.png" className="store-img " alt="store4" />
+                                        <img src="images/store4.png" className="store-img " alt="store4" />
                                     </div>
                                     <div className="card-body">
                                         <h6 className="card-title fs-lg-5 fw-bold text-md-center text-nowrap text-start">彰水路第一家滷肉飯</h6>

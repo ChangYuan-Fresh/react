@@ -14,7 +14,7 @@ function Banner({ bannerImg, title, enTitle, slogan1, slogan2 }) {
                     <span className="pt-lg-2 text-nowrap">{slogan2}</span>
                 </h4>
             </div>
-            <img src="/images/Illustration/Top-Curve(2).png" alt="" className="d-block position-absolute bottom-0 start-0 allProduct-banner-mask" />
+            <img src="images/Illustration/Top-Curve(2).png" alt="" className="d-block position-absolute bottom-0 start-0 allProduct-banner-mask" />
         </div>
     </section>)
 }

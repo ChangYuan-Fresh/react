@@ -5,7 +5,7 @@ function Faq() {
     return (<main>
         {/* <!--banner--> */}
         <Banner
-            bannerImg={"/images/market.jpg"}
+            bannerImg={"images/market.jpg"}
             title="常見問題"
             enTitle="FAQ"
             slogan1="快速解答你的疑問"
@@ -150,7 +150,7 @@ function Faq() {
                         </div>
                     </div>
                 </div>
-                <img src="src/assets/images/Illustration/planting.png" alt="planting" className="faq-deco" />
+                <img src="images/Illustration/planting.png" alt="planting" className="faq-deco" />
             </div>
         </section>
     </main>
