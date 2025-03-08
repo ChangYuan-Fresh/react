@@ -395,21 +395,21 @@ function ComfirmOrder() {
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" onClick={handleOtherPay} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
-                                    <img src="/images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
+                                    <img src="images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
                                     Line Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" onClick={handleOtherPay} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
-                                    <img src="/images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
+                                    <img src="images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
                                     Apple Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={handleOtherPay} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
-                                    <img src="/images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
+                                    <img src="images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
                                     Google Pay
                                 </label>
                             </div>
@@ -509,7 +509,7 @@ function ComfirmOrder() {
             </form>
         </div>
         <div>
-            <img src="/images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />
+            <img src="images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />
         </div>
     </>)
 }

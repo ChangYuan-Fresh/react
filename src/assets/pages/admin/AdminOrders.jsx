@@ -133,7 +133,7 @@ function AdminOrders() {
                                 <tbody>
                                     {filterOrders.length === 0 ? (<tr>
                                         <th colSpan="6" className="text-center border-0">
-                                            <img src="/images/Illustration/Frame.png" alt="empty" className="mx-auto mt-11" />
+                                            <img src="images/Illustration/Frame.png" alt="empty" className="mx-auto mt-11" />
                                             <h5 className="mt-6 text-dark">目前還沒有訂單</h5>
                                         </th>
                                     </tr>) : (
