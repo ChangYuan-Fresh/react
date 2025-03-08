@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import axios from 'axios'
+import 'swiper/css';
 import IsScreenLoading from '../../component/IsScreenLoading'
 import ProductBrowsingHistory from './ProductBrowsingHistory'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import ProductMobileHistory from './ProductMobileHistory';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -15,6 +16,7 @@ function ProductListAll() {
     const [selectCategory, setSelectCategory] = useState('全部商品');
     const [ascending, setAscending] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [recentProducts, setRecentProducts] = useState([]);
 
     const getProductList = async () => {
         setIsScreenLoading(true);
@@ -46,7 +48,7 @@ function ProductListAll() {
 
     // 處理分類變更
     const handleCategoryChange = (category) => {
-        setSelectCategory(selectCategory === category ? null : category); // 點擊同一個分類可以切換顯示/隱藏
+        setSelectCategory((prevCategory) => (prevCategory === category ? "全部商品" : category));
     };
 
     const handleSearch = (e) => {
@@ -54,6 +56,26 @@ function ProductListAll() {
         setSelectCategory("全部商品"); // 確保搜尋後仍然顯示全部商品
     };
 
+    // 最近劉覽
+    const handleViewProduct = (product) => {
+        setRecentProducts((prev) => {
+            let updatedProducts = prev.filter((item) => item.id !== product.id);
+            updatedProducts.unshift(product);
+            if (updatedProducts.length > 5) updatedProducts.pop();
+
+            localStorage.setItem("recentProducts", JSON.stringify(updatedProducts));
+            return updatedProducts; // 確保 React 狀態更新
+        });
+    };
+
+    useEffect(() => {
+        const storedProducts = JSON.parse(localStorage.getItem("recentProducts")) || [];
+        setRecentProducts(storedProducts);
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("recentProducts", JSON.stringify(recentProducts));
+    }, [recentProducts]);
     return (<>
 
         <div className="overflow-hidden container mb-5">
@@ -82,7 +104,7 @@ function ProductListAll() {
                         {categories.map((category) => {
                             return (<div className="accordion-item" key={category}>
                                 <h2 className="accordion-header" id="headingTwo">
-                                    <button type="button" className={`accordion-button px-0 fw-bold fs-4 ${selectCategory === category ?"text-primary collapsed":"text-dark"}`} onClick={() => handleCategoryChange(category)}>
+                                    <button type="button" className={`accordion-button px-0 fw-bold fs-4 ${selectCategory === category ? "text-primary collapsed" : "text-dark"}`} onClick={() => handleCategoryChange(category)}>
                                         {category}
                                     </button>
                                 </h2>
@@ -90,7 +112,7 @@ function ProductListAll() {
                         })}
                     </section>
                     {/* <!-- 左側瀏覽紀錄 --> */}
-                    <ProductBrowsingHistory />
+                    <ProductBrowsingHistory recentProducts={recentProducts}/>
                 </div>
                 {/* <!-- 商品列表 --> */}
                 <section className="col-xl-9 col-lg-8 allProduct-catalog">
@@ -129,13 +151,15 @@ function ProductListAll() {
                         {filterProducts.length > 0 ? (
                             filterProducts.map((product) => (
                                 <div className="col-xl-4 col-lg-6 col-md-4 " key={product.id}>
-                                    <Link className="card my-5 allProduct-catalog-card d-flex flex-md-column flex-row" to={`/products/${product.id}`}>
+                                    <Link className="card my-5 allProduct-catalog-card d-flex flex-md-column flex-row"
+                                        to={`/products/${product.id}`}
+                                        onClick={() => handleViewProduct(product)}>
                                         <img src={product.imageUrl} className="card-img-top allProduct-catalog-img" alt={product.title} />
                                         <div className="card-body py-0 px-md-0 ps-5 pe-0">
                                             <h5 className="card-title mt-md-3 mt-0 mb-md-4 mb-2 fs-5">{product.title}</h5>
                                             <p className="text-accent fs-5">
-                                                {`NT$${product.origin_price}`}
-                                                <span className="text-gray fw-normal ps-2">{`NT$${product.price}`}</span>
+                                                {`NT$${product.price}`}
+                                                <span className="text-gray fw-normal ps-2 text-decoration-line-through">{`NT$${product.origin_price}`}</span>
                                             </p>
                                         </div>
                                     </Link>
@@ -148,6 +172,7 @@ function ProductListAll() {
                     <IsScreenLoading isScreenLoading={isScreenLoading} />
                 </section>
             </div>
+            <ProductMobileHistory recentProducts={recentProducts}/>
         </section>
     </>
     )

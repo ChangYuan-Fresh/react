@@ -27,7 +27,7 @@ function Stories() {
         <main>
             {/* <!--banner--> */}
             <Banner
-                bannerImg={"/images/banner3.png"}
+                bannerImg={"images/banner3.png"}
                 title="產品故事"
                 enTitle="Story"
                 slogan1="探索農田的秘密"
@@ -35,7 +35,7 @@ function Stories() {
             {/* <!--故事列表--> */}
             <section>
                 <div className="container position-relative py-lg-11 py-6">
-                    <img src="src/assets/images/Illustration/peace.png" alt="peace" className="story-deco1" />
+                    <img src="images/Illustration/peace.png" alt="peace" className="story-deco1" />
                     {/* <!--文章列表--> */}
                     <div className="row row-cols-1 gy-6">
                         {stories.map((story)=>{
@@ -55,13 +55,14 @@ function Stories() {
                                             <Link className="btn text-accent fw-bolder fs-3" to={`/stories/${story.id}`}>More<span className="material-symbols-outlined align-middle">chevron_right</span></Link>
                                         </div>
                                     </div>
-                                    <a href="story-cauliflower.html"><p className="card-text text-accent fw-bolder d-lg-none d-block ">More<span className="material-symbols-outlined align-middle">chevron_right</span></p></a>
+                                    <Link to={`/stories/${story.id}`}><p className="card-text text-accent fw-bolder d-lg-none d-block ">More<span className="material-symbols-outlined align-middle">chevron_right</span></p>
+                                    </Link>
                                 </div>
                             </div>)
                         })}
                         
                     </div>
-                    <img src="src/assets/images/Illustration/house.png" alt="house" className="story-deco2" />
+                    <img src="images/Illustration/house.png" alt="house" className="story-deco2" />
                     {/* <!--頁籤--> */}
                     <div className="pt-6 pt-lg-7">
                         <PaginationCompo pageInfo={{
