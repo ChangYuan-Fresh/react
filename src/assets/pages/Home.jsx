@@ -101,7 +101,7 @@ function Home() {
                             <h4 className="d-inline-block bg-white py-lg-2 px-lg-4 p-2 mb-lg-4 mb-2 fs-lg-4 fs-5 d-none d-lg-block">
                                 在地農夫精心栽培，每一口都是健康的保證
                             </h4>
-                            <form role="search" className="position-relative d-flex" >
+                            <form onSubmit={handleSearch} role="search" className="position-relative d-flex" >
                                 <div className="dropdown position-absolute top-50 start-0 translate-middle-y z-2">
                                     <button className="btn btn-white btn-sm fw-semibold fs-lg-6 fs-7 border-end border-1 rounded-0 text-nowrap ms-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         全部商品 <span className="material-symbols-outlined text-primary align-bottom">keyboard_arrow_down</span>
