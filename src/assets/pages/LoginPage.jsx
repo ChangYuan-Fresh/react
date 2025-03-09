@@ -49,7 +49,7 @@ function LoginPage() {
                                 errors={errors}
                                 rules={{ required: "密碼為必填" }}
                             />
-                            <button type="submit" disabled={isLoading} className="btn btn-L  py-3 my-5 mx-auto w-50">
+                            <button type="submit" disabled={isLoading} className="btn btn-L  py-3 my-5 mx-auto w-50 text-nowrap">
                                 登入
                             </button>
                         </form>

@@ -37,11 +37,12 @@ function ForgetPassword() {
                             />
                         </div>
                     </div>
-                    <div className="d-flex ms-auto align-items-end mb-11">
+                    {/* 電腦版 */}
+                    <div className="d-none d-sm-flex ms-auto align-items-end mb-11 ">
                         <p className="fs-5 me-4">30秒後重新寄送</p>
                         <button
                             type="button"
-                            className="btn btn-L py-3"
+                            className="btn btn-L py-3 text-nowrap"
                             data-bs-toggle="collapse"
                             data-bs-target="#verifyEmail"
                             aria-expanded="false"
@@ -49,6 +50,20 @@ function ForgetPassword() {
                             onClick={() => setOpen(!open)}>送出
                         </button>
                         <Link to="/" className="card-link link-primary ps-4 fs-5">回首頁</Link>
+                    </div>
+                    {/* 手機版 */}
+                    <div className="d-flex-column ms-auto align-items-end mb-11 d-sm-none">      
+                        <Link to="/" className="card-link link-primary pe-4 fs-5 align-bottom">回首頁</Link>                 
+                        <button
+                            type="button"
+                            className="btn btn-L py-3 text-nowrap me-4"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#verifyEmail"
+                            aria-expanded="false"
+                            aria-controls="verifyEmail"
+                            onClick={() => setOpen(!open)}>送出
+                        </button>                       
+                        <p className="fs-5 text-end mt-3 me-4">30秒後重新寄送</p>
                     </div>
                     
                     <form onSubmit={handleSubmit(onSubmit)} className="collapse w-50 mx-auto" id="verifyEmail">
