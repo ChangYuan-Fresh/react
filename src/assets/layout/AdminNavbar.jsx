@@ -7,7 +7,7 @@ function AdminNavbar() {
             <div className="container-fluid py-4 px-3">
                 <NavLink className="navbar-brand" to='/'>
                     <img className="d-none d-lg-block" src="https://raw.githubusercontent.com/ChangYuan-Fresh/FirstProject/refs/heads/gh-pages/assets/LOGO-L-142eb0ee.png" alt="LOGO" />
-                    <img className="d-lg-none" src="src/assets/images/LOGO-S.png" alt="LOGO" />
+                    <img className="d-lg-none" src="images/LOGO-S.png" alt="LOGO" />
                 </NavLink>
                 <div>
                     <div className="navbar-nav ms-auto">
@@ -23,7 +23,7 @@ function AdminNavbar() {
                             </button>
                             <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                                 <div className="offcanvas-header">
-                                    <img className="offcanvas-title" id="offcanvasNavbarLabel" src="src/assets/images/LOGO-S.png" alt="LOGO" />
+                                    <img className="offcanvas-title" id="offcanvasNavbarLabel" src="images/LOGO-S.png" alt="LOGO" />
                                     <div className="ms-auto d-flex justify-content-end align-items-center">
                                         <p className="fs-5 fs-lg-5 fs-xl-4 text-nowrap">管理中心</p>
                                         <button type="button" className="btn-close ms-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
