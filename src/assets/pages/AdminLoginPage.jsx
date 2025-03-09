@@ -97,7 +97,7 @@ function AdminLoginPage (){
                                     }
                                 }}
                             />
-                            <button  type='submit' className="btn btn-L py-3 my-5 mx-auto w-50">登入</button>
+                            <button  type='submit' className="btn btn-L py-3 my-5 mx-auto w-50 text-nowrap">登入</button>
                         </form>
                     </div>
                     <div className="d-flex justify-content-center">

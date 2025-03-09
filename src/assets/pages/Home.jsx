@@ -133,7 +133,7 @@ function Home() {
                     </div>
                 </section>
                 {/* <!--3個理由--> */}
-                <section className="reason reason-bg">
+                <section className="reason ">
                     <div className="container d-flex flex-column align-items-center py-lg-11 py-6" >
                         <div className="mb-8 d-flex flex-column align-items-center">
                             <h4 className="fs-lg-1 mb-lg-4 mb-2">選擇彰源鮮味的3個理由</h4>
@@ -210,6 +210,7 @@ function Home() {
                                     scrollbar={{ draggable: true }}
                                     pagination={{ clickable: true }}
                                     breakpoints={{
+                                        0: { slidesPerView: 1, spaceBetween: 12 },
                                         500: { slidesPerView: 1, spaceBetween: 12 },
                                         776: { slidesPerView: 2, spaceBetween: 12 },
                                         1200: { slidesPerView: 4, spaceBetween: 12 },
@@ -323,7 +324,7 @@ function Home() {
                     </div>
                 </section>
                 {/* <!--滿千免運--> */}
-                <section className='promotion-bg'>
+                <section className=''>
                     <div className="container pt-8 d-lg-block d-flex flex-column-reverse">
                         <div className="row row-cols-lg-3 row-cols-1 position-relative ">
                             <div className="col px-0">
@@ -388,7 +389,7 @@ function Home() {
                     <img src="images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
                 </section>
                 {/* <!--合作店家--> */}
-                <section className="store-bg bg-secondary">
+                <section className=" bg-secondary">
                     <div className="container py-lg-11 py-6 text-center">
                         <h4 className="fs-lg-1 mb-lg-4 mb-3">長期合作店家推薦</h4>
                         <h5 className="fs-lg-4 text-accent mb-lg-8 mb-6">Local Partner</h5>

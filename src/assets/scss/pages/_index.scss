@@ -14,7 +14,7 @@ body {
 
     @media(min-width: 992px) {
         top: 40%;
-        left: 25%;
+        left: 30%;
     }
 
 }
@@ -98,8 +98,8 @@ body {
 
 .product-index-img {
     object-fit: cover;
-    width: 100%;
-    height: 300px;
+    width: 516px;
+    height: 387px;
 
     @media(min-width: 576px) {
         width: 516px;
@@ -163,10 +163,6 @@ body {
 
 //產品故事
 
-.story-bg {
-    margin-left: -100%;
-    margin-right: -100%;
-}
 
 .story-tab-content {
     width: 100%;
@@ -237,10 +233,6 @@ body {
 
 //買千免運
 
-.promotion-bg {
-    margin-left: -100%;
-    margin-right: -100%;
-}
 
 .promotion-img-bottom {
     height: 60px;
@@ -320,10 +312,6 @@ body {
 
 
 //合作店家
-.store-bg {
-    margin-left: -100%;
-    margin-right: -100%;
-}
 
 .store-img {
     width: 96px;

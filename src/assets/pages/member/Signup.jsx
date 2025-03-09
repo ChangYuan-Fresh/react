@@ -97,7 +97,7 @@ function Signup() {
         </div>
 
 
-        <img src="../assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
+        <img src="images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
     </>
     )
 }
