@@ -164,30 +164,67 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                             <div className="col-12">
                                 <div className='row'>
                                     <div className="col-12">
-                                        <div className="border rounded-3 p-5 mb-3">
-                                            <h5 className='pb-3'>商品主圖</h5>
-                                            <div>
-                                                <label htmlFor="imageUrl" className="form-label">主圖</label>
-                                                <div className="input-group mb-3 ">
-                                                    <img src={tempProduct.imageUrl} alt={tempProduct.id} className="img-fluid rounded-3" style={{ width: "80px", height: "80px" }} />
+                                        <div className="border rounded-3 p-5 mb-3 ">
+                                            <h5 className="pb-3">商品主圖</h5>
+                                            <div className='d-flex align-items-center'>
+                                                <img
+                                                    src={tempProduct.imageUrl}
+                                                    alt={tempProduct.id}
+                                                    className="img-fluid rounded-3"
+                                                    style={{ width: "80px", height: "80px", objectFit: "cover" }}
+                                                />
+                                                <div >
+                                                    <label htmlFor="fileInput" className="form-label ms-3"> 圖 </label>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-outline-primary"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseUpImageInput"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseUpImageInput"
+                                                        onClick={() => document.getElementById('fileInput').click()} // 點擊按鈕觸發文件選擇
+                                                    >
+                                                        上傳圖片
+                                                    </button>
                                                     <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        placeholder="請輸入主圖網址"
-                                                        id="imageUrl"
-                                                        name="imageUrl"
-                                                        value={tempProduct.imageUrl} onChange={getinputValue} />
+                                                        type="file"
+                                                        accept=".jpg,.jpeg,.png"
+                                                        className=" form-control d-none"
+                                                        id="fileInput"
+                                                        onChange={fileUpload}
+                                                    />
+                                                </div>
+                                                <div className='d-flex align-items-center'>
+                                                    {/* Collapse 按鈕 */}
+                                                    <p className='mx-2'>or</p>
+                                                    <button
+                                                        className="btn btn-primary"
+                                                        type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseImageInput"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseImageInput"
+                                                    >
+                                                        圖片網址
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div >
-                                                <label htmlFor="fileInput" className="form-label"> 圖片上傳 </label>
-                                                <input
-                                                    type="file"
-                                                    accept=".jpg,.jpeg,.png"
-                                                    className="form-control"
-                                                    id="fileInput"
-                                                    onChange={fileUpload}
-                                                />
+                                            {/* Collapse 區塊，隱藏和顯示輸入框 */}
+                                            <div className="collapse" id="collapseImageInput">
+                                                <div className="card card-body mt-3">
+                                                    <label htmlFor="imageUrl" className="form-label">主圖網址</label>
+                                                    <div className="input-group mb-3">
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            placeholder="請輸入主圖網址"
+                                                            id="imageUrl"
+                                                            name="imageUrl"
+                                                            value={tempProduct.imageUrl}
+                                                            onChange={getinputValue}
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -299,7 +336,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                                 name="unit"
                                                 value={tempProduct.unit}
                                                 onChange={getinputValue} />
-                                        </div>                                       
+                                        </div>
                                         <div className="col-6">
                                             <label htmlFor="originPrice" className="form-label">原價</label>
                                             <input
@@ -327,7 +364,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                     </div>
                                 </div>
                                 <div className="border rounded-3 p-5 mb-3">
-                                    <h5 className='pb-3'>商品介紹</h5>                                   
+                                    <h5 className='pb-3'>商品介紹</h5>
                                     <div className="mb-3">
                                         <label htmlFor="content" className="form-label">商品介紹</label>
                                         <textarea
