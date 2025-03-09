@@ -117,7 +117,7 @@ function Home() {
                                 <input
                                     className="form-control form-control-lg fs-7 ps-11"
                                     type="search"
-                                    placeholder="立即選購！新鮮抵家啦～"
+                                    placeholder="來~新鮮抵家啦~"
                                     value={searchInput}
                                     onChange={(e) => setSearchInput(e.target.value)}
                                 />
@@ -129,9 +129,9 @@ function Home() {
                                 </button>
                             </form>
                         </div>
-                        <img src="/images/Illustration/Top-Curve.png" alt="" className="d-block position-absolute  deco-curve" />
+                        <img src="images/Illustration/Top-Curve.png" alt="" className="d-block position-absolute bottom-0 start-0 allProduct-banner-mask" />
                     </div>
-                </section>
+                </section>              
                 {/* <!--3個理由--> */}
                 <section className="reason ">
                     <div className="container d-flex flex-column align-items-center py-lg-11 py-6" >
