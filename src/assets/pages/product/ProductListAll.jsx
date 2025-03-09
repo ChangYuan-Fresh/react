@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link,  useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import axios from 'axios'
 import 'swiper/css';
@@ -17,6 +17,15 @@ function ProductListAll() {
     const [ascending, setAscending] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [recentProducts, setRecentProducts] = useState([]);
+    const location = useLocation();
+    
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const searchQueryParam = queryParams.get('query');
+        if (searchQueryParam) {
+            setSearchQuery(searchQueryParam);
+        }
+    }, [location.search]);
 
     const getProductList = async () => {
         setIsScreenLoading(true);
@@ -116,7 +125,7 @@ function ProductListAll() {
                 </div>
                 {/* <!-- 商品列表 --> */}
                 <section className="col-xl-9 col-lg-8 allProduct-catalog">
-                    {/* 🔹 搜尋框 */}
+                    {/* 搜尋框 */}
                     <form onSubmit={handleSearch} className="d-flex position-relative w-50 mb-5" >
                         <input
                             className="form-control form-control-lg fs-7 ps-3"
