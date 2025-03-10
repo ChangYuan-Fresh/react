@@ -1,4 +1,4 @@
-const CheckboxRadio = ({ id, labelText, register, type, errors, rules, value, name, disabled,checked,onChange }) => {
+const CheckboxRadio = ({ id, labelText, register, type, errors, rules, value, name, }) => {
     return (<>
         <div className='form-check'>
             <input
@@ -8,8 +8,6 @@ const CheckboxRadio = ({ id, labelText, register, type, errors, rules, value, na
                 id={id}
                 value={value}
                 checked={checked}
-                onChange={onChange}
-                disabled={disabled}
                 {...register(name, rules)}
             />
             {/* Radio 使用 Name 欄位 */}

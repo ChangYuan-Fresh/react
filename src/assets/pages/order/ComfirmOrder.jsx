@@ -22,7 +22,7 @@ function ComfirmOrder() {
     const [useCreditCard, setUseCreditCard] = useState(false)
     const [useOtherPay, setUseOtherPay] = useState(false);
     const [couponCode, setCouponCode] = useState('');
-    const [shippingType, setShippingType] = useState('frozen')
+    const [shippingType, setShippingType] = useState('normal')
     const dispatch = useDispatch();
 
 
@@ -48,14 +48,18 @@ function ComfirmOrder() {
     )
 
     const onSubmit = handleSubmit((data) => {
-        const { message, ...user } = data;
+        const { message, shipping, ...user } = data;
+        console.log(data)
         const userInfo = {
             data: {
-                user,
-                message,
-                shipping_fee: shippingFee
+                user: {
+                    ...user,
+                    shipping: shippingFee
+                },
+                message
             }
-        }
+        };
+        console.log(userInfo);
         placeOrder(userInfo);
 
     })
@@ -121,18 +125,18 @@ function ComfirmOrder() {
             });
             getCartList()
             dispatch(createAsyncMessage({
-                            text: res.data.message,
-                            type: '成功使用優惠卷',
-                            status: "success"
-                        }))
+                text: res.data.message,
+                type: '成功使用優惠卷',
+                status: "success"
+            }))
         } catch (error) {
             const { message } = error.response.data;
-                        dispatch(createAsyncMessage({
-                            text: message,
-                            type: '找不到優惠券!',
-                            status: "failed"
-                        }))
-        }finally{
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '找不到優惠券!',
+                status: "failed"
+            }))
+        } finally {
             setIsScreenLoading(false);
         }
     }
@@ -142,10 +146,10 @@ function ComfirmOrder() {
     //是否為冷凍寄送
     const filterFrozen = cartList.carts?.filter((item) => item.product?.is_frozen !== 0) || [];
 
-    const shippingFee =
-        shippingType === "normal"
-            ? cartList.total < 499 ? 65 : 0
-            : cartList.total < 1000 ? 160 : 0
+    const shippingFee = shippingType === "normal"
+        ? (cartList.total < 499 ? 65 : 0)
+        : (cartList.total < 1000 ? 160 : 0)
+
     //總額
     const totalAmount = Math.floor((cartList.final_total ?? 0) + (shippingFee ?? 0));
     return (<>
@@ -331,44 +335,50 @@ function ComfirmOrder() {
                             </div>)}
                         <div>
                             <div className="form-check">
-                                <CheckboxRadio
+                                <input
+                                    className={`form-check-input ${errors['shipping'] && 'is-invalid'}`}
                                     type='radio'
                                     name='shipping'
                                     id='frozen'
-                                    value={shippingFee}
+                                    value='frozen'
                                     checked={shippingType === "frozen"}
-                                    onChange={() => setShippingType("frozen")}
-                                    register={register}
-                                    errors={errors}
-                                    rules={{ required: '請選擇運送方式' }}
-                                    labelText={
-                                        <>
-                                            冷凍宅配
-                                            <span className="en-font me-3">NT$ {shippingFee || 160}</span>
-                                            <span className="text-accent fs-7">滿 NT$1,000 免運</span>
-                                        </>}
-                                ></CheckboxRadio>
+                                    {...register("shipping", {
+                                        required: true,
+                                        onChange: (e) => setShippingType(e.target.value)
+                                    })}
+                                />
+                                <label className='form-check-label fs-lg-5 fs-6' htmlFor='frozen'>
+                                    冷凍宅配
+                                    <span className="en-font me-3">NT$ 160</span>
+                                    <span className="text-accent fs-7">滿 NT$1,000 免運</span>
+                                </label>
+                                {errors['shipping'] && (
+                                    <div className='invalid-feedback'>{errors['shipping']?.message}</div>
+                                )}
                             </div>
-                            <div className="form-check mt-5">
-                                <CheckboxRadio
+                            <div className='form-check mt-5'>
+                                <input
+                                    className={`form-check-input ${errors['shipping'] && 'is-invalid'}`}
                                     type='radio'
                                     name='shipping'
                                     id='normal'
-                                    value={shippingFee}
+                                    value="normal"
                                     checked={shippingType === "normal"}
-                                    onChange={() => setShippingType("normal")}
-                                    register={register}
-                                    errors={errors}
-                                    rules={{ required: '請選擇運送方式' }}
                                     disabled={filterFrozen.length > 0}
-                                    labelText={
-                                        <>
-                                            全家取貨
-                                            <span className="en-font me-3">NT$ {shippingFee || 65}</span>
-                                            <span className="text-accent fs-7">滿 NT$499 免運</span>
-                                        </>}
-                                ></CheckboxRadio>
+                                    {...register("shipping", {
+                                        required: true,
+                                        onChange: (e) => setShippingType(e.target.value)
+                                    })}
+                                />
+                                <label className='form-check-label fs-lg-5 fs-6' htmlFor='normal'>
+                                    全家取貨
+                                    <span className="en-font me-3">NT$ 65</span>
+                                    <span className="text-accent fs-7">滿 NT$499 免運</span>
+                                </label>
                             </div>
+                            {errors['shipping'] && (
+                                <div className='invalid-feedback'>{errors['shipping']?.message}</div>
+                            )}
                         </div>
                     </div>
                     {/* 付款方式 */}
@@ -495,20 +505,38 @@ function ComfirmOrder() {
                     </div>
                 </div>
                 <div className="col-lg-3 sticky-top">
-                    {cartList.total >= 1000 ? (
-                        <div className="bg-secondary-200 rounded rounded-3">
-                            <div className="d-flex py-4 ms-5 text-primary">
-                                <span className="material-symbols-outlined me-2">check_circle</span>
-                                <p>已達免運門檻</p>
-                            </div>
-                        </div>)
-                        : (
-                            <div className="bg-accent rounded rounded-3">
-                                <div className="d-flex py-4 ms-5 text-white">
-                                    <span className="material-symbols-outlined me-2">package_2</span>
-                                    <p>還差$ {1000 - cartList.total || 0}元免運</p>
+                    {filterFrozen.length > 0 || shippingType === 'frozen' ? (
+                        cartList.total >= 1000 ? (
+                            <div className="bg-secondary-200 rounded rounded-3">
+                                <div className="d-flex py-4 ms-5 text-primary">
+                                    <span className="material-symbols-outlined me-2">check_circle</span>
+                                    <p>已達免運門檻</p>
                                 </div>
-                            </div>)}
+                            </div>)
+                            : (
+                                <div className="bg-accent rounded rounded-3">
+                                    <div className="d-flex py-4 ms-5 text-white">
+                                        <span className="material-symbols-outlined me-2">package_2</span>
+                                        <p>還差$ {1000 - cartList.total || 0}元免運</p>
+                                    </div>
+                                </div>)
+                    ) : (
+                        cartList.total >= 499 ? (
+                            <div className="bg-secondary-200 rounded roundedd-3">
+                                <div className="d-flex py-4 ms-5 text-primary">
+                                    <span className="material-symbols-outlined me-2">check_circle</span>
+                                    <p>已達免運門檻</p>
+                                </div>
+                            </div>)
+                            : (
+                                <div className="bg-accent rounded rounded-3">
+                                    <div className="d-flex py-4 ms-5 text-white">
+                                        <span className="material-symbols-outlined me-2">package_2</span>
+                                        <p>還差$ {499 - cartList.total || 0}元免運</p>
+                                    </div>
+                                </div>)
+                    )}
+
                     <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">
                         <div className="card-body p-5">
                             <h5 className="card-title mb-6">結帳明細</h5>
@@ -553,8 +581,8 @@ function ComfirmOrder() {
                 </div>
             </form>
         </div>
-        <IsScreenLoading isScreenLoading={isScreenLoading}/>
-        <Toast/>
+        <IsScreenLoading isScreenLoading={isScreenLoading} />
+        <Toast />
         <div>
             <img src="images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />
         </div>

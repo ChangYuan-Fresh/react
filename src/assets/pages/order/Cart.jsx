@@ -73,6 +73,9 @@ function Cart() {
         }
     }
 
+    //是否為冷凍寄送
+    const filterFrozen = cartList.carts?.filter((item) => item.product?.is_frozen !== 0) || [];
+
     return (<>
         <div className="container mb-7 position-relative">
             <div className="row">
@@ -164,7 +167,8 @@ function Cart() {
                 </div>
                 <aside className="col-lg-3 sticky-top">
                     <div>
-                        {cartList.total >= 1000 ? (
+                    {filterFrozen.length > 0 ? (
+                        cartList.total >= 1000 ? (
                             <div className="bg-secondary-200 rounded rounded-3">
                                 <div className="d-flex py-4 ms-5 text-primary">
                                     <span className="material-symbols-outlined me-2">check_circle</span>
@@ -177,7 +181,24 @@ function Cart() {
                                         <span className="material-symbols-outlined me-2">package_2</span>
                                         <p>還差$ {1000 - cartList.total || 0}元免運</p>
                                     </div>
-                                </div>)}
+                                </div>)
+                    ) : (
+                        cartList.total >= 499 ? (
+                            <div className="bg-secondary-200 rounded rounded-3">
+                                <div className="d-flex py-4 ms-5 text-primary">
+                                    <span className="material-symbols-outlined me-2">check_circle</span>
+                                    <p>已達免運門檻</p>
+                                </div>
+                            </div>)
+                            : (
+                                <div className="bg-accent rounded rounded-3">
+                                    <div className="d-flex py-4 ms-5 text-white">
+                                        <span className="material-symbols-outlined me-2">package_2</span>
+                                        <p>還差$ {499 - cartList.total || 0}元免運</p>
+                                    </div>
+                                </div>)
+                    )}
+
                         <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">
                             <div className="card-body p-5">
                                 <h5 className="card-title mb-6">結帳明細</h5>
