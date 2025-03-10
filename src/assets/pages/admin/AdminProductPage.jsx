@@ -236,7 +236,7 @@ function AdminProductPage() {
                 </thead>
                 <tbody>
                     {filteredProducts.length > 0 ? (
-                        filterProducts(status).map((product) => (
+                        filteredProducts.map((product) => (
                             <tr key={product.id}>
                                 <td className="text-center text-nowrap fw-normal ">{product.product_code || '無編號'}</td>
                                 <td>

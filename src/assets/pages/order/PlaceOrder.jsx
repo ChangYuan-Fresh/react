@@ -80,7 +80,7 @@ function PlaceOrder() {
             </div>
         </div>
 
-        <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
+        <img src="images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
     </>
     )
 }

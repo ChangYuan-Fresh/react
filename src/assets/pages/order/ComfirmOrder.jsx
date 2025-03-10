@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router";
 import axios from 'axios'
-import Input from "../../component/Input";
-import Select from "../../component/Select";
-import ReactLoading from 'react-loading';
 import cityData from './form/taiwan.json'
+import Input from "../../component/Input";
+import CheckboxRadio from "../../component/CheckBoxRadio";
+import Select from "../../component/Select";
+import IsScreenLoading from "../../component/IsScreenLoading";
+import Toast from "../../layout/Toast";
+import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../../redux/slice/toastSlice';
 
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -13,11 +17,15 @@ const apiPath = import.meta.env.VITE_API_PATH;
 
 function ComfirmOrder() {
     const [cartList, setCartList] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isScreenLoading, setIsScreenLoading] = useState(false);
     const [addressData, setAddressData] = useState([]);
     const [useCreditCard, setUseCreditCard] = useState(false)
     const [useOtherPay, setUseOtherPay] = useState(false);
     const [couponCode, setCouponCode] = useState('');
+    const [shippingType, setShippingType] = useState('frozen')
+    const dispatch = useDispatch();
+
+
     const navigate = useNavigate()
 
     const {
@@ -44,7 +52,8 @@ function ComfirmOrder() {
         const userInfo = {
             data: {
                 user,
-                message
+                message,
+                shipping_fee: shippingFee
             }
         }
         placeOrder(userInfo);
@@ -52,7 +61,7 @@ function ComfirmOrder() {
     })
     //送出訂單
     const placeOrder = async (data) => {
-        setIsLoading(true);
+        setIsScreenLoading(true);
         try {
             await axios.post(`${baseUrl}/v2/api/${apiPath}/order`, data)
             reset();
@@ -62,7 +71,7 @@ function ComfirmOrder() {
             alert('結帳失敗' || error.data.message)
             navigate("/cart")
         } finally {
-            setIsLoading(false)
+            setIsScreenLoading(false)
         }
     }
 
@@ -103,19 +112,42 @@ function ComfirmOrder() {
     }
     //取得優惠
     const getDiscount = async () => {
+        setIsScreenLoading(true);
         try {
-            await axios.post(`${baseUrl}/v2/api/${apiPath}/coupon`, {
+            const res = await axios.post(`${baseUrl}/v2/api/${apiPath}/coupon`, {
                 data: {
                     code: couponCode
                 }
             });
             getCartList()
+            dispatch(createAsyncMessage({
+                            text: res.data.message,
+                            type: '成功使用優惠卷',
+                            status: "success"
+                        }))
         } catch (error) {
-            alert("此優惠代碼無效" || error.response)
+            const { message } = error.response.data;
+                        dispatch(createAsyncMessage({
+                            text: message,
+                            type: '找不到優惠券!',
+                            status: "failed"
+                        }))
+        }finally{
+            setIsScreenLoading(false);
         }
     }
 
     const city = watch('city');
+
+    //是否為冷凍寄送
+    const filterFrozen = cartList.carts?.filter((item) => item.product?.is_frozen !== 0) || [];
+
+    const shippingFee =
+        shippingType === "normal"
+            ? cartList.total < 499 ? 65 : 0
+            : cartList.total < 1000 ? 160 : 0
+    //總額
+    const totalAmount = Math.floor((cartList.final_total ?? 0) + (shippingFee ?? 0));
     return (<>
         <div className="container mb-7">
             <form className="row g-5 position-relative" onSubmit={handleSubmit(onSubmit)}>
@@ -292,26 +324,50 @@ function ComfirmOrder() {
                     {/* 寄送方式 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
                         <div className="card-title text-primary fs-4 mb-6">寄送方式</div>
-                        <div className="d-flex text-accent bg-secondary-200 p-4 rounded rounded-3">
-                            <span className="material-symbols-outlined">info</span>
-                            <p>因含生鮮冷藏食品，僅提供宅配服務</p>
-                        </div>
-                        <div className="mt-5">
+                        {filterFrozen.length > 0 && (
+                            <div className="d-flex text-accent bg-secondary-200 p-4 rounded rounded-3 mb-5">
+                                <span className="material-symbols-outlined">info</span>
+                                <p>因含生鮮冷藏食品，僅提供宅配服務</p>
+                            </div>)}
+                        <div>
                             <div className="form-check">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                                <label className="form-check-label fs-lg-5 fs-6" htmlFor="flexRadioDefault1">
-                                    冷凍宅配
-                                    <span className="en-font me-3">NT$160</span>
-                                    <span className="text-accent fs-7">滿 NT$1,000 免運</span>
-                                </label>
+                                <CheckboxRadio
+                                    type='radio'
+                                    name='shipping'
+                                    id='frozen'
+                                    value={shippingFee}
+                                    checked={shippingType === "frozen"}
+                                    onChange={() => setShippingType("frozen")}
+                                    register={register}
+                                    errors={errors}
+                                    rules={{ required: '請選擇運送方式' }}
+                                    labelText={
+                                        <>
+                                            冷凍宅配
+                                            <span className="en-font me-3">NT$ {shippingFee || 160}</span>
+                                            <span className="text-accent fs-7">滿 NT$1,000 免運</span>
+                                        </>}
+                                ></CheckboxRadio>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" disabled />
-                                <label className="form-check-label fs-lg-5 fs-6" htmlFor="flexRadioDefault2">
-                                    全家取貨
-                                    <span className="en-font me-3">NT$65</span>
-                                    <span className="text-accent fs-7">滿 NT$499 免運</span>
-                                </label>
+                                <CheckboxRadio
+                                    type='radio'
+                                    name='shipping'
+                                    id='normal'
+                                    value={shippingFee}
+                                    checked={shippingType === "normal"}
+                                    onChange={() => setShippingType("normal")}
+                                    register={register}
+                                    errors={errors}
+                                    rules={{ required: '請選擇運送方式' }}
+                                    disabled={filterFrozen.length > 0}
+                                    labelText={
+                                        <>
+                                            全家取貨
+                                            <span className="en-font me-3">NT$ {shippingFee || 65}</span>
+                                            <span className="text-accent fs-7">滿 NT$499 免運</span>
+                                        </>}
+                                ></CheckboxRadio>
                             </div>
                         </div>
                     </div>
@@ -419,7 +475,7 @@ function ComfirmOrder() {
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
                         <div className="card-title text-primary fs-4 mb-6">請輸入優惠卷代碼</div>
                         <div className="input-group mb-3 w-50">
-                            <input type="text" className="form-control px-5" onChange={getCouponCode} placeholder="7788" value={couponCode}/>
+                            <input type="text" className="form-control px-5" onChange={getCouponCode} placeholder="請輸入折扣碼" value={couponCode} />
                             <button className="btn btn-primary text-white fs-5 px-7" type="button" onClick={getDiscount}>確認</button>
                         </div>
 
@@ -437,17 +493,6 @@ function ComfirmOrder() {
                             ></textarea>
                         </div>
                     </div>
-                    {isLoading && (<div
-                        className="d-flex justify-content-center align-items-center"
-                        style={{
-                            position: "fixed",
-                            inset: 0,
-                            backgroundColor: "rgba(255,255,255,0.3)",
-                            zIndex: 999,
-                        }}
-                    >
-                        <ReactLoading type="balls" color="pink" width="4rem" height="4rem" />
-                    </div>)}
                 </div>
                 <div className="col-lg-3 sticky-top">
                     {cartList.total >= 1000 ? (
@@ -461,7 +506,7 @@ function ComfirmOrder() {
                             <div className="bg-accent rounded rounded-3">
                                 <div className="d-flex py-4 ms-5 text-white">
                                     <span className="material-symbols-outlined me-2">package_2</span>
-                                    <p>還差$ {1000 - cartList.total}元免運</p>
+                                    <p>還差$ {1000 - cartList.total || 0}元免運</p>
                                 </div>
                             </div>)}
                     <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">
@@ -471,7 +516,7 @@ function ComfirmOrder() {
                                 <div>
                                     <div className="d-flex justify-content-between">
                                         <p className="mb-2">商品總額</p>
-                                        <p>{`NT$${(cartList.total?? 0).toLocaleString()}`}</p>
+                                        <p>{`NT$${(cartList.total ?? 0).toLocaleString()}`}</p>
                                     </div>
                                 </div>
                                 <div>
@@ -491,13 +536,13 @@ function ComfirmOrder() {
                                 <div>
                                     <div className="d-flex justify-content-between text-accent">
                                         <p>運費</p>
-                                        <p>NT$0</p>
+                                        <p>NT${shippingFee || 0}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
                                 <p>總額</p>
-                                <p className="float-end text-accent ">{`NT$${Math.floor(cartList.final_total ?? 0).toLocaleString()}`}</p>
+                                <p className="float-end text-accent ">{`NT$${totalAmount.toLocaleString()}`}</p>
                             </div>
                         </div>
                     </div>
@@ -508,6 +553,8 @@ function ComfirmOrder() {
                 </div>
             </form>
         </div>
+        <IsScreenLoading isScreenLoading={isScreenLoading}/>
+        <Toast/>
         <div>
             <img src="images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />
         </div>

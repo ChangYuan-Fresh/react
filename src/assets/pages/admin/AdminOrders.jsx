@@ -22,6 +22,7 @@ function AdminOrders() {
     const [pageInfo, getPageInfo] = useState({});
     const [searchType, setSearchType] = useState('訂單編號')
 
+
     const checkLogin = async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
@@ -42,6 +43,7 @@ function AdminOrders() {
         setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/orders?page=${page}`);
+            console.log(res.data.orders)  
             setOrders(res.data.orders)
             getPageInfo(res.data.pagination)
         } catch (error) {
@@ -92,6 +94,19 @@ function AdminOrders() {
     const btnChangePage = (page) => {
         getOrderList(page);
     }
+
+    const removeOrderItem = async (id) => {
+        setIsScreenLoading(true)
+        try {
+            await axios.delete(`${baseUrl}/v2/api/${apiPath}/admin/order/${id}`)
+            getOrderList()
+        } catch (error) {
+            alert('刪除訂單失敗' || error.data.message)
+        } finally {
+            setIsScreenLoading(false)
+        }
+    }
+
     return (<>
         <div className="container  rounded-3 py-5" >
             <div className="d-flex justify-content-between mb-6">
@@ -102,7 +117,7 @@ function AdminOrders() {
                     {orderState.map((state) => {
                         return (
                             <li className="nav-item" key={state}>
-                                <button className={`nav-link px-8 bg-white border-0 border-3 py-4 border-bottom ${selectState === state ? 'border-primary text-primary' : ' border-transparent text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
+                                <button className={`nav-link px-8 bg-white border-0 py-4  ${selectState === state ? 'border-bottom border-3 border-primary text-primary' : ' border-0 text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
                             </li>)
                     })}
                 </ul>
@@ -128,6 +143,7 @@ function AdminOrders() {
                                         <th scope="col" className="bg-secondary-200 text-muted p-3">訂購帳戶</th>
                                         <th scope="col" className="bg-secondary-200 text-muted p-3">訂單金額</th>
                                         <th scope="col" className="bg-secondary-200 text-muted p-3">訂單狀態</th>
+                                        <th scope="col" className="bg-secondary-200 text-muted p-3"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -138,6 +154,8 @@ function AdminOrders() {
                                         </th>
                                     </tr>) : (
                                         filterOrders.map((order) => {
+                                            const shippingFee = isNaN(Number(order.user?.shipping)) ? 0 : Number(order.user?.shipping);
+                                            const totalAmount = Math.floor((order.total ?? 0) + shippingFee);
                                             return (
                                                 <tr key={order.id} className="align-middle en-font">
                                                     <th scope="row">
@@ -146,8 +164,14 @@ function AdminOrders() {
                                                     </th>
                                                     <td><FormatDate timestamp={order.create_at} /></td>
                                                     <td>{order.user?.name}</td>
-                                                    <td>NT${Math.floor(order.total).toLocaleString()}</td>
-                                                    <td className={`${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? '已付款' : '未付款'}</td>
+                                                    <td>NT$<span className="ms-2">{totalAmount.toLocaleString()}</span></td>
+                                                    <td className={`px-3 ${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? '已付款' : '未付款'}</td>
+                                                    <td>
+                                                        <button className="btn" onClick={() => removeOrderItem(order.id)}>
+                                                            <span
+                                                                className="material-symbols-outlined fs-5 text-primary">delete</span>
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             )
                                         }))}

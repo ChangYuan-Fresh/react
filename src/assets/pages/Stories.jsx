@@ -2,7 +2,6 @@ import { Link } from 'react-router';
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import Banner from "../layout/Banner";
-import PaginationCompo from "../component/PaginationCompo";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -37,7 +36,7 @@ function Stories() {
                 <div className="container position-relative py-lg-11 py-6">
                     <img src="images/Illustration/peace.png" alt="peace" className="story-deco1" />
                     {/* <!--文章列表--> */}
-                    <div className="row row-cols-1 gy-6">
+                    <div className="row row-cols-1 gy-6 mb-10">
                         {stories.map((story)=>{
                             return (
                             <div className="col" key={story.id}>
@@ -63,16 +62,6 @@ function Stories() {
                         
                     </div>
                     <img src="images/Illustration/house.png" alt="house" className="story-deco2" />
-                    {/* <!--頁籤--> */}
-                    <div className="pt-6 pt-lg-7">
-                        <PaginationCompo pageInfo={{
-                            "total_pages": 3,
-                            "current_page": 1,
-                            "has_pre": false,
-                            "has_next": false,
-                            "category": ""
-                        }} />
-                    </div>
                 </div>
             </section>
         </main>
