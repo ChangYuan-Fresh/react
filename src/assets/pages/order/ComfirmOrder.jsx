@@ -419,7 +419,7 @@ function ComfirmOrder() {
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
                         <div className="card-title text-primary fs-4 mb-6">請輸入優惠卷代碼</div>
                         <div className="input-group mb-3 w-50">
-                            <input type="text" className="form-control px-5" onChange={getCouponCode} placeholder="7788" value={couponCode}/>
+                            <input type="text" className="form-control px-5" onChange={getCouponCode} placeholder="請輸入折扣碼" value={couponCode}/>
                             <button className="btn btn-primary text-white fs-5 px-7" type="button" onClick={getDiscount}>確認</button>
                         </div>
 
@@ -461,7 +461,7 @@ function ComfirmOrder() {
                             <div className="bg-accent rounded rounded-3">
                                 <div className="d-flex py-4 ms-5 text-white">
                                     <span className="material-symbols-outlined me-2">package_2</span>
-                                    <p>還差$ {1000 - cartList.total}元免運</p>
+                                    <p>還差$ {1000 - cartList.total || 0}元免運</p>
                                 </div>
                             </div>)}
                     <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">

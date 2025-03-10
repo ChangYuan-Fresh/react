@@ -264,7 +264,7 @@ function Member() {
                                                                     </div>
                                                                 </td>)
                                                         })}
-                                                        <td className="py-5">{`NT$ ${order.total.toLocaleString()}`}</td>
+                                                        <td className="py-5">{`NT$ ${Math.floor(order.total).toLocaleString()}`}</td>
                                                         <td className="py-5">
                                                             {order.is_paid ? "已付款" : "未付款"}
                                                         </td>
@@ -324,7 +324,7 @@ function Member() {
                                 <div className="card-footer d-flex justify-content-between align-items-center pt-4 bg-secondary-200 px-0">
                                     <div className="d-flex  align-items-center">
                                         <p className="fs-7 text-muted me-3">總金額</p>
-                                        <p>{`NT$ ${order.total.toLocaleString()}`}</p>
+                                        <p>{`NT$ ${Math.floor(order.total).toLocaleString()}`}</p>
                                     </div>
                                     <div className="d-flex  align-items-center">
                                         <p className="fs-7 text-muted me-3">訂單狀態</p>

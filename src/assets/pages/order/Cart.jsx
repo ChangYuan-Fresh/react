@@ -23,7 +23,7 @@ function Cart() {
             setCartList(res.data.data)
         } catch (error) {
             alert(error.data)
-        }finally{
+        } finally {
             setIsScreenLoading(false)
         }
     }
@@ -175,7 +175,7 @@ function Cart() {
                                 <div className="bg-accent rounded rounded-3">
                                     <div className="d-flex py-4 ms-5 text-white">
                                         <span className="material-symbols-outlined me-2">package_2</span>
-                                        <p>還差$ {1000 - cartList.total}元免運</p>
+                                        <p>還差$ {1000 - cartList.total || 0}元免運</p>
                                     </div>
                                 </div>)}
                         <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">
@@ -185,7 +185,7 @@ function Cart() {
                                     <div>
                                         <div className="d-flex justify-content-between">
                                             <p className="mb-2">商品總額</p>
-                                            <p>{`NT$${(cartList.total?? 0).toLocaleString()}`}</p>
+                                            <p>{`NT$${(cartList.total ?? 0).toLocaleString()}`}</p>
                                         </div>
                                     </div>
                                     <div>
@@ -199,7 +199,7 @@ function Cart() {
                                     <div>
                                         <div className="d-flex justify-content-between">
                                             <p className="mb-2">小計</p>
-                                            <p>{`NT$${(cartList.total?? 0).toLocaleString()}`}</p>
+                                            <p>{`NT$${(cartList.total ?? 0).toLocaleString()}`}</p>
                                         </div>
                                     </div>
                                     <div>
@@ -211,7 +211,7 @@ function Cart() {
                                 </div>
                                 <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
                                     <p>總額</p>
-                                    <p className="float-end text-accent ">{`NT$${(cartList.total?? 0).toLocaleString()}`}</p>
+                                    <p className="float-end text-accent ">{`NT$${(cartList.total ?? 0).toLocaleString()}`}</p>
                                 </div>
                             </div>
                         </div>
@@ -223,7 +223,7 @@ function Cart() {
             </div>
         </div>
         <div>
-            <img src="/images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask"/>
+            <img src="/images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />
         </div>
         <IsScreenLoading isScreenLoading={isScreenLoading} />
     </>
