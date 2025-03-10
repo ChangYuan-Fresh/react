@@ -174,7 +174,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                                     style={{ width: "80px", height: "80px", objectFit: "cover" }}
                                                 />
                                                 <div >
-                                                    <label htmlFor="fileInput" className="form-label ms-3"> 圖 </label>
+                                                    <label htmlFor="fileInput" className="form-label ms-3">  </label>
                                                     <button
                                                         type="button"
                                                         className="btn btn-outline-primary"
