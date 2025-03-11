@@ -24,6 +24,7 @@ import ResetPassword from "../pages/member/ResetPassword";
 import ComfirmOrder from "../pages/order/ComfirmOrder"
 import PlaceOrder from "../pages/order/PlaceOrder";
 import Story from "../pages/Story"
+import AdminStatistics from "../pages/admin/AdminStatistics";
 
 
 const routes = [
@@ -100,6 +101,10 @@ const routes = [
             {
                 path: 'adminMember',
                 element: <AdminMember />
+            },
+            {
+                path: 'adminStatistics',
+                element: <AdminStatistics />
             }
         ]
     },

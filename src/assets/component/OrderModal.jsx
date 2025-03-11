@@ -38,22 +38,22 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
     const getinputValue = (e) => {
         const { checked, value, name } = e.target;
         if (name === 'is_enabled') {
-        // 如果是處理 is_paid 的變更
-        setTempOrder({
-            ...tempOrder,
-            is_paid: checked,
-        });
-    } else if (name === 'shipping') {
-        // 如果是處理運費變更
-        setTempOrder({
-            ...tempOrder,
-            user: {
-                ...tempOrder.user,
-                shipping: value,
-            },
-        });
+            // 如果是處理 is_paid 的變更
+            setTempOrder({
+                ...tempOrder,
+                is_paid: checked,
+            });
+        } else if (name === 'shipping') {
+            // 如果是處理運費變更
+            setTempOrder({
+                ...tempOrder,
+                user: {
+                    ...tempOrder.user,
+                    shipping: value,
+                },
+            });
+        }
     }
-}
 
     const btnUpdateOrder = async () => {
         try {
@@ -93,7 +93,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                     </div>
                     <div className="modal-body row g-5 mt-5 px-5">
                         <ul className="row list-unstyled">
-                            <li className="col-4 mb-3">
+                            <li className="col-lg-4 mb-3">
                                 <label htmlFor="title" className="form-label">訂單編號</label>
                                 <input
                                     type="text"
@@ -103,7 +103,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                     disabled
                                     value={tempOrder.create_at} />
                             </li>
-                            <li className="col-4 mb-3">
+                            <li className="col-lg-4 mb-3">
                                 <label htmlFor="create_at" className="form-label">訂購時間</label>
                                 <input
                                     type="text"
@@ -113,7 +113,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                     disabled
                                     value={tempOrder.create_at ? FormatDate(tempOrder.create_at) : ''} />
                             </li>
-                            <li className="col-4 mb-3">
+                            <li className="col-lg-4 mb-3">
                                 <label htmlFor="name" className="form-label">訂單姓名</label>
                                 <input
                                     type="text"
@@ -123,7 +123,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                     disabled
                                     value={tempOrder.user?.name} />
                             </li>
-                            <li className="col-6 mb-3">
+                            <li className="col-lg-6 mb-3">
                                 <label htmlFor="tel" className="form-label">訂單電話</label>
                                 <input
                                     type="tel"
@@ -133,7 +133,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                     disabled
                                     value={tempOrder.user?.tel} />
                             </li>
-                            <li className="col-6 mb-3">
+                            <li className="col-lg-6 mb-3">
                                 <label htmlFor="email" className="form-label">訂單E-mail</label>
                                 <input
                                     type="email"
@@ -162,7 +162,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                     value={tempOrder.message} />
                             </li>
                             <li className="col-12 mt-5 bg-secondary-200 rounded-3">
-                                <table className="table bg-secondary-200 mt-5 table-borderless">
+                                <table className="table bg-secondary-200 mt-5 table-borderless table-responsive">
                                     <thead className="border-bottom">
                                         <tr>
                                             <th width="25%" className="bg-secondary-200">品名</th>
@@ -190,7 +190,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                             <td className="bg-secondary-200"></td>
                                             <td className="bg-secondary-200"></td>
                                             <td className="bg-secondary-200"></td>
-                                            <td className="bg-secondary-200 d-flex align-items-center mt-3">
+                                            <td className="bg-secondary-200 d-lg-flex align-items-center mt-3 d-none">
                                                 <label htmlFor="shipping" className="form-label text-nowrap me-2 mb-0">運費</label>
                                                 <input
                                                     type="text"
@@ -201,7 +201,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                                     onChange={getinputValue} />
                                             </td>
                                             <td className="bg-secondary-200">
-                                                <div className="text-nowrap d-flex justify-content-end mt-3">總計
+                                                <div className="text-nowrap d-lg-flex justify-content-end mt-3 d-none">總計
                                                     <span className="bg-secondary-200 ms-2">NT${Math.floor(tempOrder.total) + (isNaN(Number(tempOrder.user?.shipping)) ? 0 : Number(tempOrder.user?.shipping))}</span>
                                                 </div>
                                             </td>
@@ -209,20 +209,38 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                     </tfoot>
                                 </table>
                             </li>
-                            <li className="col-2 form-check ms-auto mt-5">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox" id="isEnabled"
-                                    name="is_enabled"
-                                    checked={tempOrder.is_paid}
-                                    onChange={getinputValue} />
-                                <label className="form-check-label" htmlFor="isEnabled">
-                                    是否付款
-                                </label>
+                            <li className="col-lg-2 form-check ms-auto mt-5 px-0">
+                                <div className='d-flex mb-3 d-lg-none'>
+                                    <div className='d-flex align-items-center'>
+                                        <label htmlFor="shipping" className="form-label text-nowrap me-2 mb-0">運費</label>
+                                        <input
+                                            type="text"
+                                            className="form-control py-2 w-50"
+                                            id="shipping"
+                                            name="shipping"
+                                            value={tempOrder.user?.shipping}
+                                            onChange={getinputValue} />
+                                    </div>
+                                    <div className="text-nowrap d-flex justify-content-end mt-3">總計
+                                        <span className="ms-2">NT${Math.floor(tempOrder.total) + (isNaN(Number(tempOrder.user?.shipping)) ? 0 : Number(tempOrder.user?.shipping))}</span>
+                                    </div>
+                                </div>
+                                <div className="ms-5">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox" id="isEnabled"
+                                        name="is_enabled"
+                                        checked={tempOrder.is_paid}
+                                        onChange={getinputValue} />
+                                    <label className="form-check-label text-nowrap" htmlFor="isEnabled">
+                                        是否付款
+                                    </label>
+                                </div>
                             </li>
                         </ul>
                     </div>
                     <div className="modal-footer">
+
                         <button type="button" className="btn btn-secondary px-6" onClick={closeModal}>取消</button>
                         <button type="button" className="btn btn-primary px-6 text-white" onClick={btnUpdateOrder}>確認</button>
                     </div>

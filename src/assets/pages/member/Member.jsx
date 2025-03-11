@@ -146,8 +146,11 @@ function Member() {
                                 </div>)}
                         </div>
                         <div className="card-body bg-secondary-200 rounded rounded-3">
-                            <Link to="/" onClick={handleLogout} className="mt-auto ms-auto fs-5 fs-lg-4 link-primary">登出
+                            <Link to="/" onClick={handleLogout} className="mt-auto ms-auto fs-5 fs-lg-4 link-primary mb-3">登出
                                 <span className="material-symbols-outlined align-middle ms-2">logout</span>
+                            </Link>
+                            <br />
+                            <Link to="/" className="mt-auto ms-auto fs-5 fs-lg-4 link-primary">回到首頁
                             </Link>
                         </div>
                     </div>
@@ -340,7 +343,14 @@ function Member() {
                         </div>)
                 }))
             }
+            <div className="card-body rounded rounded-3 d-lg-none d-flex justify-content-center align-items-center mx-3">
+                <Link to="/" onClick={handleLogout} className="fs-5 link-primary py-3 me-5">登出
+                </Link>
+                <Link to="/" className="fs-5 link-primary py-3">回到首頁
+                </Link>
+            </div>
         </main >
+
         <CommentModal tempProduct={tempProduct} modelRef={modelRef} />
         <Toast />
         <img src="images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />

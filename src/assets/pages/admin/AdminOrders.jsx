@@ -1,11 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import IsScreenLoading from '../../component/IsScreenLoading';
 import PaginationCompo from '../../component/PaginationCompo'
 import Toast from "../../layout/Toast";
 import OrderModal from '../../component/OrderModal';
 import FormatDate from '../../component/formatDate';
+import 'swiper/css';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -43,7 +45,7 @@ function AdminOrders() {
         setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/orders?page=${page}`);
-            console.log(res.data.orders)  
+            console.log(res.data.orders)
             setOrders(res.data.orders)
             getPageInfo(res.data.pagination)
         } catch (error) {
@@ -108,24 +110,36 @@ function AdminOrders() {
     }
 
     return (<>
-        <div className="container  rounded-3 py-5" >
-            <div className="d-flex justify-content-between mb-6">
-                <h3>訂單管理</h3>
+        <h3>訂單管理</h3>
+        <Swiper
+            slidesPerView={5}
+            className="nav d-lg-none text-nowrap bg-white"
+            role="tablist">
+            {orderState.map((state) => {
+                return (
+                    <SwiperSlide className="nav-item border-bottom" key={state}>
+                        <button className={`nav-link px-3 bg-white border-0 py-3 ${selectState === state ? 'border-bottom border-3 border-primary text-primary' : ' border-0 text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
+                    </SwiperSlide>)
+            })}
+        </Swiper>
+        <div className="container  rounded-3 py-lg-5 py-3" >
+            <div className="d-flex justify-content-between mb-lg-6 mb-4">
+                <h3 className="d-none d-lg-block">訂單管理</h3>
             </div>
             <div>
-                <ul className="nav nav-tabs border-0 d-flex justify-content-between bg-white border-bottom">
+                <ul className="nav nav-tabs border-0 d-lg-flex justify-content-between bg-white border-bottom d-none">
                     {orderState.map((state) => {
                         return (
                             <li className="nav-item" key={state}>
-                                <button className={`nav-link px-8 bg-white border-0 py-4  ${selectState === state ? 'border-bottom border-3 border-primary text-primary' : ' border-0 text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
+                                <button className={`nav-link px-8 bg-white border-0 py-4 ${selectState === state ? 'border-bottom border-3 border-primary text-primary' : ' border-0 text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
                             </li>)
                     })}
                 </ul>
-                <div className="tab-content px-5 bg-white">
+                <div className="tab-content px-lg-5 px-0 bg-white">
                     <div className="tab-pane fade show active">
                         <div className='rounded-3'>
-                            <div className="input-group mb-3 w-50 pt-5">
-                                <select className="form-select" style={{ maxWidth: '120px' }} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                            <div className="input-group mb-3 w-100 w-lg-50 pt-lg-5 pt-3">
+                                <select className="form-select py-lg-3 py-0 pe-lg-4 pe-2" style={{ maxWidth: '120px' }} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
                                     <option value="訂單編號">訂單編號</option>
                                     <option value="訂購帳戶">訂購帳戶</option>
                                 </select>
@@ -134,8 +148,8 @@ function AdminOrders() {
                                     <span className="material-symbols-outlined px-2 my-auto align-middle">search</span>
                                 </button>
                             </div>
-                            <div className="mt-6 text-muted">共{filterOrders.length}筆訂單</div>
-                            <table className="table mt-4 en-font">
+                            <div className="mt-lg-6 mt-3 text-muted">共{filterOrders.length}筆訂單</div>
+                            <table className="table mt-4 en-font  d-none d-lg-table">
                                 <thead>
                                     <tr>
                                         <th scope="col" className="bg-secondary-200 text-muted p-3">訂單編號</th>
@@ -180,6 +194,38 @@ function AdminOrders() {
                         </div>
                     </div>
                 </div>
+                {/* 手機板 */}
+                {filterOrders.length === 0 ? (
+                    <div className="text-center border-0 d-lg-none mb-5">
+                        <img src="images/Illustration/Frame.png" alt="empty" className="mx-auto mt-7" />
+                        <h5 className="mt-6 text-dark">目前還沒有訂單</h5>
+                    </div>) : (
+                    filterOrders.map((order) => {
+                        const shippingFee = isNaN(Number(order.user?.shipping)) ? 0 : Number(order.user?.shipping);
+                        const totalAmount = Math.floor((order.total ?? 0) + shippingFee);
+                        return (<>
+                            <div className="card border-0 bg-secondary-200 mt-3 d-lg-none" key={order.id} style={{margin: "0px -24px"}}>
+                                <div className="card-title d-flex justify-content-between align-items-center border-bottom">
+                                    <button type="button" className="btn text-accent fs-5 ms-3" onClick={() => openModal(order)}>{order.create_at}
+                                    </button>
+                                    <div className={`px-3 ${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? '已付款' : '未付款'}</div>
+                                </div>
+                                <div className="card-body">
+                                    <p className="mb-3"><small className="text-gray me-3">訂購時間</small><FormatDate timestamp={order.create_at} /></p>
+                                    <p className="mb-3"><small className="text-gray me-3">訂購帳戶</small> {order.user?.name}</p>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <p><small className="text-gray me-3">訂單金額</small> NT$<span>{totalAmount.toLocaleString()}</span></p>
+                                        <button className="btn border-0 py-0" onClick={() => removeOrderItem(order.id)}>
+                                            <span
+                                                className="material-symbols-outlined fs-5 text-primary">delete</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                        )
+                    }))}
+
             </div>
         </div>
         <PaginationCompo pageInfo={pageInfo} btnChangePage={btnChangePage} />

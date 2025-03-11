@@ -49,7 +49,6 @@ function ComfirmOrder() {
 
     const onSubmit = handleSubmit((data) => {
         const { message, shipping, ...user } = data;
-        console.log(data)
         const userInfo = {
             data: {
                 user: {
@@ -59,7 +58,6 @@ function ComfirmOrder() {
                 message
             }
         };
-        console.log(userInfo);
         placeOrder(userInfo);
 
     })

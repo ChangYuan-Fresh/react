@@ -74,8 +74,8 @@ function PlaceOrder() {
                     </div>
                 </div>
                 <div className="col-lg-3 d-none d-lg-block">
-                    <img src="/images/LOGO-L.png" alt="" width="100%" className="object-fit-cover mb-4 px-3" />
-                    <img src="/images/banner.png" alt="" height="100%" width="100%" className="object-fit-cover" />
+                    <img src="images/LOGO-L.png" alt="" width="100%" className="object-fit-cover mb-4 px-3" />
+                    <img src="images/banner.png" alt="" height="100%" width="100%" className="object-fit-cover" />
                 </div>
             </div>
         </div>
