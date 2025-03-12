@@ -43,13 +43,13 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                 ...tempOrder,
                 is_paid: checked,
             });
-        } else if (name === 'shipping') {
+        } else {
             // 如果是處理運費變更
             setTempOrder({
                 ...tempOrder,
                 user: {
                     ...tempOrder.user,
-                    shipping: value,
+                    [name]: value,
                 },
             });
         }
@@ -64,6 +64,8 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                     user: {
                         ...tempOrder.user,
                         shipping: tempOrder.user.shipping,
+                        orderStatus: tempOrder.user.orderStatus
+
                     },
                 }
             });
@@ -209,7 +211,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                     </tfoot>
                                 </table>
                             </li>
-                            <li className="col-lg-2 form-check ms-auto mt-5 px-0">
+                            <li className="col-lg-5 form-check ms-auto mt-5 px-0">
                                 <div className='d-flex mb-3 d-lg-none'>
                                     <div className='d-flex align-items-center'>
                                         <label htmlFor="shipping" className="form-label text-nowrap me-2 mb-0">運費</label>
@@ -225,16 +227,28 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                         <span className="ms-2">NT${Math.floor(tempOrder.total) + (isNaN(Number(tempOrder.user?.shipping)) ? 0 : Number(tempOrder.user?.shipping))}</span>
                                     </div>
                                 </div>
-                                <div className="ms-5">
-                                    <input
-                                        className="form-check-input"
-                                        type="checkbox" id="isEnabled"
-                                        name="is_enabled"
-                                        checked={tempOrder.is_paid}
-                                        onChange={getinputValue} />
-                                    <label className="form-check-label text-nowrap" htmlFor="isEnabled">
-                                        是否付款
-                                    </label>
+                                <div className="d-flex align-items-center">
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="shipping" className="form-label text-nowrap me-2 mb-0">訂單狀態</label>
+                                        <input
+                                            type="text"
+                                            className="form-control py-2 w-50"
+                                            id="orderStatus"
+                                            name="orderStatus"
+                                            value={tempOrder.user?.orderStatus}
+                                            onChange={getinputValue} />
+                                    </div>
+                                    <div>
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox" id="isEnabled"
+                                            name="is_enabled"
+                                            checked={tempOrder.is_paid}
+                                            onChange={getinputValue} />
+                                        <label className="form-check-label text-nowrap" htmlFor="isEnabled">
+                                            是否付款
+                                        </label>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
