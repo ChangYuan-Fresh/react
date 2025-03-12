@@ -112,7 +112,7 @@ function AdminOrders() {
     }
 
     return (<>
-        <h3>訂單管理</h3>
+        <h3 className="d-lg-none">訂單管理</h3>
         <Swiper
             slidesPerView={5}
             className="nav d-lg-none text-nowrap bg-white"
