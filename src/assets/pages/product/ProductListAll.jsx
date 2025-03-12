@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link,  useLocation } from 'react-router-dom';
+import { Link,  useLocation, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import axios from 'axios'
 import 'swiper/css';
@@ -18,6 +18,7 @@ function ProductListAll() {
     const [searchQuery, setSearchQuery] = useState('');
     const [recentProducts, setRecentProducts] = useState([]);
     const location = useLocation();
+    const { category } = useParams();
     
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -26,6 +27,10 @@ function ProductListAll() {
             setSearchQuery(searchQueryParam);
         }
     }, [location.search]);
+
+    useEffect(() => {
+        setSelectCategory(category ? decodeURIComponent(category) : '全部商品');
+    }, [category]);
 
     const getProductList = async () => {
         setIsScreenLoading(true);
@@ -58,6 +63,7 @@ function ProductListAll() {
     // 處理分類變更
     const handleCategoryChange = (category) => {
         setSelectCategory((prevCategory) => (prevCategory === category ? "全部商品" : category));
+        navigate(`/products/${category}`);
     };
 
     const handleSearch = (e) => {
@@ -161,7 +167,7 @@ function ProductListAll() {
                             filterProducts.map((product) => (
                                 <div className="col-xl-4 col-lg-6 col-md-4 " key={product.id}>
                                     <Link className="card my-5 allProduct-catalog-card d-flex flex-md-column flex-row"
-                                        to={`/products/${product.id}`}
+                                        to={`/products/${product.category}/${product.id}`}
                                         onClick={() => handleViewProduct(product)}>
                                         <img src={product.imageUrl} className="card-img-top allProduct-catalog-img" alt={product.title} />
                                         <div className="card-body py-0 px-md-0 ps-5 pe-0">

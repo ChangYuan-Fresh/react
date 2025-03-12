@@ -139,7 +139,8 @@ function AdminStatistics() {
         bindto: '#chart3',
         data: {
             columns: stocksArray,
-            type: 'bar'
+            type: 'bar',
+            labels: true,
         },
         bar: {
             width: {
@@ -147,28 +148,40 @@ function AdminStatistics() {
             }
         }
     });
-    return (<>
-        <h3 className="mb-5">統計檢視</h3>
-        <ul className="nav nav-tabs" id="myTab" role="tablist">
-            <li className="nav-item" role="presentation">
-                <button className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">產品銷售佔比</button>
-            </li>
-            <li className="nav-item" role="presentation">
-                <button className="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">產品銷售額</button>
-            </li>
-            <li className="nav-item" role="presentation">
-                <button className="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">產品剩餘庫存</button>
-            </li>
-        </ul>
-        <div className="tab-content mt-8" id="myTabContent">
-            <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div id="chart"></div>
+    return (
+        <main className="adminstatistics">
+            <h3 className="mb-5">統計檢視</h3>
+            <ul className="nav nav-tabs d-flex justify-content-between bg-white border-0 py-3" id="myTab" role="tablist">
+                <li className="nav-item text-center" role="presentation">
+                    <button className="nav-link active fs-5 py-3 px-10 fw-bold" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">產品銷售佔比</button>
+                </li>
+                <li className="nav-item text-center" role="presentation">
+                    <button className="nav-link fs-5 py-3 px-10 fw-bold" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">產品銷售額</button>
+                </li>
+                <li className="nav-item text-center" role="presentation">
+                    <button className="nav-link fs-5 py-3 px-10 fw-bold" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">產品剩餘庫存</button>
+                </li>
+            </ul>
+            <div className="tab-content pt-8 p-4 bg-white" id="myTabContent">
+                <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style={{ backgroundColor: "rgba(246, 246, 246, 1)", borderRadius: "16px" }}>
+                    <div className="py-6">
+                        <div id="chart"></div>
+                    </div>
+
+                </div>
+                <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab" style={{ backgroundColor: "rgba(246, 246, 246, 1)", borderRadius: "16px" }}>
+                    <div className="py-6">
+                        <div id="chart2"></div>
+                    </div>
+                </div>
+                <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab" style={{ backgroundColor: "rgba(246, 246, 246, 1)", borderRadius: "16px" }}>
+                    <div className="py-6">
+                        <div id="chart3"></div>
+                    </div>
+                </div>
             </div>
-            <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"><div id="chart2"></div></div>
-            <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"><div id="chart3"></div></div>
-        </div>
-        <IsScreenLoading isScreenLoading={isScreenLoading} />
-    </>
+            <IsScreenLoading isScreenLoading={isScreenLoading} />
+        </main>
     )
 }
 

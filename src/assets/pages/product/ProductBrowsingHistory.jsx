@@ -10,7 +10,7 @@ function ProductBrowsingHistory({ recentProducts }) {
                     recentProducts.length > 0 ? (
                         recentProducts.map((product) => (
                             <div className="me-lg-0 me-3" key={product.id}>
-                                <Link to={`/products/${product.id}`}>
+                                <Link to={`/products/${product.category}/${product.id}`}>
                                     <img src={product.imageUrl} alt={product.title} />
                                     <div className="card-body p-2">
                                         <h5>{product.title}</h5>

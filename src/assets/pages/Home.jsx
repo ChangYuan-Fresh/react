@@ -29,7 +29,7 @@ function Home() {
     };
 
     const handleCategorySelect = (category) => {
-        navigate(`/products?category=${encodeURIComponent(category)}`);
+        navigate(`/products/${category}`);
     };
 
     const handleSearch = (e) => {
@@ -43,13 +43,7 @@ function Home() {
     const [activeCategory, setActiveCategory] = useState("熱門商品"); // 當前選擇的分類
 
     // 定義商品分類
-    const categories = [
-        "熱門商品",
-        "蔬菜水果",
-        "生鮮肉品",
-        "水產海鮮",
-        "蛋與乳品"
-    ];
+    const categories = ['全部商品', ...new Set(products.map((product) => product.category))]
 
     useEffect(() => {
         // 從 API 取得商品數據
@@ -107,11 +101,11 @@ function Home() {
                                         全部商品 <span className="material-symbols-outlined text-primary align-bottom">keyboard_arrow_down</span>
                                     </button>
                                     <ul className="dropdown-menu py-0">
-                                        <li><button className="dropdown-item border-bottom fw-bold " onClick={() => handleCategorySelect('熱門商品')}>熱門商品</button></li>
-                                        <li><button className="dropdown-item fw-semibold" onClick={() => handleCategorySelect('蔬菜水果')}>蔬菜水果</button></li>
-                                        <li><button className="dropdown-item fw-semibold" onClick={() => handleCategorySelect('生鮮肉品')}>生鮮肉品</button></li>
-                                        <li><button className="dropdown-item fw-semibold" onClick={() => handleCategorySelect('水產海鮮')}>水產海鮮</button></li>
-                                        <li><button className="dropdown-item fw-semibold" onClick={() => handleCategorySelect('蛋與乳品')}>蛋與乳品</button></li>
+                                        {categories.map((category)=>{
+                                            return (<li key={category}>
+                                                <button className="dropdown-item fw-semibold" onClick={() => handleCategorySelect(category)}>{category}</button>
+                                                </li>)
+                                        })}
                                     </ul>
                                 </div>
                                 <input

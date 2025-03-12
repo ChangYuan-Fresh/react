@@ -45,7 +45,6 @@ function AdminOrders() {
         setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/orders?page=${page}`);
-            console.log(res.data.orders)
             setOrders(res.data.orders)
             getPageInfo(res.data.pagination)
         } catch (error) {
@@ -67,7 +66,7 @@ function AdminOrders() {
     const handleSearch = () => {
         setSearch(searchInput)
     }
-    const orderState = ['全部', '已付款', '未付款', '已出貨', '已完成', '取消/退貨']
+    const orderState = ['全部', '未付款', '待出貨', '已出貨', '已完成', '取消/退貨']
 
 
     const filterOrders = orders.filter((order) => {
@@ -86,8 +85,11 @@ function AdminOrders() {
 
         // 繼續篩選付款狀態
         if (selectState === '全部') return true;
-        else if (selectState === '已付款') return order.is_paid === true;
         else if (selectState === '未付款') return order.is_paid === false;
+        else if (selectState === '待出貨') return order.is_paid === true && order.orderStatus !== '已出貨' && order.orderStatus !== '已完成' && order.orderStatus !== '取消/退貨';
+        else if (selectState === '已出貨') return order.orderStatus === '已出貨';
+        else if (selectState === '已完成') return order.orderStatus === '已完成';
+        else if (selectState === '取消/退貨') return order.orderStatus === '取消/退貨';
 
         return false
     })
@@ -179,7 +181,7 @@ function AdminOrders() {
                                                     <td><FormatDate timestamp={order.create_at} /></td>
                                                     <td>{order.user?.name}</td>
                                                     <td>NT$<span className="ms-2">{totalAmount.toLocaleString()}</span></td>
-                                                    <td className={`px-3 ${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? '已付款' : '未付款'}</td>
+                                                    <td className={`px-3 ${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? (order.orderStatus || "待出貨") : '未付款'}</td>
                                                     <td>
                                                         <button className="btn" onClick={() => removeOrderItem(order.id)}>
                                                             <span
@@ -204,7 +206,7 @@ function AdminOrders() {
                         const shippingFee = isNaN(Number(order.user?.shipping)) ? 0 : Number(order.user?.shipping);
                         const totalAmount = Math.floor((order.total ?? 0) + shippingFee);
                         return (<>
-                            <div className="card border-0 bg-secondary-200 mt-3 d-lg-none" key={order.id} style={{margin: "0px -24px"}}>
+                            <div className="card border-0 bg-secondary-200 mt-3 d-lg-none" key={order.id} style={{ margin: "0px -24px" }}>
                                 <div className="card-title d-flex justify-content-between align-items-center border-bottom">
                                     <button type="button" className="btn text-accent fs-5 ms-3" onClick={() => openModal(order)}>{order.create_at}
                                     </button>

@@ -14,7 +14,7 @@ function ProductMobileHistory({ recentProducts=[] }) {
                     recentProducts.length > 0 ? (
                         recentProducts.map((product) => (
                             <SwiperSlide key={product.id}>
-                                <Link to={`/products/${product.id}`}>
+                                <Link to={`/products/${product.category}/${product.id}`}>
                                     <img src={product.imageUrl} alt={product.title} width="150px" height="150px" className="object-fit-cover" style={{borderRadius:"16px"}}/>
                                     <div className="card-body p-2">
                                         <h5>{product.title}</h5>

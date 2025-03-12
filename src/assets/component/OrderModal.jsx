@@ -43,14 +43,17 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                 ...tempOrder,
                 is_paid: checked,
             });
-        } else {
-            // 如果是處理運費變更
+        } else if (name === "orderStatus") {
+            // 處理訂單狀態變更
             setTempOrder({
                 ...tempOrder,
-                user: {
-                    ...tempOrder.user,
-                    [name]: value,
-                },
+                orderStatus: value,
+            });
+        }else if (name === "shipping") {
+            // 處理訂單狀態變更
+            setTempOrder({
+                ...tempOrder,
+                shipping: value,
             });
         }
     }
@@ -65,7 +68,6 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                         ...tempOrder.user,
                         shipping: tempOrder.user.shipping,
                         orderStatus: tempOrder.user.orderStatus
-
                     },
                 }
             });
@@ -211,7 +213,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                     </tfoot>
                                 </table>
                             </li>
-                            <li className="col-lg-5 form-check ms-auto mt-5 px-0">
+                            <li className="col-lg-6 form-check ms-auto mt-5 px-0">
                                 <div className='d-flex mb-3 d-lg-none'>
                                     <div className='d-flex align-items-center'>
                                         <label htmlFor="shipping" className="form-label text-nowrap me-2 mb-0">運費</label>
@@ -227,20 +229,24 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                         <span className="ms-2">NT${Math.floor(tempOrder.total) + (isNaN(Number(tempOrder.user?.shipping)) ? 0 : Number(tempOrder.user?.shipping))}</span>
                                     </div>
                                 </div>
-                                <div className="d-flex align-items-center">
+                                <div className="d-flex align-items-center mb-3">
                                     <div className="d-flex align-items-center">
-                                        <label htmlFor="shipping" className="form-label text-nowrap me-2 mb-0">訂單狀態</label>
-                                        <input
-                                            type="text"
-                                            className="form-control py-2 w-50"
-                                            id="orderStatus"
+                                        <label htmlFor="orderStatus" className="form-label text-nowrap me-2 mb-0">訂單狀態</label>
+                                        <select id="orderStatus"
+                                            className="form-select"
                                             name="orderStatus"
                                             value={tempOrder.user?.orderStatus}
-                                            onChange={getinputValue} />
+                                            onChange={getinputValue}
+                                            disabled={!tempOrder.is_paid}>
+                                            <option value="待出貨">待出貨</option>
+                                            <option value="已出貨">已出貨</option>
+                                            <option value="已完成">已完成</option>
+                                            <option value="取消/退貨">取消/退貨</option>
+                                        </select>
                                     </div>
                                     <div>
                                         <input
-                                            className="form-check-input"
+                                            className="form-check-input ms-6 me-2"
                                             type="checkbox" id="isEnabled"
                                             name="is_enabled"
                                             checked={tempOrder.is_paid}
@@ -250,6 +256,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                                         </label>
                                     </div>
                                 </div>
+                                <p className="text-accent">*未付款不可更改出貨狀態</p>
                             </li>
                         </ul>
                     </div>

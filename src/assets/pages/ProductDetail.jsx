@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Thumbs, Pagination } from 'swiper/modules';
-import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import ReactLoading from 'react-loading'
 import axios from 'axios'
 import 'swiper/css';
@@ -149,13 +149,13 @@ function ProductDetail() {
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb mb-2">
                                     <li className="breadcrumb-item fs-7 fs-lg-6 fw-normal">
-                                        <NavLink>{product.category}</NavLink>
+                                        <Link to={`/products/${product.category}`} className="text-primary text-decoration-underline">{product.category}</Link>
                                     </li>
                                     <li className="breadcrumb-item fs-7 fs-lg-6 fw-normal">
-                                        <NavLink>{product.sub_category}</NavLink>
+                                        <Link>{product.sub_category}</Link>
                                     </li>
                                     <li className="breadcrumb-item fs-7 fs-lg-6 fw-normal">
-                                        <NavLink>{product.title}</NavLink>
+                                        <Link>{product.title}</Link>
                                     </li>
                                 </ol>
                             </nav>
