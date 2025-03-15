@@ -19,7 +19,8 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                 data: {
                     ...tempArticle,
                     create_at: date.getTime(),
-                    isPublic: tempArticle.isPublic ? true : false
+                    isPublic: tempArticle.isPublic ? true : false,
+                    imageUrl2: tempArticle.image2
                 }
             });
             dispatch(createAsyncMessage({
@@ -43,7 +44,8 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                 data: {
                     ...tempArticle,
                     create_at: date.getTime(),
-                    isPublic: tempArticle.isPublic ? true : false
+                    isPublic: tempArticle.isPublic ? true : false,
+                    imageUrl2: tempArticle.image2
                 }
             });
             dispatch(createAsyncMessage({
@@ -146,6 +148,19 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                                             name="image"
                                             value={tempArticle.image} onChange={getinputValue} />
                                         <img src={tempArticle.image} alt={tempArticle.id} className="img-fluid" />
+                                    </div>
+                                </div>
+                                <div className="mx-3">
+                                    <label htmlFor="image2" className="form-label">附圖</label>
+                                    <div className="input-group mb-3">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="請輸入附圖網址"
+                                            id="image2"
+                                            name="image2"
+                                            value={tempArticle.image2} onChange={getinputValue} />
+                                        <img src={tempArticle.image2} alt={tempArticle.id} className="img-fluid" />
                                     </div>
                                 </div>
                             </div>
