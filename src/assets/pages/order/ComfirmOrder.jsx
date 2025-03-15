@@ -22,7 +22,8 @@ function ComfirmOrder() {
     const [useCreditCard, setUseCreditCard] = useState(false)
     const [useOtherPay, setUseOtherPay] = useState(false);
     const [couponCode, setCouponCode] = useState('');
-    const [shippingType, setShippingType] = useState('normal')
+    const [shippingType, setShippingType] = useState('normal');
+    const [orderExtend, setOrderExtend] = useState(false);
     const dispatch = useDispatch();
 
 
@@ -150,9 +151,13 @@ function ComfirmOrder() {
 
     //總額
     const totalAmount = Math.floor((cartList.final_total ?? 0) + (shippingFee ?? 0));
+
+    const handleOrderExtend = () => {
+        setOrderExtend(prevState => !prevState)
+    }
     return (<>
-        <div className="container mb-7">
-            <form className="row g-5 position-relative" onSubmit={handleSubmit(onSubmit)}>
+        <div className="container mb-lg-7 mb-0">
+            <form className="row g-5" onSubmit={handleSubmit(onSubmit)}>
                 <div className="col-lg-9">
                     {/* 進度條 */}
                     <div className="bg-secondary-200 row mb-5 mx-0" style={{ height: "92px", borderRadius: "16px" }}>
@@ -480,15 +485,15 @@ function ComfirmOrder() {
                         </div>
                     </div>
                     {/* 優惠卷 */}
-                    <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
-                        <div className="card-title text-primary fs-4 mb-6">請輸入優惠卷代碼</div>
-                        <div className="input-group mb-3 w-50">
-                            <input type="text" className="form-control px-5" onChange={getCouponCode} placeholder="請輸入折扣碼" value={couponCode} />
-                            <button className="btn btn-primary text-white fs-5 px-7" type="button" onClick={getDiscount}>確認</button>
+                    <div className="card bg-white mb-3 p-5 border-primary row g-0" style={{ borderRadius: "16px" }}>
+                        <div className="col-lg-6">
+                            <div className="card-title text-primary fs-4 mb-6">請輸入優惠卷代碼</div>
+                            <div className="input-group mb-3">
+                                <input type="text" className="form-control px-lg-5 px-3" onChange={getCouponCode} placeholder="請輸入折扣碼" value={couponCode} />
+                                <button className="btn btn-primary text-white fs-lg-5 fs-6 px-lg-7 px-5" type="button" onClick={getDiscount}>確認</button>
+                            </div>
                         </div>
-
                     </div>
-
                     {/* 訂單備註 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
                         <div className="card-title text-primary fs-4 mb-6">訂單備註</div>
@@ -502,42 +507,90 @@ function ComfirmOrder() {
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-3 sticky-top">
-                    {filterFrozen.length > 0 || shippingType === 'frozen' ? (
-                        cartList.total >= 1000 ? (
-                            <div className="bg-secondary-200 rounded rounded-3">
-                                <div className="d-flex py-4 ms-5 text-primary">
-                                    <span className="material-symbols-outlined me-2">check_circle</span>
-                                    <p>已達免運門檻</p>
-                                </div>
-                            </div>)
-                            : (
-                                <div className="bg-accent rounded rounded-3">
-                                    <div className="d-flex py-4 ms-5 text-white">
-                                        <span className="material-symbols-outlined me-2">package_2</span>
-                                        <p>還差$ {1000 - cartList.total || 0}元免運</p>
+                <div className="col-lg-3 d-none d-lg-block">
+                    <div className="sticky-top">
+                        {filterFrozen.length > 0 || shippingType === 'frozen' ? (
+                            cartList.total >= 1000 ? (
+                                <div className="bg-secondary-200 rounded rounded-3">
+                                    <div className="d-flex py-4 ms-5 text-primary">
+                                        <span className="material-symbols-outlined me-2">check_circle</span>
+                                        <p>已達免運門檻</p>
                                     </div>
                                 </div>)
-                    ) : (
-                        cartList.total >= 499 ? (
-                            <div className="bg-secondary-200 rounded roundedd-3">
-                                <div className="d-flex py-4 ms-5 text-primary">
-                                    <span className="material-symbols-outlined me-2">check_circle</span>
-                                    <p>已達免運門檻</p>
-                                </div>
-                            </div>)
-                            : (
-                                <div className="bg-accent rounded rounded-3">
-                                    <div className="d-flex py-4 ms-5 text-white">
-                                        <span className="material-symbols-outlined me-2">package_2</span>
-                                        <p>還差$ {499 - cartList.total || 0}元免運</p>
+                                : (
+                                    <div className="bg-accent rounded rounded-3">
+                                        <div className="d-flex py-4 ms-5 text-white">
+                                            <span className="material-symbols-outlined me-2">package_2</span>
+                                            <p>還差$ {1000 - cartList.total || 0}元免運</p>
+                                        </div>
+                                    </div>)
+                        ) : (
+                            cartList.total >= 499 ? (
+                                <div className="bg-secondary-200 rounded roundedd-3">
+                                    <div className="d-flex py-4 ms-5 text-primary">
+                                        <span className="material-symbols-outlined me-2">check_circle</span>
+                                        <p>已達免運門檻</p>
                                     </div>
                                 </div>)
-                    )}
-
-                    <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">
-                        <div className="card-body p-5">
-                            <h5 className="card-title mb-6">結帳明細</h5>
+                                : (
+                                    <div className="bg-accent rounded rounded-3">
+                                        <div className="d-flex py-4 ms-5 text-white">
+                                            <span className="material-symbols-outlined me-2">package_2</span>
+                                            <p>還差$ {499 - cartList.total || 0}元免運</p>
+                                        </div>
+                                    </div>)
+                        )}
+                        <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">
+                            <div className="card-body p-5">
+                                <h5 className="card-title mb-6">結帳明細</h5>
+                                <div className="card-text mb-4">
+                                    <div>
+                                        <div className="d-flex justify-content-between">
+                                            <p className="mb-2">商品總額</p>
+                                            <p>{`NT$${(cartList.total ?? 0).toLocaleString()}`}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="d-flex justify-content-between text-accent">
+                                            <p>商品折扣</p>
+                                            <p>NT${Math.floor((cartList?.total ?? 0) - (cartList?.final_total ?? 0))}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="card-text border-top mb-4 pt-4">
+                                    <div>
+                                        <div className="d-flex justify-content-between">
+                                            <p className="mb-2">小計</p>
+                                            <p>{`NT$${Math.floor(cartList.final_total ?? 0).toLocaleString()}`}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="d-flex justify-content-between text-accent">
+                                            <p>運費</p>
+                                            <p>NT${shippingFee || 0}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
+                                    <p>總額</p>
+                                    <p className="float-end text-accent ">{`NT$${totalAmount.toLocaleString()}`}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mt-6">
+                            <Link className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold" to="/cart">上一步</Link>
+                            <button type="submit" className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold mt-3" disabled={cartList.length < 1}>確認付款</button>
+                        </div>
+                    </div>
+                </div>
+                {/* mobile */}
+                <div className={`bg-secondary-200 p-3 d-lg-none fixed-bottom ${orderExtend && "order-extend"}`}>
+                    {orderExtend && (<div>
+                        <div className="d-flex justify-content-between mb-5">
+                            <div className="text-black fs-5">結帳明細</div>
+                            <button type="button" className="btn-close me-1" onClick={() => setOrderExtend(false)} aria-label="Close"></button>
+                        </div>
+                        <div>
                             <div className="card-text mb-4">
                                 <div>
                                     <div className="d-flex justify-content-between">
@@ -552,7 +605,7 @@ function ComfirmOrder() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-text border-top mb-4 pt-4">
+                            <div className="card-text border-top py-4">
                                 <div>
                                     <div className="d-flex justify-content-between">
                                         <p className="mb-2">小計</p>
@@ -566,19 +619,55 @@ function ComfirmOrder() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-footer d-flex justify-content-between bg-secondary-200 pt-4 pb-0 align-middle fs-5 px-0">
-                                <p>總額</p>
-                                <p className="float-end text-accent ">{`NT$${totalAmount.toLocaleString()}`}</p>
+                        </div>
+                    </div>)}
+                    <div className="d-flex justify-content-between">
+                        <div>
+                            <div className="d-flex justify-content-between mb-1 align-items-end">
+                                <p className="me-2">總額</p>
+                                <p className="text-accent fs-5 me-2 en-font">{`NT$${totalAmount.toLocaleString()}`}</p>
+                                <span className="material-symbols-outlined text-accent" onClick={handleOrderExtend}>{orderExtend ? "keyboard_arrow_down" : "keyboard_arrow_up"}</span>
+                            </div>
+                            <div>
+                                {filterFrozen.length > 0 || shippingType === 'frozen' ? (
+                                    cartList.total >= 1000 ? (
+                                        <div className="bg-secondary-200 rounded rounded-3">
+                                            <div className="d-flex text-primary align-items-center">
+                                                <span className="material-symbols-outlined me-1 fs-6">check_circle</span>
+                                                <p className="fs-7">已達免運門檻</p>
+                                            </div>
+                                        </div>)
+                                        : (
+                                            <div className="bg-accent rounded rounded-3">
+                                                <div className="d-flex text-white align-items-center">
+                                                    <span className="material-symbols-outlined me-1 fs-6">package_2</span>
+                                                    <p className="fs-7">還差$ {1000 - cartList.total || 0}元免運</p>
+                                                </div>
+                                            </div>)
+                                ) : (
+                                    cartList.total >= 499 ? (
+                                        <div className="bg-secondary-200 rounded roundedd-3">
+                                            <div className="d-flex text-primary align-items-center">
+                                                <span className="material-symbols-outlined me-1 fs-6">check_circle</span>
+                                                <p className="fs-7">已達免運門檻</p>
+                                            </div>
+                                        </div>)
+                                        : (
+                                            <div className="bg-accent rounded rounded-3">
+                                                <div className="d-flex text-white align-items-center">
+                                                    <span className="material-symbols-outlined me-1 fs-6">package_2</span>
+                                                    <p className="fs-7">還差$ {499 - cartList.total || 0}元免運</p>
+                                                </div>
+                                            </div>)
+                                )}
                             </div>
                         </div>
-                    </div>
-                    <div className="mt-6">
-                        <Link className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold" to="/cart">上一步</Link>
-                        <button type="submit" className="btn btn-primary rounded rounded-3 w-100 text-white fs-5 fw-bold mt-3" disabled={cartList.length < 1}>確認付款</button>
+                        <button type="submit" className="btn btn-primary rounded rounded-3 text-white fs-6 fw-bold py-3 px-4" disabled={cartList.length < 1}>確認付款</button>
                     </div>
                 </div>
             </form>
         </div>
+
         <IsScreenLoading isScreenLoading={isScreenLoading} />
         <Toast />
         <div>

@@ -60,6 +60,7 @@ function Story() {
                         <p dangerouslySetInnerHTML={{ __html: story.description }}></p>
                         <img src={story.image} className="img-fluid story-cauliflower-img" />
                         <p dangerouslySetInnerHTML={{ __html: story.content }}></p>
+                        <img src={story.image2} className="img-fluid story-cauliflower-img" />
                     </article>
                     <aside className="ms-lg-5 mb-8 mb-lg-5 sticky-lg-top ">
                         <div className="list-group list-group-flush p-5 bg-secondary rounded-3 sticky-top ">

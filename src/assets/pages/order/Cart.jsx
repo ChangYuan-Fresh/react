@@ -12,7 +12,9 @@ const apiPath = import.meta.env.VITE_API_PATH;
 
 function Cart() {
     const [cartList, setCartList] = useState([]);
-    const [isScreenLoading, setIsScreenLoading] = useState(false)
+    const [isScreenLoading, setIsScreenLoading] = useState(false);
+    const [orderExtend, setOrderExtend] = useState(false);
+    const [shippingType, setShippingType] = useState('normal');
     const dispatch = useDispatch();
 
     const getCartList = async () => {
@@ -76,8 +78,11 @@ function Cart() {
     //是否為冷凍寄送
     const filterFrozen = cartList.carts?.filter((item) => item.product?.is_frozen !== 0) || [];
 
+    const handleOrderExtend = () => {
+        setOrderExtend(prevState => !prevState)
+    }
     return (<>
-        <div className="container mb-7 position-relative">
+        <div className="container mb-7">
             <div className="row">
                 <div className="col-lg-9">
                     {/* 進度條 */}
@@ -165,39 +170,39 @@ function Cart() {
                     </div>) : (<div className="text-center"><h3>購物車是空的</h3></div>)
                     }
                 </div>
-                <aside className="col-lg-3 sticky-top">
-                    <div>
-                    {filterFrozen.length > 0 ? (
-                        cartList.total >= 1000 ? (
-                            <div className="bg-secondary-200 rounded rounded-3">
-                                <div className="d-flex py-4 ms-5 text-primary">
-                                    <span className="material-symbols-outlined me-2">check_circle</span>
-                                    <p>已達免運門檻</p>
-                                </div>
-                            </div>)
-                            : (
-                                <div className="bg-accent rounded rounded-3">
-                                    <div className="d-flex py-4 ms-5 text-white">
-                                        <span className="material-symbols-outlined me-2">package_2</span>
-                                        <p>還差$ {1000 - cartList.total || 0}元免運</p>
+                <aside className="col-lg-3 d-none d-lg-block">
+                    <div className="sticky-top">
+                        {filterFrozen.length > 0 ? (
+                            cartList.total >= 1000 ? (
+                                <div className="bg-secondary-200 rounded rounded-3">
+                                    <div className="d-flex py-4 ms-5 text-primary">
+                                        <span className="material-symbols-outlined me-2">check_circle</span>
+                                        <p>已達免運門檻</p>
                                     </div>
                                 </div>)
-                    ) : (
-                        cartList.total >= 499 ? (
-                            <div className="bg-secondary-200 rounded rounded-3">
-                                <div className="d-flex py-4 ms-5 text-primary">
-                                    <span className="material-symbols-outlined me-2">check_circle</span>
-                                    <p>已達免運門檻</p>
-                                </div>
-                            </div>)
-                            : (
-                                <div className="bg-accent rounded rounded-3">
-                                    <div className="d-flex py-4 ms-5 text-white">
-                                        <span className="material-symbols-outlined me-2">package_2</span>
-                                        <p>還差$ {499 - cartList.total || 0}元免運</p>
+                                : (
+                                    <div className="bg-accent rounded rounded-3">
+                                        <div className="d-flex py-4 ms-5 text-white">
+                                            <span className="material-symbols-outlined me-2">package_2</span>
+                                            <p>還差$ {1000 - cartList.total || 0}元免運</p>
+                                        </div>
+                                    </div>)
+                        ) : (
+                            cartList.total >= 499 ? (
+                                <div className="bg-secondary-200 rounded rounded-3">
+                                    <div className="d-flex py-4 ms-5 text-primary">
+                                        <span className="material-symbols-outlined me-2">check_circle</span>
+                                        <p>已達免運門檻</p>
                                     </div>
                                 </div>)
-                    )}
+                                : (
+                                    <div className="bg-accent rounded rounded-3">
+                                        <div className="d-flex py-4 ms-5 text-white">
+                                            <span className="material-symbols-outlined me-2">package_2</span>
+                                            <p>還差$ {499 - cartList.total || 0}元免運</p>
+                                        </div>
+                                    </div>)
+                        )}
 
                         <div className="bg-secondary-200 rounded rounded-3 card mt-3 border-0">
                             <div className="card-body p-5">
@@ -241,6 +246,88 @@ function Cart() {
                         </div>
                     </div>
                 </aside>
+                {/* mobile */}
+                <div className={`bg-secondary-200 p-3 d-lg-none fixed-bottom ${orderExtend && "order-extend"}`}>
+                    {orderExtend && (<div>
+                        <div className="d-flex justify-content-between mb-5">
+                            <div className="text-black fs-5">結帳明細</div>
+                            <button type="button" className="btn-close me-1" onClick={() => setOrderExtend(false)} aria-label="Close"></button>
+                        </div>
+                        <div>
+                            <div className="card-text mb-4">
+                                <div>
+                                    <div className="d-flex justify-content-between">
+                                        <p className="mb-2">商品總額</p>
+                                        <p>{`NT$${(cartList.total ?? 0).toLocaleString()}`}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="d-flex justify-content-between text-accent">
+                                        <p>商品折扣</p>
+                                        <p>NT$0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-text border-top py-4">
+                                <div>
+                                    <div className="d-flex justify-content-between">
+                                        <p className="mb-2">小計</p>
+                                        <p>{`NT$${(cartList.total ?? 0).toLocaleString()}`}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="d-flex justify-content-between text-accent">
+                                        <p>運費</p>
+                                        <p>NT$0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>)}
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div className="d-flex justify-content-between mb-1 align-items-end">
+                                <p className="me-2">總額</p>
+                                <p className="text-accent fs-5 me-2 en-font">{`NT$${(cartList.total ?? 0).toLocaleString()}`}</p>
+                                <span className="material-symbols-outlined text-accent" onClick={handleOrderExtend}>{orderExtend ? "keyboard_arrow_down" : "keyboard_arrow_up"}</span>
+                            </div>
+                            <div>
+                                {filterFrozen.length > 0 || shippingType === 'frozen' ? (
+                                    cartList.total >= 1000 ? (
+                                        <div className="bg-secondary-200 rounded rounded-3">
+                                            <div className="d-flex text-primary align-items-center">
+                                                <span className="material-symbols-outlined me-1 fs-6">check_circle</span>
+                                                <p className="fs-7">已達免運門檻</p>
+                                            </div>
+                                        </div>)
+                                        : (
+                                            <div className="bg-accent rounded rounded-3">
+                                                <div className="d-flex text-white align-items-center">
+                                                    <span className="material-symbols-outlined me-1 fs-6">package_2</span>
+                                                    <p className="fs-7">還差$ {1000 - cartList.total || 0}元免運</p>
+                                                </div>
+                                            </div>)
+                                ) : (
+                                    cartList.total >= 499 ? (
+                                        <div className="bg-secondary-200 rounded roundedd-3">
+                                            <div className="d-flex text-primary align-items-center">
+                                                <span className="material-symbols-outlined me-1 fs-6">check_circle</span>
+                                                <p className="fs-7">已達免運門檻</p>
+                                            </div>
+                                        </div>)
+                                        : (
+                                            <div className="bg-accent rounded rounded-3">
+                                                <div className="d-flex text-white align-items-center">
+                                                    <span className="material-symbols-outlined me-1 fs-6">package_2</span>
+                                                    <p className="fs-7">還差$ {499 - cartList.total || 0}元免運</p>
+                                                </div>
+                                            </div>)
+                                )}
+                            </div>
+                        </div>
+                        <Link className={`btn btn-primary rounded rounded-3 text-white fs-6 fw-bold py-3 px-5 ${cartList.carts?.length < 1 && "disabled"}`} to="comfirmorder">下一步</Link>
+                    </div>
+                </div>
             </div>
         </div>
         <div>
