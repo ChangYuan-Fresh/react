@@ -20,6 +20,7 @@ function Home() {
     const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
     const [activeImage, setActiveImage] = useState("images/Cauliflower HQ (2).png");
+    const [stories, setStories] = useState([]);
 
     const storyImages = {
         cauliflower: "images/Cauliflower HQ (2).png",
@@ -80,6 +81,19 @@ function Home() {
         AOS.init();
     }, []);
 
+    const getStoryList = async()=>{
+        try {
+            const res = await axios.get(`${baseUrl}/${apiPath}/articles`);
+            setStories(res.data.articles.slice(0, 4));
+        } catch (error) {
+            alert('取得文章失敗' || error.response)
+        } 
+    }
+
+    useEffect(() => {
+        getStoryList();
+    }, [])
+    console.log(stories)
     return (
         <div>
             <main>
@@ -101,10 +115,10 @@ function Home() {
                                         全部商品 <span className="material-symbols-outlined text-primary align-bottom">keyboard_arrow_down</span>
                                     </button>
                                     <ul className="dropdown-menu py-0">
-                                        {categories.map((category)=>{
+                                        {categories.map((category) => {
                                             return (<li key={category}>
                                                 <button className="dropdown-item fw-semibold" onClick={() => handleCategorySelect(category)}>{category}</button>
-                                                </li>)
+                                            </li>)
                                         })}
                                     </ul>
                                 </div>
@@ -125,7 +139,7 @@ function Home() {
                         </div>
                         <img src="images/Illustration/Top-Curve.png" alt="" className="d-block position-absolute bottom-0 start-0 allProduct-banner-mask" />
                     </div>
-                </section>              
+                </section>
                 {/* <!--3個理由--> */}
                 <section className="reason ">
                     <div className="container d-flex flex-column align-items-center py-lg-11 py-6" >
@@ -273,32 +287,19 @@ function Home() {
                                 <img src={activeImage} alt="story" className="" />
                             </div>
                             <div className="nav story-nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <Link to="/stories/-OK5M9Em5IQqFNCZCDXS">
-                                    <button
-                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
-                                        onMouseEnter={() => setActiveImage(storyImages.cauliflower)}
-                                    >
-                                        種植花椰菜的故事
-                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
-                                    </button>
-                                </Link>
-                                <Link to="/stories/-OK5MfbrpHIayuP0WYAC">
-                                    <button
-                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
-                                        onMouseEnter={() => setActiveImage(storyImages.grape)}
-                                    >
-                                        葡萄園的奧秘
-                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
-                                    </button>
-                                </Link>
-                                <Link to="/stories/-OK5LgP5Khusdh8K_m3h">
-                                    <button
-                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
-                                        onMouseEnter={() => setActiveImage(storyImages.farmTotable)}
-                                    >
-                                        從牧場到餐桌的旅程
-                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
-                                    </button></Link>
+                                {stories.map((story) => {
+                                    return (
+                                    <Link to={`/stories/${story.id}`} key={story.id}>
+                                        <button
+                                            className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
+                                            onMouseEnter={() => setActiveImage(story.image)}
+                                        >
+                                            {story.title}
+                                            <span className="material-symbols-outlined story-icon">chevron_right</span>
+                                        </button>
+                                    </Link>
+                                    )
+                                })}
                                 <Link to="/stories">
                                     <button
                                         className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
@@ -306,7 +307,7 @@ function Home() {
                                     >
                                         想知道更多產地故事嗎?
                                         <span className="material-symbols-outlined story-icon">chevron_right</span>
-                                    </button></Link>
+                                    </button></Link> 
                             </div>
                         </div>
                     </div>

@@ -183,7 +183,7 @@ function ComfirmOrder() {
                         </div>
                     </div>
                     {/* 商品總覽 */}
-                    <div className="card bg-white mb-3 p-5 border-primary mb-5" style={{ borderRadius: "16px" }}>
+                    <div className="card bg-white mb-3 p-5 border-primary mb-5 d-none d-lg-block" style={{ borderRadius: "16px" }}>
                         <div className="card-title text-primary fs-4 mb-6">商品明細</div>
                         <div>
                             <table className="table">
@@ -211,7 +211,23 @@ function ComfirmOrder() {
                             </table>
                         </div>
                     </div>
-
+                    {/* 商品總覽mobile */}
+                    <div class="card d-lg-none border-primary mb-3"  style={{ borderRadius: "16px" }}>
+                        <div class="card-body">
+                            <div className="card-title text-primary fs-5 mb-5">商品明細</div>
+                            {cartList.carts?.map((item)=>{
+                                return (
+                                    <div className="card-text d-flex justify-content-between align-items-end border-bottom py-3" key={item.id}>
+                                        <div>
+                                            <p className="mb-1">{item.product.title}</p>
+                                            <p className="text-gray">{item.product.description}x{item.qty}</p>
+                                        </div>
+                                        <p>${item.product.price?.toLocaleString()}</p>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
                     {/* 訂購人資訊 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
                         <div className="card-title text-primary fs-4 mb-6">訂購人資訊</div>
@@ -623,7 +639,7 @@ function ComfirmOrder() {
                     </div>)}
                     <div className="d-flex justify-content-between">
                         <div>
-                            <div className="d-flex justify-content-between mb-1 align-items-end">
+                            <div className="d-flex justify-content-between mb-1 align-items-center">
                                 <p className="me-2">總額</p>
                                 <p className="text-accent fs-5 me-2 en-font">{`NT$${totalAmount.toLocaleString()}`}</p>
                                 <span className="material-symbols-outlined text-accent" onClick={handleOrderExtend}>{orderExtend ? "keyboard_arrow_down" : "keyboard_arrow_up"}</span>
@@ -640,7 +656,7 @@ function ComfirmOrder() {
                                         : (
                                             <div className="bg-accent rounded rounded-3">
                                                 <div className="d-flex text-white align-items-center">
-                                                    <span className="material-symbols-outlined me-1 fs-6">package_2</span>
+                                                    <span className="material-symbols-outlined me-1 fs-6  ms-1">package_2</span>
                                                     <p className="fs-7">還差$ {1000 - cartList.total || 0}元免運</p>
                                                 </div>
                                             </div>)
@@ -655,7 +671,7 @@ function ComfirmOrder() {
                                         : (
                                             <div className="bg-accent rounded rounded-3">
                                                 <div className="d-flex text-white align-items-center">
-                                                    <span className="material-symbols-outlined me-1 fs-6">package_2</span>
+                                                    <span className="material-symbols-outlined me-1 fs-6 ms-1">package_2</span>
                                                     <p className="fs-7">還差$ {499 - cartList.total || 0}元免運</p>
                                                 </div>
                                             </div>)

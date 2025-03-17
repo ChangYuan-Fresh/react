@@ -210,7 +210,7 @@ function AdminOrders() {
                                 <div className="card-title d-flex justify-content-between align-items-center border-bottom">
                                     <button type="button" className="btn text-accent fs-5 ms-3" onClick={() => openModal(order)}>{order.create_at}
                                     </button>
-                                    <div className={`px-3 ${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? '已付款' : '未付款'}</div>
+                                    <div className={`px-3 ${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? (order.orderStatus || "待出貨") : '未付款'}</div>
                                 </div>
                                 <div className="card-body">
                                     <p className="mb-3"><small className="text-gray me-3">訂購時間</small><FormatDate timestamp={order.create_at} /></p>
