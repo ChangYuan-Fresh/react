@@ -287,7 +287,7 @@ function Home() {
                                 <img src={activeImage} alt="story" className="" />
                             </div>
                             <div className="nav story-nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <Link to="/stories/-OK5M9Em5IQqFNCZCDXS">
+                                <Link to="/stories/-OLXNXmUwZf7kfcMB1sL">
                                     <button
                                         className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
                                         onMouseEnter={() => setActiveImage(storyImages.cauliflower)}
@@ -296,7 +296,7 @@ function Home() {
                                         <span className="material-symbols-outlined story-icon">chevron_right</span>
                                     </button>
                                 </Link>
-                                <Link to="/stories/-OLXNXmUwZf7kfcMB1sL">
+                                <Link to="/stories/-OK5MfbrpHIayuP0WYAC">
                                     <button
                                         className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
                                         onMouseEnter={() => setActiveImage(storyImages.grape)}
