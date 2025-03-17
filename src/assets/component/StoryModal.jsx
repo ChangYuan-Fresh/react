@@ -11,7 +11,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
     const articleRef = useRef(null);
     const dispatch = useDispatch();
     const [date, setDate] = useState(new Date()); //轉換日期
-    
+
     //新增文章
     const createNewArticle = async () => {
         try {
@@ -121,38 +121,81 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
             <div className="modal-dialog modal-dialog-centered modal-xl">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">{modalMode === 'create' ? '新增文章' : '編輯文章'}</h5>
+                        <h5 className="modal-title text-black">{modalMode === 'create' ? '新增文章' : '編輯文章'}</h5>
                         <button type="button" className="btn-close me-1" onClick={closeModal} aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
                         <div className="row g-3">
-                            <div className="col-4">
-                                <div className="mb-5">
-                                    <label htmlFor="fileInput" className="form-label"> 圖片上傳 </label>
-                                    <input
-                                        type="file"
-                                        accept=".jpg,.jpeg,.png"
-                                        className="form-control"
-                                        id="fileInput"
-                                        onChange={fileUpload}
-                                    />
-                                </div>
-                                <div className="mx-3">
-                                    <label htmlFor="image" className="form-label">主圖</label>
-                                    <div className="input-group mb-3">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="請輸入主圖網址"
-                                            id="image"
-                                            name="image"
-                                            value={tempArticle.image} onChange={getinputValue} />
-                                        <img src={tempArticle.image} alt={tempArticle.id} className="img-fluid" />
+                            <div className="col-12">
+                                <div className="border rounded-3 p-5 mb-3 ">
+                                    <h5 className="pb-3">文章主圖</h5>
+                                    <div className='d-flex align-items-center'>
+                                        <img
+                                            src={tempArticle.image}
+                                            alt={tempArticle.id}
+                                            className="img-fluid rounded-3"
+                                            style={{ width: "80px", height: "80px", objectFit: "cover" }}
+                                        />
+                                        <div>
+                                            <label htmlFor="fileInput" className="form-label ms-3">  </label>
+                                            <button
+                                                type="button"
+                                                className="btn btn-sm btn-outline-primary text-nowrap py-3"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseUpImageInput"
+                                                aria-expanded="false"
+                                                aria-controls="collapseUpImageInput"
+                                                onClick={() => document.getElementById('fileInput').click()} // 點擊按鈕觸發文件選擇
+                                            >
+                                                上傳圖片
+                                            </button>
+                                            <input
+                                                type="file"
+                                                accept=".jpg,.jpeg,.png"
+                                                className=" form-control d-none"
+                                                id="fileInput"
+                                                onChange={fileUpload}
+                                            />
+                                        </div >
+                                        <div className='d-flex align-items-center'>
+                                            {/* Collapse 按鈕 */}
+                                            <p className='mx-2'>or</p>
+                                            <button
+                                                className="btn btn-sm btn-primary text-nowrap py-3"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseImageInput"
+                                                aria-expanded="false"
+                                                aria-controls="collapseImageInput"
+                                            >
+                                                圖片網址
+                                            </button>
+                                        </div>
+                                    </div>
+                                    {/* Collapse 區塊，隱藏和顯示輸入框 */}
+                                    <div className="collapse" id="collapseImageInput">
+                                        <div className="card card-body mt-3">
+                                            <label htmlFor="image" className="form-label">主圖網址</label>
+                                            <div className="input-group mb-3">
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="請輸入主圖網址"
+                                                    id="image"
+                                                    name="image"
+                                                    value={tempArticle.image}
+                                                    onChange={getinputValue}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="mx-3">
-                                    <label htmlFor="image2" className="form-label">附圖</label>
+                            </div>
+                            <div className="col-12">
+                                <div className="border rounded-3 p-5 mb-3 ">
+                                    <label htmlFor="image2" className="form-label"><h5>商品副圖</h5></label>
                                     <div className="input-group mb-3">
+                                        <img src={tempArticle.image2} alt={tempArticle.id} className="img-fluid rounded-3" style={{ width: "80px", height: "80px" }} />
                                         <input
                                             type="text"
                                             className="form-control"
@@ -160,48 +203,14 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                                             id="image2"
                                             name="image2"
                                             value={tempArticle.image2} onChange={getinputValue} />
-                                        <img src={tempArticle.image2} alt={tempArticle.id} className="img-fluid" />
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-8">
-                                <div className="row g-4 mb-3">
-                                    <div className="col-6">
-                                        <label htmlFor="title" className="form-label">標題</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="title"
-                                            placeholder="請輸入標題"
-                                            name="title"
-                                            value={tempArticle.title}
-                                            onChange={getinputValue} />
-                                    </div>
-                                    <div className="col-6">
-                                        <label htmlFor="create_at" className="form-label">發布日期</label>
-                                        <input
-                                            type="date"
-                                            className="form-control"
-                                            id="create_at"
-                                            placeholder="請輸入日期"
-                                            name="create_at"
-                                            value={`${date.getFullYear().toString()}-${(date.getMonth() + 1).toString().padStart(2, 0)}-${date.getDate().toString().padStart(2, 0)}`}
-                                            onChange={(e) => {
-                                                setDate(new Date(e.target.value))
-                                            }} />
-                                    </div>
-                                    <div className="col-6">
-                                        <label htmlFor="author" className="form-label">作者</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="author"
-                                            placeholder="請入作者名稱"
-                                            name="author"
-                                            value={tempArticle.author}
-                                            onChange={getinputValue} />
-                                    </div>
-                                    <div className="col-6">
+                            <div className="col-12">
+                                <div className="border rounded-3 p-5 mb-3">
+                                    <h5 className="pb-3">文章資訊</h5>
+                                    <div className="row g-4">
+                                        <div className="col-6">
                                             <label htmlFor="articleCode" className="form-label">文章編號</label>
                                             <input
                                                 type="text"
@@ -212,29 +221,78 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                                                 value={tempArticle.article_code || ""}
                                                 onChange={getinputValue} />
                                         </div>
+                                        <div className="col-6">
+                                            <label htmlFor="title" className="form-label">標題</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="title"
+                                                placeholder="請輸入標題"
+                                                name="title"
+                                                value={tempArticle.title}
+                                                onChange={getinputValue} />
+                                        </div>
+                                        <div className="col-6">
+                                            <label htmlFor="author" className="form-label">作者</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="author"
+                                                placeholder="請入作者名稱"
+                                                name="author"
+                                                value={tempArticle.author}
+                                                onChange={getinputValue} />
+                                        </div>
+                                        <div className="col-6">
+                                            <label htmlFor="create_at" className="form-label">發布日期</label>
+                                            <input
+                                                type="date"
+                                                className="form-control"
+                                                id="create_at"
+                                                placeholder="請輸入日期"
+                                                name="create_at"
+                                                value={`${date.getFullYear().toString()}-${(date.getMonth() + 1).toString().padStart(2, 0)}-${date.getDate().toString().padStart(2, 0)}`}
+                                                onChange={(e) => {
+                                                    setDate(new Date(e.target.value))
+                                                }} />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="description" className="form-label">文章前段</label>
-                                    <textarea
-                                        className="form-control"
-                                        id="description"
-                                        rows="3"
-                                        name="description"
-                                        value={tempArticle.description}
-                                        onChange={getinputValue}>
-                                    </textarea>
+                            </div>
+                            <div className="col-12">
+                                <div className="border rounded-3 p-5 mb-3">
+                                    <h5 className="pb-3">文章內容</h5>
+                                    <div className="row g-4">
+                                        <div className="col-12">
+                                            <div className="mb-3">
+                                                <label htmlFor="description" className="form-label">文章前段</label>
+                                                <textarea
+                                                    className="form-control"
+                                                    id="description"
+                                                    rows="3"
+                                                    name="description"
+                                                    value={tempArticle.description}
+                                                    onChange={getinputValue}>
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="mb-3">
+                                                <label htmlFor="content" className="form-label">文章後段</label>
+                                                <textarea
+                                                    className="form-control"
+                                                    id="content"
+                                                    rows="3"
+                                                    name="content"
+                                                    value={tempArticle.content}
+                                                    onChange={getinputValue}>
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="content" className="form-label">文章後段</label>
-                                    <textarea
-                                        className="form-control"
-                                        id="content"
-                                        rows="3"
-                                        name="content"
-                                        value={tempArticle.content}
-                                        onChange={getinputValue}>
-                                    </textarea>
-                                </div>
+                            </div>
+                            <div className="col-12">
                                 <div className="form-check">
                                     <input
                                         className="form-check-input"
@@ -249,8 +307,8 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                             </div>
                         </div>
                     </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary px-6" onClick={closeModal}>取消</button>
+                    <div className="modal-footer bg-secondary-200">
+                        <button type="button" className="btn btn-outline-primary px-6" onClick={closeModal}>取消</button>
                         <button type="button" className="btn btn-primary px-6 text-white" onClick={btnUpdateArticle}>確認</button>
                     </div>
                 </div>
