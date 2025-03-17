@@ -263,7 +263,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                                 id="productCode"
                                                 placeholder="請輸入商品編號"
                                                 name="product_code"
-                                                value={tempProduct.product_code || 3}
+                                                value={tempProduct.product_code || "3"}
                                                 onChange={getinputValue} />
                                         </div>
                                         <div className="col-6">

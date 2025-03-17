@@ -230,7 +230,7 @@ function AdminProductPage() {
                         <th className="bg-secondary-200 text-gray fs-7">商品</th>
                         <th className="bg-secondary-200 text-gray fs-7"></th>
                         <th className="bg-secondary-200 text-gray fs-7 text-center">售價</th>
-                        <th className="bg-secondary-200 text-gray fs-7 text-center">庫存</th>
+                        <th className="bg-secondary-200 text-gray fs-7 text-center text-nowrap">庫存</th>
                         <th className="bg-secondary-200 text-gray fs-7"></th>
                     </tr>
                 </thead>
@@ -303,7 +303,6 @@ function AdminProductPage() {
                                         <td className="text-center fw-normal">數量 {product.product_stock || 3}</td>
                                     </div>
                                 </div>
-
                             </tr>
                         ))
                     ) : (

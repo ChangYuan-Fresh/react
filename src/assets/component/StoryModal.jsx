@@ -201,6 +201,17 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                                             value={tempArticle.author}
                                             onChange={getinputValue} />
                                     </div>
+                                    <div className="col-6">
+                                            <label htmlFor="articleCode" className="form-label">文章編號</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="articleCode"
+                                                placeholder="請輸入文章編號"
+                                                name="article_code"
+                                                value={tempArticle.article_code || ""}
+                                                onChange={getinputValue} />
+                                        </div>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="description" className="form-label">文章前段</label>

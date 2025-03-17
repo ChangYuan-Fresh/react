@@ -95,6 +95,11 @@ function AdminSidebar() {
                     to="/admin/adminCoupons"
                     className="adminNavLink d-flex justify-content-center"
                 >優惠券管理</NavLink>
+                <hr />
+                <NavLink
+                    to="/admin/adminStatistics"
+                    className="adminNavLink d-flex justify-content-center"
+                >統計圖表</NavLink>
             </div>
             <div>
                 <NavLink className="mt-5 d-flex  flex-column  align-items-center">
