@@ -110,12 +110,12 @@ function AdminStory() {
                                 新增文章
                             </button>
                         </div>
-                        <div className='bg-white  rounded-3'>
+                        <div className='bg-white rounded-3'>
                             {/* 電腦版 */}
-                            <table className="table d-none d-sm-table">
+                            <table className="table d-none d-sm-table rounded-3">
                                 <thead>
                                     <tr>
-                                        <th scope="col" className="bg-secondary-200 text-gray text-center fs-7">編號</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray text-center fs-7 ">編號</th>
                                         <th scope="col" className="bg-secondary-200 text-gray fs-7 text-nowrap">文章</th>
                                         <th scope="col" className="bg-secondary-200 text-gray fs-7"></th>
                                         <th scope="col" className="bg-secondary-200 text-gray text-center fs-7">作者</th>
@@ -153,7 +153,7 @@ function AdminStory() {
                                 </tbody>
                             </table>
                             {/* 手機版 */}
-                            <table className="table table-bordered d-sm-none">
+                            <table className="table table-bordered d-sm-none ">
                                 <tbody>
                                     {articles.map((article) => {
                                         return (
