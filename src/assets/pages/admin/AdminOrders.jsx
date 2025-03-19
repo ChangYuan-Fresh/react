@@ -112,36 +112,40 @@ function AdminOrders() {
     }
 
     return (<>
-        <h3 className="d-lg-none">訂單管理</h3>
-        <Swiper
-            slidesPerView={5}
-            className="nav d-lg-none text-nowrap bg-white"
-            role="tablist">
-            {orderState.map((state) => {
-                return (
-                    <SwiperSlide className="nav-item border-bottom" key={state}>
-                        <button className={`nav-link px-3 bg-white border-0 py-3 ${selectState === state ? 'border-bottom border-3 border-primary text-primary' : ' border-0 text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
-                    </SwiperSlide>)
-            })}
-        </Swiper>
-        <div className="container  rounded-3 py-lg-5 py-3" >
-            <div className="d-flex justify-content-between mb-lg-6 mb-4">
-                <h3 className="d-none d-lg-block">訂單管理</h3>
-            </div>
+        <div className="container px-0">
+            <h3 className="d-lg-none mb-5">訂單管理</h3>
+            <Swiper
+                slidesPerView={4.5}
+                className="nav d-lg-none text-nowrap"
+                role="tablist">
+                {orderState.map((state) => {
+                    return (
+                        <SwiperSlide className={`nav-item  border-bottom ${selectState === state ? 'border-primary border-3' : 'border-gray-200'}`}>
+                            <button className="nav-link px-3  border-0 py-3 w-100 text-center" type="button" onClick={() => setSelectState(state)}>
+                                {state}
+                            </button>
+                        </SwiperSlide>)
+                })}
+            </Swiper>
+        </div>
+        <div className=" d-lg-flex justify-content-start d-none mb-lg-6 mb-4">
+            <h3 className="d-none d-lg-block">訂單管理</h3>
+        </div>
+        <div className="container  rounded-3 py-lg-5 py-3 " >
             <div>
-                <ul className="nav nav-tabs border-0 d-lg-flex justify-content-between bg-white border-bottom d-none">
+                <ul className="nav nav-tabs border-0 d-lg-flex flex-nowrap justify-content-between bg-white border-bottom d-none ">
                     {orderState.map((state) => {
                         return (
                             <li className="nav-item" key={state}>
-                                <button className={`nav-link px-8 bg-white border-0 py-4 ${selectState === state ? 'border-bottom border-3 border-primary text-primary' : ' border-0 text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
+                                <button className={`nav-link px-8 bg-white border-0 py-4 text-custom ${selectState === state ? 'border-bottom border-3 border-primary text-primary' : ' border-0 text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
                             </li>)
                     })}
                 </ul>
-                <div className="tab-content px-lg-5 px-0 bg-white">
+                <div className="tab-content px-lg-5 px-0 bg-custom">
                     <div className="tab-pane fade show active">
-                        <div className='rounded-3'>
-                            <div className="input-group mb-3 w-100 w-lg-50 pt-lg-5 pt-3">
-                                <select className="form-select py-lg-3 py-0 pe-lg-4 pe-2" style={{ maxWidth: '120px' }} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                        {/* 電腦版搜尋列 */}
+                        <div className="input-group mb-3 w-100 w-lg-50 pt-lg-5 pt-3 d-none d-lg-flex">
+                                <select className="form-select py-lg-3 py-0 pe-lg-4 pe-2 " style={{ maxWidth: '120px' }} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
                                     <option value="訂單編號">訂單編號</option>
                                     <option value="訂購帳戶">訂購帳戶</option>
                                 </select>
@@ -150,49 +154,62 @@ function AdminOrders() {
                                     <span className="material-symbols-outlined px-2 my-auto align-middle">search</span>
                                 </button>
                             </div>
-                            <div className="mt-lg-6 mt-3 text-muted">共{filterOrders.length}筆訂單</div>
-                            <table className="table mt-4 en-font  d-none d-lg-table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" className="bg-secondary-200 text-muted p-3">訂單編號</th>
-                                        <th scope="col" className="bg-secondary-200 text-muted p-3">訂購時間</th>
-                                        <th scope="col" className="bg-secondary-200 text-muted p-3">訂購帳戶</th>
-                                        <th scope="col" className="bg-secondary-200 text-muted p-3">訂單金額</th>
-                                        <th scope="col" className="bg-secondary-200 text-muted p-3">訂單狀態</th>
-                                        <th scope="col" className="bg-secondary-200 text-muted p-3"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {filterOrders.length === 0 ? (<tr>
-                                        <th colSpan="6" className="text-center border-0">
-                                            <img src="images/Illustration/Frame.png" alt="empty" className="mx-auto mt-11" />
-                                            <h5 className="mt-6 text-dark">目前還沒有訂單</h5>
-                                        </th>
-                                    </tr>) : (
-                                        filterOrders.map((order) => {
-                                            const shippingFee = isNaN(Number(order.user?.shipping)) ? 0 : Number(order.user?.shipping);
-                                            const totalAmount = Math.floor((order.total ?? 0) + shippingFee);
-                                            return (
-                                                <tr key={order.id} className="align-middle en-font">
-                                                    <th scope="row">
-                                                        <button type="button" className="btn text-accent" onClick={() => openModal(order)}>{order.create_at}
-                                                        </button>
-                                                    </th>
-                                                    <td><FormatDate timestamp={order.create_at} /></td>
-                                                    <td>{order.user?.name}</td>
-                                                    <td>NT$<span className="ms-2">{totalAmount.toLocaleString()}</span></td>
-                                                    <td className={`px-3 ${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? (order.orderStatus || "待出貨") : '未付款'}</td>
-                                                    <td>
-                                                        <button className="btn" onClick={() => removeOrderItem(order.id)}>
-                                                            <span
-                                                                className="material-symbols-outlined fs-5 text-primary">delete</span>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        }))}
-                                </tbody>
-                            </table>
+                            <div className="mt-lg-6 mt-3 text-muted d-none d-lg-block">共{filterOrders.length}筆訂單</div>
+                            {/* 手機版搜尋列*/}
+                            <div className="input-group mb-3 w-100 w-lg-50 pt-lg-5 pt-3 d-lg-none bg-light mb-0 pb-0">
+                                <select className="form-select py-lg-3 py-0 pe-lg-4 pe-2 bg-light" style={{ maxWidth: '120px' }} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                                    <option value="訂單編號">訂單編號</option>
+                                    <option value="訂購帳戶">訂購帳戶</option>
+                                </select>
+                                <input type="text" className="form-control bg-light" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+                                <button type="button" className="btn border border-top border-bottom border-end bg-light" onClick={handleSearch}>
+                                    <span className="material-symbols-outlined px-2 my-auto align-middle bg-light">search</span>
+                                </button>
+                            </div>
+                            <div className="mt-lg-6 mt-3 text-muted d-lg-none bg-light">共{filterOrders.length}筆訂單手</div>
+                        <div className='rounded-3 '>                      
+                        <table className="table mt-4 en-font  d-none d-lg-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" className="bg-secondary-200 text-muted p-3">訂單編號</th>
+                                    <th scope="col" className="bg-secondary-200 text-muted p-3">訂購時間</th>
+                                    <th scope="col" className="bg-secondary-200 text-muted p-3">訂購帳戶</th>
+                                    <th scope="col" className="bg-secondary-200 text-muted p-3">訂單金額</th>
+                                    <th scope="col" className="bg-secondary-200 text-muted p-3">訂單狀態</th>
+                                    <th scope="col" className="bg-secondary-200 text-muted p-3"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filterOrders.length === 0 ? (<tr>
+                                    <th colSpan="6" className="text-center border-0">
+                                        <img src="images/Illustration/Frame.png" alt="empty" className="mx-auto mt-11" />
+                                        <h5 className="mt-6 text-dark">目前還沒有訂單</h5>
+                                    </th>
+                                </tr>) : (
+                                    filterOrders.map((order) => {
+                                        const shippingFee = isNaN(Number(order.user?.shipping)) ? 0 : Number(order.user?.shipping);
+                                        const totalAmount = Math.floor((order.total ?? 0) + shippingFee);
+                                        return (
+                                            <tr key={order.id} className="align-middle en-font">
+                                                <th scope="row">
+                                                    <button type="button" className="btn text-accent" onClick={() => openModal(order)}>{order.create_at}
+                                                    </button>
+                                                </th>
+                                                <td><FormatDate timestamp={order.create_at} /></td>
+                                                <td>{order.user?.name}</td>
+                                                <td>NT$<span className="ms-2">{totalAmount.toLocaleString()}</span></td>
+                                                <td className={`px-3 ${order.is_paid ? 'text-primary' : 'text-accent'}`}>{order.is_paid ? (order.orderStatus || "待出貨") : '未付款'}</td>
+                                                <td>
+                                                    <button className="btn" onClick={() => removeOrderItem(order.id)}>
+                                                        <span
+                                                            className="material-symbols-outlined fs-5 text-primary">delete</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }))}
+                            </tbody>
+                        </table>
                         </div>
                     </div>
                 </div>
@@ -227,10 +244,11 @@ function AdminOrders() {
                         </>
                         )
                     }))}
-
+            </div>
+            <div className="pt-5 pt-lg-0">
+                <PaginationCompo pageInfo={pageInfo} btnChangePage={btnChangePage} />
             </div>
         </div>
-        <PaginationCompo pageInfo={pageInfo} btnChangePage={btnChangePage} />
         <OrderModal modelRef={modelRef} setTempOrder={setTempOrder} tempOrder={tempOrder} getOrderList={getOrderList} />
         <IsScreenLoading isScreenLoading={isScreenLoading} />
         <Toast />
