@@ -133,11 +133,11 @@ function AdminOrders() {
         </div>
         <div className="container  rounded-3 py-lg-5 py-3 " >
             <div>
-                <ul className="nav nav-tabs border-0 d-lg-flex flex-nowrap justify-content-between bg-white border-bottom d-none ">
+                <ul className="nav nav-tabs border-0 d-lg-flex flex-nowrap justify-content-between bg-white border-bottom d-none px-4">
                     {orderState.map((state) => {
                         return (
                             <li className="nav-item" key={state}>
-                                <button className={`nav-link px-8 bg-white border-0 py-4 text-custom ${selectState === state ? 'border-bottom border-3 border-primary text-primary' : ' border-0 text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
+                                <button className={`nav-link bg-white border-0 py-4 text-custom ${selectState === state ? 'border-bottom border-3 border-primary text-primary' : ' border-0 text-dark'}`} type="button" onClick={() => setSelectState(state)}>{state}</button>
                             </li>)
                     })}
                 </ul>

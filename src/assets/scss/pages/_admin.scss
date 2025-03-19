@@ -53,11 +53,11 @@
 }
 
 .text-custom{
-    font-size: 10px;
-    @media(min-width: 1200px) {
+    
+    
         text-wrap: nowrap;
         font-size: 12px;
-    }
+    
     @media(min-width: 1400px) {
         font-size: 16px;
     }
