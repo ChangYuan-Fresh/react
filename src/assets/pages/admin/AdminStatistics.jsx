@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from 'react';
-import axios from 'axios'
-import IsScreenLoading from '../../component/IsScreenLoading';
+import { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import IsScreenLoading from "../../component/IsScreenLoading";
 import c3 from "c3";
 import "c3/c3.css";
 
@@ -8,57 +8,58 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
 function AdminStatistics() {
-    const [allOrders, setAllOrders] = useState([])
+    const [allOrders, setAllOrders] = useState([]);
     const [productStocks, setProductStocks] = useState([]);
     const [isScreenLoading, setIsScreenLoading] = useState(false);
 
+    const chartRef1 = useRef(null);
+    const chartRef2 = useRef(null);
+    const chartRef3 = useRef(null);
+
+    useEffect(() => {
+        const token = document.cookie.replace(
+            /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+            "$1"
+        );
+        if (token) {
+            axios.defaults.headers.common["Authorization"] = token;
+            checkLogin();
+        }
+    }, []);
+
     const checkLogin = async () => {
         try {
-            await axios.post(`${baseUrl}/v2/api/user/check`)
+            await axios.post(`${baseUrl}/v2/api/user/check`);
         } catch (error) {
-            alert("請登入管理員帳號")
-            navigate('/adminlogin')
+            alert("請登入管理員帳號");
+            navigate("/adminlogin");
         }
-    }
-    useEffect(() => {
-        const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
-        if (token) {
-            axios.defaults.headers.common['Authorization'] = token;
-            checkLogin()
-        }
-    }, [])
+    };
 
     const getAllOrder = async () => {
-        setIsScreenLoading(true)
+        setIsScreenLoading(true);
         try {
-            // 先取得第 1 頁，確定 total_pages
             const firstRes = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/orders?page=1`);
             const totalPages = firstRes.data.pagination.total_pages;
 
-            // 產生所有頁數的請求
-            const requests = [];
-            for (let i = 1; i <= totalPages; i++) {
-                requests.push(axios.get(`${baseUrl}/v2/api/${apiPath}/admin/orders?page=${i}`));
-            }
+            const requests = Array.from({ length: totalPages }, (_, i) =>
+                axios.get(`${baseUrl}/v2/api/${apiPath}/admin/orders?page=${i + 1}`)
+            );
 
-            // 使用 Promise.all() 來並行請求所有頁數
             const responses = await Promise.all(requests);
-
-            // 設定訂單狀態（假設你有一個狀態來存放）
-            setAllOrders(responses.flatMap(res => res.data.orders));
+            setAllOrders(responses.flatMap((res) => res.data.orders));
         } catch (error) {
-            alert("取得訂單資料失敗" || error.response)
+            alert("取得訂單資料失敗" || error.response);
         } finally {
-            setIsScreenLoading(false)
+            setIsScreenLoading(false);
         }
-    }
+    };
 
     const getAllProducts = async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/products/all`);
-            const products = Object.values(res.data.products)
-
-            const stocks = products.map(product => ({
+            const products = Object.values(res.data.products);
+            const stocks = products.map((product) => ({
                 name: product.title,
                 stock: product.product_stock
             }));
@@ -70,119 +71,100 @@ function AdminStatistics() {
     };
 
     useEffect(() => {
-        getAllOrder()
-        getAllProducts()
-    }, [])
+        getAllOrder();
+        getAllProducts();
+    }, []);
 
-    //產品銷售佔比
-    const categorySalesQty = allOrders.reduce((acc, order) => {
-        Object.values(order.products).forEach(({ product, qty
-        }) => {
-            acc[product.category] = (acc[product.category] || 0) + qty;
-        });
-        return acc;
-    }, {});
+    useEffect(() => {
+        if (allOrders.length > 0 && chartRef1.current) {
+            const categorySalesQty = allOrders.reduce((acc, order) => {
+                Object.values(order.products).forEach(({ product, qty }) => {
+                    acc[product.category] = (acc[product.category] || 0) + qty;
+                });
+                return acc;
+            }, {});
 
-    // 產品銷售額
-    const categorySales = allOrders.reduce((acc, order) => {
-        Object.values(order.products).forEach(({ product, final_total
-        }) => {
-            const roundedTotal = Math.round(final_total);
-            acc[product.category] = (acc[product.category] || 0) + roundedTotal;
-        });
-        return acc;
-    }, {});
+            const categorySales = allOrders.reduce((acc, order) => {
+                Object.values(order.products).forEach(({ product, final_total }) => {
+                    const roundedTotal = Math.round(final_total);
+                    acc[product.category] = (acc[product.category] || 0) + roundedTotal;
+                });
+                return acc;
+            }, {});
 
+            const categoryQtyArray = Object.entries(categorySalesQty);
+            const categoryArray = Object.entries(categorySales);
+            const stocksArray = productStocks.map(({ name, stock }) => [name, stock]);
 
+            c3.generate({
+                bindto: chartRef1.current,
+                data: {
+                    columns: categoryQtyArray,
+                    type: "pie"
+                },
+                title: { text: "各類別銷售數量（件）" }
+            });
 
-    const categoryQtyArray = Object.entries(categorySalesQty)
-    const categoryArray = Object.entries(categorySales)
-    const stocksArray = productStocks.map(({ name, stock }) => [name, stock]);
+            c3.generate({
+                bindto: chartRef2.current,
+                data: {
+                    columns: categoryArray,
+                    type: "pie"
+                },
+                title: { text: "各類別銷售總額（元）" }
+            });
 
-    var chart = c3.generate({
-        bindto: '#chart',
-        data: {
-            columns: categoryQtyArray,
-            type: 'pie',
-        },
-        pie: {
-            label: {
-                format: function (value, ratio, id) {
-                    return value; // 直接顯示數量，不顯示百分比
-                }
-            }
-        },
-        title: {
-            text: "各類別銷售數量（件）"
+            c3.generate({
+                bindto: chartRef3.current,
+                data: {
+                    columns: stocksArray,
+                    type: "bar"
+                },
+                bar: { width: { ratio: 1 } }
+            });
         }
-    });
+    }, [allOrders, productStocks]);
 
-    var chart2 = c3.generate({
-        bindto: '#chart2',
-        data: {
-            columns: categoryArray,
-            type: 'pie',
-        },
-        pie: {
-            label: {
-                format: function (value, ratio, id) {
-                    return value; // 直接顯示數量，不顯示百分比
-                }
-            }
-        },
-        title: {
-            text: "各類別銷售總額（元）"
-        }
-    });
-
-    var chart3 = c3.generate({
-        bindto: '#chart3',
-        data: {
-            columns: stocksArray,
-            type: 'bar',
-            labels: true,
-        },
-        bar: {
-            width: {
-                ratio: 1 // this makes bar width 50% of length between ticks
-            }
-        }
-    });
     return (
         <main className="adminstatistics">
-            <h3 className="mb-5">統計檢視</h3>
-            <ul className="nav nav-tabs d-flex justify-content-between bg-white border-0 py-3" id="myTab" role="tablist">
-                <li className="nav-item text-center" role="presentation">
-                    <button className="nav-link active fs-5 py-3 px-10 fw-bold" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">產品銷售佔比</button>
+            <h3 className="mb-5">統計商品檢視</h3>
+            <ul className="nav nav-tabs d-flex justify-content-between bg-white border-0 border-bottom px-3 pt-3">
+                <li className="nav-item text-center">
+                    <button className="nav-link active" data-bs-toggle="tab" data-bs-target="#home">
+                       銷售佔比
+                    </button>
                 </li>
-                <li className="nav-item text-center" role="presentation">
-                    <button className="nav-link fs-5 py-3 px-10 fw-bold" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">產品銷售額</button>
+                <li className="nav-item text-center">
+                    <button className="nav-link " data-bs-toggle="tab" data-bs-target="#profile">
+                        銷售額
+                    </button>
                 </li>
-                <li className="nav-item text-center" role="presentation">
-                    <button className="nav-link fs-5 py-3 px-10 fw-bold" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">產品剩餘庫存</button>
+                <li className="nav-item text-center">
+                    <button className="nav-link" data-bs-toggle="tab" data-bs-target="#contact">
+                        剩餘庫存
+                    </button>
                 </li>
             </ul>
-            <div className="tab-content pt-8 p-4 bg-white" id="myTabContent">
-                <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style={{ backgroundColor: "rgba(246, 246, 246, 1)", borderRadius: "16px" }}>
+            <div className="tab-content pt-8 p-4 bg-white">
+                <div className="tab-pane fade show active" id="home">
                     <div className="py-6">
-                        <div id="chart"></div>
-                    </div>
-
-                </div>
-                <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab" style={{ backgroundColor: "rgba(246, 246, 246, 1)", borderRadius: "16px" }}>
-                    <div className="py-6">
-                        <div id="chart2"></div>
+                        <div ref={chartRef1}></div>
                     </div>
                 </div>
-                <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab" style={{ backgroundColor: "rgba(246, 246, 246, 1)", borderRadius: "16px" }}>
+                <div className="tab-pane fade" id="profile">
                     <div className="py-6">
-                        <div id="chart3"></div>
+                        <div ref={chartRef2}></div>
+                    </div>
+                </div>
+                <div className="tab-pane fade" id="contact">
+                    <div className="py-6">
+                        <div ref={chartRef3}></div>
                     </div>
                 </div>
             </div>
             <IsScreenLoading isScreenLoading={isScreenLoading} />
         </main>
-    )
+    );
 }
 
 export default AdminStatistics;

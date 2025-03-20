@@ -17,7 +17,8 @@ const defaultModalState = {
     image: "",
     isPublic: 0,
     title: "",
-    content: ""
+    content: "",
+    article_code: " ", // 新增商品編號
 };
 
 function AdminStory() {
@@ -56,7 +57,7 @@ function AdminStory() {
         } catch (error) {
             alert('取得資料失敗' || res.data.message)
             navigate('/adminlogin')
-        }finally{
+        } finally {
             setIsScreenLoading(false)
         }
     }
@@ -109,35 +110,80 @@ function AdminStory() {
                                 新增文章
                             </button>
                         </div>
-                        <div className='bg-white  rounded-3'>
-                            <table className="table ">
+                        <div className='bg-white rounded-3'>
+                            {/* 電腦版 */}
+                            <table className="table d-none d-sm-table rounded-3">
                                 <thead>
                                     <tr>
-                                        <th scope="col">文章圖片</th>
-                                        <th scope="col">文章名稱</th>
-                                        <th scope="col">作者</th>
-                                        <th scope="col">發布時間</th>
-                                        <th scope="col">是否公開</th>
-                                        <th scope="col">查看細節</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray text-center fs-7 ">編號</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray fs-7 text-nowrap">文章</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray fs-7"></th>
+                                        <th scope="col" className="bg-secondary-200 text-gray text-center fs-7">作者</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray text-center fs-7">發布時間</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray text-center fs-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {articles.map((article) => {
                                         return (
                                             <tr key={article.id}>
+                                                <td className="text-center text-nowrap fw-normal ">{article.article_code || '無編號'}</td>
                                                 <td>
-                                                    <img className='rounded-3' src={article.image} alt="文章圖片" style={{ width: '60px', height: '60px' ,objectFit: 'cover'}} />
+                                                    <img className='rounded-3' src={article.image} alt="文章圖片" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />
                                                 </td>
-                                                <td>{article.title}</td>
-                                                <td>{article.author}</td>
-                                                <td>{new Date(article.create_at).toLocaleDateString()}</td>
-                                                <td><p id={article.id} className="text-decoration-none">{article.isPublic ? (<span className="text-success">公開</span>) : (<span>未公開</span>)}</p ></td>
                                                 <td>
-                                                    <div className="btn-group" role="group">
+                                                    <p className='text-nowrap'>{article.title}</p>
+                                                    {!article.isPublic && <span className="bg-secondary text-primary rounded-2 p-1 fw-normal"> <small>未公開</small></span>}
+                                                </td>
+                                                <td className='text-center text-primary'>{article.author}</td>
+                                                <td className='text-center text-gray fs-7 fw-normal'>{new Date(article.create_at).toLocaleDateString()}</td>
+                                                <td>
+                                                    <div className="btn-group d-none d-md-block">
                                                         <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', article)}>編輯</button>
                                                         <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openDelModal(article)}>刪除</button>
                                                     </div>
+                                                    <div className="btn-group d-md-none d-flex flex-column">
+                                                        <button type="button" className="btn bg-transparent text-accent btn-sm text-nowrap" onClick={() => openModal('edit', article)}>編輯</button>
+                                                        <button type="button" className="btn bg-transparent text-accent btn-sm text-nowrap" onClick={() => openDelModal(article)}>刪除</button>
+                                                    </div>
                                                 </td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                            {/* 手機版 */}
+                            <table className="table table-bordered d-sm-none ">
+                                <tbody>
+                                    {articles.map((article) => {
+                                        return (
+                                            <tr key={article.id}>
+                                                <div className='d-flex justify-content-between'>
+                                                    <td className="text-center fw-normal">{article.article_code || '無編號'}</td>
+                                                    <td>
+                                                        <div className="btn-group">
+                                                            <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', article)}>編輯</button>
+                                                            <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openDelModal(article)}>刪除</button>
+                                                        </div>
+                                                    </td>
+                                                </div>
+                                                <div className='d-flex '>
+                                                    <div className='me-5'>
+                                                        <td>
+                                                            <img className="rounded-3" style={{ width: "80px", height: "80px", objectFit: "cover" }} src={article.image} alt="商品圖片" />
+                                                        </td>
+                                                    </div>
+                                                    <div className='d-flex flex-column align-items-start'>
+                                                        <td className='d-flex'>
+                                                            <p className='me-1'>{article.title}</p>
+                                                            <p>{!article.isPublic && <span className="bg-secondary text-primary rounded-2 p-1 fw-normal" style={{ fontSize: "8px" }}><small>未上架</small></span>}</p>
+                                                        </td>
+                                                        <td >
+                                                            <p className='text-primary'>{article.author}</p>
+                                                            <p className="text-gray fs-7">{new Date(article.create_at).toLocaleDateString()}</p>
+                                                        </td>
+                                                    </div>
+                                                </div>
                                             </tr>
                                         )
                                     })}

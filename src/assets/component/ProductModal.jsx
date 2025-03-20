@@ -177,7 +177,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                                     <label htmlFor="fileInput" className="form-label ms-3">  </label>
                                                     <button
                                                         type="button"
-                                                        className="btn btn-outline-primary"
+                                                        className="btn btn-sm btn-outline-primary py-3"
                                                         data-bs-toggle="collapse"
                                                         data-bs-target="#collapseUpImageInput"
                                                         aria-expanded="false"
@@ -194,11 +194,11 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                                         onChange={fileUpload}
                                                     />
                                                 </div>
-                                                <div className='d-flex align-items-center'>
+                                                <div className='d-flex align-items-center '>
                                                     {/* Collapse 按鈕 */}
                                                     <p className='mx-2'>or</p>
                                                     <button
-                                                        className="btn btn-primary"
+                                                        className="btn btn-sm btn-primary text-nowrap py-3"
                                                         type="button"
                                                         data-bs-toggle="collapse"
                                                         data-bs-target="#collapseImageInput"
@@ -263,7 +263,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                                                 id="productCode"
                                                 placeholder="請輸入商品編號"
                                                 name="product_code"
-                                                value={tempProduct.product_code || 3}
+                                                value={tempProduct.product_code || "3"}
                                                 onChange={getinputValue} />
                                         </div>
                                         <div className="col-6">

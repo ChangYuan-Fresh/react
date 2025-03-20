@@ -41,7 +41,7 @@ function Home() {
     };
 
     const [products, setProducts] = useState([]); // 儲存所有商品
-    const [activeCategory, setActiveCategory] = useState("熱門商品"); // 當前選擇的分類
+    const [activeCategory, setActiveCategory] = useState("全部商品"); // 當前選擇的分類
 
     // 定義商品分類
     const categories = ['全部商品', ...new Set(products.map((product) => product.category))]
@@ -59,7 +59,7 @@ function Home() {
     }, []);
 
     // 根據選擇的分類篩選商品
-    const filteredProducts = activeCategory === "熱門商品"
+    const filteredProducts = activeCategory === "全部商品"
         ? products
         : products.filter(product => product.category === activeCategory);
 
@@ -287,19 +287,32 @@ function Home() {
                                 <img src={activeImage} alt="story" className="" />
                             </div>
                             <div className="nav story-nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                {stories.map((story) => {
-                                    return (
-                                    <Link to={`/stories/${story.id}`} key={story.id}>
-                                        <button
-                                            className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
-                                            onMouseEnter={() => setActiveImage(story.image)}
-                                        >
-                                            {story.title}
-                                            <span className="material-symbols-outlined story-icon">chevron_right</span>
-                                        </button>
-                                    </Link>
-                                    )
-                                })}
+                                <Link to="/stories/-OLXNXmUwZf7kfcMB1sL">
+                                    <button
+                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
+                                        onMouseEnter={() => setActiveImage(storyImages.cauliflower)}
+                                    >
+                                        種植花椰菜的故事
+                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
+                                    </button>
+                                </Link>
+                                <Link to="/stories/-OK5MfbrpHIayuP0WYAC">
+                                    <button
+                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
+                                        onMouseEnter={() => setActiveImage(storyImages.grape)}
+                                    >
+                                        葡萄園的奧秘
+                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
+                                    </button>
+                                </Link>
+                                <Link to="/stories/-OK5LgP5Khusdh8K_m3h">
+                                    <button
+                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
+                                        onMouseEnter={() => setActiveImage(storyImages.farmTotable)}
+                                    >
+                                        從牧場到餐桌的旅程
+                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
+                                    </button></Link>
                                 <Link to="/stories">
                                     <button
                                         className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"

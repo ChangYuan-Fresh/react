@@ -27,7 +27,7 @@ function AdminCoupons() {
     const navigate = useNavigate();
     const [isScreenLoading, setIsScreenLoading] = useState(false);
 
-    
+
     const checkLogin = async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
@@ -54,7 +54,7 @@ function AdminCoupons() {
         } catch (error) {
             alert("請登入管理員帳號" || res.data.message)
             navigate('/adminlogin')
-        }finally{
+        } finally {
             setIsScreenLoading(false)
         }
     }
@@ -68,11 +68,11 @@ function AdminCoupons() {
         switch (mode) {
             case 'create':
                 setTempCoupon(defaultModalState);
-                
+
                 break;
             case 'edit':
                 setTempCoupon(coupon);
-             
+
                 break;
             default:
                 break;
@@ -99,32 +99,67 @@ function AdminCoupons() {
                             </button>
                         </div>
                         <div className='bg-white  rounded-3'>
-                            <table className="table ">
+                            {/* 電腦版 */}
+                            <table className="table d-none d-sm-table rounded-3">
                                 <thead>
                                     <tr>
-                                        <th scope="col">優惠券名稱</th>
-                                        <th scope="col">折扣碼</th>
-                                        <th scope="col">折扣</th>
-                                        <th scope="col">到期日</th>
-                                        <th scope="col">是否上架</th>
-                                        <th scope="col">查看細節</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray text-nowrap fs-7">優惠券名稱</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray fs-7">折扣碼</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray text-center fs-7">折扣</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray text-center fs-7">到期日</th>
+                                        <th scope="col" className="bg-secondary-200 text-gray text-center fs-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {coupons.map((coupon) => {
                                         return (
                                             <tr key={coupon.id}>
-                                                <th scope="row">{coupon.title}</th>
-                                                <td>{coupon.code}</td>
-                                                <td>{coupon.percent}</td>
-                                                <td>{new Date(coupon.due_date).toLocaleDateString()}</td>
-                                                <td><p id={coupon.id} className="text-decoration-none">{coupon.is_enabled ? (<span className="text-success">上架</span>) : (<span>下架</span>)}</p ></td>
+                                                <td scope="row" className='text-nowrap' >{coupon.title}</td>
+                                                <td>
+                                                    <div className='text-primary d-flex'>
+                                                        {coupon.code}
+                                                        <p id={coupon.id} className="px-1">{!coupon.is_enabled && <span className="bg-secondary text-primary rounded-2 p-1 fw-normal"><small>未上架</small></span>}</p >
+                                                    </div>
+                                                </td>
+                                                <td className='text-center text-accent text-nowrap'>{coupon.percent}折</td>
+                                                <td className='text-center text-gray fw-normal'>{new Date(coupon.due_date).toLocaleDateString()}</td>
                                                 <td>
                                                     <div className="btn-group" role="group">
                                                         <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', coupon)}>編輯</button>
                                                         <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openDelModal(coupon)}>刪除</button>
                                                     </div>
                                                 </td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                            {/* 手機版 */}
+                            <table className="table table-bordered d-sm-none">
+                                <tbody>
+                                    {coupons.map((coupon) => {
+                                        return (
+                                            <tr key={coupon.id}>
+                                                <div className='d-flex justify-content-between align-items-center my-0'>
+                                                    <td scope="row" className='fs-5'><i class="bi bi-coin pe-1"></i>{coupon.title}</td>
+                                                    <td>
+                                                        <div className="btn-group" role="group">
+                                                            <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', coupon)}>編輯</button>
+                                                            <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openDelModal(coupon)}>刪除</button>
+                                                        </div>
+                                                    </td>
+                                                </div>
+                                                <div className='d-flex flex-column align-items-start'>
+                                                    <td>
+                                                        <div className='text-primary d-flex'>
+                                                            {coupon.code}
+                                                            <p id={coupon.id} className="px-1">{!coupon.is_enabled && <span className="bg-secondary text-primary rounded-2 p-1 fw-normal"><small>未上架</small></span>}</p >
+                                                        </div>
+                                                    </td>
+                                                    <td className='text-center text-accent'>折扣 {coupon.percent}折</td>
+                                                    <td className='text-center text-gray fw-normal'>到期日 {new Date(coupon.due_date).toLocaleDateString()}</td>
+
+                                                </div>
                                             </tr>
                                         )
                                     })}
