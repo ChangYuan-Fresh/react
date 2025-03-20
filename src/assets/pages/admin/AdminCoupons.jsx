@@ -114,7 +114,7 @@ function AdminCoupons() {
                                     {coupons.map((coupon) => {
                                         return (
                                             <tr key={coupon.id}>
-                                                <td scope="row text-nowrap">{coupon.title}</td>
+                                                <td scope="row" className='text-nowrap' >{coupon.title}</td>
                                                 <td>
                                                     <div className='text-primary d-flex'>
                                                         {coupon.code}

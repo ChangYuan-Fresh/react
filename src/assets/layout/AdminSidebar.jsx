@@ -74,31 +74,37 @@ function AdminSidebar() {
                 <NavLink
                     to="/admin/adminMember"
                     className="adminNavLink d-flex justify-content-center"
+                    data-bs-dismiss="offcanvas"
                 >會員管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminProductPage"
                     className="adminNavLink d-flex justify-content-center"
+                    data-bs-dismiss="offcanvas"
                 >商品管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminOrders"
                     className="adminNavLink d-flex justify-content-center"
+                    data-bs-dismiss="offcanvas"
                 >訂單管理</NavLink>                
                 <hr />
                 <NavLink
                     to="/admin/adminStory"
                     className="adminNavLink d-flex justify-content-center"
+                    data-bs-dismiss="offcanvas"
                 >文章管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminCoupons"
                     className="adminNavLink d-flex justify-content-center"
+                    data-bs-dismiss="offcanvas"
                 >優惠券管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminStatistics"
                     className="adminNavLink d-flex justify-content-center"
+                    data-bs-dismiss="offcanvas"
                 >統計圖表</NavLink>
             </div>
             <div>
