@@ -26,14 +26,21 @@ function AdminSidebar() {
     };
 
     const handleNavClick = (path) => {
-        // 1. 先關閉 Offcanvas
+        // 1. 獲取 offcanvas 元素
         const offcanvasElement = document.getElementById("offcanvasNavbar");
+        
         if (offcanvasElement) {
-            const bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
+            // 2. 檢查是否已經初始化
+            const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement) || new bootstrap.Offcanvas(offcanvasElement);
+            
+            // 3. 關閉 Offcanvas
             bsOffcanvas.hide();
         }
-        // 2. 再導航到對應頁面
-        navigate(path);
+
+        // 4. 等待選單關閉後再導航
+        setTimeout(() => {
+            navigate(path);
+        }, 300); // 加一個微小的延遲，確保動畫結束
     };
 
     return (<>
