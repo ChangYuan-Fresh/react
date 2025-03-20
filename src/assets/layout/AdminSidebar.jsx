@@ -25,6 +25,17 @@ function AdminSidebar() {
         }
     };
 
+    const handleNavClick = (path) => {
+        // 1. 先關閉 Offcanvas
+        const offcanvasElement = document.getElementById("offcanvasNavbar");
+        if (offcanvasElement) {
+            const bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
+            bsOffcanvas.hide();
+        }
+        // 2. 再導航到對應頁面
+        navigate(path);
+    };
+
     return (<>
         {/* 電腦版 */}
         <div className="sidebar  d-none d-lg-block d-flex flex-column justify-content-center ">
@@ -74,37 +85,37 @@ function AdminSidebar() {
                 <NavLink
                     to="/admin/adminMember"
                     className="adminNavLink d-flex justify-content-center"
-                    data-bs-dismiss="offcanvas"
+                    onClick={(e) => handleNavClick(e, "/admin/adminMember")}
                 >會員管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminProductPage"
                     className="adminNavLink d-flex justify-content-center"
-                    data-bs-dismiss="offcanvas"
+                    onClick={(e) => handleNavClick(e, "/admin/adminProductPage")}
                 >商品管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminOrders"
                     className="adminNavLink d-flex justify-content-center"
-                    data-bs-dismiss="offcanvas"
+                    onClick={(e) => handleNavClick(e, "/admin/adminOrders")}
                 >訂單管理</NavLink>                
                 <hr />
                 <NavLink
                     to="/admin/adminStory"
                     className="adminNavLink d-flex justify-content-center"
-                    data-bs-dismiss="offcanvas"
+                    onClick={(e) => handleNavClick(e, "/admin/adminStory")}
                 >文章管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminCoupons"
                     className="adminNavLink d-flex justify-content-center"
-                    data-bs-dismiss="offcanvas"
+                    onClick={(e) => handleNavClick(e, "/admin/adminCoupons")}
                 >優惠券管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminStatistics"
                     className="adminNavLink d-flex justify-content-center"
-                    data-bs-dismiss="offcanvas"
+                    onClick={(e) => handleNavClick(e, "/admin/adminStatistics")}
                 >統計圖表</NavLink>
             </div>
             <div>
