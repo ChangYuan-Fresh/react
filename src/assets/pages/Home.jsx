@@ -19,14 +19,14 @@ const apiPath = 'changyuan_fresh';
 function Home() {
     const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
-    const [activeImage, setActiveImage] = useState("images/Cauliflower HQ (2).png");
+    const [activeImage, setActiveImage] = useState("https://imageshttps://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.unsplash.com/photo-1584615467023-6953d1cba975?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dhttps://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     const [stories, setStories] = useState([]);
 
     const storyImages = {
-        cauliflower: "images/Cauliflower HQ (2).png",
+        cauliflower: "https://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         grape: "https://changyuan-fresh.github.io/FirstProject/assets/grape1-7a8c01cc.png",
-        farmTotable: "images/about3.png",
-        clam: "images/Kindelmedia 8352389 1.png",
+        farmTotable: "https://images.unsplash.com/photo-1567513068697-fca8c2af4528?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        clam: "https://images.unsplash.com/photo-1590794057118-99a053c5c3e1?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     };
 
     const handleCategorySelect = (category) => {
