@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import axios from 'axios'
 import PaginationCompo from '../../component/PaginationCompo';
 import CouponModal from '../../component/CouponModal';
@@ -28,24 +28,25 @@ function AdminCoupons() {
     const [isScreenLoading, setIsScreenLoading] = useState(false);
 
 
-    const checkLogin = async () => {
+    const checkLogin = useCallback(async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
             alert("請登入管理員帳號", error.data.message )
             navigate('/adminlogin')
         }
-    }
+    }, [navigate]);
+    
     useEffect(() => {
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
         if (token) {
             axios.defaults.headers.common['Authorization'] = token;
             checkLogin()
-        }
-    }, [])
+        };
+    }, [checkLogin]);
 
 
-    const getCouponList = async (page = 1) => {
+    const getCouponList = useCallback(async (page = 1) => {
         setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/coupons?page=${page}`);
@@ -57,7 +58,7 @@ function AdminCoupons() {
         } finally {
             setIsScreenLoading(false)
         }
-    }
+    }, [navigate]);
 
     const btnChangePage = (page) => {
         getCouponList(page);
@@ -84,8 +85,9 @@ function AdminCoupons() {
         delModelRef.current.show()
     }
     useEffect(() => {
-        getCouponList()
-    }, [])
+        getCouponList();
+    }, [getCouponList]);
+
     return (
         <>
             <div className="container  rounded-3 py-5" >

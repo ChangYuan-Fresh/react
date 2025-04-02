@@ -7,7 +7,7 @@ function Products() {
         <main>
             {/* <!-- Banner --> */}
             <Banner
-                bannerImg={"images/Farm Pictures max-O_TVsaeZNlE 1.png"}
+                bannerImg={"images/orange.webp"}
                 title="全部商品"
                 enTitle="Store"
                 slogan1="產地到餐桌"

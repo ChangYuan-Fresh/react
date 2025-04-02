@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import axios from 'axios'
 import PaginationCompo from '../../component/PaginationCompo';
 import ProductModal from '../../component/ProductModal';
@@ -65,23 +65,24 @@ function AdminProductPage() {
         }
     };
 
-    const checkLogin = async () => {
+    const checkLogin = useCallback(async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
             alert("請登入管理員帳號", error.response)
             navigate('/adminlogin')
         }
-    }
+    }, [navigate]);
+
     useEffect(() => {
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
         if (token) {
             axios.defaults.headers.common['Authorization'] = token;
             checkLogin()
         }
-    }, [])
+    }, [checkLogin])
 
-    const getProductList = async (page = 1) => {
+    const getProductList = useCallback(async (page = 1) => {
         setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/products?page=${page}`);
@@ -93,7 +94,7 @@ function AdminProductPage() {
         } finally {
             setIsScreenLoading(false)
         }
-    }
+    }, [navigate]);
 
     const btnChangePage = (page) => {
         getProductList(page);
@@ -143,7 +144,7 @@ function AdminProductPage() {
     useEffect(() => {
         getProductList();
         getTotalProducts();
-    }, [])
+    }, [getProductList])
     return (
         <>
             <div className="container  rounded-3 py-5" >

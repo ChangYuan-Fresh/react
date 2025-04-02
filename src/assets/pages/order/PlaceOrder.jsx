@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import axios from 'axios'
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 import { updateCartData } from '../../redux/slice/cartSlice'
@@ -18,18 +18,19 @@ function PlaceOrder() {
             alert(error.error)
         }
     }
-    const getCartList = async () => {
+    const getCartList = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
             dispatch(updateCartData(res.data.data))
         } catch (error) {
             alert(error.error)
         }
-    }
+    }, [dispatch]);
+
     useEffect(() => {
         getCartList();
         getOrders()
-    }, [])
+    }, [getCartList])
 
     return (<>
         <div className="container order mt-lg-7 mt-5 mb-lg-10 mb-0 ">

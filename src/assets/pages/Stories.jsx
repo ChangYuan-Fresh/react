@@ -26,7 +26,7 @@ function Stories() {
         <main>
             {/* <!--banner--> */}
             <Banner
-                bannerImg={"images/banner3.png"}
+                bannerImg={"images/banner3.webp"}
                 title="產品故事"
                 enTitle="Story"
                 slogan1="探索農田的秘密"

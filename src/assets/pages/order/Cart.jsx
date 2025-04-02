@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from 'axios'
 import UpdateQtyBtnGroup from "../../component/UpdateQtyBtnGroup";
 import { Link } from "react-router";
@@ -17,7 +17,7 @@ function Cart() {
     const [shippingType] = useState('normal');
     const dispatch = useDispatch();
 
-    const getCartList = async () => {
+    const getCartList = useCallback(async () => {
         setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
@@ -28,10 +28,11 @@ function Cart() {
         } finally {
             setIsScreenLoading(false)
         }
-    }
+    }, [dispatch]);
+
     useEffect(() => {
         getCartList()
-    }, [])
+    }, [getCartList])
     //清空購物車
     const removeCart = async () => {
         setIsScreenLoading(true)

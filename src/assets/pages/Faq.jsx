@@ -5,7 +5,7 @@ function Faq() {
     return (<main>
         {/* <!--banner--> */}
         <Banner
-            bannerImg={"images/market.jpg"}
+            bannerImg={"images/market.webp"}
             title="常見問題"
             enTitle="FAQ"
             slogan1="快速解答你的疑問"
