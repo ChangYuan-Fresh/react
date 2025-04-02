@@ -2,6 +2,8 @@ import { NavLink, useNavigate } from "react-router";
 import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
+import { Offcanvas } from "bootstrap";
+
 
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -28,11 +30,11 @@ function AdminSidebar() {
     const handleNavClick = (path) => {
         // 1. 獲取 offcanvas 元素
         const offcanvasElement = document.getElementById("offcanvasNavbar");
-        
+
         if (offcanvasElement) {
             // 2. 檢查是否已經初始化
-            const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement) || new bootstrap.Offcanvas(offcanvasElement);
-            
+            const bsOffcanvas = Offcanvas.getInstance(offcanvasElement) || new Offcanvas(offcanvasElement);
+
             // 3. 關閉 Offcanvas
             bsOffcanvas.hide();
         }
@@ -60,7 +62,7 @@ function AdminSidebar() {
                 <NavLink
                     to="/admin/adminOrders"
                     className="adminNavLink"
-                >訂單管理</NavLink>               
+                >訂單管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminStory"
@@ -105,7 +107,7 @@ function AdminSidebar() {
                     to="/admin/adminOrders"
                     className="adminNavLink d-flex justify-content-center"
                     onClick={(e) => handleNavClick(e, "/admin/adminOrders")}
-                >訂單管理</NavLink>                
+                >訂單管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminStory"

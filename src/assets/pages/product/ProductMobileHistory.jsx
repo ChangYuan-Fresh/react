@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router';
 import 'swiper/css';
+import PropTypes from "prop-types";
 
 function ProductMobileHistory({ recentProducts=[] }) {
     return (
@@ -30,4 +31,19 @@ function ProductMobileHistory({ recentProducts=[] }) {
         </div>
     )
 }
+ProductMobileHistory.propTypes = {
+    recentProducts: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            category: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+            imageUrl: PropTypes.string.isRequired,
+        })
+    ),
+};
+
+// ✅ 預設 props，避免 undefined 問題
+ProductMobileHistory.defaultProps = {
+    recentProducts: [],
+};
 export default ProductMobileHistory

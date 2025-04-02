@@ -75,7 +75,7 @@ function ChangePassword (){
         </div>
 
 
-        <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" class="promotion-curve"/>
+        <img src="src/assets/images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve"/>
     </>
     )
 }

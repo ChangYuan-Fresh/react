@@ -1,4 +1,5 @@
 import { Link } from "react-router"
+import PropTypes from "prop-types"
 
 function ProductBrowsingHistory({ recentProducts }) {
     return (<>
@@ -28,4 +29,19 @@ function ProductBrowsingHistory({ recentProducts }) {
     </>
     )
 }
+ProductBrowsingHistory.propTypes = {
+    recentProducts: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            category: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+            imageUrl: PropTypes.string.isRequired,
+        })
+    ),
+};
+
+
+ProductBrowsingHistory.defaultProps = {
+    recentProducts: [],
+};
 export default ProductBrowsingHistory

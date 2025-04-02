@@ -1,3 +1,5 @@
+import PropTypes from "prop-types"
+
 function Banner({ bannerImg, title, enTitle, slogan1, slogan2 }) {
     return (<section className="mt-6 position-relative">
         <div className="allProduct-banner-mx">
@@ -18,5 +20,13 @@ function Banner({ bannerImg, title, enTitle, slogan1, slogan2 }) {
         </div>
     </section>)
 }
+
+Banner.propTypes = {
+    bannerImg: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    enTitle: PropTypes.string,
+    slogan1: PropTypes.string,
+    slogan2: PropTypes.string
+};
 
 export default Banner

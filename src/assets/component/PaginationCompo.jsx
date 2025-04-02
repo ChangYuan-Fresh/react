@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 
 function PaginationCompo({ pageInfo, btnChangePage }) {
@@ -50,5 +51,15 @@ function PaginationCompo({ pageInfo, btnChangePage }) {
             </nav>
         </div>)
 }
+
+PaginationCompo.propTypes = {
+    pageInfo: PropTypes.shape({
+        current_page: PropTypes.number.isRequired,
+        total_pages: PropTypes.number.isRequired,
+        has_pre: PropTypes.bool.isRequired,
+        has_next: PropTypes.bool.isRequired,
+    }).isRequired,
+    btnChangePage: PropTypes.func.isRequired,
+};
 
 export default PaginationCompo

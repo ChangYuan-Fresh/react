@@ -32,7 +32,7 @@ function AdminCoupons() {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
-            alert("請登入管理員帳號")
+            alert("請登入管理員帳號", error.data.message )
             navigate('/adminlogin')
         }
     }
@@ -52,7 +52,7 @@ function AdminCoupons() {
             setCoupons(res.data.coupons);
             getPageInfo(res.data.pagination)
         } catch (error) {
-            alert("請登入管理員帳號" || res.data.message)
+            alert("請登入管理員帳號" , error.data.message)
             navigate('/adminlogin')
         } finally {
             setIsScreenLoading(false)
@@ -141,7 +141,7 @@ function AdminCoupons() {
                                         return (
                                             <tr key={coupon.id}>
                                                 <div className='d-flex justify-content-between align-items-center my-0'>
-                                                    <td scope="row" className='fs-5'><i class="bi bi-coin pe-1"></i>{coupon.title}</td>
+                                                    <td scope="row" className='fs-5'><i className="bi bi-coin pe-1"></i>{coupon.title}</td>
                                                     <td>
                                                         <div className="btn-group" role="group">
                                                             <button type="button" className="btn bg-transparent text-accent btn-sm" onClick={() => openModal('edit', coupon)}>編輯</button>

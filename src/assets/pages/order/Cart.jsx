@@ -14,7 +14,7 @@ function Cart() {
     const [cartList, setCartList] = useState([]);
     const [isScreenLoading, setIsScreenLoading] = useState(false);
     const [orderExtend, setOrderExtend] = useState(false);
-    const [shippingType, setShippingType] = useState('normal');
+    const [shippingType] = useState('normal');
     const dispatch = useDispatch();
 
     const getCartList = async () => {
@@ -40,7 +40,7 @@ function Cart() {
             alert('清空購物車成功');
             getCartList()
         } catch (error) {
-            alert('清空購物車失敗' || error.data.message)
+            alert('清空購物車失敗' , error.response)
         } finally {
             setIsScreenLoading(false)
         }
@@ -52,7 +52,7 @@ function Cart() {
             await axios.delete(`${baseUrl}/v2/api/${apiPath}/cart/${id}`)
             getCartList()
         } catch (error) {
-            alert('刪除品項失敗' || error.data.message)
+            alert('刪除品項失敗' , error.response)
         } finally {
             setIsScreenLoading(false)
         }
@@ -69,7 +69,7 @@ function Cart() {
             })
             getCartList()
         } catch (error) {
-            alert('更新品項失敗' || error.data.message)
+            alert('更新品項失敗', error.response)
         } finally {
             setIsScreenLoading(false)
         }

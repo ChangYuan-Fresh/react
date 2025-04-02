@@ -3,6 +3,7 @@ import axios from "axios";
 import IsScreenLoading from "../../component/IsScreenLoading";
 import c3 from "c3";
 import "c3/c3.css";
+import { useNavigate } from 'react-router';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -11,6 +12,7 @@ function AdminStatistics() {
     const [allOrders, setAllOrders] = useState([]);
     const [productStocks, setProductStocks] = useState([]);
     const [isScreenLoading, setIsScreenLoading] = useState(false);
+    const navigate = useNavigate()
 
     const chartRef1 = useRef(null);
     const chartRef2 = useRef(null);
@@ -31,7 +33,7 @@ function AdminStatistics() {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`);
         } catch (error) {
-            alert("請登入管理員帳號");
+            alert("請登入管理員帳號", error.response);
             navigate("/adminlogin");
         }
     };
@@ -49,7 +51,7 @@ function AdminStatistics() {
             const responses = await Promise.all(requests);
             setAllOrders(responses.flatMap((res) => res.data.orders));
         } catch (error) {
-            alert("取得訂單資料失敗" || error.response);
+            alert("取得訂單資料失敗" ,  error.response);
         } finally {
             setIsScreenLoading(false);
         }

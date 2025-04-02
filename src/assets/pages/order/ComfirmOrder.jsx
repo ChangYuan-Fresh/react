@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router";
 import axios from 'axios'
 import cityData from './form/taiwan.json'
 import Input from "../../component/Input";
-import CheckboxRadio from "../../component/CheckBoxRadio";
 import Select from "../../component/Select";
 import IsScreenLoading from "../../component/IsScreenLoading";
 import Toast from "../../layout/Toast";
@@ -20,7 +19,7 @@ function ComfirmOrder() {
     const [isScreenLoading, setIsScreenLoading] = useState(false);
     const [addressData, setAddressData] = useState([]);
     const [useCreditCard, setUseCreditCard] = useState(false)
-    const [useOtherPay, setUseOtherPay] = useState(false);
+    const [setUseOtherPay] = useState(false);
     const [couponCode, setCouponCode] = useState('');
     const [shippingType, setShippingType] = useState('normal');
     const [orderExtend, setOrderExtend] = useState(false);
@@ -49,7 +48,7 @@ function ComfirmOrder() {
     )
 
     const onSubmit = handleSubmit((data) => {
-        const { message, shipping, ...user } = data;
+        const { message, ...user } = data;
         const userInfo = {
             data: {
                 user: {
@@ -71,7 +70,7 @@ function ComfirmOrder() {
             getCartList()
             navigate("/cart/placeordersuccess")
         } catch (error) {
-            alert('結帳失敗' || error.data.message)
+            alert('結帳失敗' , error.response)
             navigate("/cart")
         } finally {
             setIsScreenLoading(false)
@@ -212,8 +211,8 @@ function ComfirmOrder() {
                         </div>
                     </div>
                     {/* 商品總覽mobile */}
-                    <div class="card d-lg-none border-primary mb-3"  style={{ borderRadius: "16px" }}>
-                        <div class="card-body">
+                    <div className="card d-lg-none border-primary mb-3"  style={{ borderRadius: "16px" }}>
+                        <div className="card-body">
                             <div className="card-title text-primary fs-5 mb-5">商品明細</div>
                             {cartList.carts?.map((item)=>{
                                 return (

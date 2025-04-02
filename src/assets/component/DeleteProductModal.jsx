@@ -3,11 +3,12 @@ import axios from 'axios'
 import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
+import PropTypes from 'prop-types';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
-function DeleteProductModal({ tempProduct, getProductList, delModelRef}) {
+function DeleteProductModal({ tempProduct, getProductList, delModelRef }) {
     const delProductRef = useRef(null);
     const dispatch = useDispatch();
 
@@ -15,7 +16,7 @@ function DeleteProductModal({ tempProduct, getProductList, delModelRef}) {
         delModelRef.current = new Modal(delProductRef.current, {
             backdrop: false
         })
-    }, [])
+    }, [delModelRef])
 
     const closeDelModal = () => {
         delModelRef.current.hide()
@@ -37,7 +38,7 @@ function DeleteProductModal({ tempProduct, getProductList, delModelRef}) {
                 type: '刪除產品失敗',
                 status: "failed"
             }));
-        }finally{
+        } finally {
             closeDelModal()
         }
     }
@@ -62,5 +63,16 @@ function DeleteProductModal({ tempProduct, getProductList, delModelRef}) {
         </div>
     )
 }
+
+DeleteProductModal.propTypes = {
+    tempProduct: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        title: PropTypes.string.isRequired
+    }).isRequired, 
+    getProductList: PropTypes.func.isRequired,
+    delModelRef: PropTypes.shape({
+        current: PropTypes.object
+    }).isRequired 
+};
 
 export default DeleteProductModal

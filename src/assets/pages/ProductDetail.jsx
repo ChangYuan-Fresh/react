@@ -47,7 +47,7 @@ function ProductDetail() {
         setIsLoadingBtn(true);
         setIsLoading(true)
         try {
-            const res = await axios.post(`${baseUrl}/v2/api/${apiPath}/cart`, {
+            await axios.post(`${baseUrl}/v2/api/${apiPath}/cart`, {
                 data: {
                     product_id,
                     qty: Number(qtySelect)
@@ -73,7 +73,7 @@ function ProductDetail() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/product/${product_id}`);
             setProduct(res.data.product);
         } catch (error) {
-            alert('取得資料失敗' || error.data.message)
+            alert('取得資料失敗', error.response)
         } finally {
             setIsLoading(false)
         }

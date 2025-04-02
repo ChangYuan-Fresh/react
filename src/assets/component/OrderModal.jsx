@@ -3,6 +3,7 @@ import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
 import axios from 'axios'
+import PropTypes from 'prop-types';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -29,7 +30,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
         modelRef.current = new Modal(orderlRef.current, {
             backdrop: false
         })
-    }, [])
+    }, [modelRef])
 
     const closeModal = () => {
         modelRef.current.hide()
@@ -49,7 +50,7 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
                 ...tempOrder,
                 orderStatus: value,
             });
-        }else if (name === "shipping") {
+        } else if (name === "shipping") {
             // 處理訂單狀態變更
             setTempOrder({
                 ...tempOrder,
@@ -269,5 +270,42 @@ function OrderModal({ modelRef, setTempOrder, tempOrder, getOrderList }) {
             </div>
         </div>)
 }
+
+OrderModal.propTypes = {
+    modelRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }).isRequired,
+    setTempOrder: PropTypes.func.isRequired,
+    tempOrder: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        create_at: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        message: PropTypes.string,
+        is_paid: PropTypes.bool,
+        total: PropTypes.number,
+        user: PropTypes.shape({
+            name: PropTypes.string,
+            tel: PropTypes.string,
+            email: PropTypes.string,
+            city: PropTypes.string,
+            district: PropTypes.string,
+            address: PropTypes.string,
+            shipping: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            orderStatus: PropTypes.string,
+        }),
+        products: PropTypes.objectOf(
+            PropTypes.shape({
+                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                qty: PropTypes.number,
+                total: PropTypes.number,
+                product: PropTypes.shape({
+                    title: PropTypes.string,
+                    price: PropTypes.number,
+                }),
+                coupon: PropTypes.shape({
+                    code: PropTypes.string,
+                }),
+            })
+        ),
+    }).isRequired,
+    getOrderList: PropTypes.func.isRequired,
+};
 
 export default OrderModal

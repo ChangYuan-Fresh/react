@@ -9,7 +9,6 @@ const CheckboxRadio = ({ id, labelText, register, type, errors, rules, value, na
                 name={name}
                 id={id}
                 value={value}
-                checked={checked}
                 {...register(name, rules)}
             />
             {/* Radio 使用 Name 欄位 */}

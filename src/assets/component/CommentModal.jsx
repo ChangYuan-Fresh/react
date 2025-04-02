@@ -11,7 +11,7 @@ function CommentModal ({tempProduct,modelRef}){
                 backdrop: false
             });
         }
-    }, [])
+    }, [modelRef])
 
     const closeModal = () => {
         modelRef.current.hide()

@@ -29,7 +29,7 @@ function AdminOrders() {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
-            alert("請登入管理員帳號")
+            alert("請登入管理員帳號", error.response)
             navigate('/adminlogin')
         }
     }
@@ -48,7 +48,7 @@ function AdminOrders() {
             setOrders(res.data.orders)
             getPageInfo(res.data.pagination)
         } catch (error) {
-            alert("取得訂單資料失敗" || error.response)
+            alert("取得訂單資料失敗" ,  error.response)
         } finally {
             setIsScreenLoading(false)
         }
@@ -105,7 +105,7 @@ function AdminOrders() {
             await axios.delete(`${baseUrl}/v2/api/${apiPath}/admin/order/${id}`)
             getOrderList()
         } catch (error) {
-            alert('刪除訂單失敗' || error.data.message)
+            alert('刪除訂單失敗', error.response)
         } finally {
             setIsScreenLoading(false)
         }
@@ -120,7 +120,7 @@ function AdminOrders() {
                 role="tablist">
                 {orderState.map((state) => {
                     return (
-                        <SwiperSlide className={`nav-item  border-bottom ${selectState === state ? 'border-primary border-3' : 'border-gray-200'}`}>
+                        <SwiperSlide className={`nav-item  border-bottom ${selectState === state ? 'border-primary border-3' : 'border-gray-200'}`} key={state}>
                             <button className="nav-link px-3  border-0 py-3 w-100 text-center" type="button" onClick={() => setSelectState(state)}>
                                 {state}
                             </button>
