@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import IsScreenLoading from "../../component/IsScreenLoading";
 import c3 from "c3";
@@ -27,16 +27,16 @@ function AdminStatistics() {
             axios.defaults.headers.common["Authorization"] = token;
             checkLogin();
         }
-    }, []);
+    }, [checkLogin]);
 
-    const checkLogin = async () => {
+    const checkLogin = useCallback(async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`);
         } catch (error) {
             alert("請登入管理員帳號", error.response);
             navigate("/adminlogin");
         }
-    };
+    }, [navigate]);
 
     const getAllOrder = async () => {
         setIsScreenLoading(true);

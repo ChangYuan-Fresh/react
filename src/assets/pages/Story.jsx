@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { Link, useParams } from "react-router";
 import axios from 'axios'
 import Banner from "../layout/Banner";
@@ -13,16 +13,16 @@ function Story() {
     const { id: story_id } = useParams();
     const [isScreenLoading, setIsScreenLoading] = useState(false)
 
-    const getStoryList = async () => {
+    const getStoryList = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/articles`);
             setStories(res.data.articles);
         } catch (error) {
             alert('取得文章失敗', error.data.message)
         }
-    }
+    }, []);
 
-    const getStoryDetail = async () => {
+    const getStoryDetail = useCallback(async () => {
         setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/article/${story_id}`);
@@ -32,12 +32,12 @@ function Story() {
         } finally {
             setIsScreenLoading(false)
         }
-    }
+    }, [story_id]);
 
     useEffect(() => {
         getStoryDetail();
         getStoryList();
-    }, [story_id])
+    }, [getStoryDetail, getStoryList])
 
     return (<>
         <main>

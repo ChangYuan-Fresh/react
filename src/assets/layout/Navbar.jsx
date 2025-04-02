@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios'
 import logoS from '../images/LOGO-S.png';
@@ -25,17 +25,18 @@ function Navbar() {
         setIsOpen(!isOpen);
     };
 
-    const getCartList = async () => {
+    const getCartList = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
-            dispatch(updateCartData(res.data.data))
+            dispatch(updateCartData(res.data.data));
         } catch (error) {
-            alert(error.response)
+            alert(error.response);
         }
-    }
+    }, [dispatch]); // 只在 dispatch 變更時重新創建
+
     useEffect(() => {
-        getCartList()
-    }, [])
+        getCartList();
+    }, [getCartList]); 
 
 
     return (<>

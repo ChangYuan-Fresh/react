@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Thumbs, Pagination } from 'swiper/modules';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -67,35 +67,35 @@ function ProductDetail() {
         setQtySelect(qtySelect);
     }
 
-    const getProductDetail = async () => {
+    const getProductDetail = useCallback(async () => {
         setIsLoading(true);
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/product/${product_id}`);
             setProduct(res.data.product);
         } catch (error) {
-            alert('取得資料失敗', error.response)
+            alert('取得資料失敗', error.response);
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
         }
-    }
+    }, [product_id]);
     useEffect(() => {
         getProductDetail();
-    }, [])
+    }, [getProductDetail])
 
     const handleTextExtend = () => {
         setTextExtend(prevState => !prevState)
     }
-    const getCartList = async () => {
+    const getCartList = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
-            dispatch(updateCartData(res.data.data))
+            dispatch(updateCartData(res.data.data));
         } catch (error) {
-            alert(error.data)
+            alert(error.data);
         }
-    }
+    }, [dispatch]);
     useEffect(() => {
         getCartList()
-    }, [])
+    }, [getCartList])
 
     return (<>
         <div className="container product">

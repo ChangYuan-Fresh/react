@@ -79,7 +79,7 @@ function Member() {
         if (filterOrders.length > 0 && expandedOrders.size === 0) {
             setExpandedOrders(new Set([filterOrders[0].id])); // 預設展開第一筆訂單
         }
-    }, [filterOrders]);
+    }, [filterOrders, expandedOrders.size]);
 
 
     const handleTextExtend = () => {

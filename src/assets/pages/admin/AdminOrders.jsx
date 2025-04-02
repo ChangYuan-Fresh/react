@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import {useCallback, useEffect, useState, useRef } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -25,21 +25,22 @@ function AdminOrders() {
     const [searchType, setSearchType] = useState('訂單編號')
 
 
-    const checkLogin = async () => {
+    const checkLogin = useCallback(async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
             alert("請登入管理員帳號", error.response)
             navigate('/adminlogin')
         }
-    }
+    }, [navigate]);
+
     useEffect(() => {
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
         if (token) {
             axios.defaults.headers.common['Authorization'] = token;
             checkLogin()
         }
-    }, [])
+    }, [checkLogin])
 
     const getOrderList = async (page = 1) => {
         setIsScreenLoading(true)
