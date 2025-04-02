@@ -1,4 +1,5 @@
 import ReactLoading from 'react-loading'
+import PropTypes from 'prop-types'
 
 function IsScreenLoading({isScreenLoading}) {
     return (<>
@@ -16,5 +17,10 @@ function IsScreenLoading({isScreenLoading}) {
 
     </>)
 }
+
+IsScreenLoading.propTypes = {
+    isScreenLoading: PropTypes.bool.isRequired,
+};
+
 
 export default IsScreenLoading

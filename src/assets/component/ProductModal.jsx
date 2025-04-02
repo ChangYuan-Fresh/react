@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
+import PropTypes from 'prop-types';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -149,7 +150,7 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
         modelRef.current = new Modal(productRef.current, {
             backdrop: false
         })
-    }, [])
+    }, [modelRef])
 
     return (
         <div className="modal" tabIndex="-1" ref={productRef} id="productModal" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
@@ -421,5 +422,30 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
 
     )
 }
+
+ProductModal.propTypes = {
+    modalMode: PropTypes.oneOf(['create', 'edit']).isRequired,   // 'create' 或 'edit'
+    tempProduct: PropTypes.shape({
+        id: PropTypes.number,
+        product_code: PropTypes.string,
+        title: PropTypes.string,
+        sub_title: PropTypes.string,
+        sub_category: PropTypes.string,
+        unit: PropTypes.string,
+        origin_price: PropTypes.number,
+        price: PropTypes.number,
+        product_stock: PropTypes.number,
+        category: PropTypes.string,
+        imageUrl: PropTypes.string,
+        imagesUrl: PropTypes.arrayOf(PropTypes.string),
+        content: PropTypes.string,
+        description: PropTypes.string,
+        is_enabled: PropTypes.bool,
+        is_frozen: PropTypes.bool
+    }).isRequired,   // `tempProduct` 應為具有特定結構的物件
+    getProductList: PropTypes.func.isRequired,   // 用來取得商品清單的函式
+    setTempProduct: PropTypes.func.isRequired,   // 用來更新 `tempProduct` 的函式
+    modelRef: PropTypes.object.isRequired       // Modal 的 ref 物件
+};
 
 export default ProductModal

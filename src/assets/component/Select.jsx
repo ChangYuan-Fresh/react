@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Select = ({ id, labelText, register, errors, rules, children, disabled = false }) => {
     return (
         <>
@@ -18,4 +20,14 @@ const Select = ({ id, labelText, register, errors, rules, children, disabled = f
         </>
     )
 }
+
+Select.propTypes = {
+    id: PropTypes.string.isRequired,             
+    labelText: PropTypes.string.isRequired, 
+    register: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired,
+    rules: PropTypes.object,
+    children: PropTypes.node.isRequired,
+    disabled: PropTypes.bool
+};
 export default Select;

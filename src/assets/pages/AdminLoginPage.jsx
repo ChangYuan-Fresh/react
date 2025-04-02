@@ -14,7 +14,6 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 function AdminLoginPage (){
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
-    const [isAuth ,setIsAuth] =useState(false);
     const dispatch = useDispatch();
     const {
         register,
@@ -31,7 +30,6 @@ function AdminLoginPage (){
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
             axios.defaults.headers.common['Authorization'] = token;
             navigate("/admin")
-            setIsAuth(true);
             dispatch(createAsyncMessage({
                 text: "登入成功",
                 type: '歡迎登入管理中心',
@@ -47,7 +45,6 @@ function AdminLoginPage (){
     const checkLogin = async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
-            setIsAuth(true);
         } catch (error) {
             console.log(error)
         }

@@ -14,7 +14,7 @@ function Stories() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/articles`);
             setStories(res.data.articles);
         } catch (error) {
-            alert('取得文章失敗' || error.data.message)
+            alert('取得文章失敗', error.data.message)
         } 
     }
 

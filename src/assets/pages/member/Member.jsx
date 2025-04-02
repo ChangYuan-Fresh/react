@@ -43,7 +43,7 @@ function Member() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/orders`);
             setOrders(res.data.orders)
         } catch (error) {
-            alert("取得訂單資料失敗" || error.response)
+            alert("取得訂單資料失敗", error.response)
         } finally {
             setIsScreenLoading(false)
         }
@@ -97,7 +97,7 @@ function Member() {
                 alert("折扣碼已複製！"); // 顯示提示訊息
             })
             .catch((error) => {
-                alert("複製失敗！"); // 顯示錯誤訊息
+                alert("複製失敗！", error.response); // 顯示錯誤訊息
             });
     };
     //modal
@@ -299,7 +299,7 @@ function Member() {
                     <img src="images/Illustration/Frame.png" alt="empty" />
                     <h6 className="mt-6 text-dark">目前還沒有訂單</h6>
                 </div>) :
-                (filterOrders.map((order, index) => {
+                (filterOrders.map((order) => {
                     const isExpanded = expandedOrders.has(order.id);
                     return (
                         <div key={order.id} className="card my-4 mx-3 border-0 p-4 bg-secondary-200">

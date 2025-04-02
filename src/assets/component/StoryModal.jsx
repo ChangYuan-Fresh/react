@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
+import PropTypes from 'prop-types';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -115,7 +116,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
         modelRef.current = new Modal(articleRef.current, {
             backdrop: false
         })
-    }, [])
+    }, [modelRef])
     return (
         <div className="modal" tabIndex="-1" ref={articleRef} id="articleModal" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
             <div className="modal-dialog modal-dialog-centered modal-xl">
@@ -317,5 +318,21 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
 
     )
 }
-
+StoryModal.propTypes = {
+    modalMode: PropTypes.oneOf(['create', 'edit']).isRequired,
+    tempArticle: PropTypes.shape({
+        id: PropTypes.string,
+        image: PropTypes.string,
+        image2: PropTypes.string,
+        article_code: PropTypes.string,
+        title: PropTypes.string,
+        author: PropTypes.string,
+        description: PropTypes.string,
+        content: PropTypes.string,
+        isPublic: PropTypes.bool
+    }).isRequired, 
+    getArticleList: PropTypes.func.isRequired, 
+    setTempArticle: PropTypes.func.isRequired, 
+    modelRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }).isRequired
+};
 export default StoryModal

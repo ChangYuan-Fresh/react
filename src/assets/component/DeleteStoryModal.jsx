@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
+import PropTypes from 'prop-types';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -15,7 +16,7 @@ function DeleteStoryModal({ tempArticle, getArticleList, delModelRef}) {
         delModelRef.current = new Modal(delArticleRef.current, {
             backdrop: false
         })
-    }, [])
+    }, [delModelRef])
 
     const closeDelModal = () => {
         delModelRef.current.hide()
@@ -62,5 +63,14 @@ function DeleteStoryModal({ tempArticle, getArticleList, delModelRef}) {
         </div>
     )
 }
+
+DeleteStoryModal.propTypes = {
+    tempArticle: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // id 可以是數字或字串
+        title: PropTypes.string.isRequired, // title 必須是字串
+    }).isRequired, // tempArticle 為物件，且必填
+    getArticleList: PropTypes.func.isRequired, // getArticleList 必須是函數
+    delModelRef: PropTypes.shape({ current: PropTypes.object }).isRequired, // delModelRef 必須是 useRef 物件
+};
 
 export default DeleteStoryModal

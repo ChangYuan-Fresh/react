@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
 import AdminNavbar from "./AdminNavbar";
 import { useEffect } from "react";
@@ -14,7 +14,7 @@ function AdminLayout() {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
-            alert("請登入管理員帳號")
+            alert("請登入管理員帳號", error.response)
             navigate('/adminlogin')
         }
     }

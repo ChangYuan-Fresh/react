@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
+import PropTypes from 'prop-types';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -10,7 +11,7 @@ const apiPath = import.meta.env.VITE_API_PATH;
 function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, modelRef }) {
     const couponRef = useRef(null);
     const dispatch = useDispatch();
-    const [date, setDate] = useState(new Date()); //轉換日期
+    const [date, setDate] = useState(tempCoupon.due_date ? new Date(tempCoupon.due_date) : new Date()); //轉換日期
 
     //新增優惠券
     const createNewCoupon = async () => {
@@ -50,14 +51,14 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                 }
             });
             setDate(new Date(tempCoupon.due_date));
-            dispatch(creatAsyncMessage({
+            dispatch(createAsyncMessage({
                 text: res.data.message,
                 type: '更新優惠券成功',
                 status: "success"
             }))
         } catch (error) {
             const { message } = error.response.data;
-            dispatch(creatAsyncMessage({
+            dispatch(createAsyncMessage({
                 text: message.join("、"),
                 type: '更新優惠失敗',
                 status: "failed"
@@ -72,8 +73,8 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
             getCouponList();
             closeModal()
         } catch (error) {
-            const { message } = error.response.data;
-            dispatch(creatAsyncMessage({
+            const message = error?.response?.data?.message || '其他錯誤';
+            dispatch(createAsyncMessage({
                 text: message.join("、"),
                 type: '失敗',
                 status: "failed"
@@ -101,7 +102,7 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
         modelRef.current = new Modal(couponRef.current, {
             backdrop: false
         })
-    }, [])
+    }, [modelRef])
     return (
         <div className="modal" tabIndex="-1" ref={couponRef} id="couponModal" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
             <div className="modal-dialog modal-dialog-centered modal-xl">
@@ -187,5 +188,22 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
 
     )
 }
+
+CouponModal.propTypes = {
+    modalMode: PropTypes.oneOf(['create', 'edit']).isRequired,
+    tempCoupon: PropTypes.shape({
+        id: PropTypes.string,
+        title: PropTypes.string,
+        code: PropTypes.string,
+        percent: PropTypes.number,
+        is_enabled: PropTypes.bool,
+        due_date: PropTypes.string,
+    }).isRequired,
+    getCouponList: PropTypes.func.isRequired,
+    setTempCoupon: PropTypes.func.isRequired,
+    modelRef: PropTypes.shape({
+        current: PropTypes.object
+    }).isRequired
+};
 
 export default CouponModal

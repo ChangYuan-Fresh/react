@@ -36,7 +36,7 @@ function AdminStory() {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
-            alert("請登入管理員帳號")
+            alert("請登入管理員帳號", error.response)
             navigate('/adminlogin')
         }
     }
@@ -55,7 +55,7 @@ function AdminStory() {
             setArticles(res.data.articles);
             getPageInfo(res.data.pagination)
         } catch (error) {
-            alert('取得資料失敗' || res.data.message)
+            alert('取得資料失敗' ,error.response)
             navigate('/adminlogin')
         } finally {
             setIsScreenLoading(false)
@@ -93,7 +93,7 @@ function AdminStory() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/article/${id}`);
             setTempArticle(res.data.article)
         } catch (error) {
-            alert('取得資料失敗' || res.data.message)
+            alert('取得資料失敗', error.response)
             navigate('/adminlogin')
         }
     }

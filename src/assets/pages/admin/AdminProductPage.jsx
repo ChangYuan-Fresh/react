@@ -38,7 +38,7 @@ function AdminProductPage() {
     const [totalOnSale, setTotalOnSale] = useState(0);      // 上架商品數
     const [totalNoOnSale, setTotalNoOnSale] = useState(0);  // 未上架商品數
     const [searchTerm, setSearchTerm] = useState(""); // 搜尋字串
-    const [status, setStatus] = useState("all"); // 當前篩選的狀態（全部 / 上架 / 未上架）
+    const [status] = useState("all"); // 當前篩選的狀態（全部 / 上架 / 未上架）
     const [isInputFocused, setIsInputFocused] = useState(false); // 控制放大鏡顯示
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -69,7 +69,7 @@ function AdminProductPage() {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
-            alert("請登入管理員帳號")
+            alert("請登入管理員帳號", error.response)
             navigate('/adminlogin')
         }
     }
@@ -88,7 +88,7 @@ function AdminProductPage() {
             setProducts(res.data.products);
             getPageInfo(res.data.pagination)
         } catch (error) {
-            alert('取得資料失敗' || res.data.message)
+            alert('取得資料失敗', error.response)
             navigate('/adminlogin')
         } finally {
             setIsScreenLoading(false)

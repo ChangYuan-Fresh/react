@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const CheckboxRadio = ({ id, labelText, register, type, errors, rules, value, name, }) => {
     return (<>
         <div className='form-check'>
@@ -7,7 +9,6 @@ const CheckboxRadio = ({ id, labelText, register, type, errors, rules, value, na
                 name={name}
                 id={id}
                 value={value}
-                checked={checked}
                 {...register(name, rules)}
             />
             {/* Radio 使用 Name 欄位 */}
@@ -20,5 +21,21 @@ const CheckboxRadio = ({ id, labelText, register, type, errors, rules, value, na
         </div>
     </>)
 }
+
+CheckboxRadio.propTypes = {
+    id: PropTypes.string.isRequired,
+    labelText: PropTypes.string.isRequired,
+    register: PropTypes.func.isRequired,
+    type: PropTypes.string.isRequired,
+    errors: PropTypes.objectOf(
+        PropTypes.shape({
+            message: PropTypes.string,
+        })
+    ).isRequired,
+    rules: PropTypes.object,
+    value: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    checked: PropTypes.bool,
+};
 
 export default CheckboxRadio;

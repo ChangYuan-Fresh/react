@@ -3,11 +3,12 @@ import axios from 'axios'
 import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
+import PropTypes from 'prop-types';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
-function DeleteCouponModal({ tempCoupon, getCouponList, delModelRef}) {
+function DeleteCouponModal({ tempCoupon, getCouponList, delModelRef }) {
     const delCouponRef = useRef(null);
     const dispatch = useDispatch();
 
@@ -15,7 +16,7 @@ function DeleteCouponModal({ tempCoupon, getCouponList, delModelRef}) {
         delModelRef.current = new Modal(delCouponRef.current, {
             backdrop: false
         })
-    }, [])
+    }, [delModelRef])
 
     const closeDelModal = () => {
         delModelRef.current.hide()
@@ -37,7 +38,7 @@ function DeleteCouponModal({ tempCoupon, getCouponList, delModelRef}) {
                 type: '刪除優惠券失敗',
                 status: "failed"
             }));
-        }finally{
+        } finally {
             closeDelModal()
         }
     }
@@ -63,4 +64,12 @@ function DeleteCouponModal({ tempCoupon, getCouponList, delModelRef}) {
     )
 }
 
+DeleteCouponModal.propTypes = {
+    tempCoupon: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        title: PropTypes.string.isRequired,
+    }).isRequired,
+    getCouponList: PropTypes.func.isRequired, 
+    delModelRef: PropTypes.shape({ current: PropTypes.object }).isRequired, 
+};
 export default DeleteCouponModal

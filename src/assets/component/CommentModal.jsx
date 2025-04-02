@@ -1,14 +1,17 @@
 import { Modal } from 'bootstrap';
 import { useEffect, useRef } from "react";
+import PropTypes from 'prop-types'
 
 function CommentModal ({tempProduct,modelRef}){
     const orderlRef = useRef(null);
 
     useEffect(() => {
-        modelRef.current = new Modal(orderlRef.current, {
-            backdrop: false
-        })
-    }, [])
+        if (orderlRef.current) {
+            modelRef.current = new Modal(orderlRef.current, {
+                backdrop: false
+            });
+        }
+    }, [modelRef])
 
     const closeModal = () => {
         modelRef.current.hide()
@@ -71,5 +74,19 @@ function CommentModal ({tempProduct,modelRef}){
         </div>
     </div>)
 }
+
+CommentModal.propTypes = {
+    tempProduct: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      product: PropTypes.shape({
+        imageUrl: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+    modelRef: PropTypes.shape({
+      current: PropTypes.object,
+    }).isRequired,
+  };
 
 export default CommentModal;

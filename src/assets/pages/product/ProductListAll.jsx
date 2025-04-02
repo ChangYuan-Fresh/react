@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link,  useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import axios from 'axios'
 import 'swiper/css';
@@ -19,7 +19,8 @@ function ProductListAll() {
     const [recentProducts, setRecentProducts] = useState([]);
     const location = useLocation();
     const { category } = useParams();
-    
+    const navigate = useNavigate();
+
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const searchQueryParam = queryParams.get('query');
@@ -38,7 +39,7 @@ function ProductListAll() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/products/all`);
             setProducts(res.data.products);
         } catch (error) {
-            alert('取得資料失敗' || error.data.message)
+            alert('取得資料失敗', error.response)
         } finally {
             setIsScreenLoading(false)
         }
@@ -127,7 +128,7 @@ function ProductListAll() {
                         })}
                     </section>
                     {/* <!-- 左側瀏覽紀錄 --> */}
-                    <ProductBrowsingHistory recentProducts={recentProducts}/>
+                    <ProductBrowsingHistory recentProducts={recentProducts} />
                 </div>
                 {/* <!-- 商品列表 --> */}
                 <section className="col-xl-9 col-lg-8 allProduct-catalog">
@@ -187,7 +188,7 @@ function ProductListAll() {
                     <IsScreenLoading isScreenLoading={isScreenLoading} />
                 </section>
             </div>
-            <ProductMobileHistory recentProducts={recentProducts}/>
+            <ProductMobileHistory recentProducts={recentProducts} />
         </section>
     </>
     )

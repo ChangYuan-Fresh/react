@@ -86,7 +86,7 @@ function Home() {
             const res = await axios.get(`${baseUrl}/${apiPath}/articles`);
             setStories(res.data.articles.slice(0, 4));
         } catch (error) {
-            alert('取得文章失敗' || error.response)
+            alert('取得文章失敗', error)
         } 
     }
 

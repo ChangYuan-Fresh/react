@@ -18,7 +18,7 @@ function Story() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/articles`);
             setStories(res.data.articles);
         } catch (error) {
-            alert('取得文章失敗' || error.data.message)
+            alert('取得文章失敗', error.data.message)
         }
     }
 
@@ -28,7 +28,7 @@ function Story() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/article/${story_id}`);
             setStory(res.data.article);
         } catch (error) {
-            alert('取得文章失敗' || error.data.message)
+            alert('取得文章失敗', error.data.message)
         } finally {
             setIsScreenLoading(false)
         }
