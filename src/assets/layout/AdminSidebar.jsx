@@ -22,7 +22,6 @@ function AdminSidebar() {
                 status: "success"
             }));
         } catch (error) {
-            console.log(error)
             alert("登出失敗");
         }
     };
@@ -134,7 +133,7 @@ function AdminSidebar() {
                     <span className="text-primary mb-3"><small>管理中心</small></span>
                     <button
                         onClick={handleLogout}
-                        className="  btn btn-outline-primary fw-bold rounded-3 px-8 py-2"
+                        className="btn btn-outline-primary fw-bold rounded-3 px-8 py-2"
                     >登出</button>
                 </NavLink>
             </div>

@@ -55,7 +55,7 @@ function Home() {
                     setProducts(data.products);
                 }
             })
-            .catch((err) => console.error("獲取商品失敗:", err));
+            .catch((err) => alert("獲取商品失敗", err.response));
     }, []);
 
     // 根據選擇的分類篩選商品
@@ -93,7 +93,7 @@ function Home() {
     useEffect(() => {
         getStoryList();
     }, [])
-    console.log(stories)
+   
     return (
         <div>
             <main>
@@ -284,7 +284,7 @@ function Home() {
                     <div className="container py-lg-11 py-8 ">
                         <div className="d-lg-flex justify-content-lg-between align-items-center">
                             <div className="story-tab-content rounded-5 me-lg-6 me-0 mb-lg-0 mb-4 story-img">
-                                <img src={activeImage} alt="story" className="" />
+                                <img src={activeImage} alt="story" />
                             </div>
                             <div className="nav story-nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <Link to="/stories/-OLXNXmUwZf7kfcMB1sL">
