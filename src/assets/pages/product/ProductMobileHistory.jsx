@@ -10,7 +10,7 @@ function ProductMobileHistory({ recentProducts=[] }) {
             <h6 className="fs-5 mb-4 ">你曾瀏覽過：</h6>
             <Swiper
                 spaceBetween={12}
-                slidesPerView={2}>
+                slidesPerView={2.1}>
                 {
                     recentProducts.length > 0 ? (
                         recentProducts.map((product) => (

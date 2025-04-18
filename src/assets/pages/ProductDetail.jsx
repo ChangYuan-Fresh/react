@@ -177,7 +177,7 @@ function ProductDetail() {
                         <div>
                             <p className="text-primary fs-7 mb-2">{`規格：${product.description||''}`}</p>
                             <div className="mb-5">
-                                <div className="d-flex justify-content-between w-25 align-items-center mb-2">
+                                <div className="d-flex justify-content-between w-75 w-lg-25 align-items-center mb-2">
                                     <p className="text-primary fs-7">數量</p>
                                     <p className="text-gray">{`剩餘 ${product.product_stock||0} ${product.unit||''}`}</p>
 

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 
 function Banner({ bannerImg, title, enTitle, slogan1, slogan2 }) {
-    return (<section className="mt-6 position-relative">
+    return (<section className="mt-0 mt-lg-6 position-relative">
         <div className="allProduct-banner-mx">
             <img src={bannerImg} alt="#" className="d-block w-100 allProduct-banner-img" />
             <div className="position-absolute top-50 start-50 translate-middle allProduct-banner-375size">

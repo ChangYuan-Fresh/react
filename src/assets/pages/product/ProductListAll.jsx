@@ -97,7 +97,7 @@ function ProductListAll() {
         <div className="overflow-hidden container mb-5">
             {/* <!-- Navs --> */}
             <Swiper
-                slidesPerView={3}
+                slidesPerView={3.4}
                 className="nav nav-pills d-lg-none d-flex justify-content-between flex-nowrap text-nowrap allProduct-nav-pills" id="productTab"
                 role="tablist">
                 {categories.map((category) => {
