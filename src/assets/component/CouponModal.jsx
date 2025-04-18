@@ -4,6 +4,7 @@ import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
 import PropTypes from 'prop-types';
+import Toast from "../layout/Toast";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -38,6 +39,7 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                 status: "failed"
             }));
         }
+        throw error; //往外拋出錯誤
     }
     //更新優惠券
     const updateCoupon = async () => {
@@ -64,6 +66,7 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                 status: "failed"
             }))
         }
+        throw error; //往外拋出錯誤
     }
     //新增或更新優惠
     const btnUpdateCoupon = async () => {
@@ -79,10 +82,7 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                 type: '失敗',
                 status: "failed"
             }))
-        } finally {
-            closeModal()
         }
-
     }
 
     //表單控制
@@ -184,6 +184,7 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                     </div>
                 </div>
             </div>
+            <Toast />
         </div>
 
     )

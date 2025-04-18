@@ -4,6 +4,7 @@ import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
 import PropTypes from 'prop-types';
+import Toast from "../layout/Toast";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -37,6 +38,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                 status: "failed"
             }));
         }
+        throw error; //往外拋出錯誤
     }
     //更新文章
     const updateArticle = async () => {
@@ -62,6 +64,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                 status: "failed"
             }))
         }
+        throw error; //往外拋出錯誤
     }
     //新增或更新文章
     const btnUpdateArticle = async () => {
@@ -77,10 +80,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                 type: '失敗',
                 status: "failed"
             }))
-        } finally {
-            closeModal()
         }
-
     }
     //上傳圖片
     const fileUpload = async (e) => {
@@ -314,6 +314,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                     </div>
                 </div>
             </div>
+            <Toast />
         </div>
 
     )
