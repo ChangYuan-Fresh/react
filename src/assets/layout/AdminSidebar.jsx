@@ -52,32 +52,32 @@ function AdminSidebar() {
             <div className="bg-white rounded-4 px-3 py-5 fw-bold">
                 <NavLink
                     to="/admin/adminMember"
-                    className="adminNavLink"
+                    className="adminNavLink d-block"
                 >會員管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminProductPage"
-                    className="adminNavLink"
+                    className="adminNavLink d-block"
                 >商品管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminOrders"
-                    className="adminNavLink"
+                    className="adminNavLink d-block"
                 >訂單管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminStory"
-                    className="adminNavLink"
+                    className="adminNavLink d-block"
                 >文章管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminCoupons"
-                    className="adminNavLink"
+                    className="adminNavLink d-block"
                 >優惠券管理</NavLink>
                 <hr />
                 <NavLink
                     to="/admin/adminStatistics"
-                    className="adminNavLink"
+                    className="adminNavLink d-block"
                 >統計圖表</NavLink>
             </div>
             <div>

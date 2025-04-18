@@ -37,8 +37,8 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                 type: '新增文章失敗',
                 status: "failed"
             }));
+            throw error; //往外拋出錯誤
         }
-        throw error; //往外拋出錯誤
     }
     //更新文章
     const updateArticle = async () => {
@@ -63,8 +63,8 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                 type: '更新文章失敗',
                 status: "failed"
             }))
+            throw error; //往外拋出錯誤
         }
-        throw error; //往外拋出錯誤
     }
     //新增或更新文章
     const btnUpdateArticle = async () => {
