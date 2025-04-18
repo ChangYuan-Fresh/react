@@ -213,7 +213,7 @@ function ComfirmOrder() {
                     {/* 商品總覽mobile */}
                     <div className="card d-lg-none border-primary mb-3"  style={{ borderRadius: "16px" }}>
                         <div className="card-body">
-                            <div className="card-title text-primary fs-5 mb-5">商品明細</div>
+                            <div className="card-title text-primary fs-5 mb-3">商品明細</div>
                             {cartList.carts?.map((item)=>{
                                 return (
                                     <div className="card-text d-flex justify-content-between align-items-end border-bottom py-3" key={item.id}>
@@ -229,7 +229,7 @@ function ComfirmOrder() {
                     </div>
                     {/* 訂購人資訊 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
-                        <div className="card-title text-primary fs-4 mb-6">訂購人資訊</div>
+                        <div className="card-title text-primary fs-5 fs-lg-4 mb-0 mb-lg-6">訂購人資訊</div>
                         <div className="row my-5">
                             <div className="col-lg-6">
                                 <Input
@@ -345,7 +345,7 @@ function ComfirmOrder() {
 
                     {/* 寄送方式 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
-                        <div className="card-title text-primary fs-4 mb-6">寄送方式</div>
+                        <div className="card-title text-primary fs-5 fs-lg-4 mb-5 mb-lg-6">寄送方式</div>
                         {filterFrozen.length > 0 && (
                             <div className="d-flex text-accent bg-secondary-200 p-4 rounded rounded-3 mb-5">
                                 <span className="material-symbols-outlined">info</span>
@@ -401,7 +401,7 @@ function ComfirmOrder() {
                     </div>
                     {/* 付款方式 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
-                        <div className="card-title text-primary fs-4 mb-6">付款方式</div>
+                        <div className="card-title text-primary fs-5 fs-lg-4 mb-6">付款方式</div>
                         <div className="mt-5">
                             <div className="form-check">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" onClick={handleUseCreditCard} />
@@ -502,7 +502,7 @@ function ComfirmOrder() {
                     {/* 優惠卷 */}
                     <div className="card bg-white mb-3 p-5 border-primary row g-0" style={{ borderRadius: "16px" }}>
                         <div className="col-lg-6">
-                            <div className="card-title text-primary fs-4 mb-6">請輸入優惠卷代碼</div>
+                            <div className="card-title text-primary fs-5 fs-lg-4 mb-6">請輸入優惠卷代碼</div>
                             <div className="input-group mb-3">
                                 <input type="text" className="form-control px-lg-5 px-3" onChange={getCouponCode} placeholder="請輸入折扣碼" value={couponCode} />
                                 <button className="btn btn-primary text-white fs-lg-5 fs-6 px-lg-7 px-5" type="button" onClick={getDiscount}>確認</button>
@@ -511,7 +511,7 @@ function ComfirmOrder() {
                     </div>
                     {/* 訂單備註 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
-                        <div className="card-title text-primary fs-4 mb-6">訂單備註</div>
+                        <div className="card-title text-primary fs-5 fs-lg-4 mb-6">訂單備註</div>
                         <div className="mb-3">
                             <textarea
                                 {...register('message')}
@@ -523,7 +523,7 @@ function ComfirmOrder() {
                     </div>
                 </div>
                 <div className="col-lg-3 d-none d-lg-block">
-                    <div className="sticky-top">
+                    <div className="sticky-top z-10">
                         {filterFrozen.length > 0 || shippingType === 'frozen' ? (
                             cartList.total >= 1000 ? (
                                 <div className="bg-secondary-200 rounded rounded-3">

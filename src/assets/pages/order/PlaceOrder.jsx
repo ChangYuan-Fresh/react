@@ -67,8 +67,8 @@ function PlaceOrder() {
                         </div>
                         {/* <!-- 總額 --> */}
                         <div className="mb-3 mt-lg-5 mt-0 py-4">
-                            <div className="d-flex justify-content-between justify-content-lg-center">
-                                <Link className="btn btn-L py-2 px-6 fs-6 ms-2 ms-lg-5 py-lg-3 px-lg-7 fs-lg-4 me-lg-5 me-0" to='/products'>繼續購物</Link>
+                            <div className="d-flex justify-content-center justify-content-lg-center">
+                                <Link className="btn btn-L py-2 px-6 fs-6 ms-2 ms-lg-5 py-lg-3 px-lg-7 fs-lg-4 me-lg-5 me-3" to='/products'>繼續購物</Link>
                                 <Link className="btn btn-L py-2 px-6 fs-6 me-2 me-lg-5 py-lg-3 px-lg-7 fs-lg-4" to='/member'>查看訂單</Link>
                             </div>
                         </div>

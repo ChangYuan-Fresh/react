@@ -46,7 +46,7 @@ function AdminLoginPage (){
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
-            console.log(error)
+            alert("請登入管理員帳號", error.response);
         }
     }
     useEffect(() => {

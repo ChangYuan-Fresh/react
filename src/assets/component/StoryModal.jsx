@@ -153,7 +153,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                                             <input
                                                 type="file"
                                                 accept=".jpg,.jpeg,.png"
-                                                className=" form-control d-none"
+                                                className="form-control d-none"
                                                 id="fileInput"
                                                 onChange={fileUpload}
                                             />

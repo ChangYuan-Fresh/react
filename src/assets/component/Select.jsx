@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const Select = ({ id, labelText, register, errors, rules, children, disabled = false }) => {
     return (
-        <>
+        <div className="mb-3">
             <label htmlFor={id} className='form-label'>
                 {labelText}
             </label>
@@ -17,7 +17,7 @@ const Select = ({ id, labelText, register, errors, rules, children, disabled = f
             {errors[id] && (
                 <div className='invalid-feedback'>{errors[id]?.message}</div>
             )}
-        </>
+        </div>
     )
 }
 

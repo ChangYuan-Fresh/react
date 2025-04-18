@@ -61,7 +61,7 @@ function AdminProductPage() {
             setTotalOnSale(allProducts.filter(product => product.is_enabled === 1).length); // 上架中
             setTotalNoOnSale(allProducts.filter(product => product.is_enabled === 0).length); // 未上架
         } catch (error) {
-            console.error("取得所有商品數量失敗", error);
+            alert('取得所有商品數量失敗', error.response)
         }
     };
 

@@ -112,7 +112,7 @@ function Member() {
                 <div className="col-lg-3">
                     <div className="card border-0 d-none d-lg-block">
                         <div className="card-body bg-secondary-200 rounded rounded-3 mb-3 px-5 pb-5 pt-11 position-relative w-100" style={{ marginTop: "132px" }}>
-                            <img src="images/cat.jpg" className=" position-absolute top-0 start-50 translate-middle object-fit-cover" alt="member-pic" style={{ borderRadius: "12px", width: "200px", height: "200px" }} />
+                            <img src="images/cat.jpg" className="position-absolute top-0 start-50 translate-middle object-fit-cover" alt="member-pic" style={{ borderRadius: "12px", width: "200px", height: "200px" }} />
                             <h4 className="text-black fw-bold text-center mb-1">戴小穎</h4>
                             <p className="text-gray mb-5 text-center">asd456@gmail.com</p>
                             <div className="row mb-5 g-2">
