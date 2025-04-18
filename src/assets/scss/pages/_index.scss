@@ -82,12 +82,12 @@ body {
         width: 24px;
         height: 8px;
         border-radius: 4px;
-        bottom: 1px;
+        top: 50px;
         left: 50%;
         transform: translate(-50%);
 
         @media(min-width: 992px) {
-            height: 12px;
+            height: 10px;
         }
     }
 }

@@ -18,6 +18,15 @@ function AdminStatistics() {
     const chartRef2 = useRef(null);
     const chartRef3 = useRef(null);
 
+    const checkLogin = useCallback(async () => {
+        try {
+            await axios.post(`${baseUrl}/v2/api/user/check`);
+        } catch (error) {
+            alert("請登入管理員帳號", error.response);
+            navigate("/adminlogin");
+        }
+    }, [navigate]);
+
     useEffect(() => {
         const token = document.cookie.replace(
             /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
@@ -28,15 +37,6 @@ function AdminStatistics() {
             checkLogin();
         }
     }, [checkLogin]);
-
-    const checkLogin = useCallback(async () => {
-        try {
-            await axios.post(`${baseUrl}/v2/api/user/check`);
-        } catch (error) {
-            alert("請登入管理員帳號", error.response);
-            navigate("/adminlogin");
-        }
-    }, [navigate]);
 
     const getAllOrder = async () => {
         setIsScreenLoading(true);
