@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
 import { Offcanvas } from "bootstrap";
+import Cookies from 'js-cookie';
 
 
 
@@ -15,6 +16,7 @@ function AdminSidebar() {
     const handleLogout = async () => {
         try {
             await axios.post(`${baseUrl}/v2/logout`);
+            Cookies.remove('token');
             navigate("/adminlogin");
             dispatch(createAsyncMessage({
                 text: "登出成功",
