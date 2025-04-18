@@ -4,6 +4,7 @@ import { Modal } from 'bootstrap';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
 import PropTypes from 'prop-types';
+import Toast from "../layout/Toast";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -37,6 +38,7 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                 type: '新增優惠券失敗',
                 status: "failed"
             }));
+            throw error; //往外拋出錯誤
         }
     }
     //更新優惠券
@@ -63,6 +65,7 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                 type: '更新優惠失敗',
                 status: "failed"
             }))
+            throw error; //往外拋出錯誤
         }
     }
     //新增或更新優惠
@@ -71,7 +74,7 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
             const apiswitch = modalMode === 'create' ? createNewCoupon : updateCoupon;
             await apiswitch();
             getCouponList();
-            closeModal()
+            closeModal();
         } catch (error) {
             const message = error?.response?.data?.message || '其他錯誤';
             dispatch(createAsyncMessage({
@@ -79,15 +82,23 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                 type: '失敗',
                 status: "failed"
             }))
-        } finally {
-            closeModal()
         }
-
     }
 
     //表單控制
     const getinputValue = (e) => {
         const { value, name, checked, type } = e.target;
+        if (name === "percent") {
+            const percentValue = Number(value);
+            if (percentValue < 1 || percentValue > 99) {
+                dispatch(createAsyncMessage({
+                    text: "折扣百分比請輸入 0 到 100 之間的數字",
+                    type: "輸入錯誤",
+                    status: "failed"
+                }));
+                return;
+            }
+        }
         setTempCoupon({
             ...tempCoupon,
             [name]: type === "checkbox" ? checked : value
@@ -141,10 +152,12 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                                         <div className="col-6">
                                             <label htmlFor="percent" className="form-label">折扣數</label>
                                             <input
-                                                type="text"
+                                                type="number"
+                                                min="0"
+                                                max="100"
                                                 className="form-control"
                                                 id="percent"
-                                                placeholder="請輸入折扣%數"
+                                                placeholder="請輸入折扣%數"                                   
                                                 name="percent"
                                                 value={tempCoupon.percent}
                                                 onChange={getinputValue} />
@@ -184,6 +197,7 @@ function CouponModal({ modalMode, tempCoupon, getCouponList, setTempCoupon, mode
                     </div>
                 </div>
             </div>
+            <Toast />
         </div>
 
     )

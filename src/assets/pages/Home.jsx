@@ -19,14 +19,14 @@ const apiPath = 'changyuan_fresh';
 function Home() {
     const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
-    const [activeImage, setActiveImage] = useState("https://imageshttps://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.unsplash.com/photo-1584615467023-6953d1cba975?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dhttps://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    const [activeImage, setActiveImage] = useState("https://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?q=80&w=1024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     const [stories, setStories] = useState([]);
 
     const storyImages = {
-        cauliflower: "https://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        cauliflower: "https://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?q=80&w=1024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         grape: "https://changyuan-fresh.github.io/FirstProject/assets/grape1-7a8c01cc.png",
-        farmTotable: "https://images.unsplash.com/photo-1567513068697-fca8c2af4528?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        clam: "https://images.unsplash.com/photo-1590794057118-99a053c5c3e1?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        farmTotable: "https://images.unsplash.com/photo-1567513068697-fca8c2af4528?q=80&w=1024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        clam: "https://images.unsplash.com/photo-1590794057118-99a053c5c3e1?q=80&w=1024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     };
 
     const handleCategorySelect = (category) => {
@@ -102,9 +102,9 @@ function Home() {
                     <div className="allProduct-banner-mx">
                         <img src="images/banner.png" alt="" className="d-block w-100 allProduct-banner-img" />
                         <div className="position-absolute banner-text translate-middle ">
-                            <h3 className="d-lg-inline-block d-sm-flex  justify-content-sm-center bg-primary text-white text-nowrap py-lg-3 mb-lg-4 mb-2 px-lg-4 p-2 ">
+                            <h1 className="d-lg-inline-block d-sm-flex  justify-content-sm-center bg-primary text-white text-nowrap py-lg-3 mb-lg-4 mb-2 px-lg-4 p-2 ">
                                 來自彰化的新鮮美味
-                            </h3>
+                            </h1>
                             <br />
                             <h4 className="d-inline-block bg-white py-lg-2 px-lg-4 p-2 mb-lg-4 mb-2 fs-lg-4 fs-5 d-none d-lg-block">
                                 在地農夫精心栽培，每一口都是健康的保證
@@ -197,7 +197,7 @@ function Home() {
                                     <SwiperSlide key={index} className="swiper-slide">
                                         <li className="nav-item" role="presentation">
                                             <button
-                                                className={`nav-link product-nav-link border-0 fs-lg-3 fs-md-4 fs-6 text-nowrap ${activeCategory === category ? "active" : ""}`}
+                                                className={`nav-link product-nav-link border-0 fs-lg-3 fs-md-4 fs-6 text-nowrap py-5 ${activeCategory === category ? "active" : ""}`}
                                                 type="button"
                                                 role="tab"
                                                 onClick={() => setActiveCategory(category)}
