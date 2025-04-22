@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 function Input({ register, errors, id, labelText, type, rules, mark }) {
     return (
         <div className="mb-3">
-            <label htmlFor={id} className="form-label"><small className="text-accent">{mark}</small>{labelText}</label>
+            <label htmlFor={id} className="form-label"><span className="text-accent">{mark}</span>{labelText}</label>
             <input
                 type={type}
                 className={`form-control ${errors[id] && 'is-invalid'}`}

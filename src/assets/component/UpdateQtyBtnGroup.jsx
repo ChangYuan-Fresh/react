@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 
-function UpdateQtyBtnGroup({ itemQty, onClickfn1, onClickfn2 }) {
+function UpdateQtyBtnGroup({ itemQty, onClickfn1, onClickfn2, maxQty }) {
     return (
         <div className="me-2">
             <button
@@ -21,6 +21,7 @@ function UpdateQtyBtnGroup({ itemQty, onClickfn1, onClickfn2 }) {
                 className="btn btn-secondary text-primary fs-2 py-0"
                 style={{ width: "48px" }}
                 onClick={onClickfn2}
+                disabled={itemQty >= maxQty}
             >
                 +
             </button>
@@ -30,6 +31,7 @@ function UpdateQtyBtnGroup({ itemQty, onClickfn1, onClickfn2 }) {
 UpdateQtyBtnGroup.propTypes = {
     itemQty: PropTypes.number.isRequired,
     onClickfn1: PropTypes.func.isRequired,
-    onClickfn2: PropTypes.func.isRequired 
+    onClickfn2: PropTypes.func.isRequired,
+    maxQty: PropTypes.number,
 };
 export default UpdateQtyBtnGroup
