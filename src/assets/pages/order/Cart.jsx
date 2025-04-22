@@ -169,7 +169,7 @@ function Cart() {
 
                         </div>
                         <aside className="col-lg-3 d-none d-lg-block">
-                            <div className="sticky-top">
+                            <div className="sticky-top z-0">
                                 {filterFrozen.length > 0 ? (
                                     cartList.total >= 1000 ? (
                                         <div className="bg-secondary-200 rounded rounded-3">

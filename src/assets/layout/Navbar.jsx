@@ -36,7 +36,7 @@ function Navbar() {
 
     useEffect(() => {
         getCartList();
-    }, [getCartList]); 
+    }, [getCartList]);
 
 
     return (<>
@@ -53,7 +53,8 @@ function Navbar() {
                 </NavLink>
                 <NavLink className="fs-2 text-primary ms-auto me-3 d-lg-none position-relative" to='cart'>
                     <span className="material-symbols-outlined">shopping_cart</span>
-                    <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle p-0 fs-7 d-flex align-items-center justify-content-center mt-3" style={{ width: "20px", height: "20px" }}>{cartNum?.length}</span>
+                    {cartNum?.length > 0 && <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle p-0 fs-7 d-flex align-items-center justify-content-center mt-3" style={{ width: "20px", height: "20px" }}>{cartNum?.length}</span>}
+
                 </NavLink>
                 <button
                     className="navbar-toggler border-0 p-0"
@@ -85,8 +86,8 @@ function Navbar() {
                         <NavLink className="btn btn-s d-none d-lg-inline-block p-0 border-0 mx-6" to='cart'>
                             <button type='button' className="btn position-relative p-0">
                                 <span className="material-symbols-outlined p-4 fs-2">shopping_cart</span>
-                                {cartNum?.length >0 && <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle fs-6 d-flex justify-content-center align-items-center" style={{ width: "26px", height: "26px" }}>{cartNum?.length}</span>}
-                                
+                                {cartNum?.length > 0 && <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle fs-6 d-flex justify-content-center align-items-center" style={{ width: "26px", height: "26px" }}>{cartNum?.length}</span>}
+
                             </button>
                         </NavLink>
                         <NavLink className="btn btn-s d-none d-lg-inline-block p-0 border-0" to='login'>
