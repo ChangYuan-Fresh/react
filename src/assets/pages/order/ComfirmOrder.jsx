@@ -20,6 +20,7 @@ function ComfirmOrder() {
     const [addressData, setAddressData] = useState([]);
     const [useCreditCard, setUseCreditCard] = useState(false)
     const [useOtherPay, setUseOtherPay] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState("linePay");
     const [couponCode, setCouponCode] = useState('');
     const [shippingType, setShippingType] = useState('normal');
     const [orderExtend, setOrderExtend] = useState(false);
@@ -442,11 +443,15 @@ function ComfirmOrder() {
                     </div>
                     {/* 付款方式 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
-                        <div className="card-title text-primary fs-5 fs-lg-4 mb-6">付款方式<small className="fs-7 text-dark ms-2">(未啟用)</small></div>
+                        <div className="card-title text-primary fs-5 fs-lg-4 mb-6">付款方式</div>
                         <div className="mt-5">
                             <div className="form-check">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="creditCard" onClick={handleUseCreditCard} />
-                                <label className="form-check-label fs-lg-5 fs-6" htmlFor="flexRadioDefault2" >
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="creditCard" onChange={() => {
+                                    setPaymentMethod("creditCard");
+                                    handleUseCreditCard();
+                                }}
+                                    checked={paymentMethod === "creditCard"} />
+                                <label className="form-check-label fs-lg-5 fs-6" htmlFor="creditCard" >
                                     信用卡付款
                                 </label>
                             </div>
@@ -494,22 +499,32 @@ function ComfirmOrder() {
 
 
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="linePay" onClick={handleOtherPay} />
-                                <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="linePay" onChange={() => {
+                                    setPaymentMethod("linePay");
+                                    handleOtherPay();
+                                }}
+                                    checked={paymentMethod === "linePay"} />
+                                <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="linePay">
                                     <img src="images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
                                     Line Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="applePay" onClick={handleOtherPay} />
-                                <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="applePay" onChange={() => {
+                                    setPaymentMethod("applePay");
+                                    handleOtherPay();
+                                }} />
+                                <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="applePay">
                                     <img src="images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
                                     Apple Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="googlePay" onClick={handleOtherPay} />
-                                <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="googlePay" onChange={() => {
+                                    setPaymentMethod("googlePay");
+                                    handleOtherPay();
+                                }} />
+                                <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="googlePay">
                                     <img src="images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
                                     Google Pay
                                 </label>

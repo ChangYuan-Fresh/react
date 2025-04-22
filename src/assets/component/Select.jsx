@@ -4,7 +4,7 @@ const Select = ({ id, labelText, register, errors, rules, children, disabled = f
     return (
         <div className="mb-3">
             <label htmlFor={id} className='form-label'>
-                <small className="text-accent">{mark}</small>
+                <span className="text-accent">{mark}</span>
                 {labelText}
             </label>
             <select

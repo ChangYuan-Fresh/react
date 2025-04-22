@@ -8,8 +8,10 @@ import 'swiper/css';
 import 'swiper/css/thumbs';
 import 'swiper/css/pagination'
 import Comment from '../component/Comment'
+import Toast from '../layout/Toast';
 import UpdateQtyBtnGroup from '../component/UpdateQtyBtnGroup';
 import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../redux/slice/toastSlice';
 import { updateCartData } from '../redux/slice/cartSlice'
 
 
@@ -24,6 +26,7 @@ function ProductDetail() {
     const [textExtend, setTextExtend] = useState(false);
     const { id: product_id } = useParams();
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const [activeTab, setActiveTab] = useState('product-intro');
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -45,16 +48,36 @@ function ProductDetail() {
 
     const addCartItem = async (product_id, qtySelect) => {
         setIsLoadingBtn(true);
-        setIsLoading(true)
+        setIsLoading(true);
+        
+        if (qtySelect > product.product_stock) {
+            dispatch(createAsyncMessage({
+                text: '所選數量超過庫存',
+                type: '庫存不足',
+                status: "failed"
+            }));
+            return; // 直接停止执行
+        }
+    
         try {
-            await axios.post(`${baseUrl}/v2/api/${apiPath}/cart`, {
+            const res = await axios.post(`${baseUrl}/v2/api/${apiPath}/cart`, {
                 data: {
                     product_id,
                     qty: Number(qtySelect)
                 }
             })
+            dispatch(createAsyncMessage({
+                text: res.data.message,
+                type: '成功加入購物車',
+                status: "success"
+            }))
         } catch (error) {
-            alert(error.data.message)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '加入購物車失敗',
+                status: "failed"
+            }))
         } finally {
             setIsLoadingBtn(false);
             setIsLoading(false)
@@ -96,6 +119,12 @@ function ProductDetail() {
     useEffect(() => {
         getCartList()
     }, [getCartList])
+
+    //tab
+    const handleClick = (id) => {
+        setActiveTab(id);
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    };
 
     return (<>
         <div className="container product">
@@ -145,7 +174,7 @@ function ProductDetail() {
                     </div>
                     {/* 商品資料 */}
                     <div className="col-lg-7 d-flex flex-column justify-content-between px-lg-5">
-                        <div className="mt-5 mt-lg-0">
+                        <div className="mt-5 mt-lg-0 mb-5 mb-lg-0">
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb mb-2">
                                     <li className="breadcrumb-item fs-7 fs-lg-6 fw-normal">
@@ -159,7 +188,7 @@ function ProductDetail() {
                                     </li>
                                 </ol>
                             </nav>
-                            <h1 className="fs-4 fs-lg-2 mb-1">{product.title || ''}</h1>
+                            <h1 className="fs-3 fs-lg-2 mb-1">{product.title || ''}</h1>
                             <p className="mb-3 text-gray fw-normal fs-6 fs-lg-5">{product.sub_title || ''}</p>
                             <div className="tab-content" id="pills-tabContent">
                                 <div className="tab-pane fade show active" id="pills-home" role="tabpanel"
@@ -168,33 +197,34 @@ function ProductDetail() {
                                         <h2 className="text-accent fs-5 fs-lg-4 en-font me-2">{`NT$${product.price || 0}`}</h2>
                                         <p
                                             className="text-decoration-line-through text-gray fs-7 fs-lg-6 fw-normal en-font">
-                                            {`NT$${product.origin_price||0}`}</p>
+                                            {`NT$${product.origin_price || 0}`}</p>
                                     </div>
                                     {product.is_frozen ? <small className="text-accent">*低溫冷凍商品</small> : <></>}
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <p className="text-primary fs-7 mb-2">{`規格：${product.description||''}`}</p>
+                            <p className="text-primary fs-7 fs-lg-6 fw-normal mb-2">{`規格：${product.description || ''}`}</p>
                             <div className="mb-5">
                                 <div className="d-flex justify-content-between w-75 w-lg-25 align-items-center mb-2">
-                                    <p className="text-primary fs-7">數量</p>
-                                    <p className="text-gray">{`剩餘 ${product.product_stock||0} ${product.unit||''}`}</p>
+                                    <p className="text-primary fs-7 fs-lg-6 fw-normal">數量</p>
+                                    <p className="text-gray fs-7 fs-lg-6 fw-normal">{`剩餘 ${product.product_stock || 0} ${product.unit || ''}`}</p>
 
                                 </div>
                                 <div className="mb-5">
                                     <UpdateQtyBtnGroup
                                         itemQty={qtySelect}
                                         onClickfn1={() => getQuantity(qtySelect - 1)}
-                                        onClickfn2={() => getQuantity(qtySelect + 1)} />
+                                        onClickfn2={() => getQuantity(qtySelect + 1)}
+                                        maxQty={product.product_stock} />
                                 </div>
                                 <div className="d-lg-flex">
                                     <button
                                         type="button"
-                                        className="btn btn-L btn-primary w-100 mb-3 mb-lg-0 fs-5 py-3 me-lg-5 me-0 d-flex justify-content-center"
+                                        className="btn btn-L w-100 mb-3 mb-lg-0 fs-5 py-3 me-lg-5 me-0 d-flex justify-content-center"
                                         disabled={isLoadingBtn}
                                         onClick={() => addCartItem(product_id, qtySelect)}>
-                                        <div className="text-white">加入購物車</div>
+                                        <div>加入購物車</div>
                                         {isLoadingBtn && (<ReactLoading
                                             type={"balls"}
                                             color={"white"}
@@ -204,9 +234,9 @@ function ProductDetail() {
                                     </button>
                                     <button
                                         type="button"
-                                        className="btn btn-L btn-primary w-100 fs-5 py-3"
+                                        className="btn btn-L w-100 fs-5 py-3"
                                         onClick={() => navigateCart(product_id, qtySelect)}>
-                                        <div className="text-white">立即購買</div>
+                                        <div>立即購買</div>
                                     </button>
                                 </div>
                             </div>
@@ -218,23 +248,30 @@ function ProductDetail() {
             < article className="d-none d-lg-block" >
                 <nav id="navbar-example2">
                     <ul className="list-unstyled d-flex justify-content-between w-100 border-bottom mb-8">
-                        <li className="btn text-center w-100 me-5 p-0 border-bottom-transparent border-4">
-                            <Link className="py-4 fs-4 text-black">商品介紹</Link>
-                        </li>
-                        <li className="btn text-center w-100 me-5 p-0 border-bottom-transparent border-4">
-                            <Link className="py-4 fs-4 text-black">規格說明</Link>
-                        </li>
-                        <li className="btn text-center w-100 p-0 border-bottom-transparent border-4">
-                            <Link className="py-4 fs-4 text-black">評論</Link>
-                        </li>
+                        {[
+                            { id: 'product-intro', label: '商品介紹' },
+                            { id: 'product-standard', label: '規格說明' },
+                            { id: 'product-comment', label: '評論' }
+                        ].map(({ id, label }) => (
+                            <li key={id} className={`btn text-center w-100 me-5 p-0 tab-button rounded-0 ${activeTab === id ? 'active' : ''}`}>
+                                <button
+                                    className="btn py-4 fs-4 border-0"
+                                    onClick={() => handleClick(id)}
+                                >
+                                    {label}
+                                </button>
+                            </li>
+                        ))}
                     </ul>
                 </nav>
                 <div className="w-50 mx-auto pt-8">
-                    <div>
-                        <p className="mb-5" >{product.content}</p>
+                    <div id="product-intro">
+                        {product.content?.replace(/\\n/g, '\n').split('\n').map((line, idx) => (
+                            <p key={idx} className="mb-3 fs-6 fw-normal">{line}</p>
+                        ))}
                         {product.imagesUrl?.map((img) => (<div key={img} className="text-center mb-5"><img src={img} alt="" className="mb-3 border rounded object-fit-cover" width='100%' height="400px" /></div>))}
                     </div>
-                    <ul className="list-unstyled">
+                    <ul className="list-unstyled" id="product-standard">
                         <li className="mb-8">
                             <h2>產品規格</h2>
                             <p>{product.description}</p>
@@ -304,7 +341,7 @@ function ProductDetail() {
                 </ul>
             </article>
             {/* 評論 */}
-            <div>
+            <div id="product-comment">
                 <Comment />
             </div>
             {isLoading && (<div
@@ -323,6 +360,7 @@ function ProductDetail() {
         <div>
             <img src="/images/Illustration/Bottom-Curve.png" alt="" className="d-lg-block d-none allProduct-bottom-mask" />
         </div>
+        <Toast />
     </>
     )
 }

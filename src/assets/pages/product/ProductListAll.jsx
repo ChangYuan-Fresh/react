@@ -120,7 +120,7 @@ function ProductListAll() {
                         {categories.map((category) => {
                             return (<div className="accordion-item" key={category}>
                                 <h2 className="accordion-header" id="headingTwo">
-                                    <button type="button" className={`accordion-button px-0 fw-bold fs-4 ${selectCategory === category ? "text-primary collapsed" : "text-dark"}`} onClick={() => handleCategoryChange(category)}>
+                                    <button type="button" className={`btn px-0 fw-bold fs-4 ${selectCategory === category ? "text-primary collapsed" : "text-dark"}`} onClick={() => handleCategoryChange(category)}>
                                         {category}
                                     </button>
                                 </h2>
@@ -167,11 +167,11 @@ function ProductListAll() {
                         {filterProducts.length > 0 ? (
                             filterProducts.map((product) => (
                                 <div className="col-xl-4 col-lg-6 col-md-4 " key={product.id}>
-                                    <Link className="card my-5 allProduct-catalog-card d-flex flex-md-column flex-row"
+                                    <Link className="card my-5 allProduct-catalog-card d-flex flex-md-column flex-row pb-4"
                                         to={`/products/${product.category}/${product.id}`}
                                         onClick={() => handleViewProduct(product)}>
                                         <img src={product.imageUrl} className="card-img-top allProduct-catalog-img" alt={product.title} />
-                                        <div className="card-body py-0 px-md-0 ps-5 pe-0">
+                                        <div className="card-body py-0 px-md-3 ps-5 pe-0">
                                             <h5 className="card-title mt-md-3 mt-0 mb-md-4 mb-2 fs-5">{product.title}</h5>
                                             <p className="text-accent fs-5">
                                                 {`NT$${product.price}`}

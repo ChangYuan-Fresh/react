@@ -33,7 +33,7 @@ function Stories() {
             />
             {/* <!--故事列表--> */}
             <section>
-                <div className="container position-relative py-lg-11 py-6">
+                <div className="container position-relative py-lg-11 py-4">
                     <img src="images/Illustration/peace.png" alt="peace" className="story-deco1" />
                     {/* <!--文章列表--> */}
                     <div className="row row-cols-1 gy-6 mb-10">

@@ -227,7 +227,7 @@ function Home() {
                                 >
                                     {filteredProducts.length > 0 ? (
                                         filteredProducts.map((product) => (
-                                            <SwiperSlide key={product.id} className="swiper-slide card border-0">
+                                            <SwiperSlide key={product.id} className="swiper-slide card border-0 home-products-card">
                                                 <div>
                                                     <Link to={`/products/${product.category}/${product.id}`}>
                                                         <img src={product.imageUrl} alt={product.name} className="rounded-4 product-index-img" />
