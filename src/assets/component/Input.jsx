@@ -1,9 +1,9 @@
 import PropTypes from "prop-types"
 
-function Input({ register, errors, id, labelText, type, rules }) {
+function Input({ register, errors, id, labelText, type, rules, mark }) {
     return (
         <div className="mb-3">
-            <label htmlFor={id} className="form-label">{labelText}</label>
+            <label htmlFor={id} className="form-label"><small className="text-accent">{mark}</small>{labelText}</label>
             <input
                 type={type}
                 className={`form-control ${errors[id] && 'is-invalid'}`}
@@ -23,7 +23,8 @@ Input.propTypes = {
     id: PropTypes.string.isRequired, // id 必須是字串
     labelText: PropTypes.string.isRequired, // labelText 必須是字串
     type: PropTypes.string, // type 是字串
-    rules: PropTypes.object // rules 是物件（React Hook Form 規則）
+    rules: PropTypes.object, // rules 是物件（React Hook Form 規則）
+    mark: PropTypes.string
 };
 
 Input.defaultProps = {

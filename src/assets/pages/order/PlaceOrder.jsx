@@ -35,7 +35,7 @@ function PlaceOrder() {
     return (<>
         <div className="container order mt-lg-7 mt-5 mb-lg-10 mb-0 ">
             <div className="row">
-                <div className="col-lg-9">
+                <div className="col-lg-9 mx-auto">
                     {/* 進度條 */}
                     <div className="bg-secondary-200 row mb-5 mx-0" style={{ height: "92px", borderRadius: "16px" }}>
                         <div className="col-lg-9 col m-auto">
@@ -73,10 +73,6 @@ function PlaceOrder() {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="col-lg-3 d-none d-lg-block">
-                    <img src="images/LOGO-L.png" alt="" width="100%" className="object-fit-cover mb-4 px-3" />
-                    <img src="images/banner.png" alt="" height="100%" width="100%" className="object-fit-cover" />
                 </div>
             </div>
         </div>

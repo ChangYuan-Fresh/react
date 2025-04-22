@@ -10,7 +10,7 @@ function Toast() {
                 return (
                     <div 
                     key={message.id}
-                    className="toast show" 
+                    className="toast show bg-white" 
                     role="alert" 
                     aria-live="assertive" 
                     aria-atomic="true">

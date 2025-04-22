@@ -19,7 +19,7 @@ function ComfirmOrder() {
     const [isScreenLoading, setIsScreenLoading] = useState(false);
     const [addressData, setAddressData] = useState([]);
     const [useCreditCard, setUseCreditCard] = useState(false)
-    const [setUseOtherPay] = useState(false);
+    const [useOtherPay, setUseOtherPay] = useState(false);
     const [couponCode, setCouponCode] = useState('');
     const [shippingType, setShippingType] = useState('normal');
     const [orderExtend, setOrderExtend] = useState(false);
@@ -34,6 +34,8 @@ function ComfirmOrder() {
         getValues,
         reset,
         watch,
+        unregister,
+        clearErrors,
         formState: { errors },
     } = useForm({
         defaultValues: {
@@ -70,7 +72,7 @@ function ComfirmOrder() {
             getCartList()
             navigate("/cart/placeordersuccess")
         } catch (error) {
-            alert('結帳失敗' , error.response)
+            alert('結帳失敗', error.response)
             navigate("/cart")
         } finally {
             setIsScreenLoading(false)
@@ -94,6 +96,7 @@ function ComfirmOrder() {
         setAddressData(cityData)
     }, [])
 
+    // 付款方式判定
     const handleUseCreditCard = (e) => {
         setUseCreditCard(e.target.checked)
         if (e.target.checked) {
@@ -105,8 +108,40 @@ function ComfirmOrder() {
         setUseOtherPay(e.target.checked)
         if (e.target.checked) {
             setUseCreditCard(false)
+            clearErrors(['cardnumber', 'expiryDate', 'CVC'])
         }
     }
+
+    useEffect(() => {
+        if (!useCreditCard) {
+            unregister('cardnumber');
+            unregister('expiryDate');
+            unregister('CVC');
+            clearErrors(['cardnumber', 'expiryDate', 'CVC']);
+        } else {
+            register('cardnumber', {
+                required: '卡號為必填',
+                pattern: {
+                    value: /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9]{2})[0-9]{12}|3[47][0-9]{13}|35[2-8][0-9]{12}|6(?:22[2-9]|4[0-9]{2}|[1-9]{2})[0-9]{12})$/,
+                    message: '格式不正確'
+                }
+            });
+            register('expiryDate', {
+                required: '有效日期為必填',
+                pattern: {
+                    value: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
+                    message: '格式不正確'
+                }
+            });
+            register('CVC', {
+                required: '安全碼為必填',
+                maxLength: {
+                    value: 3,
+                    message: '安全碼不超過3碼'
+                }
+            });
+        }
+    }, [useCreditCard, register, unregister, clearErrors, useOtherPay]);
 
     // 取得優惠卷代碼
     const getCouponCode = (e) => {
@@ -211,10 +246,10 @@ function ComfirmOrder() {
                         </div>
                     </div>
                     {/* 商品總覽mobile */}
-                    <div className="card d-lg-none border-primary mb-3"  style={{ borderRadius: "16px" }}>
+                    <div className="card d-lg-none border-primary mb-3" style={{ borderRadius: "16px" }}>
                         <div className="card-body">
                             <div className="card-title text-primary fs-5 mb-3">商品明細</div>
-                            {cartList.carts?.map((item)=>{
+                            {cartList.carts?.map((item) => {
                                 return (
                                     <div className="card-text d-flex justify-content-between align-items-end border-bottom py-3" key={item.id}>
                                         <div>
@@ -238,6 +273,7 @@ function ComfirmOrder() {
                                     id='name'
                                     labelText='訂購人'
                                     type='text'
+                                    mark='*'
                                     rules={{
                                         required: {
                                             value: true,
@@ -257,6 +293,7 @@ function ComfirmOrder() {
                                     id='tel'
                                     labelText='收件人電話'
                                     type='tel'
+                                    mark='*'
                                     rules={{
                                         required: {
                                             value: true,
@@ -284,6 +321,7 @@ function ComfirmOrder() {
                                     id='email'
                                     labelText='Email'
                                     type='email'
+                                    mark='*'
                                     rules={{
                                         required: {
                                             value: true,
@@ -301,6 +339,7 @@ function ComfirmOrder() {
                                     labelText='縣市'
                                     errors={errors}
                                     register={register}
+                                    mark='*'
                                     rules={{
                                         required: '縣市為必填'
                                     }}>
@@ -315,6 +354,7 @@ function ComfirmOrder() {
                                     labelText='鄉鎮市區'
                                     errors={errors}
                                     register={register}
+                                    mark='*'
                                     disabled={!city}
                                     rules={{
                                         required: '鄉鎮市區為必填'
@@ -333,6 +373,7 @@ function ComfirmOrder() {
                                     id='address'
                                     labelText='地址'
                                     type='address'
+                                    mark='*'
                                     errors={errors}
                                     register={register}
                                     rules={{
@@ -345,7 +386,7 @@ function ComfirmOrder() {
 
                     {/* 寄送方式 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
-                        <div className="card-title text-primary fs-5 fs-lg-4 mb-5 mb-lg-6">寄送方式</div>
+                        <div className="card-title text-primary fs-5 fs-lg-4 mb-5 mb-lg-6"><small className="text-accent">*</small>寄送方式</div>
                         {filterFrozen.length > 0 && (
                             <div className="d-flex text-accent bg-secondary-200 p-4 rounded rounded-3 mb-5">
                                 <span className="material-symbols-outlined">info</span>
@@ -401,10 +442,10 @@ function ComfirmOrder() {
                     </div>
                     {/* 付款方式 */}
                     <div className="card bg-white mb-3 p-5 border-primary" style={{ borderRadius: "16px" }}>
-                        <div className="card-title text-primary fs-5 fs-lg-4 mb-6">付款方式</div>
+                        <div className="card-title text-primary fs-5 fs-lg-4 mb-6">付款方式<small className="fs-7 text-dark ms-2">(未啟用)</small></div>
                         <div className="mt-5">
                             <div className="form-check">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" onClick={handleUseCreditCard} />
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="creditCard" onClick={handleUseCreditCard} />
                                 <label className="form-check-label fs-lg-5 fs-6" htmlFor="flexRadioDefault2" >
                                     信用卡付款
                                 </label>
@@ -417,36 +458,22 @@ function ComfirmOrder() {
                                         id='cardnumber'
                                         labelText='卡號'
                                         type='number'
-                                        rules={{
-                                            required: {
-                                                value: true,
-                                                message: '卡號為必填'
-                                            },
-                                            pattern: {
-                                                value: /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9]{2})[0-9]{12}|3[47][0-9]{13}|35[2-8][0-9]{12}|6(?:22[2-9]|4[0-9]{2}|[1-9]{2})[0-9]{12})$/,
-                                                message: '格式不正確'
-                                            }
-                                        }}
                                     />
                                 </div>
                                 <div className="col-lg-6">
-                                    <Input
-                                        register={register}
-                                        errors={errors}
-                                        id='expiryDate'
-                                        labelText='有效日期'
-                                        type='text'
-                                        rules={{
-                                            required: {
-                                                value: true,
-                                                message: '有效日期為必填'
-                                            },
-                                            pattern: {
-                                                value: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
-                                                message: '格式不正確'
-                                            }
-                                        }}
-                                    />
+                                    <div className="mb-3">
+                                        <label htmlFor='expiryDate' className="form-label">有效日期</label>
+                                        <input
+                                            type='text'
+                                            className={`form-control ${errors['expiryDate'] && 'is-invalid'}`}
+                                            id='expiryDate'
+                                            placeholder='MM/YY'
+                                            {...register('expiryDate')}
+                                        />
+                                        {
+                                            errors['expiryDate'] && (<div className="invalid-feedback">{errors?.['expiryDate']?.message}</div>)
+                                        }
+                                    </div>
                                 </div>
                                 <div className="col-lg-6">
                                     <Input
@@ -455,16 +482,6 @@ function ComfirmOrder() {
                                         id='CVC'
                                         labelText='安全碼'
                                         type='number'
-                                        rules={{
-                                            required: {
-                                                value: true,
-                                                message: '安全碼為必填'
-                                            },
-                                            maxLength: {
-                                                value: 3,
-                                                message: '安全碼不超過3碼'
-                                            },
-                                        }}
                                     />
                                 </div>
                                 <div className="form-check col mt-2">
@@ -477,21 +494,21 @@ function ComfirmOrder() {
 
 
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" onClick={handleOtherPay} />
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="linePay" onClick={handleOtherPay} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
                                     <img src="images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
                                     Line Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" onClick={handleOtherPay} />
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="applePay" onClick={handleOtherPay} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
                                     <img src="images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
                                     Apple Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={handleOtherPay} />
+                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="googlePay" onClick={handleOtherPay} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="flexRadioDefault2">
                                     <img src="images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
                                     Google Pay
@@ -522,8 +539,9 @@ function ComfirmOrder() {
                         </div>
                     </div>
                 </div>
+                {/* 結帳明細 */}
                 <div className="col-lg-3 d-none d-lg-block">
-                    <div className="sticky-top z-10">
+                    <div className="sticky-top z-0">
                         {filterFrozen.length > 0 || shippingType === 'frozen' ? (
                             cartList.total >= 1000 ? (
                                 <div className="bg-secondary-200 rounded rounded-3">
