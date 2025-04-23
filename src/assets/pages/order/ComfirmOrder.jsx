@@ -439,9 +439,10 @@ function ComfirmOrder() {
                         <div className="card-title text-primary fs-5 fs-lg-4 mb-6">付款方式</div>
                         <div className="mt-5">
                             <div className="form-check">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="creditCard" onChange={() => {
+                                <input className="form-check-input me-4" type="radio" name="paymentMethod" id="creditCard" onChange={() => {
                                     setPaymentMethod("creditCard");
-                                }} />
+                                }} 
+                                checked={paymentMethod === "creditCard"}/>
                                 <label className="form-check-label fs-lg-5 fs-6" htmlFor="creditCard" >
                                     信用卡付款
                                 </label>
@@ -488,27 +489,30 @@ function ComfirmOrder() {
                                 </div>
                             </div>)}
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="linePay" onChange={() => {
+                                <input className="form-check-input me-4" type="radio" name="paymentMethod" id="linePay" onChange={() => {
                                     setPaymentMethod("linePay");
-                                }} />
+                                }} 
+                                checked={paymentMethod === "linePay"}/>
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="linePay">
                                     <img src="images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
                                     Line Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="applePay" onChange={() => {
+                                <input className="form-check-input me-4" type="radio" name="paymentMethod" id="applePay" onChange={() => {
                                     setPaymentMethod("applePay");
-                                }} />
+                                }} 
+                                checked={paymentMethod === "applePay"}/>
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="applePay">
                                     <img src="images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
                                     Apple Pay
                                 </label>
                             </div>
                             <div className="form-check mt-5">
-                                <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="googlePay" onChange={() => {
+                                <input className="form-check-input me-4" type="radio" name="paymentMethod" id="googlePay" onChange={() => {
                                     setPaymentMethod("googlePay");
-                                }} />
+                                }} 
+                                checked={paymentMethod === "googlePay"}/>
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="googlePay">
                                     <img src="images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
                                     Google Pay
@@ -533,6 +537,7 @@ function ComfirmOrder() {
                             <textarea
                                 {...register('message')}
                                 className="form-control"
+                                placeholder="請輸入備註"
                                 id="message"
                                 rows="3"
                             ></textarea>
