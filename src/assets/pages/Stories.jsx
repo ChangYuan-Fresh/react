@@ -55,7 +55,7 @@ function Stories() {
                                         <div className="card-body d-flex flex-column justify-content-between px-lg-4 px-0 py-lg-0 pt-4 pb-0 w-50">
                                             <div>
                                                 <div className="d-flex justify-content-between align-items-baseline ">
-                                                    <h4 className="card-title fs-md-4 fs-5 text-primary text-nowrap mb-2 mb-lg-0">{story.title}</h4>
+                                                    <h4 className="card-title fs-4 text-primary text-nowrap mb-2">{story.title}</h4>
                                                     <p className="card-text text-gray d-none d-lg-block"><small className="fw-normal">{new Date(story.create_at).toLocaleDateString()}</small></p>
                                                 </div>
                                                 {story.description
