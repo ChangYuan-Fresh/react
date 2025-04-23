@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router';
 import axios from 'axios'
 import PaginationCompo from '../../component/PaginationCompo';
 import ProductModal from '../../component/ProductModal';
 import DeleteProductModal from '../../component/DeleteProductModal';
 import Toast from "../../layout/Toast";
-import { Link, useNavigate } from 'react-router';
 import IsScreenLoading from '../../component/IsScreenLoading';
+import { createAsyncMessage } from '../../redux/slice/toastSlice';
+
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -41,6 +44,7 @@ function AdminProductPage() {
     const [status] = useState("all"); // 當前篩選的狀態（全部 / 上架 / 未上架）
     const [isInputFocused, setIsInputFocused] = useState(false); // 控制放大鏡顯示
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const handleResize = () => setScreenWidth(window.innerWidth);
@@ -60,8 +64,18 @@ function AdminProductPage() {
             setTotalProducts(allProducts.length);  // 計算全部商品數
             setTotalOnSale(allProducts.filter(product => product.is_enabled === 1).length); // 上架中
             setTotalNoOnSale(allProducts.filter(product => product.is_enabled === 0).length); // 未上架
+            dispatch(createAsyncMessage({
+                text: '取得所有商品數量成功',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert('取得所有商品數量失敗', error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得所有商品數量失敗',
+                status: "failed"
+            }))
         }
     };
 
@@ -69,7 +83,12 @@ function AdminProductPage() {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
-            alert("請登入管理員帳號", error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '請登入管理員帳號',
+                status: "failed"
+            }))
             navigate('/adminlogin')
         }
     }, [navigate]);
@@ -88,8 +107,18 @@ function AdminProductPage() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/products?page=${page}`);
             setProducts(res.data.products);
             getPageInfo(res.data.pagination)
+            dispatch(createAsyncMessage({
+                text: '取得資料成功',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert('取得資料失敗', error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得資料失敗',
+                status: "failed"
+            }))
             navigate('/adminlogin')
         } finally {
             setIsScreenLoading(false)

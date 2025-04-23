@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { updateCartData } from '../../redux/slice/cartSlice'
 import IsScreenLoading from "../../component/IsScreenLoading";
 import DeleteCartModal from "../../component/DeleteCartModal";
+import Toast from "../../layout/Toast";
+import { createAsyncMessage } from "../../redux/slice/toastSlice";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -26,7 +28,12 @@ function Cart() {
             dispatch(updateCartData(res.data.data))
             setCartList(res.data.data)
         } catch (error) {
-            alert(error.data)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得購物車資訊失敗',
+                status: "failed"
+            }))
         } finally {
             setIsScreenLoading(false)
         }
@@ -40,10 +47,20 @@ function Cart() {
     const removeCartItem = async (id) => {
         setIsScreenLoading(true)
         try {
-            await axios.delete(`${baseUrl}/v2/api/${apiPath}/cart/${id}`)
+            const res = await axios.delete(`${baseUrl}/v2/api/${apiPath}/cart/${id}`)
             getCartList()
+            dispatch(createAsyncMessage({
+                text: res.data.message,
+                type: '成功刪除品項',
+                status: "success"
+            }))
         } catch (error) {
-            alert('刪除品項失敗', error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '刪除品項失敗',
+                status: "failed"
+            }))
         } finally {
             setIsScreenLoading(false)
         }
@@ -60,7 +77,12 @@ function Cart() {
             })
             getCartList()
         } catch (error) {
-            alert('更新品項失敗', error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '更新品項失敗',
+                status: "failed"
+            }))
         } finally {
             setIsScreenLoading(false)
         }
@@ -169,7 +191,7 @@ function Cart() {
 
                         </div>
                         <aside className="col-lg-3 d-none d-lg-block">
-                            <div className="sticky-top z-0">
+                            <div className="z-0" style={{ position: 'sticky', top: '130px' }}>
                                 {filterFrozen.length > 0 ? (
                                     cartList.total >= 1000 ? (
                                         <div className="bg-secondary-200 rounded rounded-3">
@@ -343,6 +365,7 @@ function Cart() {
         </div>
         <IsScreenLoading isScreenLoading={isScreenLoading} />
         <DeleteCartModal getCartList={getCartList} delModelRef={delModelRef} />
+        <Toast />
     </>
     )
 }

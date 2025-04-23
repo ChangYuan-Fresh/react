@@ -5,7 +5,9 @@ import CouponModal from '../../component/CouponModal';
 import DeleteCouponModal from '../../component/DeleteCouponModal';
 import Toast from "../../layout/Toast";
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import IsScreenLoading from '../../component/IsScreenLoading';
+import { createAsyncMessage } from '../../redux/slice/toastSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -25,6 +27,7 @@ function AdminCoupons() {
     const modelRef = useRef(null);
     const delModelRef = useRef(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isScreenLoading, setIsScreenLoading] = useState(false);
 
 
@@ -32,7 +35,12 @@ function AdminCoupons() {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
-            alert("請登入管理員帳號", error.data.message )
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '請登入管理員帳號',
+                status: "failed"
+            }))
             navigate('/adminlogin')
         }
     }, [navigate]);
@@ -52,8 +60,18 @@ function AdminCoupons() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/coupons?page=${page}`);
             setCoupons(res.data.coupons);
             getPageInfo(res.data.pagination)
+            dispatch(createAsyncMessage({
+                text: '取得優惠卷資料成功',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert("請登入管理員帳號" , error.data.message)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得優惠卷資料失敗',
+                status: "failed"
+            }))
             navigate('/adminlogin')
         } finally {
             setIsScreenLoading(false)

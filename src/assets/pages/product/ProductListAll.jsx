@@ -6,6 +6,9 @@ import 'swiper/css';
 import IsScreenLoading from '../../component/IsScreenLoading'
 import ProductBrowsingHistory from './ProductBrowsingHistory'
 import ProductMobileHistory from './ProductMobileHistory';
+import Toast from '../../layout/Toast';
+import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../../redux/slice/toastSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -20,6 +23,7 @@ function ProductListAll() {
     const location = useLocation();
     const { category } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -39,7 +43,12 @@ function ProductListAll() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/products/all`);
             setProducts(res.data.products);
         } catch (error) {
-            alert('取得資料失敗', error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得資料失敗',
+                status: "failed"
+            }))
         } finally {
             setIsScreenLoading(false)
         }
@@ -143,7 +152,7 @@ function ProductListAll() {
                         />
                         <button type="submit" className="btn" style={{ display: searchQuery ? 'none' : 'block' }}  >
                             <span
-                                className="search-btn material-symbols-outlined text-primary fs-2 position-absolute top-50 translate-middle-y  me-2">
+                                className="search-btn material-symbols-outlined text-primary fs-2 position-absolute top-50 translate-middle-y pe-4">
                                 search
                             </span >
                         </button>
@@ -190,6 +199,7 @@ function ProductListAll() {
             </div>
             <ProductMobileHistory recentProducts={recentProducts} />
         </section>
+        <Toast />
     </>
     )
 }

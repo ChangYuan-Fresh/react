@@ -42,8 +42,18 @@ function Member() {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/orders`);
             setOrders(res.data.orders)
+            dispatch(createAsyncMessage({
+                text: '成功取得訂單資料',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert("取得訂單資料失敗", error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得訂單資料失敗',
+                status: "failed"
+            }))
         } finally {
             setIsScreenLoading(false)
         }
@@ -94,10 +104,19 @@ function Member() {
     const handleCopyCode = () => {
         navigator.clipboard.writeText(discountCode)  // 複製折扣碼到剪貼簿
             .then(() => {
-                alert("折扣碼已複製！"); // 顯示提示訊息
+                dispatch(createAsyncMessage({
+                    text: '折扣碼已複製！',
+                    type: '成功',
+                    status: "success"
+                }))
             })
             .catch((error) => {
-                alert("複製失敗！", error.response); // 顯示錯誤訊息
+                const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '複製折扣碼失敗',
+                status: "failed"
+            }))
             });
     };
     //modal

@@ -5,6 +5,7 @@ import axios from 'axios'
 import logoS from '../images/LOGO-S.png';
 import logoL from '../images/LOGO-L.png';
 import { updateCartData } from '../redux/slice/cartSlice'
+import { createAsyncMessage } from "../redux/slice/toastSlice";
 
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -14,6 +15,7 @@ function Navbar() {
     const cartNum = useSelector(state => state.cart.carts);
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
+    
 
     // 當用戶點擊導航連結時，將折疊區域關閉
     const handleLinkClick = () => {
@@ -30,7 +32,12 @@ function Navbar() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
             dispatch(updateCartData(res.data.data));
         } catch (error) {
-            alert(error.response);
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得購物車資訊失敗',
+                status: "failed"
+            }))
         }
     }, [dispatch]); // 只在 dispatch 變更時重新創建
 
@@ -40,7 +47,7 @@ function Navbar() {
 
 
     return (<>
-        <header className="navbar navbar-expand-lg p-0 bg-white">
+        <header className="navbar navbar-expand-lg p-0 bg-white sticky-top">
             <div className="container-fluid py-4 px-3">
                 <NavLink className="navbar-brand" to='/'>
                     <picture>

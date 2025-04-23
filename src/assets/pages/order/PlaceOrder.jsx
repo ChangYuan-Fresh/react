@@ -2,20 +2,29 @@ import { Link } from "react-router";
 import axios from 'axios'
 import { useDispatch } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
+import { updateCartData } from '../../redux/slice/cartSlice'
+import Toast from "../../layout/Toast";
+import { createAsyncMessage } from "../../redux/slice/toastSlice";
+
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
-import { updateCartData } from '../../redux/slice/cartSlice'
+
 
 function PlaceOrder() {
     const [orderId, setOrderId] = useState([])
     const dispatch = useDispatch();
 
-    const getOrders = async ()=>{
+    const getOrders = async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/orders`);
             setOrderId(res.data.orders)
         } catch (error) {
-            alert(error.error)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得購物車資訊失敗',
+                status: "failed"
+            }))
         }
     }
     const getCartList = useCallback(async () => {
@@ -23,7 +32,12 @@ function PlaceOrder() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
             dispatch(updateCartData(res.data.data))
         } catch (error) {
-            alert(error.error)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得購物車資訊失敗',
+                status: "failed"
+            }))
         }
     }, [dispatch]);
 

@@ -4,6 +4,9 @@ import IsScreenLoading from "../../component/IsScreenLoading";
 import c3 from "c3";
 import "c3/c3.css";
 import { useNavigate } from 'react-router';
+import { useDispatch } from "react-redux";
+import Toast from "../../layout/Toast";
+import { createAsyncMessage } from "../../redux/slice/toastSlice";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -13,6 +16,7 @@ function AdminStatistics() {
     const [productStocks, setProductStocks] = useState([]);
     const [isScreenLoading, setIsScreenLoading] = useState(false);
     const navigate = useNavigate()
+    const dispatch = useDispatch();
 
     const chartRef1 = useRef(null);
     const chartRef2 = useRef(null);
@@ -22,7 +26,12 @@ function AdminStatistics() {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`);
         } catch (error) {
-            alert("請登入管理員帳號", error.response);
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '請登入管理員帳號',
+                status: "failed"
+            }))
             navigate("/adminlogin");
         }
     }, [navigate]);
@@ -47,11 +56,20 @@ function AdminStatistics() {
             const requests = Array.from({ length: totalPages }, (_, i) =>
                 axios.get(`${baseUrl}/v2/api/${apiPath}/admin/orders?page=${i + 1}`)
             );
-
             const responses = await Promise.all(requests);
             setAllOrders(responses.flatMap((res) => res.data.orders));
+            dispatch(createAsyncMessage({
+                text: '取得訂單資料成功',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert("取得訂單資料失敗" ,  error.response);
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得訂單資料失敗',
+                status: "failed"
+            }))
         } finally {
             setIsScreenLoading(false);
         }
@@ -65,10 +83,19 @@ function AdminStatistics() {
                 name: product.title,
                 stock: product.product_stock
             }));
-
             setProductStocks(stocks);
+            dispatch(createAsyncMessage({
+                text: '取得商品數量成功',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert("取得所有商品數量失敗", error.response);
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得所有商品數量失敗',
+                status: "failed"
+            }))
         }
     };
 
@@ -165,6 +192,7 @@ function AdminStatistics() {
                 </div>
             </div>
             <IsScreenLoading isScreenLoading={isScreenLoading} />
+            <Toast />
         </main>
     );
 }
