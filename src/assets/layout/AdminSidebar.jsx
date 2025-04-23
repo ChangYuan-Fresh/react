@@ -24,7 +24,12 @@ function AdminSidebar() {
                 status: "success"
             }));
         } catch (error) {
-            alert("登出失敗");
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '登出失敗',
+                status: "failed"
+            }))
         }
     };
 

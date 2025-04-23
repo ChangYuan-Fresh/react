@@ -18,8 +18,6 @@ function ComfirmOrder() {
     const [cartList, setCartList] = useState([]);
     const [isScreenLoading, setIsScreenLoading] = useState(false);
     const [addressData, setAddressData] = useState([]);
-    const [useCreditCard, setUseCreditCard] = useState(false)
-    const [useOtherPay, setUseOtherPay] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState("linePay");
     const [couponCode, setCouponCode] = useState('');
     const [shippingType, setShippingType] = useState('normal');
@@ -73,7 +71,12 @@ function ComfirmOrder() {
             getCartList()
             navigate("/cart/placeordersuccess")
         } catch (error) {
-            alert('結帳失敗', error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '結帳失敗',
+                status: "failed"
+            }))
             navigate("/cart")
         } finally {
             setIsScreenLoading(false)
@@ -85,7 +88,12 @@ function ComfirmOrder() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
             setCartList(res.data.data);
         } catch (error) {
-            alert(error.data)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得購物車資訊失敗',
+                status: "failed"
+            }))
         }
     }
     useEffect(() => {
@@ -98,23 +106,8 @@ function ComfirmOrder() {
     }, [])
 
     // 付款方式判定
-    const handleUseCreditCard = (e) => {
-        setUseCreditCard(e.target.checked)
-        if (e.target.checked) {
-            setUseOtherPay(false)
-        }
-    }
-
-    const handleOtherPay = (e) => {
-        setUseOtherPay(e.target.checked)
-        if (e.target.checked) {
-            setUseCreditCard(false)
-            clearErrors(['cardnumber', 'expiryDate', 'CVC'])
-        }
-    }
-
     useEffect(() => {
-        if (!useCreditCard) {
+        if (paymentMethod !== "creditCard") {
             unregister('cardnumber');
             unregister('expiryDate');
             unregister('CVC');
@@ -142,7 +135,7 @@ function ComfirmOrder() {
                 }
             });
         }
-    }, [useCreditCard, register, unregister, clearErrors, useOtherPay]);
+    }, [register, unregister, clearErrors, paymentMethod]);
 
     // 取得優惠卷代碼
     const getCouponCode = (e) => {
@@ -167,7 +160,7 @@ function ComfirmOrder() {
             const { message } = error.response.data;
             dispatch(createAsyncMessage({
                 text: message,
-                type: '找不到優惠券!',
+                type: '此優惠券代碼無效',
                 status: "failed"
             }))
         } finally {
@@ -448,14 +441,12 @@ function ComfirmOrder() {
                             <div className="form-check">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="creditCard" onChange={() => {
                                     setPaymentMethod("creditCard");
-                                    handleUseCreditCard();
-                                }}
-                                    checked={paymentMethod === "creditCard"} />
+                                }} />
                                 <label className="form-check-label fs-lg-5 fs-6" htmlFor="creditCard" >
                                     信用卡付款
                                 </label>
                             </div>
-                            {useCreditCard && (<div className="row ms-7 px-0 mt-4">
+                            {paymentMethod === "creditCard" && (<div className="row ms-7 px-0 mt-4">
                                 <div className="col-12">
                                     <Input
                                         register={register}
@@ -496,14 +487,10 @@ function ComfirmOrder() {
                                     </label>
                                 </div>
                             </div>)}
-
-
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="linePay" onChange={() => {
                                     setPaymentMethod("linePay");
-                                    handleOtherPay();
-                                }}
-                                    checked={paymentMethod === "linePay"} />
+                                }} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="linePay">
                                     <img src="images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
                                     Line Pay
@@ -512,7 +499,6 @@ function ComfirmOrder() {
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault2" id="applePay" onChange={() => {
                                     setPaymentMethod("applePay");
-                                    handleOtherPay();
                                 }} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="applePay">
                                     <img src="images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
@@ -522,7 +508,6 @@ function ComfirmOrder() {
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="flexRadioDefault" id="googlePay" onChange={() => {
                                     setPaymentMethod("googlePay");
-                                    handleOtherPay();
                                 }} />
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="googlePay">
                                     <img src="images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
@@ -556,7 +541,7 @@ function ComfirmOrder() {
                 </div>
                 {/* 結帳明細 */}
                 <div className="col-lg-3 d-none d-lg-block">
-                    <div className="sticky-top z-0">
+                    <div className="z-0" style={{ position: 'sticky', top: '130px' }}>
                         {filterFrozen.length > 0 || shippingType === 'frozen' ? (
                             cartList.total >= 1000 ? (
                                 <div className="bg-secondary-200 rounded rounded-3">

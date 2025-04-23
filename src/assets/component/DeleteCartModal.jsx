@@ -29,7 +29,7 @@ function DeleteCartModal({ getCartList, delModelRef }) {
             const res = await axios.delete(`${baseUrl}/v2/api/${apiPath}/carts`)
             dispatch(createAsyncMessage({
                 text: res.data.message,
-                type: '刪除產品成功',
+                type: '清空購物車成功',
                 status: "success"
             }));
             getCartList()
@@ -37,7 +37,7 @@ function DeleteCartModal({ getCartList, delModelRef }) {
             const { message } = error.response.data;
             dispatch(createAsyncMessage({
                 text: message.join("、"),
-                type: '刪除產品失敗',
+                type: '清空購物車失敗',
                 status: "failed"
             }));
         } finally {
@@ -57,7 +57,7 @@ function DeleteCartModal({ getCartList, delModelRef }) {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary px-6" onClick={closeDelModal}>取消</button>
-                        <button type="button" className="btn btn-accent px-6 text-white" onClick={removeCart}>刪除</button>
+                        <button type="button" className="btn btn-accent px-6 text-white" onClick={removeCart}>清空</button>
                     </div>
                 </div>
             </div>

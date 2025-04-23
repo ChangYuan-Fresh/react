@@ -94,8 +94,17 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                 ...tempArticle,
                 image: upLoadImg
             })
+            dispatch(createAsyncMessage({
+                text: '上傳圖片成功',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert(error.response.data.message)
+            dispatch(createAsyncMessage({
+                text: message.join("、"),
+                type: '上傳圖片失敗',
+                status: "failed"
+            }));
         } finally {
             e.target.value = "";
         }

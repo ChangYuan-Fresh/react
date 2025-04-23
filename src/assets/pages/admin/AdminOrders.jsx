@@ -1,13 +1,16 @@
 import {useCallback, useEffect, useState, useRef } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import IsScreenLoading from '../../component/IsScreenLoading';
 import PaginationCompo from '../../component/PaginationCompo'
 import Toast from "../../layout/Toast";
+import { createAsyncMessage } from '../../redux/slice/toastSlice';
 import OrderModal from '../../component/OrderModal';
 import FormatDate from '../../component/formatDate';
 import 'swiper/css';
+
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -23,13 +26,19 @@ function AdminOrders() {
     const [search, setSearch] = useState('');
     const [pageInfo, getPageInfo] = useState({});
     const [searchType, setSearchType] = useState('訂單編號')
+    const dispatch = useDispatch();
 
 
     const checkLogin = useCallback(async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
-            alert("請登入管理員帳號", error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '請登入管理員帳號',
+                status: "failed"
+            }))
             navigate('/adminlogin')
         }
     }, [navigate]);
@@ -48,8 +57,18 @@ function AdminOrders() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/orders?page=${page}`);
             setOrders(res.data.orders)
             getPageInfo(res.data.pagination)
+            dispatch(createAsyncMessage({
+                text: '取得訂單資料成功',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert("取得訂單資料失敗" ,  error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得訂單資料失敗',
+                status: "failed"
+            }))
         } finally {
             setIsScreenLoading(false)
         }
@@ -105,8 +124,18 @@ function AdminOrders() {
         try {
             await axios.delete(`${baseUrl}/v2/api/${apiPath}/admin/order/${id}`)
             getOrderList()
+            dispatch(createAsyncMessage({
+                text: '刪除訂單成功',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert('刪除訂單失敗', error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '刪除訂單失敗',
+                status: "failed"
+            }))
         } finally {
             setIsScreenLoading(false)
         }

@@ -42,23 +42,28 @@ function ProductDetail() {
             });
             navigate("/cart")
         } catch (error) {
-            alert(error.data.message)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得資料失敗',
+                status: "failed"
+            }))
         }
     }
 
     const addCartItem = async (product_id, qtySelect) => {
         setIsLoadingBtn(true);
         setIsLoading(true);
-        
+
         if (qtySelect > product.product_stock) {
             dispatch(createAsyncMessage({
                 text: '所選數量超過庫存',
                 type: '庫存不足',
                 status: "failed"
             }));
-            return; // 直接停止执行
+            return;
         }
-    
+
         try {
             const res = await axios.post(`${baseUrl}/v2/api/${apiPath}/cart`, {
                 data: {
@@ -96,7 +101,12 @@ function ProductDetail() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/product/${product_id}`);
             setProduct(res.data.product);
         } catch (error) {
-            alert('取得資料失敗', error.response);
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得資料失敗',
+                status: "failed"
+            }))
         } finally {
             setIsLoading(false);
         }
@@ -113,7 +123,12 @@ function ProductDetail() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
             dispatch(updateCartData(res.data.data));
         } catch (error) {
-            alert(error.data);
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得資料失敗',
+                status: "failed"
+            }))
         }
     }, [dispatch]);
     useEffect(() => {

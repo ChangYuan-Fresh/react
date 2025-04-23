@@ -11,6 +11,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useState, useEffect } from 'react';
 import Toast from '../layout/Toast';
+import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../redux/slice/toastSlice';
 
 const baseUrl = 'https://ec-course-api.hexschool.io/v2/api';
 const apiPath = 'changyuan_fresh';
@@ -21,6 +23,7 @@ function Home() {
     const navigate = useNavigate();
     const [activeImage, setActiveImage] = useState("https://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?q=80&w=1024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     const [stories, setStories] = useState([]);
+    const dispatch = useDispatch();
 
     const storyImages = {
         cauliflower: "https://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?q=80&w=1024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -55,7 +58,12 @@ function Home() {
                     setProducts(data.products);
                 }
             })
-            .catch((err) => alert("獲取商品失敗", err.response));
+            .catch((error) =>{const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得資料失敗',
+                status: "failed"
+            }))});
     }, []);
 
     // 根據選擇的分類篩選商品
@@ -65,7 +73,7 @@ function Home() {
 
     const handleBuyNow = async (product_id) => {
         try {
-            await axios.post(`${baseUrl}/${apiPath}/cart`, {
+            const res = await axios.post(`${baseUrl}/${apiPath}/cart`, {
                 data: {
                     product_id,
                     qty: 1,
@@ -73,7 +81,12 @@ function Home() {
             });
             navigate('/cart'); // 跳轉到購物車頁面
         } catch (error) {
-            alert(error.response?.data?.message || '加入購物車失敗');
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '加入購物車失敗',
+                status: "failed"
+            }))
         }
     };
 
@@ -81,19 +94,24 @@ function Home() {
         AOS.init();
     }, []);
 
-    const getStoryList = async()=>{
+    const getStoryList = async () => {
         try {
             const res = await axios.get(`${baseUrl}/${apiPath}/articles`);
             setStories(res.data.articles.slice(0, 4));
         } catch (error) {
-            alert('取得文章失敗', error)
-        } 
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得文章失敗',
+                status: "failed"
+            }))
+        }
     }
 
     useEffect(() => {
         getStoryList();
     }, [])
-   
+
     return (
         <div>
             <main>
@@ -131,7 +149,7 @@ function Home() {
                                 />
                                 <button type="submit" className="btn" style={{ display: searchInput ? 'none' : 'block' }} >
                                     <span
-                                        className="search-btn material-symbols-outlined text-primary fs-2 position-absolute top-50 translate-middle-y  me-2">
+                                        className="search-btn material-symbols-outlined text-primary fs-2 position-absolute top-50 translate-middle-y  pe-4">
                                         search
                                     </span >
                                 </button>
@@ -287,32 +305,18 @@ function Home() {
                                 <img src={activeImage} alt="story" />
                             </div>
                             <div className="nav story-nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <Link to="/stories/-OLXNXmUwZf7kfcMB1sL">
-                                    <button
-                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
-                                        onMouseEnter={() => setActiveImage(storyImages.cauliflower)}
-                                    >
-                                        種植花椰菜的故事
-                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
-                                    </button>
-                                </Link>
-                                <Link to="/stories/-OK5MfbrpHIayuP0WYAC">
-                                    <button
-                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
-                                        onMouseEnter={() => setActiveImage(storyImages.grape)}
-                                    >
-                                        葡萄園的奧秘
-                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
-                                    </button>
-                                </Link>
-                                <Link to="/stories/-OK5LgP5Khusdh8K_m3h">
-                                    <button
-                                        className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
-                                        onMouseEnter={() => setActiveImage(storyImages.farmTotable)}
-                                    >
-                                        從牧場到餐桌的旅程
-                                        <span className="material-symbols-outlined story-icon">chevron_right</span>
-                                    </button></Link>
+                                {stories.map((story) => {
+                                    return (
+                                        <Link to={`/stories/${story.id}`}>
+                                            <button
+                                                className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
+                                                onMouseEnter={() => setActiveImage(story.image)}>
+                                                {story.title}
+                                                <span className="material-symbols-outlined story-icon">chevron_right</span>
+                                            </button>
+                                        </Link>
+                                    )   
+                                })}
                                 <Link to="/stories">
                                     <button
                                         className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
@@ -320,7 +324,7 @@ function Home() {
                                     >
                                         想知道更多產地故事嗎?
                                         <span className="material-symbols-outlined story-icon">chevron_right</span>
-                                    </button></Link> 
+                                    </button></Link>
                             </div>
                         </div>
                     </div>

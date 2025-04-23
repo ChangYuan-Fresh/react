@@ -5,7 +5,9 @@ import StoryModal from '../../component/StoryModal';
 import DeleteStoryModal from '../../component/DeleteStoryModal';
 import Toast from "../../layout/Toast";
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import IsScreenLoading from '../../component/IsScreenLoading';
+import { createAsyncMessage } from '../../redux/slice/toastSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
@@ -26,17 +28,23 @@ function AdminStory() {
     const [pageInfo, getPageInfo] = useState({});
     const [modalMode, setModalMode] = useState(null);
     const [tempArticle, setTempArticle] = useState(defaultModalState);
+    const [isScreenLoading, setIsScreenLoading] = useState(false)
     const modelRef = useRef(null);
     const delModelRef = useRef(null);
     const navigate = useNavigate()
-    const [isScreenLoading, setIsScreenLoading] = useState(false)
+    const dispatch = useDispatch();
 
 
     const checkLogin = useCallback(async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`)
         } catch (error) {
-            alert("請登入管理員帳號", error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '請登入管理員帳號',
+                status: "failed"
+            }))
             navigate('/adminlogin')
         }
     }, [navigate]);
@@ -55,8 +63,18 @@ function AdminStory() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/articles?page=${page}`);
             setArticles(res.data.articles);
             getPageInfo(res.data.pagination)
+            dispatch(createAsyncMessage({
+                text: '取得文章成功',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert('取得資料失敗' ,error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得文章失敗',
+                status: "failed"
+            }))
             navigate('/adminlogin')
         } finally {
             setIsScreenLoading(false)
@@ -94,7 +112,12 @@ function AdminStory() {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/article/${id}`);
             setTempArticle(res.data.article)
         } catch (error) {
-            alert('取得資料失敗', error.response)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '取得資料失敗',
+                status: "failed"
+            }))
             navigate('/adminlogin')
         }
     }

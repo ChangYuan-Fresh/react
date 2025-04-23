@@ -2,19 +2,30 @@ import { Outlet, useNavigate } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
 import AdminNavbar from "./AdminNavbar";
 import { useCallback, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Toast from "./Toast";
+import { createAsyncMessage } from "../redux/slice/toastSlice";
+
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 
 function AdminLayout() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+
     const checkLogin = useCallback(async () => {
         try {
             await axios.post(`${baseUrl}/v2/api/user/check`);
         } catch (error) {
-            alert("請登入管理員帳號", error.response);
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '請登入管理員帳號',
+                status: "failed"
+            }))
             navigate('/adminlogin');
         }
     }, [navigate]);

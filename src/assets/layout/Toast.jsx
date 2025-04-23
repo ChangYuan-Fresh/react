@@ -1,19 +1,19 @@
 import { useSelector } from "react-redux"
 
 function Toast() {
-    const messages = useSelector((state) =>{
+    const messages = useSelector((state) => {
         return state.toast
     })
     return (
-        <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1000 }}>
+        <div className="p-3" style={{ zIndex: 1000, position: "fixed", top: "150px", right: 0 }}>
             {messages.map((message) => {
                 return (
-                    <div 
-                    key={message.id}
-                    className="toast show bg-white" 
-                    role="alert" 
-                    aria-live="assertive" 
-                    aria-atomic="true">
+                    <div
+                        key={message.id}
+                        className="toast show bg-white"
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true">
                         <div className={`toast-header text-white ${message.status === "success" ? "bg-primary" : "bg-accent"}`}>
                             <strong className="me-auto">{message.type}</strong>
                             <button

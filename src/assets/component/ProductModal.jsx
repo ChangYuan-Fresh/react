@@ -100,8 +100,18 @@ function ProductModal({ modalMode, tempProduct, getProductList, setTempProduct, 
                 ...tempProduct,
                 imageUrl: upLoadImgUrl
             })
+            dispatch(createAsyncMessage({
+                text: '上傳圖片成功',
+                type: '成功',
+                status: "success"
+            }))
         } catch (error) {
-            alert(error.response.data.message)
+            const { message } = error.response.data;
+            dispatch(createAsyncMessage({
+                text: message,
+                type: '上傳圖片失敗',
+                status: "failed"
+            }))
         } finally {
             e.target.value = "";
         }

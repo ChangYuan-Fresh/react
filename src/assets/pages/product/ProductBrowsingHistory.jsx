@@ -9,11 +9,11 @@ function ProductBrowsingHistory({ recentProducts = [] }) {
                 <h6 className="fs-5 mb-4 text-">你曾瀏覽過：</h6>
                 <div className="d-lg-block d-flex flex-nowrap">
                     {recentProducts.map((product) => (
-                        <div className="me-lg-0 me-3" key={product.id}>
+                        <div className="me-lg-0 me-3 allProduct-catalog-card" key={product.id}>
                             <Link to={`/products/${product.category}/${product.id}`}>
                                 <img src={product.imageUrl} alt={product.title} />
-                                <div className="card-body p-2">
-                                    <h5>{product.title}</h5>
+                                <div className="card-body p-2 mb-2">
+                                    <h5 className="fs-6">{product.title}</h5>
                                 </div>
                             </Link>
                         </div>

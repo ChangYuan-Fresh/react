@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 
-function Input({ register, errors, id, labelText, type, rules, mark }) {
+function Input({ register, errors = {}, id, labelText, type = "text", rules = {}, mark }) {
     return (
         <div className="mb-3">
             <label htmlFor={id} className="form-label"><span className="text-accent">{mark}</span>{labelText}</label>
@@ -27,10 +27,5 @@ Input.propTypes = {
     mark: PropTypes.string
 };
 
-Input.defaultProps = {
-    type: "text",
-    errors: {},
-    rules: {}
-};
 
 export default Input
