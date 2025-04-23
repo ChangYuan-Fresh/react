@@ -100,6 +100,7 @@ function StoryModal({ modalMode, tempArticle, getArticleList, setTempArticle, mo
                 status: "success"
             }))
         } catch (error) {
+            const { message } = error.response.data;
             dispatch(createAsyncMessage({
                 text: message.join("、"),
                 type: '上傳圖片失敗',

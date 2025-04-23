@@ -73,7 +73,7 @@ function Home() {
 
     const handleBuyNow = async (product_id) => {
         try {
-            const res = await axios.post(`${baseUrl}/${apiPath}/cart`, {
+            await axios.post(`${baseUrl}/${apiPath}/cart`, {
                 data: {
                     product_id,
                     qty: 1,
@@ -307,7 +307,7 @@ function Home() {
                             <div className="nav story-nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 {stories.map((story) => {
                                     return (
-                                        <Link to={`/stories/${story.id}`}>
+                                        <Link to={`/stories/${story.id}`} key={story.id}>
                                             <button
                                                 className="nav-link story-btn text-start fs-lg-4 fs-6 position-relative"
                                                 onMouseEnter={() => setActiveImage(story.image)}>

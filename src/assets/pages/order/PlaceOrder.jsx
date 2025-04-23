@@ -90,8 +90,8 @@ function PlaceOrder() {
                 </div>
             </div>
         </div>
-
         <img src="images/Illustration/Top-Curve.png" alt="banner" className="promotion-curve" />
+        <Toast />
     </>
     )
 }
