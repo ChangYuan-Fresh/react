@@ -96,7 +96,7 @@ function ComfirmOrder() {
             }))
         }
     },[dispatch]);
-    
+
     useEffect(() => {
         getCartList();
     }, [getCartList])
@@ -442,7 +442,7 @@ function ComfirmOrder() {
                             <div className="form-check">
                                 <input className="form-check-input me-4" type="radio" name="paymentMethod" id="creditCard" onChange={() => {
                                     setPaymentMethod("creditCard");
-                                }} 
+                                }}
                                 checked={paymentMethod === "creditCard"}/>
                                 <label className="form-check-label fs-lg-5 fs-6" htmlFor="creditCard" >
                                     信用卡付款
@@ -492,7 +492,7 @@ function ComfirmOrder() {
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="paymentMethod" id="linePay" onChange={() => {
                                     setPaymentMethod("linePay");
-                                }} 
+                                }}
                                 checked={paymentMethod === "linePay"}/>
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="linePay">
                                     <img src="images/icon/linepay.png" alt="applepay" height="24px" className="me-3" />
@@ -502,7 +502,7 @@ function ComfirmOrder() {
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="paymentMethod" id="applePay" onChange={() => {
                                     setPaymentMethod("applePay");
-                                }} 
+                                }}
                                 checked={paymentMethod === "applePay"}/>
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="applePay">
                                     <img src="images/icon/applepay.png" alt="applepay" height="24px" className="me-3" />
@@ -512,7 +512,7 @@ function ComfirmOrder() {
                             <div className="form-check mt-5">
                                 <input className="form-check-input me-4" type="radio" name="paymentMethod" id="googlePay" onChange={() => {
                                     setPaymentMethod("googlePay");
-                                }} 
+                                }}
                                 checked={paymentMethod === "googlePay"}/>
                                 <label className="form-check-label fs-lg-5 fs-6 en-font" htmlFor="googlePay">
                                     <img src="images/icon/googlepay.png" alt="applepay" height="24px" className="me-3" />
@@ -564,7 +564,7 @@ function ComfirmOrder() {
                                         </div>
                                     </div>)
                         ) : (
-                            cartList.total >= 1000 ? (
+                            cartList.total >= 499 ? (
                                 <div className="bg-secondary-200 rounded roundedd-3">
                                     <div className="d-flex py-4 ms-5 text-primary">
                                         <span className="material-symbols-outlined me-2">check_circle</span>
@@ -575,7 +575,7 @@ function ComfirmOrder() {
                                     <div className="bg-accent rounded rounded-3">
                                         <div className="d-flex py-4 ms-5 text-white">
                                             <span className="material-symbols-outlined me-2">package_2</span>
-                                            <p>還差$ {1000 - cartList.total || 0}元免運</p>
+                                            <p>還差$ {499 - cartList.total || 0}元免運</p>
                                         </div>
                                     </div>)
                         )}
@@ -684,7 +684,7 @@ function ComfirmOrder() {
                                                 </div>
                                             </div>)
                                 ) : (
-                                    cartList.total >= 1000 ? (
+                                    cartList.total >= 499 ? (
                                         <div className="bg-secondary-200 rounded roundedd-3">
                                             <div className="d-flex text-primary align-items-center">
                                                 <span className="material-symbols-outlined me-1 fs-6">check_circle</span>
@@ -695,7 +695,7 @@ function ComfirmOrder() {
                                             <div className="bg-accent rounded rounded-3">
                                                 <div className="d-flex text-white align-items-center">
                                                     <span className="material-symbols-outlined me-1 fs-6 ms-1">package_2</span>
-                                                    <p className="fs-7">還差$ {1000 - cartList.total || 0}元免運</p>
+                                                    <p className="fs-7">還差$ {499 - cartList.total || 0}元免運</p>
                                                 </div>
                                             </div>)
                                 )}

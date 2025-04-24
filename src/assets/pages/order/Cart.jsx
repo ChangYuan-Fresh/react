@@ -208,7 +208,7 @@ function Cart() {
                                                 </div>
                                             </div>)
                                 ) : (
-                                    cartList.total >= 1000 ? (
+                                    cartList.total >= 499 ? (
                                         <div className="bg-secondary-200 rounded rounded-3">
                                             <div className="d-flex py-4 ms-5 text-primary">
                                                 <span className="material-symbols-outlined me-2">check_circle</span>
@@ -219,7 +219,7 @@ function Cart() {
                                             <div className="bg-accent rounded rounded-3">
                                                 <div className="d-flex py-4 ms-5 text-white">
                                                     <span className="material-symbols-outlined me-2">package_2</span>
-                                                    <p>還差$ {1000 - cartList.total || 0}元免運</p>
+                                                    <p>還差$ {499- cartList.total || 0}元免運</p>
                                                 </div>
                                             </div>)
                                 )}
@@ -328,7 +328,7 @@ function Cart() {
                                                         </div>
                                                     </div>)
                                         ) : (
-                                            cartList.total >= 1000 ? (
+                                            cartList.total >= 499 ? (
                                                 <div className="bg-secondary-200 rounded roundedd-3">
                                                     <div className="d-flex text-primary align-items-center">
                                                         <span className="material-symbols-outlined me-1 fs-6">check_circle</span>
@@ -339,7 +339,7 @@ function Cart() {
                                                     <div className="bg-accent rounded rounded-3">
                                                         <div className="d-flex text-white align-items-center">
                                                             <span className="material-symbols-outlined me-1 fs-6">package_2</span>
-                                                            <p className="fs-7">還差$ {1000 - cartList.total || 0}元免運</p>
+                                                            <p className="fs-7">還差$ {499 - cartList.total || 0}元免運</p>
                                                         </div>
                                                     </div>)
                                         )}
