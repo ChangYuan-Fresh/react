@@ -28,7 +28,7 @@ function AdminLayout() {
             }))
             navigate('/adminlogin');
         }
-    }, [navigate]);
+    }, [navigate, dispatch]);
     useEffect(() => {
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
         if (token) {

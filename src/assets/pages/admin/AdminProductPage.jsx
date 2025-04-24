@@ -57,7 +57,7 @@ function AdminProductPage() {
     }, []);
 
 
-    const getTotalProducts = async () => {
+    const getTotalProducts = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/products/all`);
             const allProducts = Object.values(res.data.products); // 取得所有商品陣列
@@ -77,7 +77,7 @@ function AdminProductPage() {
                 status: "failed"
             }))
         }
-    };
+    },[dispatch]);
 
     const checkLogin = useCallback(async () => {
         try {
@@ -91,7 +91,7 @@ function AdminProductPage() {
             }))
             navigate('/adminlogin')
         }
-    }, [navigate]);
+    }, [navigate, dispatch]);
 
     useEffect(() => {
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
@@ -123,7 +123,7 @@ function AdminProductPage() {
         } finally {
             setIsScreenLoading(false)
         }
-    }, [navigate]);
+    }, [navigate, dispatch]);
 
     const btnChangePage = (page) => {
         getProductList(page);
@@ -173,7 +173,7 @@ function AdminProductPage() {
     useEffect(() => {
         getProductList();
         getTotalProducts();
-    }, [getProductList])
+    }, [getProductList, getTotalProducts])
     return (
         <>
             <div className="container  rounded-3 py-5" >

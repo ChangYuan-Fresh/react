@@ -18,7 +18,7 @@ function DeleteCartModal({ getCartList, delModelRef }) {
                 backdrop: false
             });
         }
-    }, []);
+    }, [delModelRef]);
 
     const closeDelModal = () => {
         delModelRef.current.hide()

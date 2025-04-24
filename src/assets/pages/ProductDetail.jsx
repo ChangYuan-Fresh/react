@@ -110,10 +110,10 @@ function ProductDetail() {
         } finally {
             setIsLoading(false);
         }
-    }, [product_id]);
+    }, [product_id, dispatch]);
     useEffect(() => {
         getProductDetail();
-    }, [getProductDetail])
+    }, [getProductDetail, dispatch])
 
     const handleTextExtend = () => {
         setTextExtend(prevState => !prevState)

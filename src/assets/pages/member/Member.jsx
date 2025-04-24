@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useEffect, useState, useRef } from "react";
+import {  useCallback, useEffect, useState, useRef } from "react";
 import axios from 'axios'
 import Toast from "../../layout/Toast";
 import { useDispatch } from 'react-redux';
@@ -37,7 +37,7 @@ function Member() {
         }, 500)
     };
 
-    const getOrderList = async () => {
+    const getOrderList = useCallback(async () => {
         setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/orders`);
@@ -57,11 +57,11 @@ function Member() {
         } finally {
             setIsScreenLoading(false)
         }
-    }
+    },[dispatch]);
 
     useEffect(() => {
         getOrderList();
-    }, [])
+    }, [getOrderList])
 
     const orderState = ['全部', '已付款', '未付款', '取消/退貨'];
 

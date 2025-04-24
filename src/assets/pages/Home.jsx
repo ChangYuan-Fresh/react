@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import Toast from '../layout/Toast';
 import { useDispatch } from 'react-redux';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
+import { useCallback } from 'react';
 
 const baseUrl = 'https://ec-course-api.hexschool.io/v2/api';
 const apiPath = 'changyuan_fresh';
@@ -64,7 +65,7 @@ function Home() {
                 type: '取得資料失敗',
                 status: "failed"
             }))});
-    }, []);
+    }, [dispatch]);
 
     // 根據選擇的分類篩選商品
     const filteredProducts = activeCategory === "全部商品"
@@ -94,7 +95,7 @@ function Home() {
         AOS.init();
     }, []);
 
-    const getStoryList = async () => {
+    const getStoryList = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/${apiPath}/articles`);
             setStories(res.data.articles.slice(0, 4));
@@ -104,13 +105,13 @@ function Home() {
                 text: message,
                 type: '取得文章失敗',
                 status: "failed"
-            }))
+            }));
         }
-    }
+    }, [dispatch]);
 
     useEffect(() => {
         getStoryList();
-    }, [])
+    }, [getStoryList])
 
     return (
         <div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router";
 import axios from 'axios'
@@ -83,7 +83,7 @@ function ComfirmOrder() {
         }
     }
 
-    const getCartList = async () => {
+    const getCartList = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
             setCartList(res.data.data);
@@ -95,10 +95,11 @@ function ComfirmOrder() {
                 status: "failed"
             }))
         }
-    }
+    },[dispatch]);
+    
     useEffect(() => {
         getCartList();
-    }, [])
+    }, [getCartList])
 
     // 取得地址資料
     useEffect(() => {

@@ -5,6 +5,7 @@ import axios from 'axios'
 import Banner from "../layout/Banner";
 import Toast from '../layout/Toast';
 import { createAsyncMessage } from '../redux/slice/toastSlice';
+import { useCallback } from 'react';
 
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -14,7 +15,7 @@ function Stories() {
     const [stories, setStories] = useState([]);
     const dispatch = useDispatch();
 
-    const getStoryList = async () => {
+    const getStoryList = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/articles`);
             setStories(res.data.articles);
@@ -26,11 +27,11 @@ function Stories() {
                 status: "failed"
             }))
         }
-    }
+    }, [dispatch]);
 
     useEffect(() => {
         getStoryList();
-    }, [])
+    }, [getStoryList])
 
     return (<>
         <main>

@@ -12,6 +12,7 @@ import FormatDate from '../../component/formatDate';
 import 'swiper/css';
 
 
+
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiPath = import.meta.env.VITE_API_PATH;
 
@@ -41,7 +42,7 @@ function AdminOrders() {
             }))
             navigate('/adminlogin')
         }
-    }, [navigate]);
+    }, [navigate, dispatch]);
 
     useEffect(() => {
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
@@ -51,7 +52,7 @@ function AdminOrders() {
         }
     }, [checkLogin])
 
-    const getOrderList = async (page = 1) => {
+    const getOrderList = useCallback(async (page = 1) => {
         setIsScreenLoading(true)
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/orders?page=${page}`);
@@ -72,11 +73,11 @@ function AdminOrders() {
         } finally {
             setIsScreenLoading(false)
         }
-    }
+    }, [dispatch]);
 
     useEffect(() => {
         getOrderList()
-    }, [])
+    }, [getOrderList])
 
     const openModal = (order) => {
         setTempOrder(order);

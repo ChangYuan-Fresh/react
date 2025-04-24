@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import axios from 'axios'
@@ -37,7 +37,7 @@ function ProductListAll() {
         setSelectCategory(category ? decodeURIComponent(category) : '全部商品');
     }, [category]);
 
-    const getProductList = async () => {
+    const getProductList = useCallback(async () => {
         setIsScreenLoading(true);
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/products/all`);
@@ -52,11 +52,11 @@ function ProductListAll() {
         } finally {
             setIsScreenLoading(false)
         }
-    }
+    },[dispatch]);
 
     useEffect(() => {
         getProductList();
-    }, [])
+    }, [getProductList])
 
     const categories = ['全部商品', ...new Set(products.map((product) => product.category))];
 

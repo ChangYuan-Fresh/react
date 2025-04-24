@@ -14,7 +14,7 @@ function PlaceOrder() {
     const [orderId, setOrderId] = useState([])
     const dispatch = useDispatch();
 
-    const getOrders = async () => {
+    const getOrders = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/orders`);
             setOrderId(res.data.orders)
@@ -26,7 +26,8 @@ function PlaceOrder() {
                 status: "failed"
             }))
         }
-    }
+    }, [dispatch]);
+    
     const getCartList = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/cart`);
@@ -44,7 +45,7 @@ function PlaceOrder() {
     useEffect(() => {
         getCartList();
         getOrders()
-    }, [getCartList])
+    }, [getCartList, getOrders])
 
     return (<>
         <div className="container order mt-lg-7 mt-5 mb-lg-10 mb-0 ">

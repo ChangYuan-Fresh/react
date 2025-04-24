@@ -47,7 +47,7 @@ function AdminStory() {
             }))
             navigate('/adminlogin')
         }
-    }, [navigate]);
+    }, [navigate, dispatch]);
 
     useEffect(() => {
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
@@ -79,7 +79,7 @@ function AdminStory() {
         } finally {
             setIsScreenLoading(false)
         }
-    }, [navigate]);
+    }, [navigate, dispatch]);
 
     const btnChangePage = (page) => {
         getArticleList(page);

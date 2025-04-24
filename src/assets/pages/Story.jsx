@@ -29,7 +29,7 @@ function Story() {
                 status: "failed"
             }))
         }
-    }, []);
+    }, [dispatch]);
 
     const getStoryDetail = useCallback(async () => {
         setIsScreenLoading(true)
@@ -46,7 +46,7 @@ function Story() {
         } finally {
             setIsScreenLoading(false)
         }
-    }, [story_id]);
+    }, [story_id, dispatch]);
 
     useEffect(() => {
         getStoryDetail();

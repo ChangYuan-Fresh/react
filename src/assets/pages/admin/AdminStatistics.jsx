@@ -34,7 +34,7 @@ function AdminStatistics() {
             }))
             navigate("/adminlogin");
         }
-    }, [navigate]);
+    }, [navigate, dispatch]);
 
     useEffect(() => {
         const token = document.cookie.replace(
@@ -47,7 +47,7 @@ function AdminStatistics() {
         }
     }, [checkLogin]);
 
-    const getAllOrder = async () => {
+    const getAllOrder = useCallback(async () => {
         setIsScreenLoading(true);
         try {
             const firstRes = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/orders?page=1`);
@@ -73,9 +73,9 @@ function AdminStatistics() {
         } finally {
             setIsScreenLoading(false);
         }
-    };
+    },[dispatch]);
 
-    const getAllProducts = async () => {
+    const getAllProducts = useCallback(async () => {
         try {
             const res = await axios.get(`${baseUrl}/v2/api/${apiPath}/admin/products/all`);
             const products = Object.values(res.data.products);
@@ -97,12 +97,12 @@ function AdminStatistics() {
                 status: "failed"
             }))
         }
-    };
+    },[dispatch]);
 
     useEffect(() => {
         getAllOrder();
         getAllProducts();
-    }, []);
+    }, [getAllOrder, getAllProducts]);
 
     useEffect(() => {
         if (allOrders.length > 0 && chartRef1.current) {
