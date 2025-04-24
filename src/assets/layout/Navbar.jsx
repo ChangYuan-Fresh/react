@@ -60,7 +60,7 @@ function Navbar() {
                 </NavLink>
                 <NavLink className="fs-2 text-primary ms-auto me-3 d-lg-none position-relative" to='cart'>
                     <span className="material-symbols-outlined">shopping_cart</span>
-                    {cartNum?.length > 0 && <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle p-0 fs-7 d-flex align-items-center justify-content-center mt-3" style={{ width: "20px", height: "20px" }}>{cartNum?.length}</span>}
+                    {cartNum?.length > 0 && <span className="badge rounded-pill text-bg-danger position-absolute top-0 start-100 translate-middle p-0 d-flex align-items-center justify-content-center mt-3" style={{ width: "14px", height: "14px", fontSize: "10px" }}>{cartNum?.length}</span>}
 
                 </NavLink>
                 <button

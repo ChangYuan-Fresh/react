@@ -156,8 +156,8 @@
         object-fit: cover;
         border-top-left-radius: 1rem;
         border-top-right-radius: 1rem;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
         aspect-ratio: 306/280;
 
         @media (max-width: 992px) {
