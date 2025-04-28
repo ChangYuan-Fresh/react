@@ -1,64 +1,62 @@
 .adminNavLink:hover {
-    color: $accent;   
+  color: $accent;
 }
 
 .adminNavLink:focus {
-    color: $primary;
+  color: $primary;
 }
 
-.products-nav-link{
-    color: #000;
-    font-weight: 700;
+.products-nav-link {
+  color: #000;
+  font-weight: 700;
 }
 
 .products-nav-link.active {
-    color: #788F49 !important;
-    position: relative;
+  color: #788f49 !important;
+  position: relative;
 
-    &::before {
-        content: "";
-        position: absolute;
-        background-color:  #788F49;
-        width: 120px;
-        height: 3px;
-        border-radius: 4px;
-        bottom: 1px;
-        left: 50%;
-        transform: translate(-50%);
-        @media(min-width: 992px) {
-            width: 120px;
-        }
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: #788f49;
+    width: 120px;
+    height: 3px;
+    border-radius: 4px;
+    bottom: 1px;
+    left: 50%;
+    transform: translate(-50%);
+    @media (min-width: 992px) {
+      width: 120px;
     }
+  }
 }
-.adminstatistics{
-    .nav-link{
-        border-bottom: 3px solid transparent;
-        border-top: 0;
-        border-right: 0;
-        border-left: 0;
-    }
-    .nav-link.active{
-        border-bottom: 3px solid $primary;
-        border-top: 0;
-        border-right: 0;
-        border-left: 0;
-    }
-}
-
-.bg-custom{
-    background-color: #f8f9fa;
-    @media(min-width: 992px) {
-        background-color: white;
-    }
+.adminstatistics {
+  .nav-link {
+    border-bottom: 3px solid transparent;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+  }
+  .nav-link.active {
+    border-bottom: 3px solid $primary;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+  }
 }
 
-.text-custom{
-    
-    
-        text-wrap: nowrap;
-        font-size: 12px;
-    
-    @media(min-width: 1400px) {
-        font-size: 16px;
-    }
+.bg-custom {
+  background-color: #f8f9fa;
+  @media (min-width: 992px) {
+    background-color: white;
+  }
+}
+
+.text-custom {
+  text-wrap: nowrap;
+  font-size: 12px;
+
+  @media (min-width: 1400px) {
+    font-size: 16px;
+  }
 }

@@ -13,8 +13,7 @@
   color: rgba(255, 137, 101, 1);
   @include media-breakpoint-up(lg) {
     font-size: 5rem;
-}
-  
+  }
 }
 
 .content-block {
@@ -35,13 +34,12 @@
     }
   }
 
-  .bgchange{
+  .bgchange {
     background: white;
     @include media-breakpoint-up(lg) {
       background: $secondary-200;
+    }
   }
-  }
-
 
   .content-block:first-of-type {
     margin-top: -100px;
@@ -50,7 +48,6 @@
   }
 
   .text-content {
-
     .text-area {
       position: absolute;
       top: 50%;
@@ -100,7 +97,7 @@
     }
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 0;
       left: 0;
@@ -129,9 +126,6 @@
   }
 
   .text-content {
-
-
-
     .text {
       border-radius: 16px;
     }
@@ -201,7 +195,7 @@
       margin-top: 12rem;
     }
 
-    &+.content-block {
+    & + .content-block {
       margin-top: -16rem;
     }
 
