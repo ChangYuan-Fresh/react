@@ -140,18 +140,18 @@ function Home() {
               alt=""
               className="d-block w-100 allProduct-banner-img"
             />
-            <div className="position-absolute banner-text translate-middle ">
-              <h1 className="d-lg-inline-block d-sm-flex  justify-content-sm-center bg-primary text-white text-nowrap py-lg-3 mb-lg-4 mb-2 px-lg-4 p-2 ">
+            <div className="position-absolute banner-text translate-middle d-lg-block d-flex flex-column align-items-stretch ">
+              <h2 className="d-lg-inline-block d-sm-flex  justify-content-sm-center bg-primary text-white text-nowrap py-lg-3 mb-lg-4 mb-2 px-lg-4 p-2 index-header">
                 來自彰化的新鮮美味
-              </h1>
+              </h2>
               <br />
-              <h4 className="d-inline-block bg-white py-lg-2 px-lg-4 p-2 mb-lg-4 mb-2 fs-lg-4 fs-5 d-none d-lg-block">
+              <h4 className="d-inline-block bg-white py-lg-2 px-lg-4 p-2 mb-lg-4 mb-2  d-none d-lg-block">
                 在地農夫精心栽培，每一口都是健康的保證
               </h4>
               <form
                 onSubmit={handleSearch}
                 role="search"
-                className="position-relative d-flex"
+                className="position-relative d-flex ms-lg-0 ms-4"
               >
                 <div className="dropdown position-absolute top-50 start-0 translate-middle-y z-2">
                   <button

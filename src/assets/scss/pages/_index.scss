@@ -22,6 +22,12 @@ body {
   right: 10px;
 }
 
+@include media-breakpoint-up(sm) {
+  .index-header {
+    font-size: 2.5rem;
+  }
+}
+
 .deco-curve {
   position: absolute;
   left: 0;

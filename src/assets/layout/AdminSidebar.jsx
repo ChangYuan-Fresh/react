@@ -7,48 +7,20 @@ import Cookies from 'js-cookie';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
-function AdminSidebar() {
+function AdminSidebar({ onSignout }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const handleLogout = async () => {
-    try {
-      await axios.post(`${baseUrl}/v2/logout`);
-      Cookies.remove('token');
-      navigate('/adminlogin');
-      dispatch(
-        createAsyncMessage({
-          text: '登出成功',
-          type: '登出管理中心',
-          status: 'success',
-        })
-      );
-    } catch (error) {
-      const { message } = error.response.data;
-      dispatch(
-        createAsyncMessage({
-          text: message,
-          type: '登出失敗',
-          status: 'failed',
-        })
-      );
-    }
-  };
 
   const handleNavClick = path => {
     // 1. 獲取 offcanvas 元素
     const offcanvasElement = document.getElementById('offcanvasNavbar');
-
     if (offcanvasElement) {
       // 2. 檢查是否已經初始化
       const bsOffcanvas =
         Offcanvas.getInstance(offcanvasElement) ||
         new Offcanvas(offcanvasElement);
-
       // 3. 關閉 Offcanvas
       bsOffcanvas.hide();
     }
-
     // 4. 等待選單關閉後再導航
     setTimeout(() => {
       navigate(path);
@@ -90,7 +62,7 @@ function AdminSidebar() {
         <div>
           <NavLink className="d-grid gap-2 mt-5">
             <button
-              onClick={handleLogout}
+              onClick={onSignout}
               className="btn btn-outline-primary fw-bold rounded-3 d-grid gap-1"
             >
               登出
@@ -159,7 +131,7 @@ function AdminSidebar() {
               <small>管理中心</small>
             </span>
             <button
-              onClick={handleLogout}
+              onClick={onSignout}
               className="btn btn-outline-primary fw-bold rounded-3 px-8 py-2"
             >
               登出

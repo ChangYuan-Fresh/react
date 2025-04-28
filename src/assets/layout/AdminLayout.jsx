@@ -13,6 +13,20 @@ function AdminLayout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const signout = useCallback(() => {
+    document.cookie =
+      'hexToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    delete axios.defaults.headers.common['Authorization'];
+    dispatch(
+      createAsyncMessage({
+        text: '您已成功登出',
+        type: '管理中心',
+        status: 'success',
+      })
+    );
+    navigate('/adminlogin');
+  }, [navigate, dispatch]);
+
   const checkLogin = useCallback(async () => {
     try {
       await axios.post(`${baseUrl}/v2/api/user/check`);
@@ -25,9 +39,10 @@ function AdminLayout() {
           status: 'failed',
         })
       );
-      navigate('/adminlogin');
+      signout();
     }
-  }, [navigate, dispatch]);
+  }, [navigate, dispatch, signout]);
+
   useEffect(() => {
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
@@ -36,17 +51,19 @@ function AdminLayout() {
     if (token) {
       axios.defaults.headers.common['Authorization'] = token;
       checkLogin();
+    } else {
+      signout();
     }
-  }, [checkLogin]);
+  }, [checkLogin, signout]);
 
   return (
     <>
-      <AdminNavbar />
+      <AdminNavbar onSignout={signout} />
       <div className="bg-light">
         <div className="container pt-6 d-none d-lg-block">
           <div className="row">
             <div className="col-3">
-              <AdminSidebar />
+              <AdminSidebar onSignout={signout} />
             </div>
             <div className="col-9">
               <Outlet />
