@@ -136,7 +136,7 @@ function Home() {
         <section className="mt-6 position-relative">
           <div className="allProduct-banner-mx">
             <img
-              src="images/banner.png"
+              src="images/banner.jpg"
               alt=""
               className="d-block w-100 allProduct-banner-img"
             />
