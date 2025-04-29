@@ -265,8 +265,10 @@ function ProductDetail() {
                 <p className="text-primary fs-7 fs-lg-6 fw-normal mb-2">{`規格：${product.description || ''}`}</p>
                 <div className="mb-5">
                   <div className="d-flex justify-content-between w-25 w-lg-25 align-items-center mb-2">
-                    <p className="text-primary fs-7 fs-lg-6 fw-normal">數量</p>
-                    <p className="text-gray fs-7 fs-lg-6 fw-normal">{`剩餘 ${product.product_stock || 0} ${product.unit || ''}`}</p>
+                    <p className="text-primary fs-7 fs-lg-6 fw-normal text-nowrap">
+                      數量
+                    </p>
+                    <p className="text-gray fs-7 fs-lg-6 fw-normal text-nowrap">{`剩餘 ${product.product_stock || 0} ${product.unit || ''}`}</p>
                   </div>
                   <div className="mb-5">
                     <UpdateQtyBtnGroup
@@ -315,11 +317,13 @@ function ProductDetail() {
                 { id: 'product-standard', label: '規格說明' },
                 { id: 'product-comment', label: '評論' },
               ].map(({ id, label }) => (
-                  <button
-                    className={`btn py-4 fs-4 border-bottom-3 text-center w-100 me-5 p-0 tab-button rounded-0 ${activeTab === id ? 'active' : ''}`}
-                    onClick={() => handleClick(id)}>
-                    {label}
-                  </button>
+                <button
+                  key={id}
+                  className={`btn py-4 fs-4 border-bottom-3 text-center w-100 me-5 p-0 tab-button rounded-0 ${activeTab === id ? 'active' : ''}`}
+                  onClick={() => handleClick(id)}
+                >
+                  {label}
+                </button>
               ))}
             </ul>
           </nav>

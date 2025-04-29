@@ -1,11 +1,6 @@
 import { NavLink, useNavigate } from 'react-router';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { createAsyncMessage } from '../redux/slice/toastSlice';
 import { Offcanvas } from 'bootstrap';
-import Cookies from 'js-cookie';
-
-const baseUrl = import.meta.env.VITE_BASE_URL;
+import PropTypes from 'prop-types';
 
 function AdminSidebar({ onSignout }) {
   const navigate = useNavigate();
@@ -76,7 +71,7 @@ function AdminSidebar({ onSignout }) {
           <NavLink
             to="/admin/adminMember"
             className="adminNavLink d-flex justify-content-center"
-            onClick={e => handleNavClick(e, '/admin/adminMember')}
+            onClick={() => handleNavClick('/admin/adminMember')}
           >
             會員管理
           </NavLink>
@@ -84,7 +79,7 @@ function AdminSidebar({ onSignout }) {
           <NavLink
             to="/admin/adminProductPage"
             className="adminNavLink d-flex justify-content-center"
-            onClick={e => handleNavClick(e, '/admin/adminProductPage')}
+            onClick={() => handleNavClick('/admin/adminProductPage')}
           >
             商品管理
           </NavLink>
@@ -92,7 +87,7 @@ function AdminSidebar({ onSignout }) {
           <NavLink
             to="/admin/adminOrders"
             className="adminNavLink d-flex justify-content-center"
-            onClick={e => handleNavClick(e, '/admin/adminOrders')}
+            onClick={() => handleNavClick('/admin/adminOrders')}
           >
             訂單管理
           </NavLink>
@@ -100,7 +95,7 @@ function AdminSidebar({ onSignout }) {
           <NavLink
             to="/admin/adminStory"
             className="adminNavLink d-flex justify-content-center"
-            onClick={e => handleNavClick(e, '/admin/adminStory')}
+            onClick={() => handleNavClick('/admin/adminStory')}
           >
             文章管理
           </NavLink>
@@ -108,7 +103,7 @@ function AdminSidebar({ onSignout }) {
           <NavLink
             to="/admin/adminCoupons"
             className="adminNavLink d-flex justify-content-center"
-            onClick={e => handleNavClick(e, '/admin/adminCoupons')}
+            onClick={() => handleNavClick('/admin/adminCoupons')}
           >
             優惠券管理
           </NavLink>
@@ -116,7 +111,7 @@ function AdminSidebar({ onSignout }) {
           <NavLink
             to="/admin/adminStatistics"
             className="adminNavLink d-flex justify-content-center"
-            onClick={e => handleNavClick(e, '/admin/adminStatistics')}
+            onClick={() => handleNavClick('/admin/adminStatistics')}
           >
             統計圖表
           </NavLink>
@@ -142,5 +137,9 @@ function AdminSidebar({ onSignout }) {
     </>
   );
 }
+
+AdminSidebar.propTypes = {
+  onSignout: PropTypes.func.isRequired,
+};
 
 export default AdminSidebar;

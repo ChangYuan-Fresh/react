@@ -41,7 +41,7 @@ function AdminLayout() {
       );
       signout();
     }
-  }, [navigate, dispatch, signout]);
+  }, [dispatch, signout]);
 
   useEffect(() => {
     const token = document.cookie.replace(
