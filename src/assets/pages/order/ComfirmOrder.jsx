@@ -329,13 +329,13 @@ function ComfirmOrder() {
               style={{ borderRadius: '16px' }}
             >
               <div className="card-body">
-                <div className="card-title text-primary fs-5 mb-3">
+                <div className="card-title text-primary fs-5 fs-lg-4 mb-3">
                   商品明細
                 </div>
                 {cartList.carts?.map(item => {
                   return (
                     <div
-                      className="card-text d-flex justify-content-between align-items-end border-bottom py-3"
+                      className="card-text d-flex justify-content-between align-items-end border-bottom"
                       key={item.id}
                     >
                       <div>
@@ -355,10 +355,9 @@ function ComfirmOrder() {
               className="card bg-white mb-3 p-5 border-primary"
               style={{ borderRadius: '16px' }}
             >
-              <div className="card-title text-primary fs-5 fs-lg-4 mb-0 mb-lg-6">
-                訂購人資訊
-              </div>
-              <div className="row my-5">
+              <div className="card-title text-primary fs-5 mb-4 d-lg-none">訂購人資訊</div>
+              <div className="card-title text-primary d-none d-lg-block fs-4 mb-5">訂購人資訊</div>
+              <div className="row my-0 my-lg-4">
                 <div className="col-lg-6">
                   <Input
                     register={register}
@@ -494,9 +493,8 @@ function ComfirmOrder() {
               className="card bg-white mb-3 p-5 border-primary"
               style={{ borderRadius: '16px' }}
             >
-              <div className="card-title text-primary fs-5 fs-lg-4 mb-5 mb-lg-6">
-                <small className="text-accent">*</small>寄送方式
-              </div>
+              <div className="card-title text-primary fs-5 mb-4 d-lg-none"><small className="text-accent">*</small>寄送方式</div>
+              <div className="card-title text-primary d-none d-lg-block fs-4 mb-5"><small className="text-accent">*</small>寄送方式</div>
               {filterFrozen.length > 0 && (
                 <div className="d-flex text-accent bg-secondary-200 p-4 rounded rounded-3 mb-5">
                   <span className="material-symbols-outlined">info</span>
@@ -566,10 +564,9 @@ function ComfirmOrder() {
               className="card bg-white mb-3 p-5 border-primary"
               style={{ borderRadius: '16px' }}
             >
-              <div className="card-title text-primary fs-5 fs-lg-4 mb-6">
-                付款方式
-              </div>
-              <div className="mt-5">
+              <div className="card-title text-primary fs-5 mb-4 d-lg-none">付款方式</div>
+              <div className="card-title text-primary d-none d-lg-block fs-4 mb-5">付款方式</div>
+              <div className="my-0 my-lg-4">
                 <div className="form-check">
                   <input
                     className="form-check-input me-4"
@@ -723,9 +720,8 @@ function ComfirmOrder() {
               style={{ borderRadius: '16px' }}
             >
               <div className="col-lg-6">
-                <div className="card-title text-primary fs-5 fs-lg-4 mb-6">
-                  請輸入優惠卷代碼
-                </div>
+                <div className="card-title text-primary fs-5 mb-4 d-lg-none">請輸入優惠卷代碼</div>
+                <div className="card-title text-primary d-none d-lg-block fs-4 mb-5">請輸入優惠卷代碼</div>
                 <div className="input-group mb-3">
                   <input
                     type="text"
@@ -749,9 +745,8 @@ function ComfirmOrder() {
               className="card bg-white mb-3 p-5 border-primary"
               style={{ borderRadius: '16px' }}
             >
-              <div className="card-title text-primary fs-5 fs-lg-4 mb-6">
-                訂單備註
-              </div>
+              <div className="card-title text-primary fs-5 mb-4 d-lg-none">訂單備註</div>
+              <div className="card-title text-primary d-none d-lg-block fs-4 mb-5">訂單備註</div>
               <div className="mb-3">
                 <textarea
                   {...register('message')}
@@ -822,7 +817,7 @@ function ComfirmOrder() {
                           NT$
                           {Math.floor(
                             (cartList?.total ?? 0) -
-                              (cartList?.final_total ?? 0)
+                            (cartList?.final_total ?? 0)
                           )}
                         </p>
                       </div>
@@ -895,7 +890,7 @@ function ComfirmOrder() {
                           NT$
                           {Math.floor(
                             (cartList?.total ?? 0) -
-                              (cartList?.final_total ?? 0)
+                            (cartList?.final_total ?? 0)
                           )}
                         </p>
                       </div>

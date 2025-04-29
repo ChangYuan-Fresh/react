@@ -3,7 +3,7 @@ function About() {
   return (
     <>
       <Banner
-        bannerImg={'images/banner2.webp'}
+        bannerImg={'images/banner2.jpg'}
         title="關於我們"
         enTitle="About us"
         slogan1="在彰化"
