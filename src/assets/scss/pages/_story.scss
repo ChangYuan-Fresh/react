@@ -2,7 +2,7 @@
 
 .story-deco1 {
   display: none;
-  @media (min-width: 992px) {
+  @include media-breakpoint-up(lg) {
     display: block;
     position: absolute;
     top: 32px;
@@ -27,11 +27,11 @@
 .story-card img {
   height: 227px;
   object-fit: cover;
-  @media (min-width: 992px) {
+  @include media-breakpoint-up(lg) {
     width: 50%;
     height: 320px;
   }
-  @media (min-width: 1200px) {
+  @include media-breakpoint-up(xl) {
     width: 50%;
     height: 414px;
   }
@@ -42,7 +42,7 @@
   bottom: 0px;
   right: 0px;
   width: 120px;
-  @media (min-width: 992px) {
+  @include media-breakpoint-up(lg) {
     width: 400px;
   }
 }

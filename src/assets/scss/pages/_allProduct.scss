@@ -152,7 +152,7 @@
     border-bottom-right-radius: 1rem;
     aspect-ratio: 306/280;
 
-    @media (max-width: 992px) {
+    @include media-breakpoint-down(lg) {
       width: 150px;
     }
   }

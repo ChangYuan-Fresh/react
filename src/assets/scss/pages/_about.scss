@@ -19,7 +19,7 @@
 .content-block {
   height: 600px;
 
-  @media (max-width: 768px) {
+  @include media-breakpoint-down(md) {
     height: auto;
   }
 
@@ -29,13 +29,14 @@
     object-fit: cover;
     border-radius: 40px;
 
-    @media (max-width: 768px) {
+    @include media-breakpoint-down(md) {
       height: 294px;
     }
   }
 
   .bgchange {
     background: white;
+
     @include media-breakpoint-up(lg) {
       background: $secondary-200;
     }
@@ -149,14 +150,14 @@
 
   object-fit: cover; //讓背景圖底下圓角被裝飾確實遮擋
 
-  @media (mix-width: 992px) {
+  @include media-breakpoint-up(lg) {
     height: 78vh; //讓手機版維持高度
   }
 
   &.top {
     top: 480px; // 確保與內容完全貼合
 
-    @media (max-width: 768px) {
+    @include media-breakpoint-down(md) {
       display: none;
       /* 在小螢幕上隱藏 */
     }
@@ -166,7 +167,7 @@
     bottom: -40px; // 調整這個值，使波浪與內容重疊
     z-index: 2; // 確保波浪在內容之上
 
-    @media (max-width: 768px) {
+    @include media-breakpoint-down(md) {
       display: none;
       /* 在小螢幕上隱藏 */
     }
@@ -178,7 +179,7 @@
 }
 
 // 響應式設計
-@media (max-width: 768px) {
+@include media-breakpoint-down(md) {
   .text-area {
     left: 50%;
     transform: translate(-50%, -50%);

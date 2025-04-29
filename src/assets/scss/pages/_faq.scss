@@ -5,7 +5,7 @@
   bottom: -14px;
   right: 0px;
   width: 48px;
-  @media (min-width: 992px) {
+  @include media-breakpoint-up(lg) {
     bottom: -29px;
     width: 100px;
   }
