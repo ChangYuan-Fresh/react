@@ -1,11 +1,11 @@
-@import "../../../node_modules/bootstrap/scss/functions";
+@import '../../../node_modules/bootstrap/scss/functions';
 
 @import './utils/variables';
-@import "../../../node_modules/bootstrap";
+@import '../../../node_modules/bootstrap';
 @import './utils/utilities';
 
-@import "./base/base";
-@import "./components/button";
+@import './base/base';
+@import './components/button';
 @import './components/c3';
 @import './layout/header.scss';
 @import './layout/footer.scss';
@@ -23,4 +23,4 @@
 @import './pages/allProduct';
 @import './pages/order.scss';
 @import './pages/about.scss';
-@import './pages/admin.scss'
+@import './pages/admin.scss';

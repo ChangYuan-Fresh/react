@@ -1,132 +1,129 @@
 .product {
-    main {
-        .swiper-pagination {
-            color: $tertiary;
-            background: rgba(25, 33, 21, 0.7);
-            width: 44px;
-            border-radius: 100px;
-            bottom: 32px;
-            margin: 12px 12px;
-        }
-
-        .btn-s {
-            border-radius: 8px;
-            padding: 8px;
-        }
-
-        .btn-L {
-            border: 0;
-
-            &.active,
-            &:hover {
-                color: $primary;
-                background: $secondary;
-            }
-        }
+  main {
+    .swiper-pagination {
+      color: $tertiary;
+      background: rgba(25, 33, 21, 0.7);
+      width: 44px;
+      border-radius: 100px;
+      bottom: 32px;
+      margin: 12px 12px;
     }
 
-    article {
-        h2 {
-            color: $black;
-            font-size: 20px;
-            margin-bottom: 12px;
-
-            @include media-breakpoint-up(lg) {
-                font-size: 24px;
-            }
-        }
-
-        .card-img {
-            width: 100%;
-            max-height: 263px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            object-fit: cover;
-        }
-
-        .tab-button {
-            color: black;
-            border: none;
-
-            &:hover {
-                color: $primary;
-                border-bottom: 4px solid $primary;
-            }
-
-            &.active {
-                color: $primary;
-                border-bottom: 4px solid $primary;
-            }
-        }
-
-
-        .scrollspy-example {
-            max-width: 856px;
-            margin: 0 auto;
-
-            img {
-                width: 100%;
-                max-height: 560px;
-                object-fit: cover;
-                margin: 40px 0;
-                border-radius: 8px;
-            }
-
-            p,
-            li {
-                font-size: 20px;
-                font-weight: 400;
-            }
-        }
-
-        .text-content {
-            max-height: 200px;
-        }
-
-        .text-extend {
-            max-height: auto;
-        }
+    .btn-s {
+      border-radius: 8px;
+      padding: 8px;
     }
 
-    .section1 {
-        h2 {
-            color: $black;
-            font-size: 20px;
+    .btn-L {
+      border: 0;
 
-            @include media-breakpoint-up(lg) {
-                font-size: 24px;
-            }
-        }
+      &.active,
+      &:hover {
+        color: $primary;
+        background: $secondary;
+      }
+    }
+  }
 
-        .card {
-            border-radius: 16px;
-            height: 120px;
+  article {
+    h2 {
+      color: $black;
+      font-size: 20px;
+      margin-bottom: 12px;
 
-            @include media-breakpoint-up(lg) {
-                height: 240px;
-            }
-
-            &-text {
-                max-height: 72px;
-                overflow: hidden;
-            }
-        }
-
-        span {
-            padding: 0 0;
-            display: inline-block;
-        }
+      @include media-breakpoint-up(lg) {
+        font-size: 24px;
+      }
     }
 
-    .modal-content {
+    .card-img {
+      width: 100%;
+      max-height: 263px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      object-fit: cover;
+    }
+
+    .tab-button {
+      color: black;
+      border: none;
+
+      &:hover {
+        color: $primary;
+        border-bottom: 4px solid $primary;
+      }
+
+      &.active {
+        color: $primary;
+        border-bottom: 4px solid $primary;
+      }
+    }
+
+    .scrollspy-example {
+      max-width: 856px;
+      margin: 0 auto;
+
+      img {
         width: 100%;
-        border-radius: 16px;
-        padding: 0 24px;
+        max-height: 560px;
+        object-fit: cover;
+        margin: 40px 0;
+        border-radius: 8px;
+      }
 
-        @include media-breakpoint-up(lg) {
-            width: 635px;
-        }
-
+      p,
+      li {
+        font-size: 20px;
+        font-weight: 400;
+      }
     }
 
+    .text-content {
+      max-height: 200px;
+    }
+
+    .text-extend {
+      max-height: auto;
+    }
+  }
+
+  .section1 {
+    h2 {
+      color: $black;
+      font-size: 20px;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 24px;
+      }
+    }
+
+    .card {
+      border-radius: 16px;
+      height: 120px;
+
+      @include media-breakpoint-up(lg) {
+        height: 240px;
+      }
+
+      &-text {
+        max-height: 72px;
+        overflow: hidden;
+      }
+    }
+
+    span {
+      padding: 0 0;
+      display: inline-block;
+    }
+  }
+
+  .modal-content {
+    width: 100%;
+    border-radius: 16px;
+    padding: 0 24px;
+
+    @include media-breakpoint-up(lg) {
+      width: 635px;
+    }
+  }
 }
